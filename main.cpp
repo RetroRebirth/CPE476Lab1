@@ -1,3 +1,4 @@
+#define _USE_MATH_DEFINES
 #include <stdio.h>
 #include <stdlib.h>
 #include "glew.h"
@@ -5,6 +6,7 @@
 #include <iostream>
 #include <cassert>
 #include <cmath>
+#include <ctime>
 #include <stdio.h>
 #include "GLSL.h"
 #include "tiny_obj_loader.h"
@@ -302,7 +304,7 @@ void initGround() {
       +1.0f, 0.0, +1.0f, //3
    };
    // Amplify ground size
-   for (int i = 0; i < sizeof(vertices); i++) {
+   for (int i = 0, last = sizeof(vertices)/sizeof(GLfloat); i < last; i++) {
       // Don't amplify the floor height
       if (i % 3 != 1)
          vertices[i] *= SIZE;
