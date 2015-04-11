@@ -531,7 +531,7 @@ int main(int argc, char **argv) {
 
    // Input modes
    glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE); // Ensure we "hear" ESC
-   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN); // Hide the mouse
+   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); // Hide the mouse
 
    // Enable alpha drawing
    glEnable (GL_BLEND);
