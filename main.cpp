@@ -510,7 +510,7 @@ int main(int argc, char **argv) {
    // Open a window and create its OpenGL context
    g_width = 1024;
    g_height = 768;
-   window = glfwCreateWindow(g_width, g_height, "Prog 4 by Chris Williams", NULL, NULL);
+   window = glfwCreateWindow(g_width, g_height, "CPE 476 Lab 1", NULL, NULL);
    if (window == NULL) {
       fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
       glfwTerminate();
