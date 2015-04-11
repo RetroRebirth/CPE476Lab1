@@ -1,24 +1,4 @@
-#define _USE_MATH_DEFINES
-#include <stdio.h>
-#include <stdlib.h>
-#include "glew.h"
-#include "glfw3.h"
-#include <iostream>
-#include <cassert>
-#include <cmath>
-#include <ctime>
-#include <stdio.h>
-#include "GLSL.h"
-#include "tiny_obj_loader.h"
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp" //perspective, trans etc
-#include "glm/gtc/type_ptr.hpp" //value_ptr
-
-#define MOVEMENT_SPEED 0.1
-#define ROTATE_SPEED 0.25
-#define SIZE 20.0
-#define NUM_OBJ_TYPES 1
-   #define SPHERE 0
+#include "Camera.h"
 
 using namespace std;
 
@@ -43,9 +23,7 @@ int g_width;
 int g_height;
 int frame = 0;
 // Camera
-glm::vec3 g_view(0, 1, 0);
-float theta = -M_PI/2.0;
-float phi = 0;
+Camera camera;
 // Model vectors
 vector<tinyobj::shape_t> allShapes[NUM_OBJ_TYPES]; vector<tinyobj::material_t> allMaterials[NUM_OBJ_TYPES];
 transform_t transforms[NUM_OBJ_TYPES];
@@ -371,23 +349,6 @@ void initGL() {
 }
 
 /** DRAWING **/
-glm::vec3 lookAtPt() {
-   glm::vec3 lookAtPt = glm::vec3(cos(phi)*cos(theta), sin(phi), cos(phi)*cos((M_PI/2)-theta));
-   lookAtPt += g_view;
-   return lookAtPt;
-}
-
-void setProjectionMatrix() {
-   glm::mat4 Projection = glm::perspective(90.0f, (float)g_width/g_height, 0.1f, 100.f);
-   safe_glUniformMatrix4fv(h_uP, glm::value_ptr(Projection));
-}
-
-void setView() {
-   glm::mat4 View = glm::lookAt(g_view, lookAtPt(), glm::vec3(0, 1, 0));
-   safe_glUniformMatrix4fv(h_uV, glm::value_ptr(View));
-   glUniform3f(h_uView, g_view.x, g_view.y, g_view.z);
-}
-
 void setMaterial(int i) {
    glm::vec3 col;
 
@@ -503,8 +464,8 @@ void drawGL() {
    // Send normal info to the attribute "aNor"
    GLSL::enableVertexAttribArray(h_aNor);
 
-   setProjectionMatrix();
-   setView();
+   camera.setProjectionMatrix(g_width, g_height, h_uP);
+   camera.setView(h_uV, h_uView);
 
    drawGround();
    for (int i = 0; i < NUM_OBJ_TYPES; i++) {
@@ -526,65 +487,12 @@ void window_size_callback(GLFWwindow* window, int w, int h) {
    g_height = h;
 }
 
-// TODO camera class
-void key_check(GLFWwindow* window) {
-   glm::vec3 viewVector = glm::normalize(lookAtPt() - g_view);
-   glm::vec3 strafeVector = glm::normalize(glm::cross(viewVector, glm::vec3(0, 1, 0)));
-   glm::vec3 crossVector = glm::normalize(glm::cross(viewVector, strafeVector));
-   // Scale vectors
-   viewVector *= MOVEMENT_SPEED;
-   strafeVector *= MOVEMENT_SPEED;
-   crossVector *= MOVEMENT_SPEED;
-
-   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) // Move forward
-      g_view += viewVector;
-   if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) // Move backward
-      g_view -= viewVector;
-   if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) // Strafe left
-      g_view -= strafeVector;
-   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) // Strafe right
-      g_view += strafeVector;
-   if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) // Move up
-      g_view += crossVector;
-   if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) // Move down
-      g_view -= crossVector;
-
-   // Bounding
-   if (g_view.x < -SIZE)
-      g_view.x = -SIZE;
-   if (g_view.x > SIZE)
-      g_view.x = SIZE;
-   if (g_view.z < -SIZE)
-      g_view.z = -SIZE;
-   if (g_view.z > SIZE)
-      g_view.z = SIZE;
-
-   g_view.y = 1;
-}
-
 void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
-   // Update theta (x angle) and phi (y angle)
-   float half_width = g_width / 2.0;
-   float half_height = g_height / 2.0;
-   float xPosFromCenter = xpos - half_width;
-   float yPosFromCenter = ypos - half_height;
-   float xMag = xPosFromCenter / half_width;
-   float yMag = yPosFromCenter / half_height;
-
-   theta += ROTATE_SPEED*M_PI*xMag;
-   // Bound phi to 80 degrees
-   float newPhi = phi - ROTATE_SPEED*M_PI*yMag/2.0;
-   if (glm::degrees(newPhi) < 80 && glm::degrees(newPhi) > -80) {
-      phi = newPhi;
-   }
-
-   // Keep mouse in center
-   glfwSetCursorPos(window, g_width/2, g_height/2);
+   camera.mouse_callback(window, xpos, ypos, g_width, g_height);
 }
 
 void enter_callback(GLFWwindow* window, int entered) {
-   // Position mouse at center if enter screen
-   glfwSetCursorPos(window, g_width/2, g_height/2);
+   camera.enter_callback(window, entered, g_width, g_height);
 }
 
 /** MAIN **/
@@ -643,7 +551,7 @@ int main(int argc, char **argv) {
 
       glfwSwapBuffers(window);
       glfwPollEvents();
-      key_check(window);
+      camera.key_check(window);
       
       frame++; // TODO time based update
    } // Check if the ESC key was pressed or the window was closed
