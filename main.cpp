@@ -128,11 +128,9 @@ void initGround() {
    // Normal array of ground
    vector<float> posBuf(vertices, vertices+sizeof(vertices)/sizeof(vertices[0]));
    vector<unsigned int> indBuf(indices, indices+sizeof(indices)/sizeof(indices[0]));
-//   vector<float> norBuf = computeNormals(posBuf, indBuf);
 
    glGenBuffers(1, &(groundBufIDs.nor));
    glBindBuffer(GL_ARRAY_BUFFER, groundBufIDs.nor);
-//   glBufferData(GL_ARRAY_BUFFER, norBuf.size()*sizeof(float), &norBuf[0], GL_STATIC_DRAW);
 }
 
 void initGL() {
@@ -274,13 +272,13 @@ int main(int argc, char **argv) {
       glfwPollEvents();
       camera.key_check(window, elapsedTime);
 
-	  frames++;
-	  
-	  if (newTime - frameStartTime >= 1.0) {
-		 printf("%lf fps\n", frames/(newTime - frameStartTime));
-		 frames = 0;
-		 frameStartTime += 1.0;
-	  }
+      frames++;
+
+      if (newTime - frameStartTime >= 1.0) {
+         printf("%lf fps\n", frames/(newTime - frameStartTime));
+         frames = 0;
+         frameStartTime += 1.0;
+      }
    } // Check if the ESC key was pressed or the window was closed
    while(glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS
          && glfwWindowShouldClose(window) == 0);
