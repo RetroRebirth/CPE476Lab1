@@ -2,7 +2,7 @@
 
 <h1>How to use git</h1>
 <code>
-git add .  
+git add .<br>
 git commit -m "message"  
 git fetch  
 git rebase origin/master  
