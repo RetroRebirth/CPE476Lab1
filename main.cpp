@@ -212,7 +212,9 @@ void enter_callback(GLFWwindow* window, int entered) {
 /** MAIN **/
 int main(int argc, char **argv) {
    double startTime = glfwGetTime();
+   double frameStartTime = startTime;
    double newTime;
+   int frames = 0;
 
    // Initialise GLFW
    if (!glfwInit()) {
@@ -271,6 +273,14 @@ int main(int argc, char **argv) {
       glfwSwapBuffers(window);
       glfwPollEvents();
       camera.key_check(window, elapsedTime);
+
+	  frames++;
+	  
+	  if (newTime - frameStartTime >= 1.0) {
+		 printf("%lf fps\n", frames/(newTime - frameStartTime));
+		 frames = 0;
+		 frameStartTime += 1.0;
+	  }
    } // Check if the ESC key was pressed or the window was closed
    while(glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS
          && glfwWindowShouldClose(window) == 0);
