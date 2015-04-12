@@ -32,14 +32,14 @@ void Camera::setView(GLint h_uV, GLint h_uView) {
    glUniform3f(h_uView, g_view.x, g_view.y, g_view.z);
 }
 
-void Camera::key_check(GLFWwindow* window) {
+void Camera::key_check(GLFWwindow* window, const float elapsedTime) {
    glm::vec3 viewVector = glm::normalize(lookAtPt() - g_view);
    glm::vec3 strafeVector = glm::normalize(glm::cross(viewVector, glm::vec3(0, 1, 0)));
    glm::vec3 crossVector = glm::normalize(glm::cross(viewVector, strafeVector));
    // Scale vectors
-   viewVector *= MOVEMENT_SPEED;
-   strafeVector *= MOVEMENT_SPEED;
-   crossVector *= MOVEMENT_SPEED;
+   viewVector *= (MOVEMENT_SPEED * elapsedTime);
+   strafeVector *= (MOVEMENT_SPEED * elapsedTime);
+   crossVector *=(MOVEMENT_SPEED * elapsedTime);
 
    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) // Move forward
       g_view += viewVector;

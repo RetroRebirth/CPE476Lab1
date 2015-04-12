@@ -212,6 +212,9 @@ void enter_callback(GLFWwindow* window, int entered) {
 
 /** MAIN **/
 int main(int argc, char **argv) {
+   double startTime = glfwGetTime();
+   double newTime;
+
    // Initialise GLFW
    if (!glfwInit()) {
       fprintf( stderr, "Failed to initialize GLFW\n" );
@@ -262,10 +265,14 @@ int main(int argc, char **argv) {
    do {
       drawGL();
 
+  	  newTime = glfwGetTime();
+      const float elapsedTime = (float)(newTime - startTime) / .01f;
+      startTime = newTime;
+
       glfwSwapBuffers(window);
       glfwPollEvents();
-      camera.key_check(window);
-      
+      camera.key_check(window, elapsedTime);
+
       frame++; // TODO time based update
    } // Check if the ESC key was pressed or the window was closed
    while(glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS
