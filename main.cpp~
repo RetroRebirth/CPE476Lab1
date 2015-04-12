@@ -2,8 +2,6 @@
 #include "Camera.h"
 #include "Object.h"
 
-static string objectFiles[] = {"sphere.obj"};
-
 // Window
 GLFWwindow* window;
 int g_width;
@@ -35,70 +33,8 @@ inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
       glUniformMatrix4fv(handle, 1, GL_FALSE, data);
 }
 
-bool installShaders(const string &vShaderName, const string &fShaderName) {
-   GLint rc;
-
-   // Create shader handles
-   GLuint VS = glCreateShader(GL_VERTEX_SHADER);
-   GLuint FS = glCreateShader(GL_FRAGMENT_SHADER);
-
-   // Read shader sources
-   const char *vshader = GLSL::textFileRead(vShaderName.c_str());
-   const char *fshader = GLSL::textFileRead(fShaderName.c_str());
-   glShaderSource(VS, 1, &vshader, NULL);
-   glShaderSource(FS, 1, &fshader, NULL);
-
-   // Compile vertex shader
-   glCompileShader(VS);
-   GLSL::printError();
-   glGetShaderiv(VS, GL_COMPILE_STATUS, &rc);
-   GLSL::printShaderInfoLog(VS);
-   if(!rc) {
-      printf("Error compiling vertex shader %s\n", vShaderName.c_str());
-      return false;
-   }
-
-   // Compile fragment shader
-   glCompileShader(FS);
-   GLSL::printError();
-   glGetShaderiv(FS, GL_COMPILE_STATUS, &rc);
-   GLSL::printShaderInfoLog(FS);
-   if(!rc) {
-      printf("Error compiling fragment shader %s\n", fShaderName.c_str());
-      return false;
-   }
-
-   // Create the program and link
-   ShadeProg = glCreateProgram();
-   glAttachShader(ShadeProg, VS);
-   glAttachShader(ShadeProg, FS);
-   glLinkProgram(ShadeProg);
-
-   GLSL::printError();
-   glGetProgramiv(ShadeProg, GL_LINK_STATUS, &rc);
-   GLSL::printProgramInfoLog(ShadeProg);
-   if(!rc) {
-      printf("Error linking shaders %s and %s\n", vShaderName.c_str(), fShaderName.c_str());
-      return false;
-   }
-
-   // Get handles to attribute data
-   h_aPos = GLSL::getAttribLocation(ShadeProg, "aPos");
-   h_aNor = GLSL::getAttribLocation(ShadeProg, "aNor");
-   h_uP = GLSL::getUniformLocation(ShadeProg, "uP");
-   h_uV = GLSL::getUniformLocation(ShadeProg, "uV");
-   h_uM = GLSL::getUniformLocation(ShadeProg, "uM");
-   h_uView = GLSL::getUniformLocation(ShadeProg, "uView");
-   h_uAClr = GLSL::getUniformLocation(ShadeProg, "uAClr");
-   h_uDClr = GLSL::getUniformLocation(ShadeProg, "uDClr");
-   h_uSClr = GLSL::getUniformLocation(ShadeProg, "uSClr");
-   h_uS = GLSL::getUniformLocation(ShadeProg, "uS");
-
-   assert(glGetError() == GL_NO_ERROR);
-   return true;
-}
-
 /** INITIALIZING FOR DRAW **/
+
 void initGround() {
    // Position array of ground
    GLfloat vertices[] = {
