@@ -8,7 +8,6 @@ static string objectFiles[] = {"sphere.obj"};
 GLFWwindow* window;
 int g_width;
 int g_height;
-int frame = 0;
 // Camera
 Camera camera;
 // Objects
@@ -265,15 +264,13 @@ int main(int argc, char **argv) {
    do {
       drawGL();
 
-  	  newTime = glfwGetTime();
+      newTime = glfwGetTime();
       const float elapsedTime = (float)(newTime - startTime) / .01f;
       startTime = newTime;
 
       glfwSwapBuffers(window);
       glfwPollEvents();
       camera.key_check(window, elapsedTime);
-
-      frame++; // TODO time based update
    } // Check if the ESC key was pressed or the window was closed
    while(glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS
          && glfwWindowShouldClose(window) == 0);
