@@ -12,7 +12,16 @@ class Object {
       glm::vec3 col;
       float shine;
 
-      Object(vector<tinyobj::shape_t> &_shapes, vector<tinyobj::material_t> &_materials, GLint _h_uAClr, GLint _h_uDClr, GLint _h_uSClr, GLint _h_uS, GLint _h_uM, GLint _h_aPos, GLint _h_aNor);
+      Object(
+         vector<tinyobj::shape_t> &_shapes,
+         vector<tinyobj::material_t> &_materials,
+         GLint _h_uAClr,
+         GLint _h_uDClr,
+         GLint _h_uSClr,
+         GLint _h_uS,
+         GLint _h_uM,
+         GLint _h_aPos,
+         GLint _h_aNor);
       virtual ~Object();
 
       void step(float dt);

@@ -13,6 +13,7 @@ Camera camera;
 // Objects
 vector<tinyobj::shape_t> shapes; // TODO map of mesh data
 vector<tinyobj::material_t> materials;
+vector<Object> objects;
 // Shader handlers
 GLuint ShadeProg;
 GLint h_aPos;
@@ -173,6 +174,11 @@ bool installShaders(const string &vShaderName, const string &fShaderName) {
 }
 
 /** INITIALIZING FOR DRAW **/
+void createObject() {
+   Object object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
+   objects.push_back(object);
+}
+
 void initGround() {
    // Position array of ground
    GLfloat vertices[] = {
@@ -242,7 +248,7 @@ void drawGround() {
    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
-void drawGL(Object &object) {
+void drawGL() {
    // Clear the screen
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
    // Use "frag.glsl" and "vert.glsl"
@@ -256,7 +262,9 @@ void drawGL(Object &object) {
    camera.setView(h_uV, h_uView);
 
    drawGround();
-   object.draw();
+   for (vector<Object>::iterator it = objects.begin(); it != objects.end(); ++it) {
+      (*it).draw();
+   }
 
    // Disable and unbind
    GLSL::disableVertexAttribArray(h_aPos);
@@ -335,10 +343,8 @@ int main(int argc, char **argv) {
    installShaders("vert.glsl", "frag.glsl");
    initGL();
 
-   Object object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
-
    do {
-      drawGL(object);
+      drawGL();
 
       newTime = glfwGetTime();
       const float elapsedTime = (float)(newTime - startTime) / .01f;
@@ -354,6 +360,7 @@ int main(int argc, char **argv) {
          printf("%lf fps\n", frames/(newTime - frameStartTime));
          frames = 0;
          frameStartTime += 1.0;
+         createObject();
       }
    } // Check if the ESC key was pressed or the window was closed
    while(glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS
