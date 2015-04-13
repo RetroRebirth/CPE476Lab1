@@ -366,6 +366,11 @@ int main(int argc, char **argv) {
       const float elapsedTime = (float)(newTime - startTime) / .01f;
       startTime = newTime;
 
+      // Move objects
+      for (vector<Object>::iterator it = objects.begin(); it != objects.end(); ++it) {
+         (*it).step(elapsedTime);
+      }
+
       glfwSwapBuffers(window);
       glfwPollEvents();
       camera->key_check(window, elapsedTime);
