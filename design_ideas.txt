@@ -1,0 +1,13 @@
+WINDOW
+variables:
+	GLFWwindow* window
+	int width
+	int height
+methods:
+	bool isActive();
+	
+UTILS
+methods:
+	vector<float> computeNormals(vector<float> posBuf, vector<unsigned int> indBuf);
+	float rand();
+	inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);

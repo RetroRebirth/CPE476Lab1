@@ -11,7 +11,8 @@ int g_height;
 // Camera
 Camera camera;
 // Objects
-Object object; // TODO make a list of objects
+vector<tinyobj::shape_t> shapes; // TODO map of mesh data
+vector<tinyobj::material_t> materials;
 // Shader handlers
 GLuint ShadeProg;
 GLint h_aPos;
@@ -32,6 +33,80 @@ float randF() {
 inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
    if (handle >= 0)
       glUniformMatrix4fv(handle, 1, GL_FALSE, data);
+}
+
+void resize_obj(std::vector<tinyobj::shape_t> &shapes) {
+   float minX, minY, minZ;
+   float maxX, maxY, maxZ;
+   float scaleX, scaleY, scaleZ;
+   float shiftX, shiftY, shiftZ;
+   float epsilon = 0.001;
+
+   minX = minY = minZ = 1.1754E+38F;
+   maxX = maxY = maxZ = -1.1754E+38F;
+
+   //Go through all vertices to determine min and max of each dimension
+   for (size_t i = 0; i < shapes.size(); i++) {
+      for (size_t v = 0; v < shapes[i].mesh.positions.size() / 3; v++) {
+         if(shapes[i].mesh.positions[3*v+0] < minX)
+            minX = shapes[i].mesh.positions[3*v+0];
+         if(shapes[i].mesh.positions[3*v+0] > maxX)
+            maxX = shapes[i].mesh.positions[3*v+0];
+
+         if(shapes[i].mesh.positions[3*v+1] < minY)
+            minY = shapes[i].mesh.positions[3*v+1];
+         if(shapes[i].mesh.positions[3*v+1] > maxY)
+            maxY = shapes[i].mesh.positions[3*v+1];
+
+         if(shapes[i].mesh.positions[3*v+2] < minZ)
+            minZ = shapes[i].mesh.positions[3*v+2];
+         if(shapes[i].mesh.positions[3*v+2] > maxZ)
+            maxZ = shapes[i].mesh.positions[3*v+2];
+      }
+   }
+   //From min and max compute necessary scale and shift for each dimension
+   float maxExtent, xExtent, yExtent, zExtent;
+   xExtent = maxX-minX;
+   yExtent = maxY-minY;
+   zExtent = maxZ-minZ;
+   if (xExtent >= yExtent && xExtent >= zExtent) {
+      maxExtent = xExtent;
+   }
+   if (yExtent >= xExtent && yExtent >= zExtent) {
+      maxExtent = yExtent;
+   }
+   if (zExtent >= xExtent && zExtent >= yExtent) {
+      maxExtent = zExtent;
+   }
+   scaleX = 2.0 /maxExtent;
+   shiftX = minX + (xExtent/ 2.0);
+   scaleY = 2.0 / maxExtent;
+   shiftY = minY + (yExtent / 2.0);
+   scaleZ = 2.0/ maxExtent;
+   shiftZ = minZ + (zExtent)/2.0;
+
+   // Go through all verticies shift and scale them
+   for (size_t i = 0; i < shapes.size(); i++) {
+      for (size_t v = 0; v < shapes[i].mesh.positions.size() / 3; v++) {
+         shapes[i].mesh.positions[3*v+0] = (shapes[i].mesh.positions[3*v+0] - shiftX) * scaleX;
+         assert(shapes[i].mesh.positions[3*v+0] >= -1.0 - epsilon);
+         assert(shapes[i].mesh.positions[3*v+0] <= 1.0 + epsilon);
+         shapes[i].mesh.positions[3*v+1] = (shapes[i].mesh.positions[3*v+1] - shiftY) * scaleY;
+         assert(shapes[i].mesh.positions[3*v+1] >= -1.0 - epsilon);
+         assert(shapes[i].mesh.positions[3*v+1] <= 1.0 + epsilon);
+         shapes[i].mesh.positions[3*v+2] = (shapes[i].mesh.positions[3*v+2] - shiftZ) * scaleZ;
+         assert(shapes[i].mesh.positions[3*v+2] >= -1.0 - epsilon);
+         assert(shapes[i].mesh.positions[3*v+2] <= 1.0 + epsilon);
+      }
+   }
+}
+
+void loadShapes(const string &objFile) {
+   string err = tinyobj::LoadObj(shapes, materials, objFile.c_str());
+   if(!err.empty()) {
+      cerr << err << endl;
+   }
+   resize_obj(shapes);
 }
 
 bool installShaders(const string &vShaderName, const string &fShaderName) {
@@ -138,7 +213,6 @@ void initGL() {
    glClearColor(0.6f, 0.6f, 0.8f, 1.0f);
 
    initGround();
-   object.initObj(SPHERE);
 
    // Unbind the arrays
    glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -161,14 +235,14 @@ void drawGround() {
    glUniform3f(h_uSClr, 0.0, 0.0, 0.0);
    glUniform1f(h_uS, 1.0);
    // Apply translation
-   glm::vec3 trans = glm::vec3(0.0, -1.0, 0.0);
+   glm::vec3 trans = glm::vec3(0.0, 0.0, 0.0);
    glm::mat4 T = glm::translate(glm::mat4(1.0f), trans);
    safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T));
 
    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
-void drawGL() {
+void drawGL(Object &object) {
    // Clear the screen
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
    // Use "frag.glsl" and "vert.glsl"
@@ -182,7 +256,7 @@ void drawGL() {
    camera.setView(h_uV, h_uView);
 
    drawGround();
-   object.drawObj(h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
+   object.draw();
 
    // Disable and unbind
    GLSL::disableVertexAttribArray(h_aPos);
@@ -256,13 +330,15 @@ int main(int argc, char **argv) {
    glEnable (GL_DEPTH_TEST);
 
    // Load models
-   object.loadShapes(objectFiles[0]); // TODO find cleaner way to load objects
+   loadShapes(objectFiles[0]);
 
-   initGL();
    installShaders("vert.glsl", "frag.glsl");
+   initGL();
+
+   Object object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
 
    do {
-      drawGL();
+      drawGL(object);
 
       newTime = glfwGetTime();
       const float elapsedTime = (float)(newTime - startTime) / .01f;

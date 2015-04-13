@@ -25,13 +25,6 @@
 
 using namespace std;
 
-struct transform_t {
-   glm::vec3 trans;
-   glm::vec3 scale;
-   float rotX;
-   float rotY;
-   float rotZ;
-};
 struct bufID_t {
    GLuint pos;
    GLuint ind;
