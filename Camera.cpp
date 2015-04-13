@@ -2,10 +2,20 @@
 
 using namespace std;
 
-Camera::Camera() :
-   g_view(glm::vec3(0, 1, 0)),
-   theta(-M_PI/2.0),
-   phi(0.0f) {
+Camera::Camera(
+      GLint _h_uP,
+      GLint _h_uV,
+      GLint _h_uView) {
+   // Default attribute values
+   view = glm::vec3(0, 1, 0);
+   theta = -M_PI/2.0;
+   phi = 0.0;
+   bounded = true;
+
+   // Defined attribute values
+   h_uP = _h_uP;
+   h_uV = _h_uV;
+   h_uView = _h_uView;
 }
 
 Camera::~Camera() {}
@@ -17,23 +27,23 @@ inline void Camera::safe_glUniformMatrix4fv(const GLint handle, const GLfloat da
 
 glm::vec3 Camera::lookAtPt() {
    glm::vec3 lookAtPt = glm::vec3(cos(phi)*cos(theta), sin(phi), cos(phi)*cos((M_PI/2)-theta));
-   lookAtPt += g_view;
+   lookAtPt += view;
    return lookAtPt;
 }
 
-void Camera::setProjectionMatrix(int g_width, int g_height, GLint h_uP) {
+void Camera::setProjectionMatrix(int g_width, int g_height) {
    glm::mat4 Projection = glm::perspective(90.0f, (float)g_width/g_height, 0.1f, 100.f);
    safe_glUniformMatrix4fv(h_uP, glm::value_ptr(Projection));
 }
 
-void Camera::setView(GLint h_uV, GLint h_uView) {
-   glm::mat4 View = glm::lookAt(g_view, lookAtPt(), glm::vec3(0, 1, 0));
+void Camera::setView() {
+   glm::mat4 View = glm::lookAt(view, lookAtPt(), glm::vec3(0, 1, 0));
    safe_glUniformMatrix4fv(h_uV, glm::value_ptr(View));
-   glUniform3f(h_uView, g_view.x, g_view.y, g_view.z);
+   glUniform3f(h_uView, view.x, view.y, view.z);
 }
 
 void Camera::key_check(GLFWwindow* window, const float elapsedTime) {
-   glm::vec3 viewVector = glm::normalize(lookAtPt() - g_view);
+   glm::vec3 viewVector = glm::normalize(lookAtPt() - view);
    glm::vec3 strafeVector = glm::normalize(glm::cross(viewVector, glm::vec3(0, 1, 0)));
    glm::vec3 crossVector = glm::normalize(glm::cross(viewVector, strafeVector));
    // Scale vectors
@@ -42,29 +52,31 @@ void Camera::key_check(GLFWwindow* window, const float elapsedTime) {
    crossVector *=(MOVEMENT_SPEED * elapsedTime);
 
    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) // Move forward
-      g_view += viewVector;
+      view += viewVector;
    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) // Move backward
-      g_view -= viewVector;
+      view -= viewVector;
    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) // Strafe left
-      g_view -= strafeVector;
+      view -= strafeVector;
    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) // Strafe right
-      g_view += strafeVector;
+      view += strafeVector;
    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) // Move up
-      g_view += crossVector;
+      view += crossVector;
    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) // Move down
-      g_view -= crossVector;
+      view -= crossVector;
 
    // Bounding
-   if (g_view.x < -SIZE)
-      g_view.x = -SIZE;
-   if (g_view.x > SIZE)
-      g_view.x = SIZE;
-   if (g_view.z < -SIZE)
-      g_view.z = -SIZE;
-   if (g_view.z > SIZE)
-      g_view.z = SIZE;
+   if (bounded) {
+      if (view.x < -SIZE)
+         view.x = -SIZE;
+      if (view.x > SIZE)
+         view.x = SIZE;
+      if (view.z < -SIZE)
+         view.z = -SIZE;
+      if (view.z > SIZE)
+         view.z = SIZE;
 
-   g_view.y = 1;
+      view.y = 1;
+   }
 }
 
 void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos, int g_width, int g_height) {

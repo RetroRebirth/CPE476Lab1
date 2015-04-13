@@ -9,7 +9,7 @@ GLFWwindow* window;
 int g_width;
 int g_height;
 // Camera
-Camera camera;
+Camera* camera;
 // Objects
 vector<tinyobj::shape_t> shapes; // TODO map of mesh data
 vector<tinyobj::material_t> materials;
@@ -258,8 +258,8 @@ void drawGL() {
    // Send normal info to the attribute "aNor"
    GLSL::enableVertexAttribArray(h_aNor);
 
-   camera.setProjectionMatrix(g_width, g_height, h_uP);
-   camera.setView(h_uV, h_uView);
+   camera->setProjectionMatrix(g_width, g_height);
+   camera->setView();
 
    drawGround();
    for (vector<Object>::iterator it = objects.begin(); it != objects.end(); ++it) {
@@ -282,11 +282,23 @@ void window_size_callback(GLFWwindow* window, int w, int h) {
 }
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
-   camera.mouse_callback(window, xpos, ypos, g_width, g_height);
+   camera->mouse_callback(window, xpos, ypos, g_width, g_height);
 }
 
 void enter_callback(GLFWwindow* window, int entered) {
-   camera.enter_callback(window, entered, g_width, g_height);
+   camera->enter_callback(window, entered, g_width, g_height);
+}
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+   if (action != GLFW_PRESS) {
+      return;
+   }
+
+   switch(key) {
+   case GLFW_KEY_C:
+      camera->bounded = !camera->bounded;
+      break;
+   }
 }
 
 /** MAIN **/
@@ -321,6 +333,7 @@ int main(int argc, char **argv) {
    glfwSetWindowSizeCallback(window, window_size_callback);
    glfwSetCursorPosCallback(window, mouse_callback);
    glfwSetCursorEnterCallback(window, enter_callback);
+   glfwSetKeyCallback(window, key_callback);
 
    // Initialize GLEW
    if (glewInit() != GLEW_OK) {
@@ -343,6 +356,9 @@ int main(int argc, char **argv) {
    installShaders("vert.glsl", "frag.glsl");
    initGL();
 
+   Camera _camera(h_uP, h_uV, h_uView);
+   camera = &_camera;
+
    do {
       drawGL();
 
@@ -352,7 +368,7 @@ int main(int argc, char **argv) {
 
       glfwSwapBuffers(window);
       glfwPollEvents();
-      camera.key_check(window, elapsedTime);
+      camera->key_check(window, elapsedTime);
 
       frames++;
 

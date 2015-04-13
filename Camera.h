@@ -5,20 +5,30 @@
 
 class Camera {
    public:
-      Camera();
+      bool bounded;
+
+      Camera(
+         GLint _h_uP,
+         GLint _h_uV,
+         GLint _h_uView);
       virtual ~Camera();
 
-      inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
+      void toggleBounded();
       glm::vec3 lookAtPt();
-      void setProjectionMatrix(int g_width, int g_height, GLint h_uP);
-      void setView(GLint h_uV, GLint h_uView);
+      void setProjectionMatrix(int g_width, int g_height);
+      void setView();
       void key_check(GLFWwindow* window, const float elapsedTime);
       void mouse_callback(GLFWwindow* window, double xpos, double ypos, int g_width, int g_height);
       void enter_callback(GLFWwindow* window, int entered, int g_width, int g_height);
-
-      glm::vec3 g_view;
+   private:
+      glm::vec3 view;
       float theta;
       float phi;
+      GLint h_uP;
+      GLint h_uV;
+      GLint h_uView;
+
+      inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
 };
 
 #endif

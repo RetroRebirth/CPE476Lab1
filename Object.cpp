@@ -1,6 +1,15 @@
 #include "Object.h"
 
-Object::Object(vector<tinyobj::shape_t> &_shapes, vector<tinyobj::material_t> &_materials, GLint _h_uAClr, GLint _h_uDClr, GLint _h_uSClr, GLint _h_uS, GLint _h_uM, GLint _h_aPos, GLint _h_aNor) {
+Object::Object(
+      vector<tinyobj::shape_t> &_shapes,
+      vector<tinyobj::material_t> &_materials,
+      GLint _h_uAClr,
+      GLint _h_uDClr,
+      GLint _h_uSClr,
+      GLint _h_uS,
+      GLint _h_uM,
+      GLint _h_aPos,
+      GLint _h_aNor) {
    // Default attribute values
    hit = false;
    col = glm::vec3(0.313, 0.784, 0.470);
