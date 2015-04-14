@@ -8,8 +8,6 @@
 class World {
    public:
       World(
-         vector<tinyobj::shape_t> &_shapes,
-         vector<tinyobj::material_t> &_materials,
          GLint _h_uAClr,
          GLint _h_uDClr,
          GLint _h_uSClr,
@@ -37,6 +35,8 @@ class World {
       float randF();
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
       void createObject();
+      void resize_obj(std::vector<tinyobj::shape_t> &shapes);
+      void loadShapes(const string &objFile);
 };
 
 #endif
