@@ -332,6 +332,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 int main(int argc, char **argv) {
    double startTime = glfwGetTime();
    double frameStartTime = startTime;
+   double objStartTime = startTime;
    double newTime;
    int frames = 0;
    char *txt = (char *)malloc(sizeof(char)*10);
@@ -410,6 +411,10 @@ int main(int argc, char **argv) {
          printf("%lf fps\n", frames/(newTime - frameStartTime));
          frames = 0;
          frameStartTime += 1.0;
+      }
+
+      if (newTime - objStartTime >= SECS_PER_OBJ) {
+         objStartTime += SECS_PER_OBJ;
          createObject();
       }
 
