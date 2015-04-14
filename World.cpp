@@ -22,6 +22,8 @@ World::World(
    h_uM = _h_uM;
    h_aPos = _h_aPos;
    h_aNor = _h_aNor;
+
+   initGround();
 }
 
 World::~World() {}
@@ -74,7 +76,6 @@ void World::initGround() {
 
    glGenBuffers(1, &(groundBufIDs.nor));
    glBindBuffer(GL_ARRAY_BUFFER, groundBufIDs.nor);
-fprintf(stderr, "init groundBufIDs: %d %d %d\n", groundBufIDs.pos, groundBufIDs.ind, groundBufIDs.nor);
 }
 
 void World::drawGround() {
@@ -95,7 +96,6 @@ void World::drawGround() {
    glm::mat4 T = glm::translate(glm::mat4(1.0f), trans);
    safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T));
 
-fprintf(stderr, "draw groundBufIDs: %d %d %d\n", groundBufIDs.pos, groundBufIDs.ind, groundBufIDs.nor);
    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 

@@ -188,8 +188,6 @@ void initGL() {
    // Set the background color
    glClearColor(0.6f, 0.6f, 0.8f, 1.0f);
 
-   world->initGround();
-
    // Unbind the arrays
    glBindBuffer(GL_ARRAY_BUFFER, 0);
    GLSL::checkVersion();
@@ -288,6 +286,7 @@ int main(int argc, char **argv) {
    // Initialize everything else (mesh data, shaders, OpenGL states, etc.)
    World _world(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
    world = &_world;
+
 
    initGL();
 
