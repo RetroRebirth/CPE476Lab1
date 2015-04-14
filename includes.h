@@ -2,6 +2,8 @@
 #define __includes__
 
 #define _USE_MATH_DEFINES
+#define _LIB
+#define FREEGLUT_LIB_PRAGMAS 0
 #include <stdio.h>
 #include <stdlib.h>
 #include "glew.h"
@@ -11,6 +13,7 @@
 #include <cmath>
 #include <ctime>
 #include <stdio.h>
+//#include "glut.h"
 #include "GLSL.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp" //perspective, trans etc

@@ -220,6 +220,13 @@ void initGL() {
 
    initGround();
 
+   /*//This is a hack :V
+   char fakeParam[] = "fake";
+   char *fakeargv[] = {fakeParam, NULL};
+   int fakeargc = 1;
+
+   glutInit(&fakeargc, fakeargv);*/
+
    // Unbind the arrays
    glBindBuffer(GL_ARRAY_BUFFER, 0);
    GLSL::checkVersion();
@@ -301,12 +308,33 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
    }
 }
 
+/*void writeText(const char *txt, int x, int y) {
+   glm::mat4 mat = glm::mat4();
+   glOrtho(0, g_width, 0, g_height, -1, 1);
+   glMatrixMode(GL_PROJECTION);
+   glPushMatrix();
+   safe_glUniformMatrix4fv(h_uP, glm::value_ptr(mat));
+   glMatrixMode(GL_MODELVIEW);
+   glPushMatrix();
+   glColor3f(1.0f, 1.0f, 1.0f);   
+   glRasterPos2f(.5f, .5f);
+
+   for (int i = 0; i < strlen(txt); ++i) {
+      glutBitmapCharacter(GLUT_BITMAP_8_BY_13, txt[i]);
+   }
+
+   glPopMatrix();
+   glMatrixMode(GL_PROJECTION);
+   glPopMatrix();
+}*/
+
 /** MAIN **/
 int main(int argc, char **argv) {
    double startTime = glfwGetTime();
    double frameStartTime = startTime;
    double newTime;
    int frames = 0;
+   char *txt = (char *)malloc(sizeof(char)*10);
 
    // Initialise GLFW
    if (!glfwInit()) {
@@ -373,6 +401,7 @@ int main(int argc, char **argv) {
 
       glfwSwapBuffers(window);
       glfwPollEvents();
+
       camera->key_check(window, elapsedTime);
 
       frames++;
@@ -383,12 +412,20 @@ int main(int argc, char **argv) {
          frameStartTime += 1.0;
          createObject();
       }
+
+      //sprintf(txt, "%lf", frames/(newTime - frameStartTime));
+      //sprintf(txt, "a");
+      
+      //std::string str("Hello World");
+      //writeText((const char *)str.c_str(), 100, 100);
+   
    } // Check if the ESC key was pressed or the window was closed
    while(glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS
          && glfwWindowShouldClose(window) == 0);
 
    // Close OpenGL window and terminate GLFW
    glfwTerminate();
+   free(txt);
 
    return 0;
 }
