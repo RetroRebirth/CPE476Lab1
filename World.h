@@ -7,6 +7,8 @@
 
 class World {
    public:
+      int objCount;
+
       World(
          GLint _h_uAClr,
          GLint _h_uDClr,
@@ -30,7 +32,6 @@ class World {
       bufID_t groundBufIDs;
       vector<Object> objects;
       double objStartTime;
-      int objCount;
 
       float randF();
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);

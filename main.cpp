@@ -120,8 +120,7 @@ void initGL() {
 }
 
 /** DRAWING **/
-void step() {
-   glfwSwapBuffers(window->glfw_window);
+void step() { glfwSwapBuffers(window->glfw_window);
    glfwPollEvents();
    // Clear the screen
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -202,10 +201,13 @@ int main(int argc, char **argv) {
       step();
 
       // TODO don't use glut
-      char str[20];
-      sprintf(str, "%lf fps", window->fps);
-      window->drawText(str, 0.75, 0.9);
+      char fps_text[20];
+      sprintf(fps_text, "%lf fps", window->fps);
+      window->drawText(fps_text, 0.75, 0.9);
 
+      char obj_text[30];
+      sprintf(obj_text, "%d out of %d (%d max)", 0, world->objCount, MAX_OBJS);
+      window->drawText(obj_text, -0.95, 0.9);
    } while(window->isActive());
 
    return 0;
