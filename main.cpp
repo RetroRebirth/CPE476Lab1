@@ -195,7 +195,10 @@ void initGL() {
 }
 
 /** DRAWING **/
-void drawGL() {
+void step() {
+   window->step();
+   camera->step(window);
+
    // Clear the screen
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
    // Use "frag.glsl" and "vert.glsl"
@@ -298,11 +301,9 @@ int main(int argc, char **argv) {
    int objCount = 0;
 
    do {
-      window->step();
-      camera->step(window);
+      step();
 
-      drawGL();
-
+/*
       // Create a new object every SECS_PER_OBJ
       if (objCount < MAX_OBJS && window->time - objStartTime >= SECS_PER_OBJ) {
          createObject();
@@ -318,6 +319,7 @@ int main(int argc, char **argv) {
             }
          }
       }
+*/
    
       //TODO - Needs to move to window D:
       char str[20];
