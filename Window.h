@@ -18,7 +18,7 @@ class Window {
          const char* title);
       virtual ~Window();
 
-      void drawText(char* string, int x, int y);
+      void drawText(char* string, float x, float y);
       bool isActive();
       void step();
    private:

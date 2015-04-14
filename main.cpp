@@ -234,13 +234,6 @@ void initGL() {
 
    initGround();
 
-   /*//This is a hack :V
-   char fakeParam[] = "fake";
-   char *fakeargv[] = {fakeParam, NULL};
-   int fakeargc = 1;
-
-   glutInit(&fakeargc, fakeargv);*/
-
    // Unbind the arrays
    glBindBuffer(GL_ARRAY_BUFFER, 0);
    GLSL::checkVersion();
@@ -329,26 +322,6 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
    }
 }
 
-/*void writeText(const char *txt, int x, int y) {
-   glm::mat4 mat = glm::mat4();
-   glOrtho(0, window->width, 0, window->height, -1, 1);
-   glMatrixMode(GL_PROJECTION);
-   glPushMatrix();
-   safe_glUniformMatrix4fv(h_uP, glm::value_ptr(mat));
-   glMatrixMode(GL_MODELVIEW);
-   glPushMatrix();
-   glColor3f(1.0f, 1.0f, 1.0f);   
-   glRasterPos2f(.5f, .5f);
-
-   for (int i = 0; i < strlen(txt); ++i) {
-      glutBitmapCharacter(GLUT_BITMAP_8_BY_13, txt[i]);
-   }
-
-   glPopMatrix();
-   glMatrixMode(GL_PROJECTION);
-   glPopMatrix();
-}*/
-
 /** MAIN **/
 int main(int argc, char **argv) {
    double objStartTime = 0.0;
@@ -394,16 +367,13 @@ int main(int argc, char **argv) {
             }
          }
       }
-
-      //sprintf(txt, "%lf", frames/(newTime - frameStartTime));
-      //sprintf(txt, "a");
-      
-      //std::string str("Hello World");
-      //writeText((const char *)str.c_str(), 100, 100);
    
-   } while(window->isActive());
+      //TODO - Needs to move to window D:
+      char str[20];
+      sprintf(str, "hello world");
+      window->drawText(str, 0.75, 0.9);
 
-   //free(txt);
+   } while(window->isActive());
 
    return 0;
 }
