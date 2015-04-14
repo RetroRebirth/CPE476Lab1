@@ -11,6 +11,8 @@ World::World(
       GLint _h_aPos,
       GLint _h_aNor) {
    // Default attribute values
+   objStartTime = 0.0;
+   objCount = 0;
 
    // Defined attribute values
    shapes = _shapes;
@@ -28,8 +30,29 @@ World::World(
 
 World::~World() {}
 
-void World::step(float dt) {
+void World::step(Window* window) {
    drawGround();
+
+   for (vector<Object>::iterator it = objects.begin(); it != objects.end(); ++it) {
+      (*it).draw();
+      (*it).step(window->dt);
+   }
+
+   // Create a new object every SECS_PER_OBJ
+   if (objCount < MAX_OBJS && window->time - objStartTime >= SECS_PER_OBJ) {
+      createObject();
+      objStartTime = window->time;
+      objCount++;
+      printf("%d\n", objCount);
+   }
+
+   for (vector<Object>::iterator it1 = objects.begin(); it1 != objects.end(); ++it1) { 
+      for (vector<Object>::iterator it2 = objects.begin(); it2 != objects.end(); ++it2) {
+         if (it1 != it2) {
+            (*it1).collisionDetection(*it2);
+         }
+      }
+   }
 }
 
 void World::draw() {
@@ -100,3 +123,7 @@ void World::drawGround() {
    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
+void World::createObject() {
+   Object object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
+   objects.push_back(object);
+}

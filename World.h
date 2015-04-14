@@ -2,6 +2,8 @@
 #define __World__
 
 #include "includes.h"
+#include "Object.h"
+#include "Window.h"
 
 class World {
    public:
@@ -17,7 +19,7 @@ class World {
          GLint _h_aNor);
       virtual ~World();
 
-      void step(float dt);
+      void step(Window* window);
       void draw();
       void initGround();
       void drawGround();
@@ -28,9 +30,13 @@ class World {
       GLint h_uM;
       GLint h_uAClr, h_uDClr, h_uSClr, h_uS;
       bufID_t groundBufIDs;
+      vector<Object> objects;
+      double objStartTime;
+      int objCount;
 
       float randF();
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
+      void createObject();
 };
 
 #endif

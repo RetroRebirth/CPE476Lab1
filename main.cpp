@@ -15,7 +15,6 @@ World* world;
 // Objects
 vector<tinyobj::shape_t> shapes; // TODO map of mesh data
 vector<tinyobj::material_t> materials;
-vector<Object> objects;
 // Shader handlers
 GLuint ShadeProg;
 GLint h_aPos;
@@ -174,11 +173,6 @@ bool installShaders(const string &vShaderName, const string &fShaderName) {
 }
 
 /** INITIALIZING FOR DRAW **/
-void createObject() {
-   Object object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
-   objects.push_back(object);
-}
-
 void initGL() {
    // Enable alpha drawing
    glEnable (GL_BLEND);
@@ -211,13 +205,7 @@ void step() {
    camera->setProjectionMatrix(window->width, window->height);
    camera->setView();
 
-   world->step(window->dt);
-/*
-   for (vector<Object>::iterator it = objects.begin(); it != objects.end(); ++it) {
-      (*it).draw();
-      (*it).step(window->dt);
-   }
-*/
+   world->step(window);
 
    // Disable and unbind
    GLSL::disableVertexAttribArray(h_aPos);
@@ -262,9 +250,6 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
 
 /** MAIN **/
 int main(int argc, char **argv) {
-   double objStartTime = 0.0;
-   //char *txt = (char *)malloc(sizeof(char)*10);
-
    Window _window(1024, 768, "CPE 476 Lab 1");
    window = &_window;
 
@@ -273,7 +258,6 @@ int main(int argc, char **argv) {
    glfwSetCursorPosCallback(window->glfw_window, mouse_callback);
    glfwSetCursorEnterCallback(window->glfw_window, enter_callback);
    glfwSetKeyCallback(window->glfw_window, key_callback);
-
 
    loadShapes(objectFiles[0]);
 
@@ -285,42 +269,18 @@ int main(int argc, char **argv) {
 
    installShaders("vert.glsl", "frag.glsl");
 
-
    // Initialize everything else (mesh data, shaders, OpenGL states, etc.)
    World _world(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
    world = &_world;
-
 
    initGL();
 
    Camera _camera(h_uP, h_uV, h_uView);
    camera = &_camera;
 
-   vector<Object>::iterator it1;
-   vector<Object>::iterator it2;
-   int objCount = 0;
-
    do {
       step();
 
-/*
-      // Create a new object every SECS_PER_OBJ
-      if (objCount < MAX_OBJS && window->time - objStartTime >= SECS_PER_OBJ) {
-         createObject();
-         objStartTime = window->time;
-         objCount++;
-         printf("%d\n", objCount);
-      }
-    
-      for (it1 = objects.begin(); it1 != objects.end(); ++it1) { 
-         for (it2 = objects.begin(); it2 != objects.end(); ++it2) {
-            if (it1 != it2) {
-               (*it1).collisionDetection(*it2);
-            }
-         }
-      }
-*/
-   
       //TODO - Needs to move to window D:
       char str[20];
       sprintf(str, "hello world");
