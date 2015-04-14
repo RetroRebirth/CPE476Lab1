@@ -1,0 +1,1 @@
+/usr/bin/cc   -Wall -pedantic -O3 -DNDEBUG    CMakeFiles/Fractals.dir/progs/demos/Fractals/fractals.c.o  -o bin/Fractals -rdynamic -lGLU -lGL -lm -lSM -lICE -lX11 -lXext -lXrandr -lXxf86vm -lXi -lm lib/libglut.so.3.10.0 -lGL -lm -lSM -lICE -lX11 -lXext -lXrandr -lXxf86vm -lXi -Wl,-rpath,/home/cwilli45/cpe476/lab1/freeglut-3.0.0/build/lib 

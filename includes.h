@@ -13,7 +13,7 @@
 #include <cmath>
 #include <ctime>
 #include <stdio.h>
-#include "freeglut.h"
+#include "GL/freeglut.h"
 #include "GLSL.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp" //perspective, trans etc
