@@ -44,6 +44,12 @@ void Camera::setView() {
 }
 
 void Camera::step(Window* window) {
+   updatePosition(window);
+   setProjectionMatrix(window->width, window->height);
+   setView();
+}
+
+void Camera::updatePosition(Window* window) {
    glm::vec3 viewVector = glm::normalize(lookAtPt() - view);
    glm::vec3 strafeVector = glm::normalize(glm::cross(viewVector, glm::vec3(0, 1, 0)));
    glm::vec3 crossVector = glm::normalize(glm::cross(viewVector, strafeVector));

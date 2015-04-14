@@ -31,6 +31,7 @@ class Camera {
       GLint h_uView;
 
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
+      void updatePosition(Window* window);
 };
 
 #endif

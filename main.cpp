@@ -190,9 +190,8 @@ void initGL() {
 
 /** DRAWING **/
 void step() {
-   window->step();
-   camera->step(window);
-
+   glfwSwapBuffers(window->glfw_window);
+   glfwPollEvents();
    // Clear the screen
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
    // Use "frag.glsl" and "vert.glsl"
@@ -202,9 +201,9 @@ void step() {
    // Send normal info to the attribute "aNor"
    GLSL::enableVertexAttribArray(h_aNor);
 
-   camera->setProjectionMatrix(window->width, window->height);
-   camera->setView();
-
+   // Step other components
+   window->step();
+   camera->step(window);
    world->step(window);
 
    // Disable and unbind

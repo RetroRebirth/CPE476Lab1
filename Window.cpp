@@ -65,9 +65,6 @@ bool Window::isActive() {
 }
 
 void Window::step() {
-   glfwSwapBuffers(glfw_window);
-   glfwPollEvents();
-
    time = glfwGetTime();
    frames++;
    dt = (float)(time - prev_time) / .01f; // TODO do we need '/ .01f'?
