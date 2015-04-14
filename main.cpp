@@ -2,6 +2,7 @@
 #include "Camera.h"
 #include "Object.h"
 #include "Window.h"
+#include "World.h"
 
 static string objectFiles[] = {"sphere.obj"};
 
@@ -9,6 +10,8 @@ static string objectFiles[] = {"sphere.obj"};
 Window* window;
 // Camera
 Camera* camera;
+// World
+World* world;
 // Objects
 vector<tinyobj::shape_t> shapes; // TODO map of mesh data
 vector<tinyobj::material_t> materials;
@@ -22,8 +25,10 @@ GLint h_uV;
 GLint h_uM;
 GLint h_uView;
 GLint h_uAClr, h_uDClr, h_uSClr, h_uS;
+/*
 // Ground
 bufID_t groundBufIDs;
+*/
 
 /** UTILITY **/
 float randF() {
@@ -178,6 +183,7 @@ void createObject() {
    objects.push_back(object);
 }
 
+/*
 void initGround() {
    // Position array of ground
    GLfloat vertices[] = {
@@ -212,8 +218,10 @@ void initGround() {
    glGenBuffers(1, &(groundBufIDs.nor));
    glBindBuffer(GL_ARRAY_BUFFER, groundBufIDs.nor);
 }
+*/
 
 void initGL() {
+/*
    loadShapes(objectFiles[0]);
 
    // Initialize GLEW
@@ -223,6 +231,7 @@ void initGL() {
    }
 
    installShaders("vert.glsl", "frag.glsl");
+*/
 
    // Enable alpha drawing
    glEnable (GL_BLEND);
@@ -232,7 +241,8 @@ void initGL() {
    // Set the background color
    glClearColor(0.6f, 0.6f, 0.8f, 1.0f);
 
-   initGround();
+//   initGround();
+   world->initGround();
 
    // Unbind the arrays
    glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -241,6 +251,7 @@ void initGL() {
 }
 
 /** DRAWING **/
+/*
 void drawGround() {
    // Bind position buffer
    glBindBuffer(GL_ARRAY_BUFFER, groundBufIDs.pos);
@@ -261,6 +272,7 @@ void drawGround() {
 
    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
+*/
 
 void drawGL() {
    // Clear the screen
@@ -275,11 +287,14 @@ void drawGL() {
    camera->setProjectionMatrix(window->width, window->height);
    camera->setView();
 
-   drawGround();
+//   drawGround();
+   world->drawGround();
+/*
    for (vector<Object>::iterator it = objects.begin(); it != objects.end(); ++it) {
       (*it).draw();
       (*it).step(window->dt);
    }
+*/
 
    // Disable and unbind
    GLSL::disableVertexAttribArray(h_aPos);
@@ -336,7 +351,22 @@ int main(int argc, char **argv) {
    glfwSetCursorEnterCallback(window->glfw_window, enter_callback);
    glfwSetKeyCallback(window->glfw_window, key_callback);
 
+
+   loadShapes(objectFiles[0]);
+
+   // Initialize GLEW
+   if (glewInit() != GLEW_OK) {
+      fprintf(stderr, "Failed to initialize GLEW\n");
+      exit(-1);
+   }
+
+   installShaders("vert.glsl", "frag.glsl");
+
+
    // Initialize everything else (mesh data, shaders, OpenGL states, etc.)
+   World _world(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
+   world = &_world;
+
    initGL();
 
    Camera _camera(h_uP, h_uV, h_uView);
