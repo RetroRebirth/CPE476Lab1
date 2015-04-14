@@ -363,6 +363,9 @@ int main(int argc, char **argv) {
    Camera _camera(h_uP, h_uV, h_uView);
    camera = &_camera;
 
+   vector<Object>::iterator it1;
+   vector<Object>::iterator it2;
+
    do {
       drawGL();
 
@@ -390,6 +393,14 @@ int main(int argc, char **argv) {
       if (newTime - objStartTime >= SECS_PER_OBJ) {
          objStartTime += SECS_PER_OBJ;
          createObject();
+      }
+    
+      for (it1 = objects.begin(); it1 != objects.end(); ++it1) { 
+         for (it2 = objects.begin(); it2 != objects.end(); ++it2) {
+            if (it1 != it2) {
+               (*it1).collisionDetection(*it2);
+            }
+         }
       }
 
       //sprintf(txt, "%lf", frames/(newTime - frameStartTime));

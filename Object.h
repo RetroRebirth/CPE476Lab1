@@ -11,6 +11,7 @@ class Object {
       bool hit;
       glm::vec3 col;
       float shine;
+      float radius;
 
       Object(
          vector<tinyobj::shape_t> &_shapes,
@@ -26,6 +27,7 @@ class Object {
 
       void step(float dt);
       void draw();
+      bool collisionDetection(Object o);
    private:
       vector<tinyobj::shape_t> shapes;
       vector<tinyobj::material_t> materials;

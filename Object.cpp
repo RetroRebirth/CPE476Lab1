@@ -14,6 +14,7 @@ Object::Object(
    hit = false;
    col = glm::vec3(0.313, 0.784, 0.470);
    shine = 800.0;
+   radius = 1.0;
 
    // Defined attribute values
    shapes = _shapes;
@@ -89,7 +90,7 @@ void Object::draw() {
    glUniform3f(h_uSClr, col.x/3.0, col.y/3.0, col.z/3.0);
    glUniform1f(h_uS, shine);
    // Set the model transformation
-   glm::mat4 S = glm::scale(glm::mat4(1.0f), glm::vec3(1.0, 1.0, 1.0));
+   glm::mat4 S = glm::scale(glm::mat4(1.0f), glm::vec3(radius, radius, radius));
    glm::mat4 T = glm::translate(glm::mat4(1.0f), pos);
    glm::mat4 RX = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(1.0, 0.0, 0.0));
    glm::mat4 RY = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0, 1.0, 0.0));
@@ -102,6 +103,18 @@ void Object::draw() {
 
    int nIndices = (int)shapes[0].mesh.indices.size();
    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+}
+
+bool Object::collisionDetection(Object o) {
+   if (glm::distance(pos, o.pos) <= (radius + o.radius)) {
+      dir = -dir;
+      o.dir = -o.dir;
+
+      return true;
+   }
+   else {
+      return false;
+   }
 }
 
 float Object::randF() {
