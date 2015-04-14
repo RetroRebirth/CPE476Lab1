@@ -208,6 +208,10 @@ int main(int argc, char **argv) {
       char obj_text[30];
       sprintf(obj_text, "%d out of %d (%d max)", 0, world->objCount, MAX_OBJS);
       window->drawText(obj_text, -0.95, 0.9);
+
+      char spd_text[30];
+      sprintf(spd_text, "%.2lf mph", camera->speed);
+      window->drawText(spd_text, -0.1, 0.9);
    } while(window->isActive());
 
    return 0;
