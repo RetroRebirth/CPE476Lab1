@@ -1,13 +1,12 @@
 #include "includes.h"
 #include "Camera.h"
 #include "Object.h"
+#include "Window.h"
 
 static string objectFiles[] = {"sphere.obj"};
 
 // Window
-GLFWwindow* window;
-int g_width;
-int g_height;
+Window* window;
 // Camera
 Camera* camera;
 // Objects
@@ -265,7 +264,7 @@ void drawGL() {
    // Send normal info to the attribute "aNor"
    GLSL::enableVertexAttribArray(h_aNor);
 
-   camera->setProjectionMatrix(g_width, g_height);
+   camera->setProjectionMatrix(window->width, window->height);
    camera->setView();
 
    drawGround();
@@ -284,19 +283,17 @@ void drawGL() {
 /** WINDOW CALLBACKS **/
 void window_size_callback(GLFWwindow* window, int w, int h) {
    glViewport(0, 0, (GLsizei)w, (GLsizei)h);
-   g_width = w;
-   g_height = h;
 }
 
-void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
-   camera->mouse_callback(window, xpos, ypos, g_width, g_height);
+void mouse_callback(GLFWwindow* win, double xpos, double ypos) {
+   camera->mouse_callback(win, xpos, ypos, window->width, window->height);
 }
 
-void enter_callback(GLFWwindow* window, int entered) {
-   camera->enter_callback(window, entered, g_width, g_height);
+void enter_callback(GLFWwindow* win, int entered) {
+   camera->enter_callback(win, entered, window->width, window->height);
 }
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) {
    if (action != GLFW_PRESS) {
       return;
    }
@@ -310,7 +307,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 /*void writeText(const char *txt, int x, int y) {
    glm::mat4 mat = glm::mat4();
-   glOrtho(0, g_width, 0, g_height, -1, 1);
+   glOrtho(0, window->width, 0, window->height, -1, 1);
    glMatrixMode(GL_PROJECTION);
    glPushMatrix();
    safe_glUniformMatrix4fv(h_uP, glm::value_ptr(mat));
@@ -337,42 +334,20 @@ int main(int argc, char **argv) {
    int frames = 0;
    char *txt = (char *)malloc(sizeof(char)*10);
 
-   // Initialise GLFW
-   if (!glfwInit()) {
-      fprintf( stderr, "Failed to initialize GLFW\n" );
-      return -1;
-   }
-   glfwWindowHint(GLFW_SAMPLES, 4);
-   glfwWindowHint(GLFW_RESIZABLE,GL_FALSE);
-   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
-   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-
-   // Open a window and create its OpenGL context
-   g_width = 1024;
-   g_height = 768;
-   window = glfwCreateWindow(g_width, g_height, "CPE 476 Lab 1", NULL, NULL);
-   if (window == NULL) {
-      fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
-      glfwTerminate();
-      return -1;
-   }
-   glfwMakeContextCurrent(window);
+   Window _window(1024, 768, "CPE 476 Lab 1");
+   window = &_window;
 
    // Window callbacks
-   glfwSetWindowSizeCallback(window, window_size_callback);
-   glfwSetCursorPosCallback(window, mouse_callback);
-   glfwSetCursorEnterCallback(window, enter_callback);
-   glfwSetKeyCallback(window, key_callback);
+   glfwSetWindowSizeCallback(window->glfw_window, window_size_callback);
+   glfwSetCursorPosCallback(window->glfw_window, mouse_callback);
+   glfwSetCursorEnterCallback(window->glfw_window, enter_callback);
+   glfwSetKeyCallback(window->glfw_window, key_callback);
 
    // Initialize GLEW
    if (glewInit() != GLEW_OK) {
       fprintf(stderr, "Failed to initialize GLEW\n");
       return -1;
    }
-
-   // Input modes
-   glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE); // Ensure we "hear" ESC
-   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); // Hide the mouse
 
    // Enable alpha drawing
    glEnable (GL_BLEND);
@@ -400,10 +375,9 @@ int main(int argc, char **argv) {
          (*it).step(elapsedTime);
       }
 
-      glfwSwapBuffers(window);
-      glfwPollEvents();
+      window->update();
 
-      camera->key_check(window, elapsedTime);
+      camera->key_check(window->glfw_window, elapsedTime);
 
       frames++;
 
@@ -425,11 +399,8 @@ int main(int argc, char **argv) {
       //writeText((const char *)str.c_str(), 100, 100);
    
    } // Check if the ESC key was pressed or the window was closed
-   while(glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS
-         && glfwWindowShouldClose(window) == 0);
+   while(window->isActive());
 
-   // Close OpenGL window and terminate GLFW
-   glfwTerminate();
    free(txt);
 
    return 0;
