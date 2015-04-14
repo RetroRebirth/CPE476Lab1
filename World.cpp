@@ -29,6 +29,7 @@ World::World(
 World::~World() {}
 
 void World::step(float dt) {
+   drawGround();
 }
 
 void World::draw() {

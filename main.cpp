@@ -208,7 +208,7 @@ void drawGL() {
    camera->setProjectionMatrix(window->width, window->height);
    camera->setView();
 
-   world->drawGround();
+   world->step(window->dt);
 /*
    for (vector<Object>::iterator it = objects.begin(); it != objects.end(); ++it) {
       (*it).draw();
