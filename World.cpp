@@ -30,19 +30,11 @@ World::World(
 World::~World() {}
 
 void World::step(Window* window) {
-   drawGround();
-
-   for (vector<Object>::iterator it = objects.begin(); it != objects.end(); ++it) {
-      (*it).draw();
-      (*it).step(window->dt);
-   }
-
    // Create a new object every SECS_PER_OBJ
    if (objCount < MAX_OBJS && window->time - objStartTime >= SECS_PER_OBJ) {
       createObject();
       objStartTime = window->time;
       objCount++;
-      printf("%d\n", objCount);
    }
 
    for (vector<Object>::iterator it1 = objects.begin(); it1 != objects.end(); ++it1) { 
@@ -51,6 +43,12 @@ void World::step(Window* window) {
             (*it1).collisionDetection(*it2);
          }
       }
+   }
+
+   drawGround();
+
+   for (vector<Object>::iterator it = objects.begin(); it != objects.end(); ++it) {
+      (*it).step(window->dt);
    }
 }
 

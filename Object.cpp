@@ -65,6 +65,8 @@ void Object::step(float dt) {
       || pos.z > SIZE) {
       dir.z = -dir.z;
    }
+
+   draw();
 }
 
 void Object::draw() {
