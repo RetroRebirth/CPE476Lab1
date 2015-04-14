@@ -20,6 +20,7 @@
 #include "glm/gtc/type_ptr.hpp" //value_ptr
 #include "tiny_obj_loader.h"
 
+#define MAX_OBJS 40
 #define SECS_PER_OBJ 2.0
 #define MOVEMENT_SPEED 0.1 // TODO base off time, not CPU speed
 #define ROTATE_SPEED 0.25

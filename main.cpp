@@ -318,6 +318,14 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
    case GLFW_KEY_C:
       camera->bounded = !camera->bounded;
       break;
+   case GLFW_KEY_UP:
+      camera->speed += .01;
+      break;
+   case GLFW_KEY_DOWN:
+      if (camera->speed - .01 > 0) {
+         camera->speed -= .01;
+      }
+      break;
    }
 }
 
@@ -363,6 +371,7 @@ int main(int argc, char **argv) {
 
    vector<Object>::iterator it1;
    vector<Object>::iterator it2;
+   int objCount = 0;
 
    do {
       window->step();
@@ -371,9 +380,11 @@ int main(int argc, char **argv) {
       drawGL();
 
       // Create a new object every SECS_PER_OBJ
-      if (window->time - objStartTime >= SECS_PER_OBJ) {
+      if (objCount < MAX_OBJS && window->time - objStartTime >= SECS_PER_OBJ) {
          createObject();
          objStartTime = window->time;
+         objCount++;
+         printf("%d\n", objCount);
       }
     
       for (it1 = objects.begin(); it1 != objects.end(); ++it1) { 

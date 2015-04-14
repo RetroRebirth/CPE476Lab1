@@ -11,6 +11,7 @@ Camera::Camera(
    theta = -M_PI/2.0;
    phi = 0.0;
    bounded = true;
+   speed = MOVEMENT_SPEED;
 
    // Defined attribute values
    h_uP = _h_uP;
@@ -47,9 +48,9 @@ void Camera::step(Window* window) {
    glm::vec3 strafeVector = glm::normalize(glm::cross(viewVector, glm::vec3(0, 1, 0)));
    glm::vec3 crossVector = glm::normalize(glm::cross(viewVector, strafeVector));
    // Scale vectors
-   viewVector *= (MOVEMENT_SPEED * window->dt);
-   strafeVector *= (MOVEMENT_SPEED * window->dt);
-   crossVector *=(MOVEMENT_SPEED * window->dt);
+   viewVector *= (speed * window->dt);
+   strafeVector *= (speed * window->dt);
+   crossVector *=(speed * window->dt);
 
    GLFWwindow* win = window->glfw_window;
    if (glfwGetKey(win, GLFW_KEY_W) == GLFW_PRESS) // Move forward
@@ -64,7 +65,7 @@ void Camera::step(Window* window) {
       view += crossVector;
    if (glfwGetKey(win, GLFW_KEY_E) == GLFW_PRESS) // Move down
       view -= crossVector;
-
+   
    // Bounding
    if (bounded) {
       if (view.x < -SIZE)
