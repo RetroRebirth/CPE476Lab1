@@ -174,6 +174,16 @@ bool installShaders(const string &vShaderName, const string &fShaderName) {
 
 /** INITIALIZING FOR DRAW **/
 void initGL() {
+   loadShapes(objectFiles[0]);
+
+   // Initialize GLEW
+   if (glewInit() != GLEW_OK) {
+      fprintf(stderr, "Failed to initialize GLEW\n");
+      exit(-1);
+   }
+
+   installShaders("vert.glsl", "frag.glsl");
+
    // Enable alpha drawing
    glEnable (GL_BLEND);
    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -258,21 +268,11 @@ int main(int argc, char **argv) {
    glfwSetCursorEnterCallback(window->glfw_window, enter_callback);
    glfwSetKeyCallback(window->glfw_window, key_callback);
 
-   loadShapes(objectFiles[0]);
-
-   // Initialize GLEW
-   if (glewInit() != GLEW_OK) {
-      fprintf(stderr, "Failed to initialize GLEW\n");
-      exit(-1);
-   }
-
-   installShaders("vert.glsl", "frag.glsl");
+   initGL();
 
    // Initialize everything else (mesh data, shaders, OpenGL states, etc.)
    World _world(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
    world = &_world;
-
-   initGL();
 
    Camera _camera(h_uP, h_uV, h_uView);
    camera = &_camera;
