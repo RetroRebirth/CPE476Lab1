@@ -11,6 +11,7 @@ class Window {
       double time;
       long frames;
       float dt;
+      float fps;
 
       Window(
          int _width,

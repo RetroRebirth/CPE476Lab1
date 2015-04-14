@@ -73,7 +73,7 @@ void Window::step() {
    if (time - prev_second >= 1) {
       int df = frames - prev_frames;
 
-      printf("%lf fps\n", df/(time - prev_second)); // TODO print FPS to window
+      fps = df/(time - prev_second);
 
       prev_frames = frames;
       prev_second = time;

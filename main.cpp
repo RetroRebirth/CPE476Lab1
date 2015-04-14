@@ -201,9 +201,9 @@ int main(int argc, char **argv) {
    do {
       step();
 
-      //TODO - Needs to move to window D:
+      // TODO don't use glut
       char str[20];
-      sprintf(str, "hello world");
+      sprintf(str, "%lf fps", window->fps);
       window->drawText(str, 0.75, 0.9);
 
    } while(window->isActive());
