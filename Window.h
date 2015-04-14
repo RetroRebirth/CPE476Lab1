@@ -8,7 +8,9 @@ class Window {
       GLFWwindow* glfw_window;
       int width;
       int height;
-      int frames;
+      double time;
+      long frames;
+      float dt;
 
       Window(
          int _width,
@@ -18,7 +20,11 @@ class Window {
 
       void drawText(char* string, int x, int y);
       bool isActive();
-      void update();
+      void step();
+   private:
+      double prev_time;
+      long prev_frames;
+      double prev_second;
 };
 
 #endif

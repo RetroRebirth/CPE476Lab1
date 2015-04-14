@@ -214,6 +214,21 @@ void initGround() {
 }
 
 void initGL() {
+   loadShapes(objectFiles[0]);
+
+   // Initialize GLEW
+   if (glewInit() != GLEW_OK) {
+      fprintf(stderr, "Failed to initialize GLEW\n");
+      exit(-1);
+   }
+
+   installShaders("vert.glsl", "frag.glsl");
+
+   // Enable alpha drawing
+   glEnable (GL_BLEND);
+   glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+   glEnable (GL_DEPTH_TEST);
+
    // Set the background color
    glClearColor(0.6f, 0.6f, 0.8f, 1.0f);
 
@@ -270,6 +285,7 @@ void drawGL() {
    drawGround();
    for (vector<Object>::iterator it = objects.begin(); it != objects.end(); ++it) {
       (*it).draw();
+      (*it).step(window->dt);
    }
 
    // Disable and unbind
@@ -327,37 +343,19 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
 
 /** MAIN **/
 int main(int argc, char **argv) {
-   double startTime = glfwGetTime();
-   double frameStartTime = startTime;
-   double objStartTime = startTime;
-   double newTime;
-   int frames = 0;
-   char *txt = (char *)malloc(sizeof(char)*10);
+   double objStartTime = 0.0;
+   //char *txt = (char *)malloc(sizeof(char)*10);
 
    Window _window(1024, 768, "CPE 476 Lab 1");
    window = &_window;
 
-   // Window callbacks
+   // Set input callbacks
    glfwSetWindowSizeCallback(window->glfw_window, window_size_callback);
    glfwSetCursorPosCallback(window->glfw_window, mouse_callback);
    glfwSetCursorEnterCallback(window->glfw_window, enter_callback);
    glfwSetKeyCallback(window->glfw_window, key_callback);
 
-   // Initialize GLEW
-   if (glewInit() != GLEW_OK) {
-      fprintf(stderr, "Failed to initialize GLEW\n");
-      return -1;
-   }
-
-   // Enable alpha drawing
-   glEnable (GL_BLEND);
-   glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-   glEnable (GL_DEPTH_TEST);
-
-   // Load models
-   loadShapes(objectFiles[0]);
-
-   installShaders("vert.glsl", "frag.glsl");
+   // Initialize everything else (mesh data, shaders, OpenGL states, etc.)
    initGL();
 
    Camera _camera(h_uP, h_uV, h_uView);
@@ -367,32 +365,15 @@ int main(int argc, char **argv) {
    vector<Object>::iterator it2;
 
    do {
+      window->step();
+      camera->step(window);
+
       drawGL();
 
-      newTime = glfwGetTime();
-      const float elapsedTime = (float)(newTime - startTime) / .01f;
-      startTime = newTime;
-
-      // Move objects
-      for (vector<Object>::iterator it = objects.begin(); it != objects.end(); ++it) {
-         (*it).step(elapsedTime);
-      }
-
-      window->update();
-
-      camera->key_check(window->glfw_window, elapsedTime);
-
-      frames++;
-
-      if (newTime - frameStartTime >= 1.0) {
-         printf("%lf fps\n", frames/(newTime - frameStartTime));
-         frames = 0;
-         frameStartTime += 1.0;
-      }
-
-      if (newTime - objStartTime >= SECS_PER_OBJ) {
-         objStartTime += SECS_PER_OBJ;
+      // Create a new object every SECS_PER_OBJ
+      if (window->time - objStartTime >= SECS_PER_OBJ) {
          createObject();
+         objStartTime = window->time;
       }
     
       for (it1 = objects.begin(); it1 != objects.end(); ++it1) { 
@@ -409,10 +390,9 @@ int main(int argc, char **argv) {
       //std::string str("Hello World");
       //writeText((const char *)str.c_str(), 100, 100);
    
-   } // Check if the ESC key was pressed or the window was closed
-   while(window->isActive());
+   } while(window->isActive());
 
-   free(txt);
+   //free(txt);
 
    return 0;
 }

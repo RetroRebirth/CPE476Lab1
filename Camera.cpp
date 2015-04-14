@@ -42,26 +42,27 @@ void Camera::setView() {
    glUniform3f(h_uView, view.x, view.y, view.z);
 }
 
-void Camera::key_check(GLFWwindow* window, const float elapsedTime) {
+void Camera::step(Window* window) {
    glm::vec3 viewVector = glm::normalize(lookAtPt() - view);
    glm::vec3 strafeVector = glm::normalize(glm::cross(viewVector, glm::vec3(0, 1, 0)));
    glm::vec3 crossVector = glm::normalize(glm::cross(viewVector, strafeVector));
    // Scale vectors
-   viewVector *= (MOVEMENT_SPEED * elapsedTime);
-   strafeVector *= (MOVEMENT_SPEED * elapsedTime);
-   crossVector *=(MOVEMENT_SPEED * elapsedTime);
+   viewVector *= (MOVEMENT_SPEED * window->dt);
+   strafeVector *= (MOVEMENT_SPEED * window->dt);
+   crossVector *=(MOVEMENT_SPEED * window->dt);
 
-   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) // Move forward
+   GLFWwindow* win = window->glfw_window;
+   if (glfwGetKey(win, GLFW_KEY_W) == GLFW_PRESS) // Move forward
       view += viewVector;
-   if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) // Move backward
+   if (glfwGetKey(win, GLFW_KEY_S) == GLFW_PRESS) // Move backward
       view -= viewVector;
-   if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) // Strafe left
+   if (glfwGetKey(win, GLFW_KEY_A) == GLFW_PRESS) // Strafe left
       view -= strafeVector;
-   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) // Strafe right
+   if (glfwGetKey(win, GLFW_KEY_D) == GLFW_PRESS) // Strafe right
       view += strafeVector;
-   if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) // Move up
+   if (glfwGetKey(win, GLFW_KEY_Q) == GLFW_PRESS) // Move up
       view += crossVector;
-   if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) // Move down
+   if (glfwGetKey(win, GLFW_KEY_E) == GLFW_PRESS) // Move down
       view -= crossVector;
 
    // Bounding

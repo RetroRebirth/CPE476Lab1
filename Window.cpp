@@ -4,6 +4,14 @@ Window::Window(
    int _width,
    int _height,
    const char* title) {
+   // Default attribute values
+   time = 0;
+   frames = 0;
+   dt = 0.0f;
+   prev_time = 0.0;
+   prev_frames = 0;
+   prev_second = 0.0;
+
    // Defined attribute values
    width = _width;
    height = _height;
@@ -46,7 +54,23 @@ bool Window::isActive() {
       && glfwWindowShouldClose(glfw_window) == 0;
 }
 
-void Window::update() {
+void Window::step() {
    glfwSwapBuffers(glfw_window);
    glfwPollEvents();
+
+   time = glfwGetTime();
+   frames++;
+   dt = (float)(time - prev_time) / .01f; // TODO do we need '/ .01f'?
+
+   // Check if a second has passed
+   if (time - prev_second >= 1) {
+      int df = frames - prev_frames;
+
+      printf("%lf fps\n", df/(time - prev_second)); // TODO print FPS to window
+
+      prev_frames = frames;
+      prev_second = time;
+   }
+
+   prev_time = time;
 }
