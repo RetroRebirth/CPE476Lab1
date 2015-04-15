@@ -157,7 +157,7 @@ void enter_callback(GLFWwindow* win, int entered) {
 }
 
 void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) {
-   if (action != GLFW_PRESS) {
+   if (action != GLFW_PRESS && action != GLFW_REPEAT) {
       return;
    }
 
@@ -166,11 +166,13 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
       camera->bounded = !camera->bounded;
       break;
    case GLFW_KEY_UP:
-      camera->speed += .01;
+      if (camera->speed < MAX_SPEED) {
+         camera->speed += DELTA_SPEED;
+      }
       break;
    case GLFW_KEY_DOWN:
-      if (camera->speed - .01 > 0) {
-         camera->speed -= .01;
+      if (camera->speed > MIN_SPEED) {
+         camera->speed -= DELTA_SPEED;
       }
       break;
    }
@@ -209,7 +211,7 @@ int main(int argc, char **argv) {
       window->drawText(obj_text, -0.95, 0.9);
 
       char spd_text[30];
-      sprintf(spd_text, "%.2lf mph", camera->speed);
+      sprintf(spd_text, "%5.1lf mph", camera->speed);
       window->drawText(spd_text, -0.1, 0.9);
    } while(window->isActive());
 

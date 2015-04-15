@@ -30,7 +30,7 @@ Object::Object(
    // Place the object randomly in the world
    pos = glm::vec3(2*randF()*SIZE - SIZE, 1.0, 2*randF()*SIZE - SIZE);
    dir = glm::normalize(glm::vec3(randF()-0.5, 0.0, randF()-0.5));
-   vel = 0.2;
+   vel = INITIAL_OBJ_SPEED;
    
    // Position array of object
    const vector<float> &posBuf = shapes[0].mesh.positions;

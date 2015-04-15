@@ -22,11 +22,15 @@
 
 #define MAX_OBJS 40
 #define SECS_PER_OBJ 2.0
-#define MOVEMENT_SPEED 0.1 // TODO base off time, not CPU speed
-#define ROTATE_SPEED 0.25
 #define SIZE 20.0
 #define NUM_OBJ_TYPES 1
    #define SPHERE 0
+#define MOUSE_SPEED 0.25
+#define INITIAL_SPEED 10.0
+#define DELTA_SPEED 0.1
+#define MIN_SPEED 0.1
+#define MAX_SPEED 20.0
+#define INITIAL_OBJ_SPEED 20.0
 
 using namespace std;
 

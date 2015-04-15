@@ -11,7 +11,7 @@ Camera::Camera(
    theta = -M_PI/2.0;
    phi = 0.0;
    bounded = true;
-   speed = MOVEMENT_SPEED;
+   speed = INITIAL_SPEED;
 
    // Defined attribute values
    h_uP = _h_uP;
@@ -96,9 +96,9 @@ void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos, int g_
    float xMag = xPosFromCenter / half_width;
    float yMag = yPosFromCenter / half_height;
 
-   theta += ROTATE_SPEED*M_PI*xMag;
+   theta += MOUSE_SPEED*M_PI*xMag;
    // Bound phi to 80 degrees
-   float newPhi = phi - ROTATE_SPEED*M_PI*yMag/2.0;
+   float newPhi = phi - MOUSE_SPEED*M_PI*yMag/2.0;
    if (glm::degrees(newPhi) < 80 && glm::degrees(newPhi) > -80) {
       phi = newPhi;
    }

@@ -67,7 +67,7 @@ bool Window::isActive() {
 void Window::step() {
    time = glfwGetTime();
    frames++;
-   dt = (float)(time - prev_time) / .01f; // TODO do we need '/ .01f'?
+   dt = (float)(time - prev_time);
 
    // Check if a second has passed
    if (time - prev_second >= 1) {
