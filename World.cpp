@@ -1,6 +1,6 @@
 #include "World.h"
 
-static string objectFiles[] = {"sphere.obj"};
+static string objectFiles[] = {"bunny.obj"};
 
 World::World(
       GLint _h_uAClr,
