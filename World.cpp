@@ -13,6 +13,7 @@ World::World(
    // Default attribute values
    objStartTime = 0.0;
    objCount = 0;
+   objCollected = 0;
 
    // Defined attribute values
    h_uAClr = _h_uAClr;
@@ -37,17 +38,17 @@ void World::step(Camera *camera, Window* window) {
       objCount++;
    }
 
-   //may need to move into object
-   for (vector<Object>::iterator it1 = objects.begin(); it1 != objects.end(); ++it1) { 
-      if ((*it1).collidedWithPlayer(camera->view, window->dt)) {
+   for (vector<Object*>::iterator it1 = activeObjects.begin(); it1 != activeObjects.end(); ++it1) { 
+      if ((*it1)->collidedWithPlayer(camera->view, window->dt, &objCollected)) {
+         it1 = activeObjects.erase(it1);
          continue;
       }
-      if ((*it1).collidedWithWall(window->dt)) {
+      if ((*it1)->collidedWithWall(window->dt)) {
          continue;
       }
-      for (vector<Object>::iterator it2 = objects.begin(); it2 != objects.end(); ++it2) {
+      for (vector<Object*>::iterator it2 = activeObjects.begin(); it2 != activeObjects.end(); ++it2) {
          if (it1 != it2) {
-            if ((*it1).collidedWithObj((*it2), window->dt)) {
+            if ((*it1)->collidedWithObj(**it2, window->dt)) {
                break;
             }
          }
@@ -57,12 +58,9 @@ void World::step(Camera *camera, Window* window) {
    camera->step(window);
    drawGround();
 
-   for (vector<Object>::iterator it = objects.begin(); it != objects.end(); ++it) {
-      (*it).step(window->dt);
+   for (vector<Object*>::iterator it = activeObjects.begin(); it != activeObjects.end(); ++it) {
+      (*it)->step(window->dt);
    }
-}
-
-void World::draw() {
 }
 
 float World::randF() {
@@ -132,7 +130,8 @@ void World::drawGround() {
 
 void World::createObject() {
    Object object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
-   objects.push_back(object);
+   objects.push_back(&object);
+   activeObjects.push_back(&object);
 }
 
 void World::resize_obj(std::vector<tinyobj::shape_t> &shapes) {

@@ -9,6 +9,7 @@
 class World {
    public:
       int objCount;
+      int objCollected;
 
       World(
          GLint _h_uAClr,
@@ -21,7 +22,6 @@ class World {
       virtual ~World();
 
       void step(Camera *camera, Window* window);
-      void draw();
       void initGround();
       void drawGround();
    private:
@@ -31,7 +31,8 @@ class World {
       GLint h_uM;
       GLint h_uAClr, h_uDClr, h_uSClr, h_uS;
       bufID_t groundBufIDs;
-      vector<Object> objects;
+      vector<Object*> objects;
+      vector<Object*> activeObjects;
       double objStartTime;
 
       float randF();

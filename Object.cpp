@@ -57,13 +57,14 @@ glm::vec3 Object::calculateNewPos(float dt) {
    return pos + dir * vel * dt;
 }
 
-bool Object::collidedWithPlayer(glm::vec3 camPos, float dt) {
+bool Object::collidedWithPlayer(glm::vec3 camPos, float dt, int *objCollected) {
    glm::vec3 testPos = calculateNewPos(dt);
    
    if (glm::distance(testPos, camPos) <= radius) {
       vel = 0;
       collided = true;
       col = glm::vec3(1.0, 0.68, 0.0);
+      (*objCollected)++;
       
       return true;
    }
@@ -112,7 +113,7 @@ void Object::step(float dt) {
 }
 
 void Object::draw() {
-   GLuint posBufID = bufIDs.pos;
+   /*GLuint posBufID = bufIDs.pos;
    GLuint indBufID = bufIDs.ind;
    GLuint norBufID = bufIDs.nor;
 
@@ -129,7 +130,7 @@ void Object::draw() {
    
    // Send data to the GPU and draw
    // Set the color
-   glUniform3f(h_uAClr, col.x/5.0, col.y/5.0, col.z/5.0);
+   */glUniform3f(h_uAClr, col.x/5.0, col.y/5.0, col.z/5.0);
    glUniform3f(h_uDClr, col.x/3.0, col.y/3.0, col.z/3.0);
    glUniform3f(h_uSClr, col.x/3.0, col.y/3.0, col.z/3.0);
    glUniform1f(h_uS, shine);
@@ -146,7 +147,7 @@ void Object::draw() {
 
 
    int nIndices = (int)shapes[0].mesh.indices.size();
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+   //glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
 }
 
 float Object::randF() {

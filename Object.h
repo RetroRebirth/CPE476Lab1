@@ -27,7 +27,7 @@ class Object {
 
       void step(float dt);
       void draw();
-      bool collidedWithPlayer(glm::vec3 camPos, float dt);
+      bool collidedWithPlayer(glm::vec3 camPos, float dt, int *objCollected);
       bool collidedWithWall(float dt);
       bool collidedWithObj(Object o, float dt);
       glm::vec3 calculateNewPos(float dt);

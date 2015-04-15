@@ -207,7 +207,7 @@ int main(int argc, char **argv) {
       window->drawText(fps_text, 0.75, 0.9);
 
       char obj_text[30];
-      sprintf(obj_text, "%d out of %d (%d max)", 0, world->objCount, MAX_OBJS);
+      sprintf(obj_text, "%d out of %d (%d max)", world->objCollected, world->objCount, MAX_OBJS);
       window->drawText(obj_text, -0.95, 0.9);
 
       char spd_text[30];
