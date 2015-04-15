@@ -28,7 +28,9 @@ World::World(
    initGround();
 }
 
-World::~World() {}
+World::~World() {
+   // TODO 'delete' lists of objects
+}
 
 void World::step(Camera *camera, Window* window) {
    // Create a new object every SECS_PER_OBJ
@@ -129,9 +131,9 @@ void World::drawGround() {
 }
 
 void World::createObject() {
-   Object object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
-   objects.push_back(&object);
-   activeObjects.push_back(&object);
+   Object* object = new Object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
+   objects.push_back(object);
+   activeObjects.push_back(object);
 }
 
 void World::resize_obj(std::vector<tinyobj::shape_t> &shapes) {

@@ -124,7 +124,7 @@ float Object::calcYFacingAngle() {
 }
 
 void Object::draw() {
-   /*GLuint posBufID = bufIDs.pos;
+   GLuint posBufID = bufIDs.pos;
    GLuint indBufID = bufIDs.ind;
    GLuint norBufID = bufIDs.nor;
 
@@ -136,12 +136,12 @@ void Object::draw() {
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufID);
 
    // Bind normal buffer
-	glBindBuffer(GL_ARRAY_BUFFER, norBufID);
+   glBindBuffer(GL_ARRAY_BUFFER, norBufID);
    glVertexAttribPointer(h_aNor, 3, GL_FLOAT, GL_FALSE, 0, 0);
    
    // Send data to the GPU and draw
    // Set the color
-   */glUniform3f(h_uAClr, col.x/5.0, col.y/5.0, col.z/5.0);
+   glUniform3f(h_uAClr, col.x/5.0, col.y/5.0, col.z/5.0);
    glUniform3f(h_uDClr, col.x/3.0, col.y/3.0, col.z/3.0);
    glUniform3f(h_uSClr, col.x/3.0, col.y/3.0, col.z/3.0);
    glUniform1f(h_uS, shine);
@@ -158,7 +158,7 @@ void Object::draw() {
 
 
    int nIndices = (int)shapes[0].mesh.indices.size();
-   //glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
 }
 
 float Object::randF() {
