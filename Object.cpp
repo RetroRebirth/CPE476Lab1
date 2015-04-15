@@ -11,7 +11,7 @@ Object::Object(
       GLint _h_aPos,
       GLint _h_aNor) {
    // Default attribute values
-   hit = false;
+   collided = false;
    col = glm::vec3(0.313, 0.784, 0.470);
    shine = 800.0;
    radius = 1.0;
@@ -57,9 +57,20 @@ glm::vec3 Object::calculateNewPos(float dt) {
    return pos + dir * vel * dt;
 }
 
-/*bool Object::collidedWithPlayer() {
+bool Object::collidedWithPlayer(glm::vec3 camPos, float dt) {
+   glm::vec3 testPos = calculateNewPos(dt);
    
-}*/
+   if (glm::distance(testPos, camPos) <= radius) {
+      vel = 0;
+      collided = true;
+      col = glm::vec3(1.0, 0.68, 0.0);
+      
+      return true;
+   }
+   else {
+      return false;
+   }
+}
 
 bool Object::collidedWithWall(float dt) {
    bool collided = false;

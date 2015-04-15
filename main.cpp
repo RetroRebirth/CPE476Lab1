@@ -133,8 +133,7 @@ void step() { glfwSwapBuffers(window->glfw_window);
 
    // Step other components
    window->step();
-   camera->step(window);
-   world->step(window);
+   world->step(camera, window);
 
    // Disable and unbind
    GLSL::disableVertexAttribArray(h_aPos);

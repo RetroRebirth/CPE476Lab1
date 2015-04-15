@@ -7,7 +7,8 @@
 class Camera {
    public:
       bool bounded;
-      float speed; // TODO
+      float speed;
+      glm::vec3 view;
 
       Camera(
          GLint _h_uP,
@@ -23,7 +24,6 @@ class Camera {
       void mouse_callback(GLFWwindow* window, double xpos, double ypos, int g_width, int g_height);
       void enter_callback(GLFWwindow* window, int entered, int g_width, int g_height);
    private:
-      glm::vec3 view;
       float theta;
       float phi;
       GLint h_uP;

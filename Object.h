@@ -8,7 +8,7 @@ class Object {
       glm::vec3 pos;
       glm::vec3 dir;
       float vel;
-      bool hit;
+      bool collided;
       glm::vec3 col;
       float shine;
       float radius;
@@ -27,7 +27,7 @@ class Object {
 
       void step(float dt);
       void draw();
-      //bool collidedWithPlayer(float dt); TODO
+      bool collidedWithPlayer(glm::vec3 camPos, float dt);
       bool collidedWithWall(float dt);
       bool collidedWithObj(Object o, float dt);
       glm::vec3 calculateNewPos(float dt);

@@ -4,6 +4,7 @@
 #include "includes.h"
 #include "Object.h"
 #include "Window.h"
+#include "Camera.h"
 
 class World {
    public:
@@ -19,7 +20,7 @@ class World {
          GLint _h_aNor);
       virtual ~World();
 
-      void step(Window* window);
+      void step(Camera *camera, Window* window);
       void draw();
       void initGround();
       void drawGround();

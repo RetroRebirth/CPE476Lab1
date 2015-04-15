@@ -29,7 +29,7 @@ World::World(
 
 World::~World() {}
 
-void World::step(Window* window) {
+void World::step(Camera *camera, Window* window) {
    // Create a new object every SECS_PER_OBJ
    if (objCount < MAX_OBJS && window->time - objStartTime >= SECS_PER_OBJ) {
       createObject();
@@ -39,6 +39,9 @@ void World::step(Window* window) {
 
    //may need to move into object
    for (vector<Object>::iterator it1 = objects.begin(); it1 != objects.end(); ++it1) { 
+      if ((*it1).collidedWithPlayer(camera->view, window->dt)) {
+         continue;
+      }
       if ((*it1).collidedWithWall(window->dt)) {
          continue;
       }
@@ -51,6 +54,7 @@ void World::step(Window* window) {
       }
    }
 
+   camera->step(window);
    drawGround();
 
    for (vector<Object>::iterator it = objects.begin(); it != objects.end(); ++it) {
