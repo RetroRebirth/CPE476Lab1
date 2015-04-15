@@ -202,16 +202,17 @@ int main(int argc, char **argv) {
       step();
 
       // TODO don't use glut
-      char fps_text[30];
-      sprintf(fps_text, "%lf fps", window->fps);
+      char fps_text[15];
+      sprintf(fps_text, "%10.6lf fps", window->fps);
       window->drawText(fps_text, 0.75, 0.9);
 
-      char obj_text[30];
-      sprintf(obj_text, "%d out of %d (%d max)", world->numCollected, world->numLeft(), MAX_OBJS);
+      char obj_text[40];
+//      sprintf(obj_text, "%d out of %d (%d max)", world->numCollected, world->numLeft(), MAX_OBJS);
+      sprintf(obj_text, "captured: %d\nroaming: %d (%d max)", world->numCollected, world->numLeft(), MAX_OBJS);
       window->drawText(obj_text, -0.95, 0.9);
 
-      char spd_text[30];
-      sprintf(spd_text, "%5.1lf mph", camera->speed);
+      char spd_text[10];
+      sprintf(spd_text, "%4.1lf mph", camera->speed);
       window->drawText(spd_text, -0.1, 0.9);
    } while(window->isActive());
 
