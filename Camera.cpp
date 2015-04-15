@@ -7,11 +7,12 @@ Camera::Camera(
       GLint _h_uV,
       GLint _h_uView) {
    // Default attribute values
-   view = glm::vec3(0, 1, 0);
+   pos = glm::vec3(0, 1, 0);
    theta = -M_PI/2.0;
    phi = 0.0;
    bounded = true;
    speed = INITIAL_SPEED;
+   moveDir = glm::vec3(0, 0, 0);
 
    // Defined attribute values
    h_uP = _h_uP;
@@ -28,7 +29,7 @@ inline void Camera::safe_glUniformMatrix4fv(const GLint handle, const GLfloat da
 
 glm::vec3 Camera::lookAtPt() {
    glm::vec3 lookAtPt = glm::vec3(cos(phi)*cos(theta), sin(phi), cos(phi)*cos((M_PI/2)-theta));
-   lookAtPt += view;
+   lookAtPt += pos;
    return lookAtPt;
 }
 
@@ -38,9 +39,9 @@ void Camera::setProjectionMatrix(int g_width, int g_height) {
 }
 
 void Camera::setView() {
-   glm::mat4 View = glm::lookAt(view, lookAtPt(), glm::vec3(0, 1, 0));
+   glm::mat4 View = glm::lookAt(pos, lookAtPt(), glm::vec3(0, 1, 0));
    safe_glUniformMatrix4fv(h_uV, glm::value_ptr(View));
-   glUniform3f(h_uView, view.x, view.y, view.z);
+   glUniform3f(h_uView, pos.x, pos.y, pos.z);
 }
 
 void Camera::step(Window* window) {
@@ -50,7 +51,7 @@ void Camera::step(Window* window) {
 }
 
 void Camera::updatePosition(Window* window) {
-   glm::vec3 viewVector = glm::normalize(lookAtPt() - view);
+   glm::vec3 viewVector = glm::normalize(lookAtPt() - pos);
    glm::vec3 strafeVector = glm::normalize(glm::cross(viewVector, glm::vec3(0, 1, 0)));
    glm::vec3 crossVector = glm::normalize(glm::cross(viewVector, strafeVector));
    // Scale vectors
@@ -58,32 +59,35 @@ void Camera::updatePosition(Window* window) {
    strafeVector *= (speed * window->dt);
    crossVector *=(speed * window->dt);
 
+   glm::vec3 oldView = pos;
    GLFWwindow* win = window->glfw_window;
    if (glfwGetKey(win, GLFW_KEY_W) == GLFW_PRESS) // Move forward
-      view += viewVector;
+      pos += viewVector;
    if (glfwGetKey(win, GLFW_KEY_S) == GLFW_PRESS) // Move backward
-      view -= viewVector;
+      pos -= viewVector;
    if (glfwGetKey(win, GLFW_KEY_A) == GLFW_PRESS) // Strafe left
-      view -= strafeVector;
+      pos -= strafeVector;
    if (glfwGetKey(win, GLFW_KEY_D) == GLFW_PRESS) // Strafe right
-      view += strafeVector;
+      pos += strafeVector;
    if (glfwGetKey(win, GLFW_KEY_Q) == GLFW_PRESS) // Move up
-      view += crossVector;
+      pos += crossVector;
    if (glfwGetKey(win, GLFW_KEY_E) == GLFW_PRESS) // Move down
-      view -= crossVector;
+      pos -= crossVector;
    
+   glm::normalize(moveDir);
+
    // Bounding
    if (bounded) {
-      if (view.x < -SIZE)
-         view.x = -SIZE;
-      if (view.x > SIZE)
-         view.x = SIZE;
-      if (view.z < -SIZE)
-         view.z = -SIZE;
-      if (view.z > SIZE)
-         view.z = SIZE;
+      if (pos.x < -SIZE)
+         pos.x = -SIZE;
+      if (pos.x > SIZE)
+         pos.x = SIZE;
+      if (pos.z < -SIZE)
+         pos.z = -SIZE;
+      if (pos.z > SIZE)
+         pos.z = SIZE;
 
-      view.y = 1;
+      pos.y = 1;
    }
 }
 

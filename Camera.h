@@ -8,7 +8,8 @@ class Camera {
    public:
       bool bounded;
       float speed;
-      glm::vec3 view;
+      glm::vec3 pos;
+      glm::vec3 moveDir;
 
       Camera(
          GLint _h_uP,

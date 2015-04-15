@@ -44,7 +44,7 @@ void World::step(Camera *camera, Window* window) {
 // http://gamedev.stackexchange.com/questions/46584/how-to-remove-an-object-from-a-stdvector
    for (int i=0; i<activeObjects.size(); ++i) { 
       Object* obj1 = activeObjects[i];
-      if (obj1->collidedWithPlayer(camera->view, window->dt, &collected)) {
+      if (obj1->collidedWithPlayer(camera->pos, window->dt, &collected)) {
          activeObjects[i] = activeObjects.back();
          activeObjects.pop_back();
          --i;
