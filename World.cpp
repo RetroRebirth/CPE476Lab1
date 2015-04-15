@@ -37,10 +37,16 @@ void World::step(Window* window) {
       objCount++;
    }
 
+   //may need to move into object
    for (vector<Object>::iterator it1 = objects.begin(); it1 != objects.end(); ++it1) { 
+      if ((*it1).collidedWithWall(window->dt)) {
+         continue;
+      }
       for (vector<Object>::iterator it2 = objects.begin(); it2 != objects.end(); ++it2) {
          if (it1 != it2) {
-            (*it1).collisionDetection(*it2);
+            if ((*it1).collidedWithObj((*it2), window->dt)) {
+               break;
+            }
          }
       }
    }

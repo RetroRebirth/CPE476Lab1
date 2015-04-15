@@ -201,7 +201,7 @@ int main(int argc, char **argv) {
       step();
 
       // TODO don't use glut
-      char fps_text[20];
+      char fps_text[30];
       sprintf(fps_text, "%lf fps", window->fps);
       window->drawText(fps_text, 0.75, 0.9);
 

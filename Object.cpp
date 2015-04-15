@@ -53,18 +53,49 @@ Object::Object(
 
 Object::~Object() {}
 
-void Object::step(float dt) {
-   pos += dir * vel * dt;
+glm::vec3 Object::calculateNewPos(float dt) {
+   return pos + dir * vel * dt;
+}
 
+/*bool Object::collidedWithPlayer() {
+   
+}*/
+
+bool Object::collidedWithWall(float dt) {
+   bool collided = false;
+   glm::vec3 testPos = calculateNewPos(dt);
+   
    // Check boundaries
-   if (pos.x < -SIZE
-      || pos.x > SIZE) {
+   if (testPos.x < -SIZE
+      || testPos.x > SIZE) {
       dir.x = -dir.x;
+      collided = true;
    }
-   if (pos.z < -SIZE
-      || pos.z > SIZE) {
+   if (testPos.z < -SIZE 
+      || testPos.z > SIZE) {
       dir.z = -dir.z;
+      collided = true;
    }
+
+   return collided;
+}
+
+bool Object::collidedWithObj(Object o, float dt) {
+   glm::vec3 testPos = calculateNewPos(dt);
+   glm::vec3 testPosO = o.calculateNewPos(dt);
+
+   if (glm::distance(testPos, testPosO) <= (radius + o.radius)) {
+      dir = -dir;
+      
+      return true;
+   }
+   else {
+      return false;
+   }
+}
+
+void Object::step(float dt) {
+   pos = calculateNewPos(dt);
 
    draw();
 }
@@ -105,18 +136,6 @@ void Object::draw() {
 
    int nIndices = (int)shapes[0].mesh.indices.size();
    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-}
-
-bool Object::collisionDetection(Object o) {
-   if (glm::distance(pos, o.pos) <= (radius + o.radius)) {
-      dir = -dir;
-      o.dir = -o.dir;
-
-      return true;
-   }
-   else {
-      return false;
-   }
 }
 
 float Object::randF() {

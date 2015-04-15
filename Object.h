@@ -27,7 +27,10 @@ class Object {
 
       void step(float dt);
       void draw();
-      bool collisionDetection(Object o);
+      //bool collidedWithPlayer(float dt); TODO
+      bool collidedWithWall(float dt);
+      bool collidedWithObj(Object o, float dt);
+      glm::vec3 calculateNewPos(float dt);
    private:
       vector<tinyobj::shape_t> shapes;
       vector<tinyobj::material_t> materials;
