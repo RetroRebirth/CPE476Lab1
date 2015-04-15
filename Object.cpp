@@ -64,7 +64,9 @@ bool Object::collidedWithPlayer(glm::vec3 camPos, float dt, int *objCollected) {
       vel = 0;
       collided = true;
       col = glm::vec3(1.0, 0.68, 0.0);
-      (*objCollected)++;
+      if (collided) {
+         (*objCollected)++;
+      }
       
       return true;
    }
@@ -155,7 +157,6 @@ void Object::draw() {
    glm::mat4 MV = T*RX*RY*RZ*S;
 
    safe_glUniformMatrix4fv(h_uM, glm::value_ptr(MV));
-
 
    int nIndices = (int)shapes[0].mesh.indices.size();
    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);

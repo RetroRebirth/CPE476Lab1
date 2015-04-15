@@ -60,7 +60,13 @@ void World::step(Camera *camera, Window* window) {
    camera->step(window);
    drawGround();
 
-   for (vector<Object*>::iterator it = activeObjects.begin(); it != activeObjects.end(); ++it) {
+   for (vector<Object*>::iterator it = objects.begin(); it != objects.end(); ++it) {
+      /*if (not in activeObjects) {
+         //shrink
+      }
+      else {
+         //don't shrink
+      }*/
       (*it)->step(window->dt);
    }
 }
