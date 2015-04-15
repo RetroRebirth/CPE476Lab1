@@ -12,7 +12,7 @@ World::World(
       GLint _h_aNor) {
    // Default attribute values
    objStartTime = 0.0;
-   collected = 0;
+   numCollected = 0;
 
    // Defined attribute values
    h_uAClr = _h_uAClr;
@@ -44,7 +44,10 @@ void World::step(Camera *camera, Window* window) {
 // http://gamedev.stackexchange.com/questions/46584/how-to-remove-an-object-from-a-stdvector
    for (int i=0; i<activeObjects.size(); ++i) { 
       Object* obj1 = activeObjects[i];
-      if (obj1->collidedWithPlayer(camera->pos, window->dt, &collected)) {
+      if (obj1->collidedWithPlayer(camera->calcNewPos(window), window->dt)) {
+         // Increment the score
+         numCollected++;
+         // Delete object from collision detection
          activeObjects[i] = activeObjects.back();
          activeObjects.pop_back();
          --i;
@@ -64,9 +67,6 @@ void World::step(Camera *camera, Window* window) {
       }
    }
 
-   camera->step(window);
-   drawGround();
-
    for (int i=0; i<objects.size(); ++i) { 
       Object* obj = objects[i];
       // If the object has finished shrinking, remove it
@@ -75,10 +75,18 @@ void World::step(Camera *camera, Window* window) {
          objects.pop_back();
          --i;
          delete obj;
-      } else {
-         obj->step(window->dt);
+         continue;
       }
+      if (obj->collidedWithPlayer(camera->calcNewPos(window), window->dt)) {
+         // Stop the camera from moving into object
+         camera->blocked = true;
+      }
+      // Update the object normally
+      obj->step(window->dt);
    }
+
+   camera->step(window);
+   drawGround();
 }
 
 float World::randF() {

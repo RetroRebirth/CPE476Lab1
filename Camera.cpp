@@ -12,7 +12,7 @@ Camera::Camera(
    phi = 0.0;
    bounded = true;
    speed = INITIAL_SPEED;
-   moveDir = glm::vec3(0, 0, 0);
+   blocked = false;
 
    // Defined attribute values
    h_uP = _h_uP;
@@ -48,7 +48,8 @@ void Camera::step(Window* window) {
    setProjectionMatrix(window->width, window->height);
    setView();
 
-   pos = calcNewPos(window);
+   pos = !bounded || !blocked ? calcNewPos(window) : pos;
+   blocked = false;
 }
 
 glm::vec3 Camera::calcNewPos(Window* window) {
@@ -60,9 +61,8 @@ glm::vec3 Camera::calcNewPos(Window* window) {
    // Scale vectors
    viewVector *= (speed * window->dt);
    strafeVector *= (speed * window->dt);
-   crossVector *=(speed * window->dt);
+   crossVector *= (speed * window->dt);
 
-   glm::vec3 oldPos = newPos;
    GLFWwindow* win = window->glfw_window;
    if (glfwGetKey(win, GLFW_KEY_W) == GLFW_PRESS) // Move forward
       newPos += viewVector;
@@ -77,9 +77,6 @@ glm::vec3 Camera::calcNewPos(Window* window) {
    if (glfwGetKey(win, GLFW_KEY_E) == GLFW_PRESS) // Move down
       newPos -= crossVector;
    
-   // Calculate which direction we are moving
-   moveDir = newPos == oldPos ? glm::vec3(0, 0, 0) : glm::normalize(newPos - oldPos);
-
    // Bounding
    if (bounded) {
       if (newPos.x < -SIZE)

@@ -8,7 +8,7 @@
 
 class World {
    public:
-      int collected;
+      int numCollected;
 
       World(
          GLint _h_uAClr,

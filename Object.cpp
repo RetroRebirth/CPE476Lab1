@@ -57,16 +57,13 @@ glm::vec3 Object::calculateNewPos(float dt) {
    return pos + dir * vel * dt;
 }
 
-bool Object::collidedWithPlayer(glm::vec3 camPos, float dt, int *numCollected) {
+bool Object::collidedWithPlayer(glm::vec3 camPos, float dt) {
    glm::vec3 testPos = calculateNewPos(dt);
    
    if (glm::distance(testPos, camPos) <= radius) {
       vel = 0;
       collected = true;
       col = glm::vec3(1.0, 0.68, 0.0);
-      if (collected) {
-         (*numCollected)++;
-      }
       
       return true;
    }

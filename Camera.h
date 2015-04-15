@@ -9,7 +9,7 @@ class Camera {
       bool bounded;
       float speed;
       glm::vec3 pos;
-      glm::vec3 moveDir;
+      bool blocked;
 
       Camera(
          GLint _h_uP,
