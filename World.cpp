@@ -30,6 +30,9 @@ World::World(
 
 World::~World() {
    // TODO 'delete' lists of objects
+   for (vector<Object*>::iterator it = objects.begin(); it != objects.end(); ++it) {
+      delete *it;
+   }
 }
 
 void World::step(Camera *camera, Window* window) {
