@@ -121,7 +121,15 @@ void Object::step(float dt) {
 float Object::calcYFacingAngle() {
    float radians = atan(dir.z/dir.x);
 
-   // TODO make this work... please? :)
+   if (dir.x < 0) {
+      radians = 180 - radians;
+   }
+
+   if (dir.x > 0 && dir.z < 0) {
+      radians = 360 - radians;
+   }
+
+   printf("x: %lf z: %lf rad: %lf\n", dir.x, dir.z, radians);
 
    return radians * (180.0 / M_PI); // Convert to degrees
 }

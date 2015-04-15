@@ -156,6 +156,11 @@ void enter_callback(GLFWwindow* win, int entered) {
    camera->enter_callback(win, entered, window->width, window->height);
 }
 
+void deleteVars(World *world, Camera *camera) {
+   delete world;
+   delete camera;
+}
+
 void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) {
    if (action != GLFW_PRESS && action != GLFW_REPEAT) {
       return;
@@ -192,13 +197,9 @@ int main(int argc, char **argv) {
    initGL();
 
    // Initialize everything else (mesh data, shaders, OpenGL states, etc.)
-   World _world(h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
-   world = &_world;
-
-   //CHRIS - had to add this bc it said the stack was getting corrupted
-   Camera *_camera = new Camera(h_uP, h_uV, h_uView); 
-   camera = _camera;
-
+   world = new World(h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
+   camera = new Camera(h_uP, h_uV, h_uView); 
+   
    do {
       step();
 
@@ -216,8 +217,7 @@ int main(int argc, char **argv) {
       window->drawText(spd_text, -0.1, 0.9);
    } while(window->isActive());
 
-   //CHRIS - this is slightly ugly
-   delete _camera;
+   deleteVars(world, camera);
 
    return 0;
 }
