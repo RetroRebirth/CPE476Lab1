@@ -45,13 +45,16 @@ void Camera::setView() {
 }
 
 void Camera::step(Window* window) {
-   updatePosition(window);
    setProjectionMatrix(window->width, window->height);
    setView();
+
+   pos = calcNewPos(window);
 }
 
-void Camera::updatePosition(Window* window) {
-   glm::vec3 viewVector = glm::normalize(lookAtPt() - pos);
+glm::vec3 Camera::calcNewPos(Window* window) {
+   glm::vec3 newPos = pos;
+
+   glm::vec3 viewVector = glm::normalize(lookAtPt() - newPos);
    glm::vec3 strafeVector = glm::normalize(glm::cross(viewVector, glm::vec3(0, 1, 0)));
    glm::vec3 crossVector = glm::normalize(glm::cross(viewVector, strafeVector));
    // Scale vectors
@@ -59,36 +62,39 @@ void Camera::updatePosition(Window* window) {
    strafeVector *= (speed * window->dt);
    crossVector *=(speed * window->dt);
 
-   glm::vec3 oldView = pos;
+   glm::vec3 oldPos = newPos;
    GLFWwindow* win = window->glfw_window;
    if (glfwGetKey(win, GLFW_KEY_W) == GLFW_PRESS) // Move forward
-      pos += viewVector;
+      newPos += viewVector;
    if (glfwGetKey(win, GLFW_KEY_S) == GLFW_PRESS) // Move backward
-      pos -= viewVector;
+      newPos -= viewVector;
    if (glfwGetKey(win, GLFW_KEY_A) == GLFW_PRESS) // Strafe left
-      pos -= strafeVector;
+      newPos -= strafeVector;
    if (glfwGetKey(win, GLFW_KEY_D) == GLFW_PRESS) // Strafe right
-      pos += strafeVector;
+      newPos += strafeVector;
    if (glfwGetKey(win, GLFW_KEY_Q) == GLFW_PRESS) // Move up
-      pos += crossVector;
+      newPos += crossVector;
    if (glfwGetKey(win, GLFW_KEY_E) == GLFW_PRESS) // Move down
-      pos -= crossVector;
+      newPos -= crossVector;
    
-   glm::normalize(moveDir);
+   // Calculate which direction we are moving
+   moveDir = newPos == oldPos ? glm::vec3(0, 0, 0) : glm::normalize(newPos - oldPos);
 
    // Bounding
    if (bounded) {
-      if (pos.x < -SIZE)
-         pos.x = -SIZE;
-      if (pos.x > SIZE)
-         pos.x = SIZE;
-      if (pos.z < -SIZE)
-         pos.z = -SIZE;
-      if (pos.z > SIZE)
-         pos.z = SIZE;
+      if (newPos.x < -SIZE)
+         newPos.x = -SIZE;
+      if (newPos.x > SIZE)
+         newPos.x = SIZE;
+      if (newPos.z < -SIZE)
+         newPos.z = -SIZE;
+      if (newPos.z > SIZE)
+         newPos.z = SIZE;
 
-      pos.y = 1;
+      newPos.y = 1;
    }
+
+   return newPos;
 }
 
 void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos, int g_width, int g_height) {

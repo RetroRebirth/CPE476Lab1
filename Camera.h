@@ -24,6 +24,7 @@ class Camera {
       void step(Window* window);
       void mouse_callback(GLFWwindow* window, double xpos, double ypos, int g_width, int g_height);
       void enter_callback(GLFWwindow* window, int entered, int g_width, int g_height);
+      glm::vec3 calcNewPos(Window* window);
    private:
       float theta;
       float phi;
@@ -32,7 +33,6 @@ class Camera {
       GLint h_uView;
 
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
-      void updatePosition(Window* window);
 };
 
 #endif
