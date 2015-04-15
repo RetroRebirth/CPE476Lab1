@@ -112,6 +112,17 @@ void Object::step(float dt) {
    draw();
 }
 
+/**
+ * @return Rotation angle to face in degrees (0-360) along Y-axis.
+ */
+float Object::calcYFacingAngle() {
+   float radians = atan(dir.z/dir.x);
+
+   // TODO make this work... please? :)
+
+   return radians * (180.0 / M_PI); // Convert to degrees
+}
+
 void Object::draw() {
    /*GLuint posBufID = bufIDs.pos;
    GLuint indBufID = bufIDs.ind;
@@ -138,7 +149,7 @@ void Object::draw() {
    glm::mat4 S = glm::scale(glm::mat4(1.0f), glm::vec3(radius, radius, radius));
    glm::mat4 T = glm::translate(glm::mat4(1.0f), pos);
    glm::mat4 RX = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(1.0, 0.0, 0.0));
-   glm::mat4 RY = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0, 1.0, 0.0));
+   glm::mat4 RY = glm::rotate(glm::mat4(1.0f), calcYFacingAngle(), glm::vec3(0.0, 1.0, 0.0));
    glm::mat4 RZ = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0, 0.0, 1.0));
 
    glm::mat4 MV = T*RX*RY*RZ*S;

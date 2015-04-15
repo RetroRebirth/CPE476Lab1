@@ -42,6 +42,7 @@ class Object {
       vector<float> computeNormals(vector<float> posBuf, vector<unsigned int> indBuf);
       float randF();
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
+      float calcYFacingAngle();
 };
 
 #endif
