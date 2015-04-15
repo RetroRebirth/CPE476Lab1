@@ -11,10 +11,10 @@ Object::Object(
       GLint _h_aPos,
       GLint _h_aNor) {
    // Default attribute values
-   collided = false;
+   collected = false;
    col = glm::vec3(0.313, 0.784, 0.470);
    shine = 800.0;
-   radius = 1.0;
+   radius = OBJ_SIZE;
 
    // Defined attribute values
    shapes = _shapes;
@@ -30,7 +30,7 @@ Object::Object(
    // Place the object randomly in the world
    pos = glm::vec3(2*randF()*SIZE - SIZE, 1.0, 2*randF()*SIZE - SIZE);
    dir = glm::normalize(glm::vec3(randF()-0.5, 0.0, randF()-0.5));
-   vel = INITIAL_OBJ_SPEED;
+   vel = OBJ_SPEED;
    
    // Position array of object
    const vector<float> &posBuf = shapes[0].mesh.positions;
@@ -57,15 +57,15 @@ glm::vec3 Object::calculateNewPos(float dt) {
    return pos + dir * vel * dt;
 }
 
-bool Object::collidedWithPlayer(glm::vec3 camPos, float dt, int *objCollected) {
+bool Object::collidedWithPlayer(glm::vec3 camPos, float dt, int *numCollected) {
    glm::vec3 testPos = calculateNewPos(dt);
    
    if (glm::distance(testPos, camPos) <= radius) {
       vel = 0;
-      collided = true;
+      collected = true;
       col = glm::vec3(1.0, 0.68, 0.0);
-      if (collided) {
-         (*objCollected)++;
+      if (collected) {
+         (*numCollected)++;
       }
       
       return true;
@@ -76,22 +76,22 @@ bool Object::collidedWithPlayer(glm::vec3 camPos, float dt, int *objCollected) {
 }
 
 bool Object::collidedWithWall(float dt) {
-   bool collided = false;
+   bool collidedWithWall = false;
    glm::vec3 testPos = calculateNewPos(dt);
    
    // Check boundaries
    if (testPos.x < -SIZE
       || testPos.x > SIZE) {
       dir.x = -dir.x;
-      collided = true;
+      collidedWithWall = true;
    }
    if (testPos.z < -SIZE 
       || testPos.z > SIZE) {
       dir.z = -dir.z;
-      collided = true;
+      collidedWithWall = true;
    }
 
-   return collided;
+   return collidedWithWall;
 }
 
 bool Object::collidedWithObj(Object o, float dt) {
@@ -109,6 +109,10 @@ bool Object::collidedWithObj(Object o, float dt) {
 }
 
 void Object::step(float dt) {
+   if (collected) {
+      radius -= dt * OBJ_SHRINK_RATE;
+   }
+
    pos = calculateNewPos(dt);
 
    draw();

@@ -8,7 +8,7 @@ class Object {
       glm::vec3 pos;
       glm::vec3 dir;
       float vel;
-      bool collided;
+      bool collected;
       glm::vec3 col;
       float shine;
       float radius;

@@ -30,7 +30,9 @@
 #define DELTA_SPEED 0.1
 #define MIN_SPEED 0.1
 #define MAX_SPEED 20.0
-#define INITIAL_OBJ_SPEED 20.0
+#define OBJ_SPEED 20.0
+#define OBJ_SIZE 1.0
+#define OBJ_SHRINK_RATE 0.5
 
 using namespace std;
 

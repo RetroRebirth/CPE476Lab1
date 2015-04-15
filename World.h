@@ -8,8 +8,7 @@
 
 class World {
    public:
-      int objCount;
-      int objCollected;
+      int collected;
 
       World(
          GLint _h_uAClr,
@@ -24,6 +23,7 @@ class World {
       void step(Camera *camera, Window* window);
       void initGround();
       void drawGround();
+      int numLeft();
    private:
       vector<tinyobj::shape_t> shapes; // TODO map of mesh data
       vector<tinyobj::material_t> materials;

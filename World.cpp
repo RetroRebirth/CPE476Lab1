@@ -12,8 +12,7 @@ World::World(
       GLint _h_aNor) {
    // Default attribute values
    objStartTime = 0.0;
-   objCount = 0;
-   objCollected = 0;
+   collected = 0;
 
    // Defined attribute values
    h_uAClr = _h_uAClr;
@@ -29,33 +28,38 @@ World::World(
 }
 
 World::~World() {
-   // TODO 'delete' lists of objects
-   for (vector<Object*>::iterator it = objects.begin(); it != objects.end(); ++it) {
-      delete *it;
+   for (int i=0; i<objects.size(); ++i) { 
+      delete objects[i];
    }
 }
 
 void World::step(Camera *camera, Window* window) {
    // Create a new object every SECS_PER_OBJ
-   if (objCount < MAX_OBJS && window->time - objStartTime >= SECS_PER_OBJ) {
+   if (numLeft() < MAX_OBJS && window->time - objStartTime >= SECS_PER_OBJ) {
       createObject();
       objStartTime = window->time;
-      objCount++;
    }
 
-   for (vector<Object*>::iterator it1 = activeObjects.begin(); it1 != activeObjects.end(); ++it1) { 
-      if ((*it1)->collidedWithPlayer(camera->view, window->dt, &objCollected)) {
-         it1 = activeObjects.erase(it1);
+// TODO I know I said looping with ints is bad but this link below proved otherwise. Use it if getting segfaults
+// http://gamedev.stackexchange.com/questions/46584/how-to-remove-an-object-from-a-stdvector
+   for (int i=0; i<activeObjects.size(); ++i) { 
+      Object* obj1 = activeObjects[i];
+      if (obj1->collidedWithPlayer(camera->view, window->dt, &collected)) {
+         activeObjects[i] = activeObjects.back();
+         activeObjects.pop_back();
+         --i;
          continue;
       }
-      if ((*it1)->collidedWithWall(window->dt)) {
+      if (obj1->collidedWithWall(window->dt)) {
          continue;
       }
-      for (vector<Object*>::iterator it2 = activeObjects.begin(); it2 != activeObjects.end(); ++it2) {
-         if (it1 != it2) {
-            if ((*it1)->collidedWithObj(**it2, window->dt)) {
-               break;
-            }
+      for (int j=0; j<activeObjects.size(); ++j) { 
+         Object* obj2 = activeObjects[j];
+         if (obj1 == obj2) {
+            continue;
+         }
+         if (obj1->collidedWithObj(*obj2, window->dt)) {
+            break;
          }
       }
    }
@@ -63,14 +67,17 @@ void World::step(Camera *camera, Window* window) {
    camera->step(window);
    drawGround();
 
-   for (vector<Object*>::iterator it = objects.begin(); it != objects.end(); ++it) {
-      /*if (not in activeObjects) {
-         //shrink
+   for (int i=0; i<objects.size(); ++i) { 
+      Object* obj = objects[i];
+      // If the object has finished shrinking, remove it
+      if (obj->radius <= 0.0) {
+         objects[i] = objects.back();
+         objects.pop_back();
+         --i;
+         delete obj;
+      } else {
+         obj->step(window->dt);
       }
-      else {
-         //don't shrink
-      }*/
-      (*it)->step(window->dt);
    }
 }
 
@@ -219,3 +226,6 @@ void World::loadShapes(const string &objFile) {
    resize_obj(shapes);
 }
 
+int World::numLeft() {
+   return activeObjects.size();
+}
