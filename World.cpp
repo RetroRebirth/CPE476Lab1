@@ -45,8 +45,6 @@ void World::step(Camera *camera, Window* window) {
    for (int i=0; i<activeObjects.size(); ++i) { 
       Object* obj1 = activeObjects[i];
       if (obj1->collidedWithPlayer(camera->calcNewPos(window), window->dt)) {
-         // Increment the score
-         numCollected++;
          // Delete object from collision detection
          activeObjects[i] = activeObjects.back();
          activeObjects.pop_back();
@@ -75,6 +73,8 @@ void World::step(Camera *camera, Window* window) {
          objects.pop_back();
          --i;
          delete obj;
+         // Increment the score
+         numCollected++;
          continue;
       }
       if (obj->collidedWithPlayer(camera->calcNewPos(window), window->dt)) {
