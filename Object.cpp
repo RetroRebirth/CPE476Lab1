@@ -129,8 +129,6 @@ float Object::calcYFacingAngle() {
       radians = 360 - radians;
    }
 
-   printf("x: %lf z: %lf rad: %lf\n", dir.x, dir.z, radians);
-
    return radians * (180.0 / M_PI); // Convert to degrees
 }
 
