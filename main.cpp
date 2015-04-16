@@ -157,6 +157,7 @@ void enter_callback(GLFWwindow* win, int entered) {
 }
 
 void deleteVars(World *world, Camera *camera) {
+   delete window;
    delete world;
    delete camera;
 }
@@ -185,8 +186,7 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
 
 /** MAIN **/
 int main(int argc, char **argv) {
-   Window _window(1024, 768, "CPE 476 Lab 1");
-   window = &_window;
+   window = new Window(1024, 768, "CPE 476 Lab 1");
 
    // Set input callbacks
    glfwSetWindowSizeCallback(window->glfw_window, window_size_callback);
