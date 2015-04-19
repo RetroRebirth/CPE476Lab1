@@ -1,5 +1,4 @@
 #include "Object.h"
-
 Object::Object(
       vector<tinyobj::shape_t> &_shapes,
       vector<tinyobj::material_t> &_materials,
@@ -170,12 +169,13 @@ void Object::draw() {
 }
 
 float Object::randF() {
-   return (float)rand() / RAND_MAX;
+  return Util::randF();
 }
 
 inline void Object::safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
-   if (handle >= 0)
-      glUniformMatrix4fv(handle, 1, GL_FALSE, data);
+   //if (handle >= 0)
+     // glUniformMatrix4fv(handle, 1, GL_FALSE, data);
+  Util::safe_glUniformMatrix4fv(handle, data);
 }
 
 vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> indBuf) {

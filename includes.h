@@ -19,6 +19,7 @@
 #include "glm/gtc/matrix_transform.hpp" //perspective, trans etc
 #include "glm/gtc/type_ptr.hpp" //value_ptr
 #include "tiny_obj_loader.h"
+#include "Util.h"
 
 #define MAX_OBJS 40
 #define SECS_PER_OBJ 2.0
