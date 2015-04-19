@@ -36,7 +36,7 @@ World::~World() {
 void World::step(Camera *camera, Window* window) {
    // Create a new object every SECS_PER_OBJ
    if (numLeft() < MAX_OBJS && window->time - objStartTime >= SECS_PER_OBJ) {
-      //createObject();
+      createObject();
       objStartTime = window->time;
    }
 

@@ -27,7 +27,7 @@ class Object {
 
       void init();
       void load(const string &meshName);
-      void resize_obj(std::vector<tinyobj::shape_t> &shapes);
+      void Object::resize_obj(std::vector<tinyobj::shape_t> &shapes);
       void step(float dt);
       void draw();
       bool collidedWithPlayer(glm::vec3 camPos, float dt);

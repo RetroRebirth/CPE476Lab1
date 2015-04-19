@@ -37,9 +37,8 @@ class World {
 
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
       void createObject();
-      //void resize_obj(std::vector<tinyobj::shape_t> &shapes);
-      //void loadShapes(const string &objFile);
-      void loadShapes();
+      void resize_obj(std::vector<tinyobj::shape_t> &shapes);
+      void loadShapes(const string &objFile);
 };
 
 #endif

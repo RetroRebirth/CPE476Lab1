@@ -340,7 +340,7 @@ vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> 
    return norBuf;
 }
 
-void Object::resize_obj(std::vector<tinyobj::shape_t> &shapes) {
+void World::resize_obj(std::vector<tinyobj::shape_t> &shapes) {
    /*float minX, minY, minZ;
    float maxX, maxY, maxZ;
    float scaleX, scaleY, scaleZ;
