@@ -11,3 +11,6 @@
  &nbsp;&nbsp;&nbsp;&nbsp;  <code>git commit -m "message"</code>  
  &nbsp;&nbsp;&nbsp;&nbsp;  <code>git rebase --continue</code>  
 <code>git push</code>  
+
+<h1>Issue Tracking</h1>
+<a href="https://bitbucket.org/japanesefestival/cpe476-final-project/issues?status=new&status=open">Go to BitBucket</a>
