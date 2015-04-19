@@ -35,7 +35,6 @@ class World {
       vector<Object*> activeObjects;
       double objStartTime;
 
-      float randF();
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
       void createObject();
       void resize_obj(std::vector<tinyobj::shape_t> &shapes);

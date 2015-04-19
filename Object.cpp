@@ -27,8 +27,8 @@ Object::Object(
    h_aNor = _h_aNor;
 
    // Place the object randomly in the world
-   pos = glm::vec3(2*randF()*SIZE - SIZE, 1.0, 2*randF()*SIZE - SIZE);
-   dir = glm::normalize(glm::vec3(randF()-0.5, 0.0, randF()-0.5));
+   pos = glm::vec3(2*Util::randF()*SIZE - SIZE, 1.0, 2*Util::randF()*SIZE - SIZE);
+   dir = glm::normalize(glm::vec3(Util::randF()-0.5, 0.0, Util::randF()-0.5));
    vel = OBJ_SPEED;
    
    // Position array of object
@@ -166,10 +166,6 @@ void Object::draw() {
 
    int nIndices = (int)shapes[0].mesh.indices.size();
    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-}
-
-float Object::randF() {
-  return Util::randF();
 }
 
 inline void Object::safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {

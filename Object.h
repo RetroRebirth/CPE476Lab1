@@ -40,7 +40,6 @@ class Object {
       GLint h_uAClr, h_uDClr, h_uSClr, h_uS;
 
       vector<float> computeNormals(vector<float> posBuf, vector<unsigned int> indBuf);
-      float randF();
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
       float calcYFacingAngle();
 };

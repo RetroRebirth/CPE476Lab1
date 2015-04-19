@@ -20,11 +20,6 @@ GLint h_uM;
 GLint h_uView;
 GLint h_uAClr, h_uDClr, h_uSClr, h_uS;
 
-/** UTILITY **/
-float randF() {
-   return (float)rand() / RAND_MAX;
-}
-
 inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
    if (handle >= 0)
       glUniformMatrix4fv(handle, 1, GL_FALSE, data);

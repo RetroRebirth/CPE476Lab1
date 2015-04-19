@@ -89,10 +89,6 @@ void World::step(Camera *camera, Window* window) {
    drawGround();
 }
 
-float World::randF() {
-   return (float)rand() / RAND_MAX;
-}
-
 inline void World::safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
    if (handle >= 0)
       glUniformMatrix4fv(handle, 1, GL_FALSE, data);
