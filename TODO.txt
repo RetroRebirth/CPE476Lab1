@@ -1,8 +1,8 @@
 IN PROGRESS:
-   Chris - game class
    Alanna - util class
 
 OPEN:
+   game class
    matrix stack
    text on screen without glut (fps in top-right)
    stringmap of mesh files
