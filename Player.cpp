@@ -18,7 +18,7 @@ void Player::draw() {
    if (object != NULL) {
       object->pos = calculatePos();
 
-      object->draw();
+      //object->draw();
    }
 }
 
