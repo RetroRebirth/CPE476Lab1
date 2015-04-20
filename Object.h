@@ -45,7 +45,10 @@ class Object {
       bool collidedWithObj(Object o, float dt);
       glm::vec3 calculateNewPos(float dt);
    private:
-      glm::mat4 modelMatrix;
+      //glm::mat4 modelMatrix;
+      glm::mat4 scalerMat;
+      glm::mat4 rotateMat;
+      glm::mat4 transMat;
       GLuint posBufID;
       GLuint indBufID;
       GLuint norBufID;

@@ -22,6 +22,9 @@
 #include "Util.h"
 #include "MatrixStack.h"
 
+
+#define EXTRA_FILE_NAME "bunny.obj"
+#define WALL_FILE_NAME "cube.obj"
 #define MAX_OBJS 40
 #define SECS_PER_OBJ 2.0
 #define SIZE 20.0

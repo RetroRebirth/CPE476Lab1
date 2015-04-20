@@ -152,7 +152,7 @@ void World::drawGround() {
    glUniform3f(h_uSClr, 0.0, 0.0, 0.0);
    glUniform1f(h_uS, 1.0);
    // Apply translation
-   glm::vec3 trans = glm::vec3(0.0, 0.0, 0.0);
+   glm::vec3 trans = glm::vec3(0.0, 0.0f, 0.0);
    glm::mat4 T = glm::translate(glm::mat4(1.0f), trans);
    safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T));
 

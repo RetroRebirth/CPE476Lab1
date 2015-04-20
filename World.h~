@@ -42,6 +42,7 @@ class World {
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
       void createExtra(const string &meshName);
       void setupOverWorld();
+      void drawOverWorld();
 };
 
 #endif

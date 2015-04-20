@@ -6,9 +6,6 @@
 #include "Window.h"
 #include "Camera.h"
 
-#define EXTRA_FILE_NAME "bunny.obj"
-#define WALL_FILE_NAME "cube.obj"
-
 class World {
    public:
       int numCollected;
