@@ -44,8 +44,10 @@ class Object {
       bool collidedWithWall(float dt);
       bool collidedWithObj(Object o, float dt);
       glm::vec3 calculateNewPos(float dt);
+      void setDirectional(bool dir);
+      
    private:
-      glm::mat4 modelMatrix;
+      //glm::mat4 modelMatrix;
       glm::mat4 scalerMat;
       glm::mat4 rotateMat;
       glm::mat4 transMat;

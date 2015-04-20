@@ -36,10 +36,15 @@ Object::Object(
    h_aPos = _h_aPos;
    h_aNor = _h_aNor;
 
+   pos = glm::vec3(0.0f, 0.0f, 0.0f);
+   dir = glm::vec3(0.0f, 0.0f, 0.0f);
+   vel = 0.0f;
+   
+   directional = false;
    // Place the object randomly in the world
-   pos = glm::vec3(2*Util::randF()*SIZE - SIZE, 1.0, 2*Util::randF()*SIZE - SIZE);
+   /*pos = glm::vec3(2*Util::randF()*SIZE - SIZE, 1.0, 2*Util::randF()*SIZE - SIZE);
    dir = glm::normalize(glm::vec3(Util::randF()-0.5, 0.0, Util::randF()-0.5));
-   vel = OBJ_SPEED;
+   vel = OBJ_SPEED;*/
    
    //printf("Creating object at (%f, %f, %f)!\n",pos.x, pos.y, pos.z);
 }
@@ -60,6 +65,11 @@ void Object::setDir(glm::vec3 direction) {
 
 void Object::setSpeed(float speed) {
    vel = speed;
+}
+
+// controls whether or not the object is affected by directional rotation
+void Object::setDirectional(bool dir) {
+   directional = dir;
 }
 
 // scale object by flat amount, applied on top of scaling done by the radius
@@ -268,10 +278,13 @@ void Object::draw()
    glm::vec3 position = pos + glm::vec3(0.0f, -0.5f, 0.0f);
    glm::mat4 S = glm::scale(glm::mat4(1.0f), glm::vec3(radius, radius, radius)) * scalerMat;
    glm::mat4 T = glm::translate(glm::mat4(1.0f), position) * transMat;
-   glm::mat4 RX = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(1.0, 0.0, 0.0));
-   glm::mat4 RY = glm::rotate(glm::mat4(1.0f), calcYFacingAngle(), glm::vec3(0.0, 1.0, 0.0));
-   glm::mat4 RZ = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0, 0.0, 1.0));
-   glm::mat4 R = RX*RY*RZ*rotateMat;
+   glm::mat4 R = rotateMat;
+   if (directional) {
+      glm::mat4 RX = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(1.0, 0.0, 0.0));
+      glm::mat4 RY = glm::rotate(glm::mat4(1.0f), calcYFacingAngle(), glm::vec3(0.0, 1.0, 0.0));
+      glm::mat4 RZ = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0, 0.0, 1.0));
+      R *= RX*RY*RZ;
+   }
 
    glm::mat4 MV = T*R*S;
 

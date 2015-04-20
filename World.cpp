@@ -169,14 +169,14 @@ void World::drawOverWorld() {
 void World::setupOverWorld() {
    Object* box = new Object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
    box->load(WALL_FILE_NAME);
-   box->setPos(glm::vec3(-10.0f, 1.0f, 0.0f));
+   box->translate(glm::vec3(-10.0f, 1.0f, 0.0f));
    //box->rotate(45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
    
    structures.push_back(box);
    
    Object* booth = new Object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
    booth->load(WALL_FILE_NAME);
-   box->setPos(glm::vec3(10.0f, 1.0f, 0.0f));
+   booth->translate(glm::vec3(10.0f, 1.0f, 0.0f));
    //box->rotate(45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
    structures.push_back(booth);
 }
@@ -184,6 +184,9 @@ void World::setupOverWorld() {
 void World::createExtra(const string &meshName) {
    Object* extra = new Object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
    extra->load(meshName);
+   extra->setPos(glm::vec3(2*Util::randF()*SIZE - SIZE, 1.0, 2*Util::randF()*SIZE - SIZE));
+   extra->setDir(glm::normalize(glm::vec3(Util::randF()-0.5, 0.0, Util::randF()-0.5)));
+   extra->setSpeed(OBJ_SPEED);
    extras.push_back(extra);
 }
 

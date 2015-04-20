@@ -44,6 +44,8 @@ class Object {
       bool collidedWithWall(float dt);
       bool collidedWithObj(Object o, float dt);
       glm::vec3 calculateNewPos(float dt);
+      void setDirectional(bool dir);
+      
    private:
       //glm::mat4 modelMatrix;
       glm::mat4 scalerMat;
@@ -58,6 +60,7 @@ class Object {
       GLint h_aPos, h_aNor;
       GLint h_uM;
       GLint h_uAClr, h_uDClr, h_uSClr, h_uS;
+      bool directional;
 
       vector<float> computeNormals(vector<float> posBuf, vector<unsigned int> indBuf);
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
