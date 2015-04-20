@@ -23,30 +23,46 @@ World::World(
    h_aPos = _h_aPos;
    h_aNor = _h_aNor;
 
+<<<<<<< HEAD
    //loadExtras();//objectFiles[0]);
    initGround();
    setupOverWorld();
+=======
+   loadShapes(objectFiles[0]);
+   initGround();
+>>>>>>> updating
 }
 
 World::~World() {
    for (int i=0; i<objects.size(); ++i) { 
       delete objects[i];
    }
+<<<<<<< HEAD
    for (int i=0; i<extras.size(); ++i) { 
       delete extras[i];
    } 
+=======
+>>>>>>> updating
 }
 
 void World::step(Camera *camera, Window* window) {
    // Create a new object every SECS_PER_OBJ
    if (numLeft() < MAX_OBJS && window->time - objStartTime >= SECS_PER_OBJ) {
+<<<<<<< HEAD
       createExtra(EXTRA_FILE_NAME);
+=======
+      createObject();
+>>>>>>> updating
       objStartTime = window->time;
    }
 
 // TODO I know I said looping with ints is bad but this link below proved otherwise. Use it if getting segfaults
 // http://gamedev.stackexchange.com/questions/46584/how-to-remove-an-object-from-a-stdvector
+<<<<<<< HEAD
    /*for (int i=0; i<activeObjects.size(); ++i) { 
+=======
+   for (int i=0; i<activeObjects.size(); ++i) { 
+>>>>>>> updating
       Object* obj1 = activeObjects[i];
       if (obj1->collidedWithPlayer(camera->calcNewPos(window), window->dt)) {
          // Delete object from collision detection
@@ -70,7 +86,11 @@ void World::step(Camera *camera, Window* window) {
    }
 
    for (int i=0; i<objects.size(); ++i) { 
+<<<<<<< HEAD
       bject* obj = objects[i];
+=======
+      Object* obj = objects[i];
+>>>>>>> updating
       // If the object has finished shrinking, remove it
       if (obj->radius <= 0.0) {
          objects[i] = objects.back();
@@ -87,15 +107,25 @@ void World::step(Camera *camera, Window* window) {
       }
       // Update the object normally
       obj->step(window->dt);
+<<<<<<< HEAD
    }*/
    for (int i=0; i<extras.size(); ++i) {
       Object* extra = extras[i];
       extra->step(window->dt);
+=======
+>>>>>>> updating
    }
 
    camera->step(window);
    drawGround();
+<<<<<<< HEAD
    drawOverWorld();
+=======
+}
+
+float World::randF() {
+   return (float)rand() / RAND_MAX;
+>>>>>>> updating
 }
 
 inline void World::safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
@@ -152,13 +182,18 @@ void World::drawGround() {
    glUniform3f(h_uSClr, 0.0, 0.0, 0.0);
    glUniform1f(h_uS, 1.0);
    // Apply translation
+<<<<<<< HEAD
    glm::vec3 trans = glm::vec3(0.0, 0.0f, 0.0);
+=======
+   glm::vec3 trans = glm::vec3(0.0, 0.0, 0.0);
+>>>>>>> updating
    glm::mat4 T = glm::translate(glm::mat4(1.0f), trans);
    safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T));
 
    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
+<<<<<<< HEAD
 void World::drawOverWorld() {
    for (int i=0; i<structures.size(); ++i) {
       Object* structure = structures[i];
@@ -192,4 +227,88 @@ void World::createExtra(const string &meshName) {
 
 int World::numLeft() {
    return extras.size();
+=======
+void World::createObject() {
+   Object* object = new Object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
+   objects.push_back(object);
+   activeObjects.push_back(object);
+}
+
+void World::resize_obj(std::vector<tinyobj::shape_t> &shapes) {
+   float minX, minY, minZ;
+   float maxX, maxY, maxZ;
+   float scaleX, scaleY, scaleZ;
+   float shiftX, shiftY, shiftZ;
+   float epsilon = 0.001;
+
+   minX = minY = minZ = 1.1754E+38F;
+   maxX = maxY = maxZ = -1.1754E+38F;
+
+   //Go through all vertices to determine min and max of each dimension
+   for (size_t i = 0; i < shapes.size(); i++) {
+      for (size_t v = 0; v < shapes[i].mesh.positions.size() / 3; v++) {
+         if(shapes[i].mesh.positions[3*v+0] < minX)
+            minX = shapes[i].mesh.positions[3*v+0];
+         if(shapes[i].mesh.positions[3*v+0] > maxX)
+            maxX = shapes[i].mesh.positions[3*v+0];
+
+         if(shapes[i].mesh.positions[3*v+1] < minY)
+            minY = shapes[i].mesh.positions[3*v+1];
+         if(shapes[i].mesh.positions[3*v+1] > maxY)
+            maxY = shapes[i].mesh.positions[3*v+1];
+
+         if(shapes[i].mesh.positions[3*v+2] < minZ)
+            minZ = shapes[i].mesh.positions[3*v+2];
+         if(shapes[i].mesh.positions[3*v+2] > maxZ)
+            maxZ = shapes[i].mesh.positions[3*v+2];
+      }
+   }
+   //From min and max compute necessary scale and shift for each dimension
+   float maxExtent, xExtent, yExtent, zExtent;
+   xExtent = maxX-minX;
+   yExtent = maxY-minY;
+   zExtent = maxZ-minZ;
+   if (xExtent >= yExtent && xExtent >= zExtent) {
+      maxExtent = xExtent;
+   }
+   if (yExtent >= xExtent && yExtent >= zExtent) {
+      maxExtent = yExtent;
+   }
+   if (zExtent >= xExtent && zExtent >= yExtent) {
+      maxExtent = zExtent;
+   }
+   scaleX = 2.0 /maxExtent;
+   shiftX = minX + (xExtent/ 2.0);
+   scaleY = 2.0 / maxExtent;
+   shiftY = minY + (yExtent / 2.0);
+   scaleZ = 2.0/ maxExtent;
+   shiftZ = minZ + (zExtent)/2.0;
+
+   // Go through all verticies shift and scale them
+   for (size_t i = 0; i < shapes.size(); i++) {
+      for (size_t v = 0; v < shapes[i].mesh.positions.size() / 3; v++) {
+         shapes[i].mesh.positions[3*v+0] = (shapes[i].mesh.positions[3*v+0] - shiftX) * scaleX;
+         assert(shapes[i].mesh.positions[3*v+0] >= -1.0 - epsilon);
+         assert(shapes[i].mesh.positions[3*v+0] <= 1.0 + epsilon);
+         shapes[i].mesh.positions[3*v+1] = (shapes[i].mesh.positions[3*v+1] - shiftY) * scaleY;
+         assert(shapes[i].mesh.positions[3*v+1] >= -1.0 - epsilon);
+         assert(shapes[i].mesh.positions[3*v+1] <= 1.0 + epsilon);
+         shapes[i].mesh.positions[3*v+2] = (shapes[i].mesh.positions[3*v+2] - shiftZ) * scaleZ;
+         assert(shapes[i].mesh.positions[3*v+2] >= -1.0 - epsilon);
+         assert(shapes[i].mesh.positions[3*v+2] <= 1.0 + epsilon);
+      }
+   }
+}
+
+void World::loadShapes(const string &objFile) {
+   string err = tinyobj::LoadObj(shapes, materials, objFile.c_str());
+   if(!err.empty()) {
+      cerr << err << endl;
+   }
+   resize_obj(shapes);
+}
+
+int World::numLeft() {
+   return activeObjects.size();
+>>>>>>> updating
 }
