@@ -7,6 +7,7 @@
 #include "Camera.h"
 
 #define EXTRA_FILE_NAME "bunny.obj"
+#define WALL_FILE_NAME "cube.obj"
 
 class World {
    public:
@@ -29,6 +30,7 @@ class World {
    private:
       vector<tinyobj::shape_t> shapes; // TODO map of mesh data
       vector<Object*> extras; // bunnies for now.
+      vector<Object*> structures;
       vector<tinyobj::material_t> materials;
       GLint h_aPos, h_aNor;
       GLint h_uM;
@@ -38,7 +40,9 @@ class World {
       double objStartTime;
 
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
-      void createObject(const string &meshName);
+      void createExtra(const string &meshName);
+      void setupOverWorld();
+      void drawOverWorld();
 };
 
 #endif

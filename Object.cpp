@@ -1,4 +1,5 @@
 #include "Object.h"
+#include "MatrixStack.h"
 
 Object::Object(
       vector<tinyobj::shape_t> &_shapes,
@@ -20,6 +21,7 @@ Object::Object(
    col = glm::vec3(0.313, 0.784, 0.470);
    shine = 800.0;
    radius = OBJ_SIZE;
+   modelMatrix = glm::mat4(1.0f);
 
    // Defined attribute values
    shapes = _shapes;
@@ -36,6 +38,8 @@ Object::Object(
    pos = glm::vec3(2*Util::randF()*SIZE - SIZE, 1.0, 2*Util::randF()*SIZE - SIZE);
    dir = glm::normalize(glm::vec3(Util::randF()-0.5, 0.0, Util::randF()-0.5));
    vel = OBJ_SPEED;
+   
+   //printf("Creating object at (%f, %f, %f)!\n",pos.x, pos.y, pos.z);
 }
 
 Object::~Object() {}
@@ -54,6 +58,33 @@ void Object::setDir(glm::vec3 direction) {
 
 void Object::setSpeed(float speed) {
    vel = speed;
+}
+
+// scale object by flat amount... using matrix stack for convenience
+void Object::scale(glm::vec3 scaler) {
+   MatrixStack scaleMat;
+   scaleMat.pushMatrix();
+   scaleMat.scale(scaler);
+   modelMatrix *= scaleMat.topMatrix();
+   scaleMat.popMatrix();
+}
+
+// rotate object by flat amount... using matrix stack for convenience... this will be applied on top of directional rotations
+void Object::rotate(float angle, glm::vec3 axis) {
+   MatrixStack rotateMat;
+   rotateMat.pushMatrix();
+   rotateMat.rotate(angle, axis);
+   modelMatrix *= rotateMat.topMatrix();
+   rotateMat.popMatrix();
+}
+
+// translate object by flat amount... using matrix stack for convenience... this will be applied on top of positional translations
+void Object::translate(glm::vec3 trans) {
+   MatrixStack transMat;
+   transMat.pushMatrix();
+   transMat.translate(trans);
+   modelMatrix *= transMat.topMatrix();
+   transMat.popMatrix();
 }
 
 bool Object::collidedWithPlayer(glm::vec3 camPos, float dt) {
@@ -250,7 +281,7 @@ void Object::draw()
    glm::mat4 RY = glm::rotate(glm::mat4(1.0f), calcYFacingAngle(), glm::vec3(0.0, 1.0, 0.0));
    glm::mat4 RZ = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0, 0.0, 1.0));
 
-   glm::mat4 MV = T*RX*RY*RZ*S;
+   glm::mat4 MV = T*RX*RY*RZ*S*modelMatrix;
 
    safe_glUniformMatrix4fv(h_uM, glm::value_ptr(MV));
 	

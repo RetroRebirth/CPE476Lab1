@@ -33,6 +33,11 @@ class Object {
       void setDir(glm::vec3 direction);
       void setSpeed(float speed);
       
+      /* functions dealing with matrix stack transformations */
+      void scale(glm::vec3 scaler); // change the size relative to the normal size =)
+      void rotate(float angle, glm::vec3 axis); // rotations other than the directional rotations
+      void translate(glm::vec3 trans); // translations other than position change... be careful with this one
+      
       void step(float dt);
       void draw();
       bool collidedWithPlayer(glm::vec3 camPos, float dt);
@@ -40,6 +45,7 @@ class Object {
       bool collidedWithObj(Object o, float dt);
       glm::vec3 calculateNewPos(float dt);
    private:
+      glm::mat4 modelMatrix;
       GLuint posBufID;
       GLuint indBufID;
       GLuint norBufID;
