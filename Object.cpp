@@ -44,6 +44,18 @@ glm::vec3 Object::calculateNewPos(float dt) {
    return pos + dir * vel * dt;
 }
 
+void Object::setPos(glm::vec3 position) {
+   pos = position;
+}
+
+void Object::setDir(glm::vec3 direction) {
+   dir = direction;
+}
+
+void Object::setSpeed(float speed) {
+   vel = speed;
+}
+
 bool Object::collidedWithPlayer(glm::vec3 camPos, float dt) {
    glm::vec3 testPos = calculateNewPos(dt);
    
@@ -93,11 +105,11 @@ bool Object::collidedWithObj(Object o, float dt) {
 }
 
 void Object::step(float dt) {
-   if (collected) {
+   /*if (collected) {
       radius -= dt * OBJ_SHRINK_RATE;
-   }
+   }*/
 
-   pos = calculateNewPos(dt);
+   //pos = calculateNewPos(dt);
    draw();
 }
 
@@ -179,21 +191,23 @@ void Object::init()
 	glBindBuffer(GL_ARRAY_BUFFER, posBufID);
 	glBufferData(GL_ARRAY_BUFFER, posBuf.size()*sizeof(float), &posBuf[0], GL_STATIC_DRAW);
 	
-	// Send the normal array (if it exists) to the GPU
-	const vector<float> &norBuf = shapes[0].mesh.normals;
-	if(!norBuf.empty()) {
-		glGenBuffers(1, &norBufID);
-		glBindBuffer(GL_ARRAY_BUFFER, norBufID);
-		glBufferData(GL_ARRAY_BUFFER, norBuf.size()*sizeof(float), &norBuf[0], GL_STATIC_DRAW);
-	} else {
-		norBufID = 0;
-	}
-	
 	// Send the index array to the GPU
 	const vector<unsigned int> &indBuf = shapes[0].mesh.indices;
 	glGenBuffers(1, &indBufID);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufID);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indBuf.size()*sizeof(unsigned int), &indBuf[0], GL_STATIC_DRAW);
+	
+	// Send the normal array (if it exists) to the GPU
+	const vector<float> norBuf = computeNormals(posBuf, indBuf);
+	if(!norBuf.empty()) { 
+		glGenBuffers(1, &norBufID);
+		glBindBuffer(GL_ARRAY_BUFFER, norBufID);
+		glBufferData(GL_ARRAY_BUFFER, norBuf.size()*sizeof(float), &norBuf[0], GL_STATIC_DRAW);
+	} else {
+	   printf("Uh Oh: normal buffer is empty\n");
+		norBufID = 0;
+	}
+	
 	
 	// Unbind the arrays
 	glBindBuffer(GL_ARRAY_BUFFER, 0);

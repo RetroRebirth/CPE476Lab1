@@ -6,3 +6,9 @@ LIBFLAGS= -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -lglut libg
 
 all:
 	$(CC) $(CFLAGS) $(SOURCES) $(LIBFLAGS)
+
+rebase:
+	git add . 
+	git commit -m "$(msg)"
+	git fetch
+	git rebase origin/master

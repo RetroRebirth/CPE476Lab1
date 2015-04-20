@@ -28,6 +28,11 @@ class Object {
       void init();
       void load(const string &meshName);
       void resize_obj();
+      
+      void setPos(glm::vec3 position);
+      void setDir(glm::vec3 direction);
+      void setSpeed(float speed);
+      
       void step(float dt);
       void draw();
       bool collidedWithPlayer(glm::vec3 camPos, float dt);
