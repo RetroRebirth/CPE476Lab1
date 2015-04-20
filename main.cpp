@@ -194,7 +194,7 @@ int main(int argc, char **argv) {
    // Initialize everything else (mesh data, shaders, OpenGL states, etc.)
    world = new World(h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
    camera = new Camera(h_uP, h_uV, h_uView); 
-   
+
    do {
       step();
 
