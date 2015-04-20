@@ -6,6 +6,8 @@
 #include "Window.h"
 #include "Camera.h"
 
+#define EXTRA_FILE_NAME "bunny.obj"
+
 class World {
    public:
       int numCollected;
@@ -26,20 +28,17 @@ class World {
       int numLeft();
    private:
       vector<tinyobj::shape_t> shapes; // TODO map of mesh data
+      vector<Object*> extras; // bunnies for now.
       vector<tinyobj::material_t> materials;
       GLint h_aPos, h_aNor;
       GLint h_uM;
       GLint h_uAClr, h_uDClr, h_uSClr, h_uS;
       bufID_t groundBufIDs;
       vector<Object*> objects;
-      vector<Object*> activeObjects;
       double objStartTime;
 
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
-      void createObject();
-      //void resize_obj(std::vector<tinyobj::shape_t> &shapes);
-      //void loadShapes(const string &objFile);
-      void loadShapes();
+      void createExtra();
 };
 
 #endif

@@ -35,26 +35,8 @@ Object::Object(
    // Place the object randomly in the world
    pos = glm::vec3(2*Util::randF()*SIZE - SIZE, 1.0, 2*Util::randF()*SIZE - SIZE);
    dir = glm::normalize(glm::vec3(Util::randF()-0.5, 0.0, Util::randF()-0.5));
-   vel = OBJ_SPEED;
-   
-   // Position array of object
-  /* const vector<float> &posBuf = shapes[0].mesh.positions;
-   glGenBuffers(1, &bufIDs.pos);
-   glBindBuffer(GL_ARRAY_BUFFER, bufIDs.pos);
-   glBufferData(GL_ARRAY_BUFFER, posBuf.size()*sizeof(float), &posBuf[0], GL_STATIC_DRAW);
-
-   // Index array of object
-   const vector<unsigned int> &indBuf = shapes[0].mesh.indices;
-   glGenBuffers(1, &bufIDs.ind);
-   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufIDs.ind);
-   glBufferData(GL_ELEMENT_ARRAY_BUFFER, indBuf.size()*sizeof(unsigned int), &indBuf[0], GL_STATIC_DRAW);
-
-   // Normal array of ground
-   vector<float> norBuf = computeNormals(posBuf, indBuf);
-   glGenBuffers(1, &bufIDs.nor);
-   glBindBuffer(GL_ARRAY_BUFFER, bufIDs.nor);
-   glBufferData(GL_ARRAY_BUFFER, norBuf.size()*sizeof(float), &norBuf[0], GL_STATIC_DRAW);
-   */
+   vel = OBJ_SPEED;fferData(GL_ARRAY_BUFFER, norBuf.size()*sizeof(float), &norBuf[0], GL_STATIC_DRAW);
+  
 }
 
 Object::~Object() {}
@@ -117,8 +99,7 @@ void Object::step(float dt) {
    }
 
    pos = calculateNewPos(dt);
-
-   draw();
+   draw(h_aPos, h_aNor);
 }
 
 /**
@@ -140,6 +121,7 @@ float Object::calcYFacingAngle() {
 
 void Object::load(const string &meshName)
 {
+   printf("loading\n");
 	// Load geometry
 	// Some obj files contain material information.
 	// We'll ignore them for this assignment.
@@ -190,6 +172,7 @@ void Object::load(const string &meshName)
 /* initialize a new shape */
 void Object::init()
 {
+   printf("initing\n");
 	// Send the position array to the GPU
 	const vector<float> &posBuf = shapes[0].mesh.positions;
 	glGenBuffers(1, &posBufID);
@@ -217,23 +200,48 @@ void Object::init()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	
 	assert(glGetError() == GL_NO_ERROR);
-	
-	/*transBuf.resize((int)(posBuf.size()/3));
-	int j = 0;
-	for(int i = 0; i < (int)posBuf.size(); i += 3) {
-		
-		// populate transBuf
-		transBuf[j] = Eigen::Vector3f(posBuf[i], posBuf[i+1], posBuf[i+2]);
-		j++;
-	}*/
-	
-	// edit: init the transformation and collision stuff
-	//transMat = Eigen::Matrix4f::Identity();
-	
-	//update();
-	
 }
 
+void Object::draw(GLint h_pos, GLint h_nor)
+{
+	// Enable and bind position array for drawing
+	GLSL::enableVertexAttribArray(h_pos);
+	glBindBuffer(GL_ARRAY_BUFFER, posBufID);
+	glVertexAttribPointer(h_pos, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	
+	// Enable and bind normal array (if it exists) for drawing
+	if(norBufID) {
+		GLSL::enableVertexAttribArray(h_nor);
+		glBindBuffer(GL_ARRAY_BUFFER, norBufID);
+		glVertexAttribPointer(h_nor, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	}
+	
+	// Bind index array for drawing
+	int nIndices = (int)shapes[0].mesh.indices.size();
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufID);
+	
+	// Send data to the GPU and draw
+   // Set the color
+   glUniform3f(h_uAClr, col.x/5.0, col.y/5.0, col.z/5.0);
+   glUniform3f(h_uDClr, col.x/3.0, col.y/3.0, col.z/3.0);
+   glUniform3f(h_uSClr, col.x/3.0, col.y/3.0, col.z/3.0);
+   glUniform1f(h_uS, shine);
+   // Set the model transformation
+   glm::mat4 S = glm::scale(glm::mat4(1.0f), glm::vec3(radius, radius, radius));
+   glm::mat4 T = glm::translate(glm::mat4(1.0f), pos);
+   glm::mat4 RX = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(1.0, 0.0, 0.0));
+   glm::mat4 RY = glm::rotate(glm::mat4(1.0f), calcYFacingAngle(), glm::vec3(0.0, 1.0, 0.0));
+   glm::mat4 RZ = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0, 0.0, 1.0));
+
+   glm::mat4 MV = T*RX*RY*RZ*S;
+
+   safe_glUniformMatrix4fv(h_uM, glm::value_ptr(MV));
+	
+	
+	// Draw
+	glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+}
+/*
 void Object::draw() {
    GLuint posBufID = bufIDs.pos;
    GLuint indBufID = bufIDs.ind;
@@ -269,7 +277,7 @@ void Object::draw() {
 
    int nIndices = (int)shapes[0].mesh.indices.size();
    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-}
+}*/
 
 inline void Object::safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
    //if (handle >= 0)
@@ -340,8 +348,8 @@ vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> 
    return norBuf;
 }
 
-void World::resize_obj(std::vector<tinyobj::shape_t> &shapes) {
-   /*float minX, minY, minZ;
+void Object::resize_obj() {
+   float minX, minY, minZ;
    float maxX, maxY, maxZ;
    float scaleX, scaleY, scaleZ;
    float shiftX, shiftY, shiftZ;
@@ -403,6 +411,6 @@ void World::resize_obj(std::vector<tinyobj::shape_t> &shapes) {
          assert(shapes[i].mesh.positions[3*v+2] >= -1.0 - epsilon);
          assert(shapes[i].mesh.positions[3*v+2] <= 1.0 + epsilon);
       }
-   }*/
+   }
 }
 
