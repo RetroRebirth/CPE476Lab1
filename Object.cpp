@@ -35,8 +35,7 @@ Object::Object(
    // Place the object randomly in the world
    pos = glm::vec3(2*Util::randF()*SIZE - SIZE, 1.0, 2*Util::randF()*SIZE - SIZE);
    dir = glm::normalize(glm::vec3(Util::randF()-0.5, 0.0, Util::randF()-0.5));
-   vel = OBJ_SPEED;fferData(GL_ARRAY_BUFFER, norBuf.size()*sizeof(float), &norBuf[0], GL_STATIC_DRAW);
-  
+   vel = OBJ_SPEED;
 }
 
 Object::~Object() {}
@@ -121,7 +120,6 @@ float Object::calcYFacingAngle() {
 
 void Object::load(const string &meshName)
 {
-   printf("loading\n");
 	// Load geometry
 	// Some obj files contain material information.
 	// We'll ignore them for this assignment.
@@ -158,7 +156,7 @@ void Object::load(const string &meshName)
 		posBuf[i  ] = (posBuf[i  ] - center.x) * scale;
 		posBuf[i+1] = (posBuf[i+1] - center.y) * scale;
 		posBuf[i+2] = (posBuf[i+2] - center.z) * scale;
-   }/*
+   }/* TODO bounding box stuff
 		// populate transBuf
 		transBuf[j] = glm::vec3(posBuf[i], posBuf[i+1], posBuf[i+2]);
 	}
@@ -172,7 +170,6 @@ void Object::load(const string &meshName)
 /* initialize a new shape */
 void Object::init()
 {
-   printf("initing\n");
 	// Send the position array to the GPU
 	const vector<float> &posBuf = shapes[0].mesh.positions;
 	glGenBuffers(1, &posBufID);
@@ -200,6 +197,7 @@ void Object::init()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	
 	assert(glGetError() == GL_NO_ERROR);
+	
 }
 
 void Object::draw(GLint h_pos, GLint h_nor)
@@ -241,43 +239,6 @@ void Object::draw(GLint h_pos, GLint h_nor)
 	// Draw
 	glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
 }
-/*
-void Object::draw() {
-   GLuint posBufID = bufIDs.pos;
-   GLuint indBufID = bufIDs.ind;
-   GLuint norBufID = bufIDs.nor;
-
-   // Bind position buffer
-   glBindBuffer(GL_ARRAY_BUFFER, posBufID);
-   glVertexAttribPointer(h_aPos, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-   // Bind index buffer
-   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufID);
-
-   // Bind normal buffer
-   glBindBuffer(GL_ARRAY_BUFFER, norBufID);
-   glVertexAttribPointer(h_aNor, 3, GL_FLOAT, GL_FALSE, 0, 0);
-   
-   // Send data to the GPU and draw
-   // Set the color
-   glUniform3f(h_uAClr, col.x/5.0, col.y/5.0, col.z/5.0);
-   glUniform3f(h_uDClr, col.x/3.0, col.y/3.0, col.z/3.0);
-   glUniform3f(h_uSClr, col.x/3.0, col.y/3.0, col.z/3.0);
-   glUniform1f(h_uS, shine);
-   // Set the model transformation
-   glm::mat4 S = glm::scale(glm::mat4(1.0f), glm::vec3(radius, radius, radius));
-   glm::mat4 T = glm::translate(glm::mat4(1.0f), pos);
-   glm::mat4 RX = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(1.0, 0.0, 0.0));
-   glm::mat4 RY = glm::rotate(glm::mat4(1.0f), calcYFacingAngle(), glm::vec3(0.0, 1.0, 0.0));
-   glm::mat4 RZ = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0, 0.0, 1.0));
-
-   glm::mat4 MV = T*RX*RY*RZ*S;
-
-   safe_glUniformMatrix4fv(h_uM, glm::value_ptr(MV));
-
-   int nIndices = (int)shapes[0].mesh.indices.size();
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-}*/
 
 inline void Object::safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
    //if (handle >= 0)
