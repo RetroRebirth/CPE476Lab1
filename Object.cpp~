@@ -430,4 +430,3 @@ void Object::resize_obj() {
       }
    }
 }
-
