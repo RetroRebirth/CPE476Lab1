@@ -38,7 +38,7 @@ class World {
       double objStartTime;
 
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
-      void createExtra();
+      void createObject(const string &meshName);
 };
 
 #endif

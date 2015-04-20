@@ -98,7 +98,7 @@ void Object::step(float dt) {
    }
 
    pos = calculateNewPos(dt);
-   draw(h_aPos, h_aNor);
+   draw();
 }
 
 /**
@@ -165,6 +165,9 @@ void Object::load(const string &meshName)
 	transMat = glm::mat4();
 	
 	update();*/
+	
+   init();
+   resize_obj();
 }
 
 /* initialize a new shape */
@@ -200,8 +203,10 @@ void Object::init()
 	
 }
 
-void Object::draw(GLint h_pos, GLint h_nor)
+void Object::draw()
 {
+   GLint h_pos = h_aPos;
+   GLint h_nor = h_aNor;
 	// Enable and bind position array for drawing
 	GLSL::enableVertexAttribArray(h_pos);
 	glBindBuffer(GL_ARRAY_BUFFER, posBufID);

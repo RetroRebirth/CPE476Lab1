@@ -35,11 +35,10 @@ class World {
       GLint h_uAClr, h_uDClr, h_uSClr, h_uS;
       bufID_t groundBufIDs;
       vector<Object*> objects;
-      //vector<Object*> activeObjects;
       double objStartTime;
 
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
-      void createExtra();
+      void createObject();
 };
 
 #endif

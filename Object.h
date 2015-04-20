@@ -29,7 +29,7 @@ class Object {
       void load(const string &meshName);
       void resize_obj();
       void step(float dt);
-      void draw(GLint h_pos, GLint h_nor);
+      void draw();
       bool collidedWithPlayer(glm::vec3 camPos, float dt);
       bool collidedWithWall(float dt);
       bool collidedWithObj(Object o, float dt);
