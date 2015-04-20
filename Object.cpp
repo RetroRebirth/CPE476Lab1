@@ -20,7 +20,9 @@ Object::Object(
    col = glm::vec3(0.313, 0.784, 0.470);
    shine = 800.0;
    radius = OBJ_SIZE;
-   //modelMatrix = glm::mat4(1.0f);
+   
+   // initialize transform matrices
+   modelMat = glm::mat4(1.0f);
    scalerMat = glm::mat4(1.0f);
    rotateMat = glm::mat4(1.0f);
    transMat = glm::mat4(1.0f);
@@ -74,17 +76,17 @@ void Object::setDirectional(bool dir) {
 
 // scale object by flat amount, applied on top of scaling done by the radius
 void Object::scale(glm::vec3 scaler) {
-   scalerMat *= glm::scale(glm::mat4(1.0f), scaler);
+   scalerMat = glm::scale(glm::mat4(1.0f), scaler);
 }
 
 // rotate object by flat amount, this will be applied on top of directional rotations
 void Object::rotate(float angle, glm::vec3 axis) {
-   rotateMat *= glm::rotate(glm::mat4(1.0f), angle, axis);
+   rotateMat = glm::rotate(glm::mat4(1.0f), angle, axis);
 }
 
 // translate object by flat amount... this will be applied on top of positional translations
 void Object::translate(glm::vec3 trans) {
-   transMat *= glm::translate(glm::mat4(1.0f), trans);
+   transMat = glm::translate(glm::mat4(1.0f), trans);
 }
 
 bool Object::collidedWithPlayer(glm::vec3 camPos, float dt) {
@@ -285,9 +287,9 @@ void Object::draw()
       R *= RX*RY*RZ;
    }
 
-   glm::mat4 MV = T*R*S;
+   modelMat = T*R*S;
 
-   safe_glUniformMatrix4fv(h_uM, glm::value_ptr(MV));
+   safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat));
 	
 	
 	// Draw

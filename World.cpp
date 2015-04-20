@@ -194,6 +194,12 @@ void World::setupOverWorld() {
    wall4->translate(glm::vec3(0.0f, 2.5f, SIZE+0.5f));
    wall4->scale(glm::vec3(SIZE*2.0f, 5.0f, 1.0f));
    structures.push_back(wall4);
+   
+   Object* booth1 = new Object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
+   booth1->load(WALL_FILE_NAME);
+   booth1->translate(glm::vec3(0.0f, 0.0f, -10.0f));
+   booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
+   structures.push_back(booth1);
 }
 
 void World::createExtra(const string &meshName) {

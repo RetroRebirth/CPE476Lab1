@@ -171,18 +171,35 @@ void World::drawOverWorld() {
 }
 
 void World::setupOverWorld() {
-   Object* box = new Object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
-   box->load(WALL_FILE_NAME);
-   box->translate(glm::vec3(-10.0f, 1.0f, 0.0f));
-   //box->rotate(45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+   Object* wall1 = new Object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
+   wall1->load(WALL_FILE_NAME);
+   wall1->translate(glm::vec3(-SIZE-0.5f, 2.5f, 0.0f));
+   wall1->scale(glm::vec3(1.0f, 5.0f, SIZE*2.0f));
+   structures.push_back(wall1);
    
-   structures.push_back(box);
+   Object* wall2 = new Object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
+   wall2->load(WALL_FILE_NAME);
+   wall2->translate(glm::vec3(SIZE+0.5f, 2.5f, 0.0f));
+   wall2->scale(glm::vec3(1.0f, 5.0f, SIZE*2.0f));
+   structures.push_back(wall2);
    
-   Object* booth = new Object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
-   booth->load(WALL_FILE_NAME);
-   booth->translate(glm::vec3(10.0f, 1.0f, 0.0f));
-   //box->rotate(45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-   structures.push_back(booth);
+   Object* wall3 = new Object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
+   wall3->load(WALL_FILE_NAME);
+   wall3->translate(glm::vec3(0.0f, 2.5f, -SIZE-0.5f));
+   wall3->scale(glm::vec3(SIZE*2.0f, 5.0f, 1.0f));
+   structures.push_back(wall3);
+   
+   Object* wall4 = new Object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
+   wall4->load(WALL_FILE_NAME);
+   wall4->translate(glm::vec3(0.0f, 2.5f, SIZE+0.5f));
+   wall4->scale(glm::vec3(SIZE*2.0f, 5.0f, 1.0f));
+   structures.push_back(wall4);
+   
+   Object* booth1 = new Object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
+   booth1->load(WALL_FILE_NAME);
+   booth1->translate(glm::vec3(0.0f, 0.0f, -10.0f));
+   booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
+   structures.push_back(booth1);
 }
 
 void World::createExtra(const string &meshName) {

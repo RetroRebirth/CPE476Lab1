@@ -47,7 +47,7 @@ class Object {
       void setDirectional(bool dir);
       
    private:
-      //glm::mat4 modelMatrix;
+      glm::mat4 modelMat;
       glm::mat4 scalerMat;
       glm::mat4 rotateMat;
       glm::mat4 transMat;
