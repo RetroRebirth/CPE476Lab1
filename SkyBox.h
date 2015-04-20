@@ -7,11 +7,9 @@
 
 #include "includes.h"
 #include "Util.h"
+#include "Camera.h"
 #include "GLSL.h"
 #include "tiny_obj_loader.h"
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp" //perspective, trans etc
-#include "glm/gtc/type_ptr.hpp" //value_ptr
 
 typedef struct Image {
    unsigned long sizeX;
@@ -21,18 +19,18 @@ typedef struct Image {
 
 typedef struct RGB {
   GLubyte r;
-  GLubyte g; 
+  GLubyte g;
   GLubyte b;
 } RGB;
 
 class SkyBox
 {
    public:
-      SkyBox();
+      SkyBox(GLint _h_aPos, GLint _h_aNor, GLint _h_uM, GLint _h_uTexUnit, GLint h_aTexCoord);
       virtual ~SkyBox();
 
       void init();
-      void draw();
+      void draw(Camera* camera);
 
       // Load the textures for the skybox
       void loadTexture(char* image_file, int texID);
@@ -43,20 +41,10 @@ class SkyBox
       RGB myimage[64][64];
       RGB* g_pixel;
 
-      GLuint texture_id;
-      GLuint boxBuffObj, boxIndBuffObj, texBuffObj; 
-      GLint h_aPos, h_aNor, h_uM, h_uAClr, h_uDClr, h_uSClr, h_uS;
-      bufID_t boxBufIDs;
-
-      vector<tinyobj::shape_t> shapes;
-      vector<tinyobj::material_t> materials;
-      GLint h_aPos, h_aNor;
-      GLint h_uM;
-      GLint h_uAClr, h_uDClr, h_uSClr, h_uS;
-      bufID_t groundBufIDs;
-      vector<Object*> objects;
-      vector<Object*> activeObjects;
-
+      GLint h_aPos, h_aNor, h_uM;
+      bufID_t boxBufIDs; // pos = pos, ind = ind, nor = textures
+      GLint h_uTexUnit, h_aTexCoord;
+      
       // Helper functions
       unsigned int getint(FILE *fp) {
          return ((unsigned int) getc(fp)) + (((unsigned int) getc(fp)) << 8) + (((unsigned int) getc(fp)) << 16) + (((unsigned int) getc(fp)) << 24);

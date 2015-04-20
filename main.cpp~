@@ -145,7 +145,7 @@ void step() { glfwSwapBuffers(window->glfw_window);
    glBindBuffer(GL_ARRAY_BUFFER, 0);
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
    glUseProgram(0);
-   //assert(glGetError() == GL_NO_ERROR);
+   assert(glGetError() == GL_NO_ERROR);
 }
 
 /** WINDOW CALLBACKS **/
