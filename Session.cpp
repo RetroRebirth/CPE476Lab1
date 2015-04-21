@@ -3,7 +3,6 @@
 Session::Session() {
    window = new Window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
 
-   setInputCallbacks();
    initGL();
 
    world = new World(h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor, h_uTexUnit, h_aTexCoord);
@@ -89,14 +88,6 @@ bool Session::installShaders(const string &vShaderName, const string &fShaderNam
    return true;
 }
 
-void Session::setInputCallbacks() {
-   // Set input callbacks
-   glfwSetWindowSizeCallback(window->glfw_window, window_size_callback);
-   glfwSetCursorPosCallback(window->glfw_window, mouse_callback);
-   glfwSetCursorEnterCallback(window->glfw_window, enter_callback);
-   glfwSetKeyCallback(window->glfw_window, key_callback);
-}
-
 void Session::initGL() {
    // Initialize GLEW
    if (glewInit() != GLEW_OK) {
@@ -127,40 +118,6 @@ void Session::initGL() {
    assert(glGetError() == GL_NO_ERROR);
 }
 
-void Session::window_size_callback(GLFWwindow* window, int w, int h) {
-   glViewport(0, 0, (GLsizei)w, (GLsizei)h);
-}
-
-void Session::mouse_callback(GLFWwindow* win, double xpos, double ypos) {
-   camera->mouse_callback(win, xpos, ypos, window->width, window->height);
-}
-
-void Session::enter_callback(GLFWwindow* win, int entered) {
-   camera->enter_callback(win, entered, window->width, window->height);
-}
-
-void Session::key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) {
-   if (action != GLFW_PRESS && action != GLFW_REPEAT) {
-      return;
-   }
-
-   switch(key) {
-   case GLFW_KEY_C:
-      camera->bounded = !camera->bounded;
-      break;
-   case GLFW_KEY_UP:
-      if (camera->speed < MAX_SPEED) {
-         camera->speed += DELTA_SPEED;
-      }
-      break;
-   case GLFW_KEY_DOWN:
-      if (camera->speed > MIN_SPEED) {
-         camera->speed -= DELTA_SPEED;
-      }
-      break;
-   }
-}
-
 /**
  * This is called on every game loop.
  */
@@ -185,7 +142,14 @@ void Session::step() {
    glBindBuffer(GL_ARRAY_BUFFER, 0);
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
    glUseProgram(0);
-   assert(glGetError() == GL_NO_ERROR);
+   //assert(glGetError() == GL_NO_ERROR);
 }
 
+Camera* Session::getCamera() {
+   return camera;
+}
+
+Window* Session::getWindow() {
+   return window;
+}
 

@@ -12,6 +12,8 @@ class Session {
       virtual ~Session();
 
       void run();
+      Camera* getCamera();
+      Window* getWindow();
    private:
       Window* window;
       Camera* camera;
@@ -30,13 +32,6 @@ class Session {
       /** INITIALIZING **/
       bool installShaders(const string &vShaderName, const string &fShaderName);
       void initGL();
-
-      void setInputCallbacks();
-
-      void window_size_callback(GLFWwindow* window, int w, int h);
-      void mouse_callback(GLFWwindow* win, double xpos, double ypos);
-      void enter_callback(GLFWwindow* win, int entered);
-      void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods);
 
       /** MAIN GAME LOOP **/
       void step();
