@@ -8,7 +8,6 @@
  &nbsp;&nbsp;&nbsp;&nbsp;  While there are merge conflicts:  
  &nbsp;&nbsp;&nbsp;&nbsp;  modify code manually until it is working properly  
  &nbsp;&nbsp;&nbsp;&nbsp;  <code>git add .</code>  
- &nbsp;&nbsp;&nbsp;&nbsp;  <code>git commit -m "message"</code>  
  &nbsp;&nbsp;&nbsp;&nbsp;  <code>git rebase --continue</code>  
 <code>git push</code>  
 
