@@ -22,10 +22,7 @@ Object::Object(
    radius = OBJ_SIZE;
    
    // initialize transform matrices
-<<<<<<< HEAD
    //printf("modelMat initialized\n");
-=======
->>>>>>> b6ac1814b5925a0f3ce90aa97b76485ba956a629
    modelMat = glm::mat4(1.0f);
    scalerMat = glm::mat4(1.0f);
    rotateMat = glm::mat4(1.0f);
@@ -82,19 +79,16 @@ void Object::setDirectional(bool dir) {
 // scale object by flat amount, applied on top of scaling done by the radius
 void Object::scale(glm::vec3 scaler) {
    scalerMat = glm::scale(glm::mat4(1.0f), scaler);
-<<<<<<< HEAD
    // an attempt to correct for the mesh resizing... which breaks the bounding box stuff
    glm::vec3 temp_scaler = glm::vec3(1.0f, 1.0f, 1.0f);
    if (scaler.x > 1.0f) 
-      temp_scaler.x -= 0.25f;
+      temp_scaler.x -= (1.5f*0.25f);
    if (scaler.y > 1.0f)
-      temp_scaler.y -= 0.25f;
+      temp_scaler.y -= (1.5f*0.25f);
    if (scaler.z > 1.0f)
-      temp_scaler.z -= 0.25f;
+      temp_scaler.z -= (1.5f*0.25f);
       
    boundBoxScalerMat = glm::scale(glm::mat4(1.0f), temp_scaler);
-=======
->>>>>>> b6ac1814b5925a0f3ce90aa97b76485ba956a629
 }
 
 // rotate object by flat amount, this will be applied on top of directional rotations
@@ -155,7 +149,6 @@ bool Object::collidedWithObj(Object o, float dt) {
    }
 }
 
-<<<<<<< HEAD
 void Object::getBounds(struct bound_box *bounds) {
    
    float x_min, x_max, y_min, y_max, z_min, z_max; 
@@ -209,10 +202,6 @@ void Object::getBounds(struct bound_box *bounds) {
    bounds->y_max = y_max;
    bounds->z_min = z_min;
    bounds->z_max = z_max;
-=======
-void Object::getBounds(struct bound_box &bounds) {
-   bounds->x_min = 0.0f;
->>>>>>> b6ac1814b5925a0f3ce90aa97b76485ba956a629
    
 }
 
@@ -379,23 +368,16 @@ void Object::draw()
    
    //printf("modelMat set\n");
 
-<<<<<<< HEAD
-   safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T*R*scalerMat));
-=======
-   modelMat = T*R*S;
-
-   safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat));
->>>>>>> b6ac1814b5925a0f3ce90aa97b76485ba956a629
-	
+   Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T*R*scalerMat));
 	
 	// Draw
 	glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
 }
 
-inline void Object::safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
-   //if (handle >= 0)
-     // glUniformMatrix4fv(handle, 1, GL_FALSE, data);
-  Util::safe_glUniformMatrix4fv(handle, data);
+void Object::setTexture(char* filename, int texID)
+{
+   texture_id = texID;
+   loadTexture(filename, texture_id);
 }
 
 vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> indBuf) {
@@ -526,3 +508,4 @@ void Object::resize_obj() {
       }
    }
 }
+

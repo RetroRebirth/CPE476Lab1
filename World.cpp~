@@ -98,8 +98,6 @@ void World::step(Camera *camera, Window* window) {
       extra->draw();
    }
 
-   camera->step(window);
-   skybox->draw(camera, window);
    drawGround();
    drawOverWorld();
    
@@ -129,9 +127,9 @@ void World::step(Camera *camera, Window* window) {
          
       }
    }
-   
+
    camera->step(window);
-   skybox->draw(camera);
+   skybox->draw(camera, window);
 }
 
 inline void World::safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {

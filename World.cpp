@@ -98,8 +98,6 @@ void World::step(Camera *camera, Window* window) {
       extra->draw();
    }
 
-   camera->step(window);
-   skybox->draw(camera, window);
    drawGround();
    drawOverWorld();
    
@@ -126,10 +124,9 @@ void World::step(Camera *camera, Window* window) {
             // hit a z boundary
             camera->pos.z = colPlane.z;
          }
-         
       }
    }
-   
+
    camera->step(window);
    skybox->draw(camera, window);
 }

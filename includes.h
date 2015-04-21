@@ -50,6 +50,7 @@
 // Texture IDs
 #define TEXTURE_SKY 1
 #define TEXTURE_GROUND 2
+#define TEXTURE_WOOD 3
 
 using namespace std;
 

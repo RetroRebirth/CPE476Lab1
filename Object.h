@@ -48,6 +48,7 @@ class Object {
       void setDirectional(bool dir);
       
       void getBounds(struct bound_box *bounds);
+      void setTexture(char* filename, int texture_id);
       
    private:
       glm::mat4 modelMat;
@@ -64,9 +65,9 @@ class Object {
       GLint h_uM;
       GLint h_uAClr, h_uDClr, h_uSClr, h_uS;
       bool directional;
+      int texture_id;
 
       vector<float> computeNormals(vector<float> posBuf, vector<unsigned int> indBuf);
-      inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
       float calcYFacingAngle();
 };
 

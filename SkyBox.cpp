@@ -83,8 +83,6 @@ void SkyBox::init()
 
 void SkyBox::draw(Camera* camera, Window* window)
 {
-   camera->step(window);
-
    glEnable(GL_TEXTURE_2D);
    glActiveTexture(GL_TEXTURE0);
    glUniform1i(h_uTexUnit, 0);

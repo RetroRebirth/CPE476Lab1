@@ -368,17 +368,16 @@ void Object::draw()
    
    //printf("modelMat set\n");
 
-   safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T*R*scalerMat));
-	
+   Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T*R*scalerMat));
 	
 	// Draw
 	glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
 }
 
-inline void Object::safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
-   //if (handle >= 0)
-     // glUniformMatrix4fv(handle, 1, GL_FALSE, data);
-  Util::safe_glUniformMatrix4fv(handle, data);
+void Object::setTexture(char* filename, int texID)
+{
+   texture_id = texID;
+   loadTexture(filename, texture_id);
 }
 
 vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> indBuf) {
