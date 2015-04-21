@@ -46,6 +46,9 @@
 #define OBJ_SPEED 20.0
 #define OBJ_SIZE 1.0
 #define OBJ_SHRINK_RATE 0.5
+#define WINDOW_WIDTH 1024
+#define WINDOW_HEIGHT 768
+#define WINDOW_TITLE "Japanese Festival"
 
 // Texture IDs
 #define TEXTURE_SKY 1
