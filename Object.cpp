@@ -3,13 +3,7 @@
 Object::Object(
       vector<tinyobj::shape_t> &_shapes,
       vector<tinyobj::material_t> &_materials,
-      GLint _h_uAClr,
-      GLint _h_uDClr,
-      GLint _h_uSClr,
-      GLint _h_uS,
-      GLint _h_uM,
-      GLint _h_aPos,
-      GLint _h_aNor)  :
+      GLuint ShadeProg)  :
       
 	      posBufID(0),
 	      norBufID(0),
@@ -31,13 +25,14 @@ Object::Object(
    // Defined attribute values
    shapes = _shapes;
    materials = _materials;
-   h_uAClr = _h_uAClr;
-   h_uDClr = _h_uDClr;
-   h_uSClr = _h_uSClr;
-   h_uS = _h_uS;
-   h_uM = _h_uM;
-   h_aPos = _h_aPos;
-   h_aNor = _h_aNor;
+   h_uAClr = GLSL::getUniformLocation(ShadeProg, "uAClr");
+   h_uDClr = GLSL::getUniformLocation(ShadeProg, "uDClr");
+   h_uSClr = GLSL::getUniformLocation(ShadeProg, "uSClr");
+   h_uS = GLSL::getUniformLocation(ShadeProg, "uS");
+   h_uM = GLSL::getUniformLocation(ShadeProg, "uM");
+   h_aPos = GLSL::getAttribLocation(ShadeProg, "aPos");
+   h_aNor = GLSL::getAttribLocation(ShadeProg, "aNor");
+   h_uTexUnit = GLSL::getUniformLocation(ShadeProg, "uTexUnit");
 
    pos = glm::vec3(0.0f, 0.0f, 0.0f);
    dimensions = glm::vec3(1.0f, 1.0f, 1.0f);

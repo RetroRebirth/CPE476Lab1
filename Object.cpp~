@@ -3,13 +3,7 @@
 Object::Object(
       vector<tinyobj::shape_t> &_shapes,
       vector<tinyobj::material_t> &_materials,
-      GLint _h_uAClr,
-      GLint _h_uDClr,
-      GLint _h_uSClr,
-      GLint _h_uS,
-      GLint _h_uM,
-      GLint _h_aPos,
-      GLint _h_aNor)  :
+      GLuint ShadeProg)  :
       
 	      posBufID(0),
 	      norBufID(0),

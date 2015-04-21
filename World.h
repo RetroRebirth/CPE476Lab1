@@ -12,16 +12,7 @@ class World {
    public:
       int numCollected;
 
-      World(
-         GLint _h_uAClr,
-         GLint _h_uDClr,
-         GLint _h_uSClr,
-         GLint _h_uS,
-         GLint _h_uM,
-         GLint _h_aPos,
-         GLint _h_aNor,
-         GLint _h_uTexUnit,
-         GLint _h_aTexCoord);
+      World(GLuint ShadeProg);
       virtual ~World();
 
       void step(Camera *camera, Window* window);
@@ -34,10 +25,11 @@ class World {
       vector<Object*> extras; // bunnies for now.
       vector<Booth*> structures;
       vector<tinyobj::material_t> materials;
+      GLuint ShadeProg;
       GLint h_aPos, h_aNor;
       GLint h_uM;
       GLint h_uAClr, h_uDClr, h_uSClr, h_uS;
-      GLint h_uTexUnit, h_aTexCoord;
+      GLint h_uTexUnit;
       bufID_t groundBufIDs;
       vector<Object*> objects;
       double objStartTime;

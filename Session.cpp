@@ -5,8 +5,8 @@ Session::Session() {
 
    initGL();
 
-   world = new World(h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor, h_uTexUnit, h_aTexCoord);
-   camera = new Camera(h_uP, h_uV, h_uView); 
+   world = new World(ShadeProg);
+   camera = new Camera(h_uP, h_uV, h_uView);
 }
 
 Session::~Session() {

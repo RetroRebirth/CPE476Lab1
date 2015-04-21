@@ -17,13 +17,7 @@ class Object {
       Object(
          vector<tinyobj::shape_t> &_shapes,
          vector<tinyobj::material_t> &_materials,
-         GLint _h_uAClr,
-         GLint _h_uDClr,
-         GLint _h_uSClr,
-         GLint _h_uS,
-         GLint _h_uM,
-         GLint _h_aPos,
-         GLint _h_aNor);
+         GLuint ShadeProg);
       virtual ~Object();
 
       void init();
@@ -64,6 +58,7 @@ class Object {
       GLint h_aPos, h_aNor;
       GLint h_uM;
       GLint h_uAClr, h_uDClr, h_uSClr, h_uS;
+      GLint h_uTexUnit;
       bool directional;
       int texture_id;
 

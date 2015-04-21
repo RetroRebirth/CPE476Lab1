@@ -1,14 +1,14 @@
 #include "SkyBox.h"
 using namespace std;
 
-SkyBox::SkyBox(GLint _h_aPos, GLint _h_aNor, GLint _h_uM, GLint _h_uTexUnit, GLint _h_aTexCoord)
+SkyBox::SkyBox(GLuint ShadeProg)
 {
    // Defined attribute values
-   h_aPos = _h_aPos;
-   h_aNor = _h_aNor;
-   h_uM = _h_uM;
-   h_uTexUnit = _h_uTexUnit;
-   h_aTexCoord = _h_aTexCoord;
+   h_aPos = GLSL::getAttribLocation(ShadeProg, "aPos");
+   h_aNor = GLSL::getAttribLocation(ShadeProg, "aNor");
+   h_uM = GLSL::getUniformLocation(ShadeProg, "uM");
+   h_aTexCoord = GLSL::getAttribLocation(ShadeProg,  "aTexCoord");
+   h_uTexUnit = GLSL::getUniformLocation(ShadeProg, "uTexUnit");
 
    init();
    loadTexture((char *)"cloud5.bmp", TEXTURE_SKY);
