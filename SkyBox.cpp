@@ -11,7 +11,7 @@ SkyBox::SkyBox(GLint _h_aPos, GLint _h_aNor, GLint _h_uM, GLint _h_uTexUnit, GLi
    h_aTexCoord = _h_aTexCoord;
 
    init();
-   loadTexture((char *)"cloud5.bmp", 0);
+   loadTexture((char *)"cloud5.bmp", TEXTURE_SKY);
 }
 
 SkyBox::~SkyBox()
@@ -42,7 +42,7 @@ void SkyBox::init()
    };
    // Amplify sky box size
    for (int i = 0, last = sizeof(CubePos)/sizeof(GLfloat); i < last; i++) {
-      CubePos[i] *= SIZE;
+      CubePos[i] *= SKY_SIZE;
    }
 
    // Index array of sky box   
@@ -81,93 +81,16 @@ void SkyBox::init()
    glBufferData(GL_ARRAY_BUFFER, sizeof(CubeTex), CubeTex, GL_STATIC_DRAW);
 }
 
-void SkyBox::loadTexture(char* image_file, int texID)
+void SkyBox::draw(Camera* camera, Window* window)
 {
-   TextureImage = (Image *) malloc(sizeof(Image));
+   camera->step(window);
 
-   if (TextureImage == NULL) {
-      printf("Error allocating space for image");
-      exit(1);
-   }
-
-   cout << "trying to load " << image_file << endl;
-   if (!loadImage(image_file, TextureImage)) {
-      exit(1);
-   }
-
-   glBindTexture(GL_TEXTURE_2D, texID);
-   glTexImage2D(GL_TEXTURE_2D, 0, 3,
-   TextureImage->sizeX, TextureImage->sizeY, 0, GL_RGB, GL_UNSIGNED_BYTE, TextureImage->data);
-   glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST); // cheap scaling when image bigger than texture
-   glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST); // cheap scaling when image smalled than texture
-}
-
-int SkyBox::loadImage(char *filename, Image *image) {
-  FILE *file;
-  unsigned long size;                 // size of the image in bytes
-  unsigned long i;                    // standard counter
-  unsigned short int planes;          // number of planes in image (must be 1)
-  unsigned short int bpp;             // number of bits per pixel (must be 24)
-  char temp;                          // used to convert bgr to rgb color
-  
-  // make sure the file is there
-  if ((file = fopen(filename, "rb"))==NULL) {
-    printf("File Not Found : %s\n",filename);
-    return 0;
-  }
-  // seek through the bmp header, up to the width height
-  fseek(file, 18, SEEK_CUR);
-  image->sizeX = getint (file); // read the width
-  image->sizeY = getint (file); // read the height
-
-  // calculate the size (assuming 24 bits or 3 bytes per pixel)
-  size = image->sizeX * image->sizeY * 3;
-
-  // read the planes
-  planes = getshort(file);
-  if (planes != 1) {
-    printf("Planes from %s is not 1: %u\n", filename, planes);
-    return 0;
-  }
-  
-  // read the bpp
-  bpp = getshort(file);
-  if (bpp != 24) {
-    printf("Bpp from %s is not 24: %u\n", filename, bpp);
-    return 0;
-  }
-  // seek past the rest of the bitmap header
-  fseek(file, 24, SEEK_CUR);
-
-  // read the data
-  image->data = (char *) malloc(size);
-  if (image->data == NULL) {
-    printf("Error allocating memory for color-corrected image data");
-    return 0; 
-  }
-  if ((i = fread(image->data, size, 1, file)) != 1) {
-    printf("Error reading image data from %s.\n", filename);
-    return 0;
-  }
-
-  // reverse all of the colors. (bgr -> rgb)
-  for (i=0;i<size;i+=3) {
-    temp = image->data[i];
-    image->data[i] = image->data[i+2];
-    image->data[i+2] = temp;
-  }
-  fclose(file);
-
-  return 1;
-}
-
-void SkyBox::draw(Camera* camera)
-{
    glEnable(GL_TEXTURE_2D);
    glActiveTexture(GL_TEXTURE0);
    glUniform1i(h_uTexUnit, 0);
 
-   glBindTexture(GL_TEXTURE_2D, 0);
+   // Bind the sky texture
+   glBindTexture(GL_TEXTURE_2D, TEXTURE_SKY);
 
    // Bind position buffer
    glBindBuffer(GL_ARRAY_BUFFER, boxBufIDs.pos);

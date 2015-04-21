@@ -37,6 +37,7 @@ class World {
       GLint h_aPos, h_aNor;
       GLint h_uM;
       GLint h_uAClr, h_uDClr, h_uSClr, h_uS;
+      GLint h_uTexUnit, h_aTexCoord;
       bufID_t groundBufIDs;
       vector<Object*> objects;
       double objStartTime;

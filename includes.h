@@ -12,7 +12,6 @@
 #include <cassert>
 #include <cmath>
 #include <ctime>
-#include <stdio.h>
 #include "GL/freeglut.h"
 #include "GLSL.h"
 #include "glm/glm.hpp"
@@ -22,7 +21,10 @@
 #include "Util.h"
 #include "MatrixStack.h"
 
+<<<<<<< HEAD
 // defines file names for various meshes
+=======
+>>>>>>> added texture functions to Util.h and added grass texture for ground
 #define EXTRA_FILE_NAME "bunny.obj"
 #define WALL_FILE_NAME "cube.obj"
 
@@ -36,8 +38,9 @@
 #define MAX_OBJS 40
 #define SECS_PER_OBJ 2.0
 #define SIZE 20.0
+#define SKY_SIZE 40.0
 #define NUM_OBJ_TYPES 1
-   #define SPHERE 0
+#define SPHERE 0
 #define MOUSE_SPEED 0.25
 #define INITIAL_SPEED 10.0
 #define DELTA_SPEED 0.1
@@ -46,6 +49,10 @@
 #define OBJ_SPEED 20.0
 #define OBJ_SIZE 1.0
 #define OBJ_SHRINK_RATE 0.5
+
+// Texture IDs
+#define TEXTURE_SKY 1
+#define TEXTURE_GROUND 2
 
 using namespace std;
 

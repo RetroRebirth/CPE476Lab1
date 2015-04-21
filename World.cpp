@@ -24,6 +24,8 @@ World::World(
    h_uM = _h_uM;
    h_aPos = _h_aPos;
    h_aNor = _h_aNor;
+   h_uTexUnit = _h_uTexUnit;
+   h_aTexCoord = _h_aTexCoord;
 
    //loadExtras();//objectFiles[0]);
    skybox = new SkyBox(h_aPos, h_aNor, h_uM, _h_uTexUnit, _h_aTexCoord);
@@ -96,6 +98,11 @@ void World::step(Camera *camera, Window* window) {
       extra->draw();
    }
 
+<<<<<<< HEAD
+=======
+   camera->step(window);
+   skybox->draw(camera, window);
+>>>>>>> added texture functions to Util.h and added grass texture for ground
    drawGround();
    drawOverWorld();
    
@@ -136,6 +143,10 @@ inline void World::safe_glUniformMatrix4fv(const GLint handle, const GLfloat dat
 }
 
 void World::initGround() {
+
+   // Load the texture for the ground
+   loadTexture((char *)"ground_grass2.bmp", TEXTURE_GROUND);
+
    // Position array of ground
    GLfloat vertices[] = {
       -1.0f, 0.0, -1.0f, //0
@@ -171,6 +182,14 @@ void World::initGround() {
 }
 
 void World::drawGround() {
+
+   // Enable textures
+   glEnable(GL_TEXTURE_2D);
+   glActiveTexture(GL_TEXTURE0);
+   glUniform1i(h_uTexUnit, 0);
+   // Bind the ground texture
+   glBindTexture(GL_TEXTURE_2D, TEXTURE_GROUND);
+
    // Bind position buffer
    glBindBuffer(GL_ARRAY_BUFFER, groundBufIDs.pos);
    glVertexAttribPointer(h_aPos, 3, GL_FLOAT, GL_FALSE, 0, 0);
