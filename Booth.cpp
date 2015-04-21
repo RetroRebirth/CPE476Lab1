@@ -25,12 +25,12 @@ void Booth::showMessage(){
 }
 
 //Checks if anything is colliding with the booth so it stops them.
-void Booth::checkCollision(Object* _otherObject){
+bool Booth::checkCollision(Object* _otherObject){
 //TODO magic collision work
 }
 
 //Checks for if the player is within the interact radius
-void Booth::checkInteract(Player *_player){
+bool Booth::checkInteract(Player *_player){
 //TODO magic collision work again
   while(true /*The actual interact check would go here*/ ){
     showMessage();

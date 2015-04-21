@@ -137,6 +137,11 @@ bool Object::collidedWithObj(Object o, float dt) {
    }
 }
 
+void Object::getBounds(struct bound_box &bounds) {
+   bounds->x_min = 0.0f;
+   
+}
+
 void Object::step(float dt) {
    /*if (collected) {
       radius -= dt * OBJ_SHRINK_RATE;

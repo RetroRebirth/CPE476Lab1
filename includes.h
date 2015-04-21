@@ -22,9 +22,17 @@
 #include "Util.h"
 #include "MatrixStack.h"
 
-
+// defines file names for various meshes
 #define EXTRA_FILE_NAME "bunny.obj"
 #define WALL_FILE_NAME "cube.obj"
+
+// defines the type of structure related to the Booth class
+#define WALL_TYPE 0
+#define BOOTH_TYPE 1
+#define MISC_TYPE 2
+// TODO add defines for specific minigame types
+
+// misc defines for globally accessed values
 #define MAX_OBJS 40
 #define SECS_PER_OBJ 2.0
 #define SIZE 20.0
@@ -45,6 +53,11 @@ struct bufID_t {
    GLuint pos;
    GLuint ind;
    GLuint nor;
+};
+
+struct bound_box {
+   float x_min, x_max;
+   float y_min, y_max;
 };
 
 #endif
