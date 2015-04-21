@@ -46,6 +46,8 @@ class Object {
       glm::vec3 calculateNewPos(float dt);
       void setDirectional(bool dir);
       
+      void getBounds(struct bound_box &bounds);
+      
    private:
       glm::mat4 modelMat;
       glm::mat4 scalerMat;
