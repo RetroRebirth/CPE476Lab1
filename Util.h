@@ -1,11 +1,8 @@
 #ifndef Util
 #define Util
 
-<<<<<<< HEAD
 #include <cmath> 
 #include "includes.h"
-=======
-#include <cmath>
 
 typedef struct Image {
    unsigned long sizeX;
@@ -21,7 +18,6 @@ typedef struct RGB {
 
 using namespace std;
 
->>>>>>> added texture functions to Util.h and added grass texture for ground
 namespace Util
 {
     //Returns a random float 
@@ -54,7 +50,6 @@ namespace Util
       printf("(%f, %f, %f)\n",v.x,v.y,v.z);
     }
 
-<<<<<<< HEAD
     void printMat4(glm::mat4 m)
     {
       double dArray[16] = {0.0};
@@ -69,7 +64,8 @@ namespace Util
             printf("\n");
          }
       }
-=======
+    }
+
     /* Texture Stuff */
     unsigned int getint(FILE *fp) {
        return ((unsigned int) getc(fp)) + (((unsigned int) getc(fp)) << 8) + (((unsigned int) getc(fp)) << 16) + (((unsigned int) getc(fp)) << 24);
@@ -159,7 +155,6 @@ namespace Util
          TextureImage->sizeX, TextureImage->sizeY, 0, GL_RGB, GL_UNSIGNED_BYTE, TextureImage->data);
        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); // cheap scaling when image bigger than texture
        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); // cheap scaling when image smalled than texture
->>>>>>> added texture functions to Util.h and added grass texture for ground
     }
 }
 

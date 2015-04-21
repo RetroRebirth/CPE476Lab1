@@ -21,10 +21,7 @@
 #include "Util.h"
 #include "MatrixStack.h"
 
-<<<<<<< HEAD
 // defines file names for various meshes
-=======
->>>>>>> added texture functions to Util.h and added grass texture for ground
 #define EXTRA_FILE_NAME "bunny.obj"
 #define WALL_FILE_NAME "cube.obj"
 

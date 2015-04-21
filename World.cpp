@@ -98,11 +98,8 @@ void World::step(Camera *camera, Window* window) {
       extra->draw();
    }
 
-<<<<<<< HEAD
-=======
    camera->step(window);
    skybox->draw(camera, window);
->>>>>>> added texture functions to Util.h and added grass texture for ground
    drawGround();
    drawOverWorld();
    
@@ -134,7 +131,7 @@ void World::step(Camera *camera, Window* window) {
    }
    
    camera->step(window);
-   skybox->draw(camera);
+   skybox->draw(camera, window);
 }
 
 inline void World::safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
