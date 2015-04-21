@@ -7,29 +7,34 @@
 
 class Booth {
   public:
-    Booth(
-	Object *_object,
-	const string *_message);
     
+    Booth(
+	   Object *_object,
+	   const string *_message);
     virtual ~Booth();
+    
+    Object* object;
+    //bounding box for hit detection
+    struct bound_box bounds;
 
     //Checks if anything is colliding with the booth so it stops them. Returns true if a hit is registered with given object
     bool checkCollision(Object* _otherObject);
+    //Checks to see if camera is colliding with bounding box
+    bool checkCameraCollision(glm::vec3 cam_pos, glm::vec3 *colPlane);
     //Checks for if the player is within the interact radius. Returns true if hit is registered within interaction box
     bool checkInteract(Player *_player);
     //Set the position for the booth
     void setPosition(glm::vec3 position);
+    //Calculate the bounding box for the booth... should only be called once after first draw
+    void calculateBoundingBox();
     //Set the booth/structure type. Supported parameters are defined in include.h
     void setType(int t) { type = t; };
     //Get the booth/structure type. Defined in include.h
     int getType() { return type; };
 
   private:
-    Object* object;
     //type of booth/structure - default type is a wall
     int type;
-    //bounding box for hit detection
-    struct bound_box bounds;
     //can't go past the bump radius
     float bumpRadius;
     //Can only interact within this radius

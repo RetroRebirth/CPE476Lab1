@@ -22,6 +22,7 @@ Object::Object(
    radius = OBJ_SIZE;
    
    // initialize transform matrices
+   //printf("modelMat initialized\n");
    modelMat = glm::mat4(1.0f);
    scalerMat = glm::mat4(1.0f);
    rotateMat = glm::mat4(1.0f);
@@ -39,6 +40,7 @@ Object::Object(
    h_aNor = _h_aNor;
 
    pos = glm::vec3(0.0f, 0.0f, 0.0f);
+   dimensions = glm::vec3(1.0f, 1.0f, 1.0f);
    dir = glm::vec3(0.0f, 0.0f, 0.0f);
    vel = 0.0f;
    
@@ -77,6 +79,16 @@ void Object::setDirectional(bool dir) {
 // scale object by flat amount, applied on top of scaling done by the radius
 void Object::scale(glm::vec3 scaler) {
    scalerMat = glm::scale(glm::mat4(1.0f), scaler);
+   // an attempt to correct for the mesh resizing... which breaks the bounding box stuff
+   glm::vec3 temp_scaler = glm::vec3(1.0f, 1.0f, 1.0f);
+   if (scaler.x > 1.0f) 
+      temp_scaler.x -= (1.5f*0.25f);
+   if (scaler.y > 1.0f)
+      temp_scaler.y -= (1.5f*0.25f);
+   if (scaler.z > 1.0f)
+      temp_scaler.z -= (1.5f*0.25f);
+      
+   boundBoxScalerMat = glm::scale(glm::mat4(1.0f), temp_scaler);
 }
 
 // rotate object by flat amount, this will be applied on top of directional rotations
@@ -137,8 +149,59 @@ bool Object::collidedWithObj(Object o, float dt) {
    }
 }
 
-void Object::getBounds(struct bound_box &bounds) {
-   bounds.x_min = 0.0f;
+void Object::getBounds(struct bound_box *bounds) {
+   
+   float x_min, x_max, y_min, y_max, z_min, z_max; 
+   const vector<float> &posBuf = shapes[0].mesh.positions;
+	for(int i = 0; i < (int)posBuf.size(); i += 3) {
+      glm::vec4 v;
+      v = glm::vec4(posBuf[i], posBuf[i+1], posBuf[i+2], 1.0f);
+      v = modelMat * v;
+      if (i == 0) { 
+         // initialize bounds on first pass
+         x_min = x_max = v.x;
+         y_min = y_max = v.y;
+         z_min = z_max = v.z;
+      }
+      else {
+         // establish spatial relationships
+         if (v.x < x_min) {
+            x_min = v.x;
+         }
+         else if (v.x > x_max) {
+            x_max = v.x;
+         }
+         if (v.y < y_min) {
+            y_min = v.y;
+         }
+         else if (v.y > y_max) {
+            y_max = v.y;
+         }
+         if (v.z < z_min) {
+            z_min = v.z;
+         }
+         else if (v.z > z_max) {
+            z_max = v.z;
+         }
+      }
+   }
+   // populate bounds - used to drawing bounding box debug stuff... doesn't work
+   /*bounds.bot_a_pos = glm::vec4(x_min, y_min, z_min, 1.0f);
+   bounds.bot_b_pos = glm::vec4(x_max, y_min, z_min, 1.0f);
+   bounds.bot_c_pos = glm::vec4(x_max, y_min, z_max, 1.0f);
+   bounds.bot_d_pos = glm::vec4(x_min, y_min, z_max, 1.0f);
+   
+   bounds.top_a_pos = glm::vec4(x_min, y_max, z_min, 1.0f);
+   bounds.top_b_pos = glm::vec4(x_max, y_max, z_min, 1.0f);
+   bounds.top_c_pos = glm::vec4(x_max, y_max, z_max, 1.0f);
+   bounds.top_d_pos = glm::vec4(x_min, y_max, z_max, 1.0f);*/
+   
+   bounds->x_min = x_min;
+   bounds->x_max = x_max;
+   bounds->y_min = y_min;
+   bounds->y_max = y_max;
+   bounds->z_min = z_min;
+   bounds->z_max = z_max;
    
 }
 
@@ -282,7 +345,7 @@ void Object::draw()
    glUniform1f(h_uS, shine);
    // Set the model transformation
    glm::vec3 position = pos + glm::vec3(0.0f, -0.5f, 0.0f);
-   glm::mat4 S = glm::scale(glm::mat4(1.0f), glm::vec3(radius, radius, radius)) * scalerMat;
+   //glm::mat4 S = glm::scale(glm::mat4(1.0f), glm::vec3(radius, radius, radius)) * scalerMat;
    glm::mat4 T = glm::translate(glm::mat4(1.0f), position) * transMat;
    glm::mat4 R = rotateMat;
    if (directional) {
@@ -291,10 +354,21 @@ void Object::draw()
       glm::mat4 RZ = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0, 0.0, 1.0));
       R *= RX*RY*RZ;
    }
+   // might be using this for bound box stuff
+   //glm::vec4 temp_pos =  T * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+   //draw_pos = glm::vec3(temp_pos.x, temp_pos.y, temp_pos.z);
+  //printf("pos: (%f, %f, %f)\n\n",pos.x, pos.y, pos.z);
+   /*glm::vec4 temp_dim = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f) * S;
+   dimensions = glm::vec3(temp_dim.x, temp_dim.y, temp_dim.z);
+   */
+      
+   modelMat = T*R*scalerMat*boundBoxScalerMat;//S;
+   
+   //pos = glm::vec3(0.0f, 0.0f, 0.0f);
+   
+   //printf("modelMat set\n");
 
-   modelMat = T*R*S;
-
-   safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat));
+   safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T*R*scalerMat));
 	
 	
 	// Draw

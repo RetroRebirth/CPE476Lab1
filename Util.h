@@ -2,6 +2,7 @@
 #define Util
 
 #include <cmath> 
+#include "includes.h"
 namespace Util
 {
     //Returns a random float 
@@ -28,7 +29,27 @@ namespace Util
     {
       return radians * 57.2957795;
     }
+    
+    void printVec3(glm::vec3 v)
+    {
+      printf("(%f, %f, %f)\n",v.x,v.y,v.z);
+    }
 
+    void printMat4(glm::mat4 m)
+    {
+      double dArray[16] = {0.0};
+
+      const float *pSource = (const float*)glm::value_ptr(m);
+      for (int i = 0; i < 16; ++i)
+         dArray[i] = pSource[i];
+   
+      for (int i = 0; i < 16; ++i) {
+         printf("%f ", dArray[i]);
+         if ((i+1)%4 == 0) {
+            printf("\n");
+         }
+      }
+    }
 }
 
 #endif

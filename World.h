@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Camera.h"
 #include "SkyBox.h"
+#include "Booth.h"
 
 class World {
    public:
@@ -27,10 +28,11 @@ class World {
       void initGround();
       void drawGround();
       int numLeft();
+      
    private:
       vector<tinyobj::shape_t> shapes; // TODO map of mesh data
       vector<Object*> extras; // bunnies for now.
-      vector<Object*> structures;
+      vector<Booth*> structures;
       vector<tinyobj::material_t> materials;
       GLint h_aPos, h_aNor;
       GLint h_uM;

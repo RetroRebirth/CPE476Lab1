@@ -6,6 +6,7 @@
 class Object {
    public:
       glm::vec3 pos;
+      glm::vec3 dimensions;
       glm::vec3 dir;
       float vel;
       bool collected;
@@ -46,11 +47,11 @@ class Object {
       glm::vec3 calculateNewPos(float dt);
       void setDirectional(bool dir);
       
-      void getBounds(struct bound_box &bounds);
+      void getBounds(struct bound_box *bounds);
       
    private:
       glm::mat4 modelMat;
-      glm::mat4 scalerMat;
+      glm::mat4 scalerMat, boundBoxScalerMat;
       glm::mat4 rotateMat;
       glm::mat4 transMat;
       GLuint posBufID;

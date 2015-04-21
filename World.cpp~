@@ -93,13 +93,41 @@ void World::step(Camera *camera, Window* window) {
    }*/
    for (int i=0; i<extras.size(); ++i) {
       Object* extra = extras[i];
-      extra->step(window->dt);
+      extra->draw();
    }
 
-   camera->step(window);
-   skybox->draw(camera);
    drawGround();
    drawOverWorld();
+   
+   // code to stop camera from going through things... will probably need to be moved somewhere else
+   for (int i=0; i<structures.size(); ++i) {
+      // if camera.pos violates bounds, then set pos to be equal to bound... 
+      glm::vec3 colPlane;
+      if (structures[i]->checkCameraCollision(camera->pos, &colPlane)) {
+         /* debug output for camera collisions
+         printf("boundry hit: ");
+         printVec3(colPlane);
+         printf("camera position: ");
+         printVec3(camera->pos);*/
+           
+         if (abs(colPlane.x) > 0.0f) {
+            // hit an x boundary
+            camera->pos.x = colPlane.x;
+         }
+         else if (abs(colPlane.y) > 0.0f) {
+            // hit a y boundary
+            camera->pos.y = colPlane.y;
+         }
+         else if (abs(colPlane.z) > 0.0f) {
+            // hit a z boundary
+            camera->pos.z = colPlane.z;
+         }
+         
+      }
+   }
+   
+   camera->step(window);
+   skybox->draw(camera);
 }
 
 inline void World::safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
@@ -165,8 +193,8 @@ void World::drawGround() {
 
 void World::drawOverWorld() {
    for (int i=0; i<structures.size(); ++i) {
-      Object* structure = structures[i];
-      structure->draw();
+      Booth* structure = structures[i];
+      structure->object->draw();
    }
 }
 
@@ -175,31 +203,59 @@ void World::setupOverWorld() {
    wall1->load(WALL_FILE_NAME);
    wall1->translate(glm::vec3(-SIZE-0.5f, 2.5f, 0.0f));
    wall1->scale(glm::vec3(1.0f, 5.0f, SIZE*2.0f));
-   structures.push_back(wall1);
+   Booth* bwall1 = new Booth(wall1, (const string*)"wall1");
+   structures.push_back(bwall1);
    
    Object* wall2 = new Object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
    wall2->load(WALL_FILE_NAME);
    wall2->translate(glm::vec3(SIZE+0.5f, 2.5f, 0.0f));
    wall2->scale(glm::vec3(1.0f, 5.0f, SIZE*2.0f));
-   structures.push_back(wall2);
+   Booth* bwall2 = new Booth(wall2, (const string*)"wall2");
+   structures.push_back(bwall2);
    
    Object* wall3 = new Object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
    wall3->load(WALL_FILE_NAME);
    wall3->translate(glm::vec3(0.0f, 2.5f, -SIZE-0.5f));
    wall3->scale(glm::vec3(SIZE*2.0f, 5.0f, 1.0f));
-   structures.push_back(wall3);
+   Booth* bwall3 = new Booth(wall3, (const string*)"wall3");
+   structures.push_back(bwall3);
    
    Object* wall4 = new Object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
    wall4->load(WALL_FILE_NAME);
    wall4->translate(glm::vec3(0.0f, 2.5f, SIZE+0.5f));
    wall4->scale(glm::vec3(SIZE*2.0f, 5.0f, 1.0f));
-   structures.push_back(wall4);
+   Booth* bwall4 = new Booth(wall4, (const string*)"wall4");
+   structures.push_back(bwall4);
    
    Object* booth1 = new Object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
    booth1->load(WALL_FILE_NAME);
-   booth1->translate(glm::vec3(0.0f, 0.0f, -10.0f));
+   booth1->translate(glm::vec3(0.0f, 0.0f, -20.0f));
    booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
-   structures.push_back(booth1);
+   //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
+   Booth* bbooth1 = new Booth(booth1, (const string*)"booth1");
+   structures.push_back(bbooth1);
+   
+   Object* booth2 = new Object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
+   booth2->load(WALL_FILE_NAME);
+   booth2->translate(glm::vec3(15.0f, 0.0f, 10.0f));
+   booth2->scale(glm::vec3(5.0f, 5.0f, 5.0f));
+   //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
+   Booth* bbooth2 = new Booth(booth2, (const string*)"booth2");
+   structures.push_back(bbooth2);
+   
+   Object* booth3 = new Object(shapes, materials, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uM, h_aPos, h_aNor);
+   booth3->load(WALL_FILE_NAME);
+   booth3->translate(glm::vec3(-15.0f, 0.0f, 10.0f));
+   booth3->scale(glm::vec3(5.0f, 5.0f, 5.0f));
+   //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
+   Booth* bbooth3 = new Booth(booth3, (const string*)"booth3");
+   structures.push_back(bbooth3);
+   
+   // initialize world along with bounding boxes
+   drawOverWorld();
+   for (int i=0; i<structures.size(); ++i) {
+      structures[i]->calculateBoundingBox();
+   }
 }
 
 void World::createExtra(const string &meshName) {
