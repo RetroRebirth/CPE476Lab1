@@ -52,6 +52,7 @@
 #define WINDOW_TITLE "Japanese Festival"
 #define SCALE_CONST1 0.025f
 #define SCALE_CONST2 1.3f
+#define INFLUENCE_WIDTH 2.0f
 
 // Texture IDs
 #define TEXTURE_SKY 1

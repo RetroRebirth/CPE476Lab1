@@ -17,7 +17,7 @@ Booth::Booth(
   
   // initiate bounding box
   object->getBounds(&bounds);
-  
+  active = false;
 }
 
 Booth::~Booth(){}
@@ -80,18 +80,46 @@ bool Booth::checkCameraCollision(glm::vec3 cam_pos, glm::vec3 *colPlane) {
 }
 
 //Checks for if the player is within the interact radius
-bool Booth::checkInteract(Player *_player){
+bool Booth::checkInteract(glm::vec3 player_pos){
 //TODO magic collision work again
-  while(true /*The actual interact check would go here*/ ){
-    showMessage();
+   if ((player_pos.x < influence_bounds.x_min) || (player_pos.x > influence_bounds.x_max)) {
+      active = false;
+      return false;
+   }
+   if ((player_pos.y < influence_bounds.y_min) || (player_pos.y > influence_bounds.y_max)) {
+      active = false;
+      return false;
+   }
+   if ((player_pos.z < influence_bounds.z_min) || (player_pos.z > influence_bounds.z_max)) {
+      active = false;
+      return false;
+   }
+   
+   //if it gets here, player exists in bounds
+   if (!active) { // anything your only want done once, put here. 
+      active = true;
+      // debug print
+      printf("Within Influece Bounds\n");
+   }
+   return true;
+  //while(true /*The actual interact check would go here*/ ){
+    //showMessage();
     //TODO check for whatever interaction
     //if(interaction is used)
     //startMinigame();
-  }
+  //}
 }
 
 void Booth::calculateBoundingBox() {
    object->getBounds(&bounds);
+
+   influence_bounds.x_min = bounds.x_min - INFLUENCE_WIDTH;
+   influence_bounds.x_max = bounds.x_max + INFLUENCE_WIDTH;
+   influence_bounds.y_min = bounds.y_min;
+   influence_bounds.y_max = bounds.y_max;
+   influence_bounds.z_min = bounds.z_min - INFLUENCE_WIDTH;
+   influence_bounds.z_max = bounds.z_max + INFLUENCE_WIDTH;
+  
 }
 
 //Starts the minigame
