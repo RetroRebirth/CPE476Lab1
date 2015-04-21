@@ -249,7 +249,7 @@ void World::setupOverWorld() {
    Object* booth3 = new Object(shapes, materials, ShadeProg);
    booth3->load(WALL_FILE_NAME);
    booth3->translate(glm::vec3(-15.0f, 0.0f, 10.0f));
-   booth3->scale(glm::vec3(5.0f, 5.0f, 5.0f));
+   booth3->scale(glm::vec3(15.0f, 5.0f, 5.0f));
    //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    Booth* bbooth3 = new Booth(booth3, (const string*)"booth3");
    structures.push_back(bbooth3);

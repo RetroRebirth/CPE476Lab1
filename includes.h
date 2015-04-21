@@ -50,7 +50,7 @@
 #define WINDOW_HEIGHT 768
 #define WINDOW_TITLE "Japanese Festival"
 #define SCALE_CONST1 0.025f
-#define SCALE_CONST2 0.6f
+#define SCALE_CONST2 1.3f
 
 // Texture IDs
 #define TEXTURE_SKY 1

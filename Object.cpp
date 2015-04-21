@@ -80,18 +80,18 @@ void Object::scale(glm::vec3 scaler) {
    float y = scaler.y;
    float z = scaler.z;
    if (scaler.x > 1.0f) { 
-      //temp_scaler.x -= ((scaler.x*SCALE_CONST1)+((1.0f/scaler.x)*SCALE_CONST2));//(1.5f*0.25f);
-      temp_scaler.x -= ((x*0.025f)+((1.0f/x)*0.6f));
+      temp_scaler.x -= ((scaler.x*SCALE_CONST1)+((1.0f/scaler.x)*SCALE_CONST2));//(1.5f*0.25f);
+      //temp_scaler.x -= ((x*0.025f)+((1.0f/x)*0.6f));
       //temp_scaler.x -= (1.5f*0.25f);
    }
    if (scaler.y > 1.0f) {
-      //temp_scaler.y -= ((scaler.y*SCALE_CONST1)+((1.0f/scaler.y)*SCALE_CONST2));//(1.5f*0.25f);
-      temp_scaler.y -= ((y*0.025f)+((1.0f/y)*0.6f));
+      temp_scaler.y -= ((scaler.y*SCALE_CONST1)+((1.0f/scaler.y)*SCALE_CONST2));//(1.5f*0.25f);
+      //temp_scaler.y -= ((y*0.025f)+((1.0f/y)*0.6f));
       //temp_scaler.y -= (1.5f*0.25f);
    }
    if (scaler.z > 1.0f) {
-      //temp_scaler.z -= ((scaler.z*SCALE_CONST1)+((1.0f/scaler.z)*SCALE_CONST2));//(1.5f*0.25f);
-      temp_scaler.z -= ((z*0.025f)+((1.0f/z)*0.6f));
+      temp_scaler.z -= ((scaler.z*SCALE_CONST1)+((1.0f/scaler.z)*SCALE_CONST2));//(1.5f*0.25f);
+      //temp_scaler.z -= ((z*0.025f)+((1.0f/z)*0.6f));
       //temp_scaler.z -= (1.5f*0.25f);
    }
    boundBoxScalerMat = glm::scale(glm::mat4(1.0f), temp_scaler);
