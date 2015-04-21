@@ -78,18 +78,19 @@ glm::vec3 Camera::calcNewPos(Window* window) {
       newPos -= crossVector;
    
    // Bounding
-   if (bounded) {
-      if (newPos.x < -SIZE)
-         newPos.x = -SIZE;
-      if (newPos.x > SIZE)
-         newPos.x = SIZE;
-      if (newPos.z < -SIZE)
-         newPos.z = -SIZE;
-      if (newPos.z > SIZE)
-         newPos.z = SIZE;
+  if (bounded) {
+     float s = SIZE - 0.2f;
+     if (newPos.x < -s)
+        newPos.x = -s;
+     if (newPos.x > s)
+        newPos.x = s;
+     if (newPos.z < -s)
+        newPos.z = -s;
+     if (newPos.z > s)
+        newPos.z = s;
 
-      newPos.y = 1;
-   }
+     newPos.y = 1;
+  }
 
    return newPos;
 }
