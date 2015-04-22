@@ -18,6 +18,7 @@ class Session {
       Window* window;
       Camera* camera;
       World* world;
+      Player* player;
 
       GLuint ShadeProg;
       GLint h_aPos;

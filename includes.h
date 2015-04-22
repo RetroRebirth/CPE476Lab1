@@ -24,6 +24,7 @@
 // defines file names for various meshes
 #define EXTRA_FILE_NAME "bunny.obj"
 #define WALL_FILE_NAME "cube.obj"
+#define PLAYER_FILE_NAME "sphere.obj"
 
 // defines the type of structure related to the Booth class
 #define WALL_TYPE 0

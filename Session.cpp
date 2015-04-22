@@ -5,14 +5,16 @@ Session::Session() {
 
    initGL();
 
-   world = new World(ShadeProg);
    camera = new Camera(h_uP, h_uV, h_uView);
+   player = new Player(camera);
+   world = new World(ShadeProg, player);
 }
 
 Session::~Session() {
    delete window;
    delete camera;
    delete world;
+   delete player;
 }
 
 /**

@@ -12,15 +12,13 @@ class Player {
       float radius;
 
       Player(
-         Camera &_camera);
+         Camera *_camera);
       virtual ~Player();
 
       void initPlayer(Object *_object);
-      void draw();
+      void step();
 
    private:
-      glm::vec3 pos;
-
       glm::vec3 calculatePos();
 };
 

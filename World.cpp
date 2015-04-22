@@ -2,7 +2,7 @@
 
 static string objectFiles[] = {"bunny.obj"};
 
-World::World(GLuint _ShadeProg) {
+World::World(GLuint _ShadeProg, Player* _player) {
    // Default attribute values
    objStartTime = 0.0;
    numCollected = 0;
@@ -19,6 +19,7 @@ World::World(GLuint _ShadeProg) {
    h_uTexUnit = GLSL::getUniformLocation(ShadeProg, "uTexUnit");
 
    skybox = new SkyBox(ShadeProg);
+   player = _player;
    initGround();
    setupOverWorld();
 }
@@ -119,6 +120,7 @@ void World::step(Camera *camera, Window* window) {
 
    camera->step(window);
    skybox->draw(camera, window);
+   player->step();
 }
 
 inline void World::safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
@@ -259,6 +261,9 @@ void World::setupOverWorld() {
    for (int i=0; i<structures.size(); ++i) {
       structures[i]->calculateBoundingBox();
    }
+
+   createPlayer(PLAYER_FILE_NAME);
+   player->step();
 }
 
 void World::createExtra(const string &meshName) {
@@ -268,6 +273,12 @@ void World::createExtra(const string &meshName) {
    extra->setDir(glm::normalize(glm::vec3(Util::randF()-0.5, 0.0, Util::randF()-0.5)));
    extra->setSpeed(OBJ_SPEED);
    extras.push_back(extra);
+}
+
+void World::createPlayer(const string &meshName) {
+   Object* playerObj = new Object(shapes, materials, ShadeProg);
+   playerObj->load(meshName);
+   player->initPlayer(playerObj);
 }
 
 int World::numLeft() {

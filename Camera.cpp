@@ -27,6 +27,10 @@ inline void Camera::safe_glUniformMatrix4fv(const GLint handle, const GLfloat da
       glUniformMatrix4fv(handle, 1, GL_FALSE, data);
 }
 
+float Camera::getYRot() {
+   return Util::radiansToDegrees(theta);
+}
+
 glm::vec3 Camera::lookAtPt() {
    glm::vec3 lookAtPt = glm::vec3(cos(phi)*cos(theta), sin(phi), cos(phi)*cos((M_PI/2)-theta));
    lookAtPt += pos;

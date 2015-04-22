@@ -7,12 +7,13 @@
 #include "Camera.h"
 #include "SkyBox.h"
 #include "Booth.h"
+#include "Player.h"
 
 class World {
    public:
       int numCollected;
 
-      World(GLuint ShadeProg);
+      World(GLuint ShadeProg, Player* _player);
       virtual ~World();
 
       void step(Camera *camera, Window* window);
@@ -35,8 +36,10 @@ class World {
       double objStartTime;
 
       SkyBox* skybox;
+      Player* player;
 
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
+      void createPlayer(const string &meshName);
       void createExtra(const string &meshName);
       void setupOverWorld();
       void drawOverWorld();

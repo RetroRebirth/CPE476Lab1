@@ -17,6 +17,7 @@ class Camera {
          GLint _h_uView);
       virtual ~Camera();
 
+      float getYRot();
       void toggleBounded();
       glm::vec3 lookAtPt();
       void setProjectionMatrix(int g_width, int g_height);
