@@ -13,6 +13,7 @@ Camera::Camera(
    bounded = true;
    speed = INITIAL_SPEED;
    blocked = false;
+   pov = true;
 
    // Defined attribute values
    h_uP = _h_uP;
@@ -80,7 +81,7 @@ glm::vec3 Camera::calcNewPos(Window* window) {
       newPos += crossVector;
    if (glfwGetKey(win, GLFW_KEY_E) == GLFW_PRESS) // Move down
       newPos -= crossVector;
-   
+
    // Bounding
   if (bounded) {
      float s = SIZE - 0.2f;

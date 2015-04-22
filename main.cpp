@@ -34,6 +34,8 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
    case GLFW_KEY_C:
       camera->bounded = !camera->bounded;
       break;
+   case GLFW_KEY_P:
+      camera->pov = !camera->pov;
    case GLFW_KEY_UP:
       if (camera->speed < MAX_SPEED) {
          camera->speed += DELTA_SPEED;

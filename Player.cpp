@@ -19,17 +19,17 @@ void Player::step() {
 
    if (object != NULL) {
       object->pos = calculatePos();
-      object->rotate(-Yrot, glm::vec3(0, 1, 0));
       object->scale(glm::vec3(1.0, 2.0, 1.0));
-
       object->setPos(object->pos);
-
-      object->draw();
+      object->rotate(-Yrot, glm::vec3(0, 1, 0));
+      
+      if (camera->pov) 
+         object->draw();
    }
 }
 
 glm::vec3 Player::calculatePos() {
-   glm::vec3 pos = camera->pos;
+   glm::vec3 pos;
    float Yrot = camera->getYRot();
 
    pos.x = camera->pos.x - radius * sin((Yrot + 270.0f) * M_PI / 180.0);

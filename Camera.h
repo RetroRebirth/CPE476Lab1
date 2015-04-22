@@ -10,6 +10,7 @@ class Camera {
       float speed;
       glm::vec3 pos;
       bool blocked;
+      bool pov;
 
       Camera(
          GLint _h_uP,
