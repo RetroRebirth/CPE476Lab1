@@ -5,7 +5,7 @@ Player::Player(
 
    object = NULL;
    camera = _camera;
-   radius = 1.5;
+   radius = 1.0;
 }
 
 Player::~Player() {}
@@ -33,6 +33,7 @@ glm::vec3 Player::calculatePos() {
    float Yrot = camera->getYRot();
 
    pos.x = camera->pos.x - radius * sin((Yrot + 270.0f) * M_PI / 180.0);
+   pos.y = 1;
    pos.z = camera->pos.z - radius * cos((Yrot - 270.0f) * M_PI / 180.0);
 
    return pos;

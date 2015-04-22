@@ -93,7 +93,7 @@ glm::vec3 Camera::calcNewPos(Window* window) {
      if (newPos.z > s)
         newPos.z = s;
 
-     newPos.y = 1;
+     newPos.y = 2;
   }
 
    return newPos;
