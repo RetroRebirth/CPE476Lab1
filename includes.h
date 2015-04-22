@@ -6,12 +6,13 @@
 #define FREEGLUT_LIB_PRAGMAS 0
 #include <stdio.h>
 #include <stdlib.h>
-#include "glew.h"
-#include "glfw3.h"
 #include <iostream>
 #include <cassert>
 #include <cmath>
 #include <ctime>
+#include <SOIL/src/SOIL.h>
+#include "glew.h"
+#include "glfw3.h"
 #include "GL/freeglut.h"
 #include "GLSL.h"
 #include "glm/glm.hpp"

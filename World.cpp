@@ -38,6 +38,7 @@ void World::step(Camera *camera, Window* window) {
    if (numLeft() < MAX_OBJS && window->time - objStartTime >= SECS_PER_OBJ) {
       createExtra(EXTRA_FILE_NAME);
       objStartTime = window->time;
+
    }
 
    for (int i=0; i<extras.size(); ++i) {
@@ -141,6 +142,7 @@ void World::drawGround() {
    glEnable(GL_TEXTURE_2D);
    glActiveTexture(GL_TEXTURE0);
    glUniform1i(h_uTexUnit, 0);
+
    // Bind the ground texture
    glBindTexture(GL_TEXTURE_2D, TEXTURE_GROUND);
 

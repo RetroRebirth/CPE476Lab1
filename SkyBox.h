@@ -13,8 +13,7 @@ class SkyBox
 
    private:
       GLuint ShadeProg;
-      GLint h_aPos, h_aNor, h_uM, h_uTexUnit, h_aTexCoord;
-      bufID_t boxBufIDs; // pos = pos, ind = ind, nor = textures
+      GLint h_aPos, h_aNor, h_uM, h_uTexUnit;
 
       Object* skydome;
       vector<tinyobj::shape_t> shapes;

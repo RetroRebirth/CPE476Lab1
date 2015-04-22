@@ -135,6 +135,55 @@ namespace Util
        return 1;
     }
 
+    void setTextureCoordinates(int value, GLuint ShadeProg)
+    {
+       switch(value) {
+          case 1:
+             glEnable(GL_TEXTURE_GEN_S);
+             glEnable(GL_TEXTURE_GEN_T);
+
+             glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);
+             glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);
+             break;
+          case 2:
+             GLuint tex_coord;
+             GLint h_aTexCoord = GLSL::getAttribLocation(ShadeProg, "aTexCoord");
+             glEnable(GL_TEXTURE_GEN_S);
+             glEnable(GL_TEXTURE_GEN_T);
+
+             // Texture coordinate mapping of a box
+             static GLfloat CubeTex[] = {
+                0, 0, // back 
+                0, 1,
+                1, 1,
+                1, 0,
+                0, 0, //right 
+                0, 1,
+                1, 1,
+                1, 0,
+                0, 0, //front 
+                0, 1,
+                1, 1,
+                1, 0,
+                0, 0, // left 
+                0, 1,
+                1, 1,
+                1, 0
+             };
+             glGenBuffers(1, &tex_coord);
+             glBindBuffer(GL_ARRAY_BUFFER, tex_coord);
+             glBufferData(GL_ARRAY_BUFFER, sizeof(CubeTex), CubeTex, GL_STATIC_DRAW);
+
+             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+             GLSL::enableVertexAttribArray(h_aTexCoord);
+             glBindBuffer(GL_ARRAY_BUFFER, tex_coord);
+             glVertexAttribPointer(h_aTexCoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
+             break;
+       }
+    }
+
     void loadTexture(char *filename, int texture_id)
     {
        Image* TextureImage;
@@ -153,13 +202,6 @@ namespace Util
        glBindTexture(GL_TEXTURE_2D, texture_id);
        glTexImage2D(GL_TEXTURE_2D, 0, 3,
          TextureImage->sizeX, TextureImage->sizeY, 0, GL_RGB, GL_UNSIGNED_BYTE, TextureImage->data);
-       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // cheap scaling when image bigger than texture
-       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // cheap scaling when image smalled than texture
-    }
-
-    void bindTexture()
-    {
-        
     }
 }
 
