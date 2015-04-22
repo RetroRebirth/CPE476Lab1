@@ -14,6 +14,7 @@ class Session {
       void run();
       Camera* getCamera();
       Window* getWindow();
+      void enterMinigame();
    private:
       Window* window;
       Camera* camera;

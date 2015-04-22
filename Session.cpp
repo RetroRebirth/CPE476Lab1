@@ -155,3 +155,9 @@ Window* Session::getWindow() {
    return window;
 }
 
+void Session::enterMinigame() {
+   camera->moveToMinigame();
+   // TODO set up controls for playing minigame
+   // TODO draw a sphere that we can click
+}
+

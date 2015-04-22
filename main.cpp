@@ -26,6 +26,7 @@ void enter_callback(GLFWwindow* win, int entered) {
 void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) {
    Camera* camera = session->getCamera();
 
+   // If we aren't pressing any button for the first time OR holding down a button, don't do anything.
    if (action != GLFW_PRESS && action != GLFW_REPEAT) {
       return;
    }
@@ -47,7 +48,7 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
       }
       break;
    case GLFW_KEY_ENTER:
-      camera->setView(glm::vec3(0, 1, 0), -M_PI/2.0, 0.0);
+      session->enterMinigame();
       break;
    }
 }

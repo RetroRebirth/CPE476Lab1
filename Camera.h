@@ -4,6 +4,9 @@
 #include "includes.h"
 #include "Window.h"
 
+// Minigame locations
+#define MINIGAME_LOC glm::vec3(20*SIZE, 2, 0)
+
 class Camera {
    public:
       bool bounded;
@@ -27,13 +30,14 @@ class Camera {
       void mouse_callback(GLFWwindow* window, double xpos, double ypos, int g_width, int g_height);
       void enter_callback(GLFWwindow* window, int entered, int g_width, int g_height);
       glm::vec3 calcNewPos(Window* window);
-      void setView(glm::vec3 pos, float theta, float phi);
+      void moveToMinigame();
    private:
       float theta;
       float phi;
       GLint h_uP;
       GLint h_uV;
       GLint h_uView;
+      bool playingMinigame;
 
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
 };

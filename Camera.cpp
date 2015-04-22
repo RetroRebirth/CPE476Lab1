@@ -14,6 +14,7 @@ Camera::Camera(
    speed = INITIAL_SPEED;
    blocked = false;
    pov = true;
+   playingMinigame = false;
 
    // Defined attribute values
    h_uP = _h_uP;
@@ -53,7 +54,10 @@ void Camera::step(Window* window) {
    setProjectionMatrix(window->width, window->height);
    setView();
 
-   pos = !bounded || !blocked ? calcNewPos(window) : pos;
+   if (!playingMinigame && (!bounded || !blocked)) {
+      pos = calcNewPos(window);
+   }
+//   pos = !bounded || !blocked ? calcNewPos(window) : pos;
    blocked = false;
 }
 
@@ -125,9 +129,11 @@ void Camera::enter_callback(GLFWwindow* window, int entered, int g_width, int g_
    glfwSetCursorPos(window, g_width/2, g_height/2);
 }
 
-void Camera::setView(glm::vec3 pos, float theta, float phi) {
-   this->pos = pos;
-   this->theta = theta;
-   this->phi = phi;
+void Camera::moveToMinigame() {
+   // Send the camera to some abritrary place outside the overworld.
+   this->playingMinigame = true;
+   this->pos = MINIGAME_LOC;
+   this->theta = -M_PI/2.0;
+   this->phi = 0.0;
 }
 
