@@ -127,7 +127,7 @@ void World::step(Camera *camera, Window* window) {
 
 bool World::hasActiveBooth() {
    for (int i=0; i<structures.size(); ++i) {
-      if (structures[i].isActive()) {
+      if (structures[i]->isActive()) {
          return true;
       }
    }
@@ -243,19 +243,28 @@ void World::setupOverWorld() {
    Booth* bwall4 = new Booth(wall4, (const string*)"wall4");
    structures.push_back(bwall4);
    
-   Object* booth1 = new Object(shapes, materials, ShadeProg);
-   booth1->load(WALL_FILE_NAME);
-   booth1->translate(glm::vec3(0.0f, 0.0f, -15.0f));
-   booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
+   Object* booth1_1 = new Object(shapes, materials, ShadeProg);
+   booth1_1->load(WALL_FILE_NAME);
+   booth1_1->translate(glm::vec3(7.5f, 1.0f, -15.0f));
+   booth1_1->scale(glm::vec3(10.0f, 5.0f, 5.0f));
    //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
-   Booth* bbooth1 = new Booth(booth1, (const string*)"booth1");
-   bbooth1->setType(BOOTH_TYPE);
-   structures.push_back(bbooth1);
+   Booth* bbooth1_1 = new Booth(booth1_1, (const string*)"booth1");
+   bbooth1_1->setType(BOOTH_TYPE);
+   structures.push_back(bbooth1_1);
+   
+   Object* booth1_2 = new Object(shapes, materials, ShadeProg);
+   booth1_2->load(WALL_FILE_NAME);
+   booth1_2->translate(glm::vec3(-7.5f, 1.0f, -15.0f));
+   booth1_2->scale(glm::vec3(10.0f, 5.0f, 5.0f));
+   //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
+   Booth* bbooth1_2 = new Booth(booth1_2, (const string*)"booth1");
+   bbooth1_2->setType(BOOTH_TYPE);
+   structures.push_back(bbooth1_2);
    
    Object* booth2 = new Object(shapes, materials, ShadeProg);
    booth2->load(WALL_FILE_NAME);
-   booth2->translate(glm::vec3(15.0f, 0.0f, 10.0f));
-   booth2->scale(glm::vec3(5.0f, 5.0f, 5.0f));
+   booth2->translate(glm::vec3(15.0f, 1.0f, 0.0f));
+   booth2->scale(glm::vec3(15.0f, 5.0f, 5.0f));
    //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    Booth* bbooth2 = new Booth(booth2, (const string*)"booth2");
    bbooth2->setType(BOOTH_TYPE);
@@ -263,12 +272,39 @@ void World::setupOverWorld() {
    
    Object* booth3 = new Object(shapes, materials, ShadeProg);
    booth3->load(WALL_FILE_NAME);
-   booth3->translate(glm::vec3(-15.0f, 0.0f, 10.0f));
+   booth3->translate(glm::vec3(-15.0f, 1.0f, 0.0f));
    booth3->scale(glm::vec3(15.0f, 5.0f, 5.0f));
    //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    Booth* bbooth3 = new Booth(booth3, (const string*)"booth3");
    bbooth3->setType(BOOTH_TYPE);
    structures.push_back(bbooth3);
+   
+   Object* booth4_1 = new Object(shapes, materials, ShadeProg);
+   booth4_1->load(WALL_FILE_NAME);
+   booth4_1->translate(glm::vec3(10.0f, 1.0f, 17.0f));
+   booth4_1->scale(glm::vec3(5.0f, 6.0f, 2.5f));
+   //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
+   Booth* bbooth4_1 = new Booth(booth4_1, (const string*)"booth1");
+   bbooth4_1->setType(BOOTH_TYPE);
+   structures.push_back(bbooth4_1);
+   
+   Object* booth4_2 = new Object(shapes, materials, ShadeProg);
+   booth4_2->load(WALL_FILE_NAME);
+   booth4_2->translate(glm::vec3(-10.0f, 1.0f, 17.0f));
+   booth4_2->scale(glm::vec3(5.0f, 6.0f, 2.5f));
+   //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
+   Booth* bbooth4_2 = new Booth(booth4_2, (const string*)"booth1");
+   bbooth4_2->setType(BOOTH_TYPE);
+   structures.push_back(bbooth4_2);
+   
+   Object* booth4_3 = new Object(shapes, materials, ShadeProg);
+   booth4_3->load(WALL_FILE_NAME);
+   booth4_3->translate(glm::vec3(0.0f, 1.0f, 17.0f));
+   booth4_3->scale(glm::vec3(5.0f, 6.0f, 2.5f));
+   //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
+   Booth* bbooth4_3 = new Booth(booth4_3, (const string*)"booth1");
+   bbooth4_3->setType(BOOTH_TYPE);
+   structures.push_back(bbooth4_3);
    
    // initialize world along with bounding boxes
    drawOverWorld();
