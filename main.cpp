@@ -44,6 +44,9 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
          camera->speed -= DELTA_SPEED;
       }
       break;
+   case GLFW_KEY_ENTER:
+      camera->setView(glm::vec3(0, 1, 0), -M_PI/2.0, 0.0);
+      break;
    }
 }
 

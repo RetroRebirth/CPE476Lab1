@@ -26,6 +26,7 @@ class Camera {
       void mouse_callback(GLFWwindow* window, double xpos, double ypos, int g_width, int g_height);
       void enter_callback(GLFWwindow* window, int entered, int g_width, int g_height);
       glm::vec3 calcNewPos(Window* window);
+      void setView(glm::vec3 pos, float theta, float phi);
    private:
       float theta;
       float phi;

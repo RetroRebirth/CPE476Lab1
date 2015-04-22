@@ -123,3 +123,10 @@ void Camera::enter_callback(GLFWwindow* window, int entered, int g_width, int g_
    // Position mouse at center if enter screen
    glfwSetCursorPos(window, g_width/2, g_height/2);
 }
+
+void Camera::setView(glm::vec3 pos, float theta, float phi) {
+   this->pos = pos;
+   this->theta = theta;
+   this->phi = phi;
+}
+
