@@ -161,3 +161,8 @@ void Session::enterMinigame() {
    // TODO draw a sphere that we can click
 }
 
+void Session::leaveMinigame() {
+   camera->moveToOverworld();
+   // TODO set up controls for moving around overworld
+}
+

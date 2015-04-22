@@ -37,6 +37,7 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
       break;
    case GLFW_KEY_P:
       camera->pov = !camera->pov;
+      break;
    case GLFW_KEY_UP:
       if (camera->speed < MAX_SPEED) {
          camera->speed += DELTA_SPEED;
@@ -49,6 +50,9 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
       break;
    case GLFW_KEY_ENTER:
       session->enterMinigame();
+      break;
+   case GLFW_KEY_SPACE:
+      session->leaveMinigame();
       break;
    }
 }

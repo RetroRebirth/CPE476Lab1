@@ -130,9 +130,23 @@ void Camera::enter_callback(GLFWwindow* window, int entered, int g_width, int g_
 }
 
 void Camera::moveToMinigame() {
-   // Send the camera to some abritrary place outside the overworld.
+   // Set the appropriate flags
    this->playingMinigame = true;
-   this->pos = MINIGAME_LOC;
+   this->pov = false;
+
+   // Send the camera to some abritrary place outside the overworld.
+   this->pos = glm::vec3(20*SIZE, 2, 0);
+   this->theta = -M_PI/2.0;
+   this->phi = 0.0;
+}
+
+void Camera::moveToOverworld() {
+   // Set the appropriate flags
+   this->playingMinigame = false;
+   this->pov = true;
+
+   // Send the camera to some abritrary place outside the overworld.
+   this->pos = glm::vec3(0, 2, 0);
    this->theta = -M_PI/2.0;
    this->phi = 0.0;
 }
