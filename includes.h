@@ -30,13 +30,17 @@
 #define WALL_TYPE 0
 #define BOOTH_TYPE 1
 #define MISC_TYPE 2
+// Texture IDs
+#define TEXTURE_SKY 3
+#define TEXTURE_GROUND 4
+#define TEXTURE_WOOD 5
 // TODO add defines for specific minigame types
 
 // misc defines for globally accessed values
 #define MAX_OBJS 40
 #define SECS_PER_OBJ 2.0
 #define SIZE 25.0
-#define SKY_SIZE 40.0
+#define SKY_SIZE 100.0
 #define NUM_OBJ_TYPES 1
 #define SPHERE 0
 #define MOUSE_SPEED 0.25
@@ -53,11 +57,6 @@
 #define SCALE_CONST1 0.025f
 #define SCALE_CONST2 1.3f
 #define INFLUENCE_WIDTH 2.0f
-
-// Texture IDs
-#define TEXTURE_SKY 1
-#define TEXTURE_GROUND 2
-#define TEXTURE_WOOD 3
 
 // Game States
 #define WORLD_STATE 0

@@ -8,6 +8,7 @@ Booth::Booth(
 
   object = _object;
   interactMessage = _message;
+
   //can't go past this
   bumpRadius = 1.0f;
   //can only interact within this
@@ -21,6 +22,9 @@ Booth::Booth(
   // initiate bounding box
   object->getBounds(&bounds);
   active = false;
+
+  // set the texture to a booth texture
+  object->setTexture((char *)"misc.bmp", type);
 }
 
 Booth::~Booth(){}

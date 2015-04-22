@@ -31,7 +31,15 @@ class Booth {
     //Calculate the bounding box for the booth... should only be called once after first draw
     void calculateBoundingBox();
     //Set the booth/structure type. Supported parameters are defined in include.h
-    void setType(int t) { type = t; };
+    void setType(int t) {
+        type = t;
+        if (type == WALL_TYPE)
+            object->setTexture((char *)"wall.bmp", type);
+        if (type == BOOTH_TYPE)
+            object->setTexture((char *)"booth.bmp", type);
+        if (type == MISC_TYPE)
+            object->setTexture((char *)"misc.bmp", type);
+    };
     //Get the booth/structure type. Defined in include.h
     int getType() { return type; };
 

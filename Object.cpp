@@ -325,6 +325,12 @@ void Object::init()
 
 void Object::draw()
 {
+   // Bind the texture
+   glEnable(GL_TEXTURE_2D);
+   glActiveTexture(GL_TEXTURE0);
+   glUniform1i(h_uTexUnit, 0);
+   glBindTexture(GL_TEXTURE_2D, texture_id);
+
    GLint h_pos = h_aPos;
    GLint h_nor = h_aNor;
 	// Enable and bind position array for drawing

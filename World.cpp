@@ -40,50 +40,6 @@ void World::step(Camera *camera, Window* window) {
       objStartTime = window->time;
    }
 
-// TODO I know I said looping with ints is bad but this link below proved otherwise. Use it if getting segfaults
-// http://gamedev.stackexchange.com/questions/46584/how-to-remove-an-object-from-a-stdvector
-   /*for (int i=0; i<activeObjects.size(); ++i) { 
-      Object* obj1 = activeObjects[i];
-      if (obj1->collidedWithPlayer(camera->calcNewPos(window), window->dt)) {
-         // Delete object from collision detection
-         activeObjects[i] = activeObjects.back();
-         activeObjects.pop_back();
-         --i;
-         continue;
-      }
-      if (obj1->collidedWithWall(window->dt)) {
-         continue;
-      }
-      for (int j=0; j<activeObjects.size(); ++j) { 
-         Object* obj2 = activeObjects[j];
-         if (obj1 == obj2) {
-            continue;
-         }
-         if (obj1->collidedWithObj(*obj2, window->dt)) {
-            break;
-         }
-      }
-   }
-
-   for (int i=0; i<objects.size(); ++i) { 
-      bject* obj = objects[i];
-      // If the object has finished shrinking, remove it
-      if (obj->radius <= 0.0) {
-         objects[i] = objects.back();
-         objects.pop_back();
-         --i;
-         delete obj;
-         // Increment the score
-         numCollected++;
-         continue;
-      }
-      if (obj->collidedWithPlayer(camera->calcNewPos(window), window->dt)) {
-         // Stop the camera from moving into object
-         camera->blocked = true;
-      }
-      // Update the object normally
-      obj->step(window->dt);
-   }*/
    for (int i=0; i<extras.size(); ++i) {
       Object* extra = extras[i];
       extra->draw();
@@ -99,6 +55,7 @@ void World::step(Camera *camera, Window* window) {
       // TODO influence check should use player position in the future
       structures[i]->checkInteract(camera->pos);
       if (structures[i]->checkCameraCollision(camera->pos, &colPlane)) {
+
          /* debug output for camera collisions
          printf("boundry hit: ");
          printVec3(colPlane);
@@ -142,7 +99,7 @@ inline void World::safe_glUniformMatrix4fv(const GLint handle, const GLfloat dat
 void World::initGround() {
 
    // Load the texture for the ground
-   loadTexture((char *)"ground_grass2.bmp", TEXTURE_GROUND);
+   loadTexture((char *)"grass.bmp", TEXTURE_GROUND);
 
    // Position array of ground
    GLfloat vertices[] = {
@@ -220,6 +177,7 @@ void World::setupOverWorld() {
    wall1->translate(glm::vec3(-SIZE-0.5f, 2.5f, 0.0f));
    wall1->scale(glm::vec3(1.0f, 5.0f, SIZE*2.0f));
    Booth* bwall1 = new Booth(wall1, (const string*)"wall1");
+   bwall1->setType(WALL_TYPE);
    structures.push_back(bwall1);
    
    Object* wall2 = new Object(shapes, materials, ShadeProg);
@@ -227,6 +185,7 @@ void World::setupOverWorld() {
    wall2->translate(glm::vec3(SIZE+0.5f, 2.5f, 0.0f));
    wall2->scale(glm::vec3(1.0f, 5.0f, SIZE*2.0f));
    Booth* bwall2 = new Booth(wall2, (const string*)"wall2");
+   bwall2->setType(WALL_TYPE);
    structures.push_back(bwall2);
    
    Object* wall3 = new Object(shapes, materials, ShadeProg);
@@ -234,6 +193,7 @@ void World::setupOverWorld() {
    wall3->translate(glm::vec3(0.0f, 2.5f, -SIZE-0.5f));
    wall3->scale(glm::vec3(SIZE*2.0f, 5.0f, 1.0f));
    Booth* bwall3 = new Booth(wall3, (const string*)"wall3");
+   bwall3->setType(WALL_TYPE);
    structures.push_back(bwall3);
    
    Object* wall4 = new Object(shapes, materials, ShadeProg);
@@ -241,6 +201,7 @@ void World::setupOverWorld() {
    wall4->translate(glm::vec3(0.0f, 2.5f, SIZE+0.5f));
    wall4->scale(glm::vec3(SIZE*2.0f, 5.0f, 1.0f));
    Booth* bwall4 = new Booth(wall4, (const string*)"wall4");
+   bwall4->setType(WALL_TYPE);
    structures.push_back(bwall4);
    
    Object* booth1_1 = new Object(shapes, materials, ShadeProg);

@@ -1,5 +1,6 @@
 #include "includes.h"
 #include "Camera.h"
+#include "Object.h"
 
 class SkyBox
 {
@@ -11,9 +12,13 @@ class SkyBox
       void draw(Camera* camera, Window* window);
 
    private:
-      GLint h_aPos, h_aNor, h_uM;
-      GLint h_uTexUnit, h_aTexCoord;
+      GLuint ShadeProg;
+      GLint h_aPos, h_aNor, h_uM, h_uTexUnit, h_aTexCoord;
       bufID_t boxBufIDs; // pos = pos, ind = ind, nor = textures
+
+      Object* skydome;
+      vector<tinyobj::shape_t> shapes;
+      vector<tinyobj::material_t> materials;
 };
 
 

@@ -142,7 +142,7 @@ inline void World::safe_glUniformMatrix4fv(const GLint handle, const GLfloat dat
 void World::initGround() {
 
    // Load the texture for the ground
-   loadTexture((char *)"ground_grass2.bmp", TEXTURE_GROUND);
+   loadTexture((char *)"grass.bmp", TEXTURE_GROUND);
 
    // Position array of ground
    GLfloat vertices[] = {
@@ -220,6 +220,7 @@ void World::setupOverWorld() {
    wall1->translate(glm::vec3(-SIZE-0.5f, 2.5f, 0.0f));
    wall1->scale(glm::vec3(1.0f, 5.0f, SIZE*2.0f));
    Booth* bwall1 = new Booth(wall1, (const string*)"wall1");
+   bwall1->setType(WALL_TYPE);
    structures.push_back(bwall1);
    
    Object* wall2 = new Object(shapes, materials, ShadeProg);
@@ -227,6 +228,7 @@ void World::setupOverWorld() {
    wall2->translate(glm::vec3(SIZE+0.5f, 2.5f, 0.0f));
    wall2->scale(glm::vec3(1.0f, 5.0f, SIZE*2.0f));
    Booth* bwall2 = new Booth(wall2, (const string*)"wall2");
+   bwall2->setType(WALL_TYPE);
    structures.push_back(bwall2);
    
    Object* wall3 = new Object(shapes, materials, ShadeProg);
@@ -234,6 +236,7 @@ void World::setupOverWorld() {
    wall3->translate(glm::vec3(0.0f, 2.5f, -SIZE-0.5f));
    wall3->scale(glm::vec3(SIZE*2.0f, 5.0f, 1.0f));
    Booth* bwall3 = new Booth(wall3, (const string*)"wall3");
+   bwall3->setType(WALL_TYPE);
    structures.push_back(bwall3);
    
    Object* wall4 = new Object(shapes, materials, ShadeProg);
@@ -241,6 +244,7 @@ void World::setupOverWorld() {
    wall4->translate(glm::vec3(0.0f, 2.5f, SIZE+0.5f));
    wall4->scale(glm::vec3(SIZE*2.0f, 5.0f, 1.0f));
    Booth* bwall4 = new Booth(wall4, (const string*)"wall4");
+   bwall4->setType(WALL_TYPE);
    structures.push_back(bwall4);
    
    Object* booth1_1 = new Object(shapes, materials, ShadeProg);
