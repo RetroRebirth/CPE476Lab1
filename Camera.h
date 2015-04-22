@@ -11,7 +11,11 @@ class Camera {
       glm::vec3 pos;
       bool blocked;
       bool pov;
+      glm::mat4 Projection;
+      glm::mat4 View;
 
+
+      
       Camera(
          GLint _h_uP,
          GLint _h_uV,

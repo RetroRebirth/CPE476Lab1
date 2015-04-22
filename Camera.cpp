@@ -40,12 +40,12 @@ glm::vec3 Camera::lookAtPt() {
 }
 
 void Camera::setProjectionMatrix(int g_width, int g_height) {
-   glm::mat4 Projection = glm::perspective(90.0f, (float)g_width/g_height, 0.1f, 100.f);
+   Projection = glm::perspective(90.0f, (float)g_width/g_height, 0.1f, 100.f);
    safe_glUniformMatrix4fv(h_uP, glm::value_ptr(Projection));
 }
 
 void Camera::setView() {
-   glm::mat4 View = glm::lookAt(pos, lookAtPt(), glm::vec3(0, 1, 0));
+   View = glm::lookAt(pos, lookAtPt(), glm::vec3(0, 1, 0));
    safe_glUniformMatrix4fv(h_uV, glm::value_ptr(View));
    glUniform3f(h_uView, pos.x, pos.y, pos.z);
 }
