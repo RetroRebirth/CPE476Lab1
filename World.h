@@ -41,9 +41,10 @@ class World {
 
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
       void createPlayer(const string &meshName);
-      void createExtra(const string &meshName);
+      void createExtras(const string &meshName);
       void setupOverWorld();
       void drawOverWorld();
+      bool detectSpawnCollision(Object* object);
 };
 
 #endif

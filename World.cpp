@@ -22,6 +22,7 @@ World::World(GLuint _ShadeProg, Player* _player) {
    player = _player;
    initGround();
    setupOverWorld();
+   createExtras(EXTRA_FILE_NAME);
 }
 
 World::~World() {
@@ -35,10 +36,10 @@ World::~World() {
 
 void World::step(Camera *camera, Window* window) {
    // Create a new object every SECS_PER_OBJ
-   if (numLeft() < MAX_OBJS && window->time - objStartTime >= SECS_PER_OBJ) {
+   /*if (numLeft() < MAX_OBJS && window->time - objStartTime >= SECS_PER_OBJ) {
       createExtra(EXTRA_FILE_NAME);
       objStartTime = window->time;
-   }
+   }*/
 
    for (int i=0; i<extras.size(); ++i) {
       Object* extra = extras[i];
@@ -277,13 +278,32 @@ void World::setupOverWorld() {
    player->step();
 }
 
-void World::createExtra(const string &meshName) {
-   Object* extra = new Object(shapes, materials, ShadeProg);
-   extra->load(meshName);
-   extra->setPos(glm::vec3(2*Util::randF()*SIZE - SIZE, 1.0, 2*Util::randF()*SIZE - SIZE));
-   extra->setDir(glm::normalize(glm::vec3(Util::randF()-0.5, 0.0, Util::randF()-0.5)));
-   extra->setSpeed(OBJ_SPEED);
-   extras.push_back(extra);
+bool World::detectSpawnCollision(Object* object) {
+   for (int i=0; i<structures.size(); ++i) {
+      if (structures[i]->checkCollision(object)) {
+         return true;
+      }
+   }
+   for (int i=0; i<extras.size(); ++i) {
+      if (extras[i]->collision(object)) {
+         return true;
+      }
+   }
+   return false;
+}
+
+void World::createExtras(const string &meshName) {
+   for (int i=0; i<MAX_OBJS; ++i) {
+      Object* extra = new Object(shapes, materials, ShadeProg);
+      extra->load(meshName);
+      extra->setPos(glm::vec3(2*Util::randF()*SIZE - SIZE, 1.0, 2*Util::randF()*SIZE - SIZE));
+      while (detectSpawnCollision(extra)) {
+         extra->setPos(glm::vec3(2*Util::randF()*SIZE - SIZE, 1.0, 2*Util::randF()*SIZE - SIZE));
+      }
+      extra->setDir(glm::normalize(glm::vec3(Util::randF()-0.5, 0.0, Util::randF()-0.5)));
+      extra->setSpeed(OBJ_SPEED);
+      extras.push_back(extra);
+   }
 }
 
 void World::createPlayer(const string &meshName) {

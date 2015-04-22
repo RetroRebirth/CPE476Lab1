@@ -37,7 +37,7 @@
 // TODO add defines for specific minigame types
 
 // misc defines for globally accessed values
-#define MAX_OBJS 40
+#define MAX_OBJS 30
 #define SECS_PER_OBJ 2.0
 #define SIZE 25.0
 #define SKY_SIZE 100.0

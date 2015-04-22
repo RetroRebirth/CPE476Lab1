@@ -38,6 +38,7 @@ class Object {
       bool collidedWithPlayer(glm::vec3 camPos, float dt);
       bool collidedWithWall(float dt);
       bool collidedWithObj(Object o, float dt);
+      bool collision(Object* o);
       glm::vec3 calculateNewPos(float dt);
       void setDirectional(bool dir);
       

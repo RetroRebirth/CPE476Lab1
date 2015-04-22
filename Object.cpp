@@ -155,6 +155,13 @@ bool Object::collidedWithObj(Object o, float dt) {
    }
 }
 
+bool Object::collision(Object* o) {
+   if (glm::distance(o->pos, pos) <= (radius + o->radius)) {
+      return true;
+   }
+   return false;
+}
+
 void Object::getBounds(struct bound_box *bounds) {
    
    float x_min, x_max, y_min, y_max, z_min, z_max; 

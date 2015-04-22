@@ -38,7 +38,20 @@ void Booth::showMessage(){
 //Checks if anything is colliding with the booth so it stops them.
 bool Booth::checkCollision(Object* _otherObject){
    //TODO magic collision work
+   glm::vec3 max = glm::vec3(_otherObject->pos.x + _otherObject->radius, _otherObject->pos.y + _otherObject->radius, _otherObject->pos.z + _otherObject->radius);
+   glm::vec3 min = glm::vec3(_otherObject->pos.x - _otherObject->radius, _otherObject->pos.y - _otherObject->radius, _otherObject->pos.z - _otherObject->radius);
    
+   if ((max.x < bounds.x_min) || (min.x > bounds.x_max)) {
+      return false;
+   }
+   if ((max.y < bounds.y_min) || (min.y > bounds.y_max)) {
+      return false;
+   }
+   if ((max.z < bounds.z_min) || (min.z > bounds.z_max)) {
+      return false;
+   }
+   
+   return true;
 }
 
 // check for camera collision set colPlane equal to the bound that has been passed through

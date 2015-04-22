@@ -22,6 +22,7 @@ World::World(GLuint _ShadeProg, Player* _player) {
    player = _player;
    initGround();
    setupOverWorld();
+   createExtras(EXTRA_FILE_NAME);
 }
 
 World::~World() {
@@ -35,55 +36,11 @@ World::~World() {
 
 void World::step(Camera *camera, Window* window) {
    // Create a new object every SECS_PER_OBJ
-   if (numLeft() < MAX_OBJS && window->time - objStartTime >= SECS_PER_OBJ) {
+   /*if (numLeft() < MAX_OBJS && window->time - objStartTime >= SECS_PER_OBJ) {
       createExtra(EXTRA_FILE_NAME);
       objStartTime = window->time;
-   }
-
-// TODO I know I said looping with ints is bad but this link below proved otherwise. Use it if getting segfaults
-// http://gamedev.stackexchange.com/questions/46584/how-to-remove-an-object-from-a-stdvector
-   /*for (int i=0; i<activeObjects.size(); ++i) { 
-      Object* obj1 = activeObjects[i];
-      if (obj1->collidedWithPlayer(camera->calcNewPos(window), window->dt)) {
-         // Delete object from collision detection
-         activeObjects[i] = activeObjects.back();
-         activeObjects.pop_back();
-         --i;
-         continue;
-      }
-      if (obj1->collidedWithWall(window->dt)) {
-         continue;
-      }
-      for (int j=0; j<activeObjects.size(); ++j) { 
-         Object* obj2 = activeObjects[j];
-         if (obj1 == obj2) {
-            continue;
-         }
-         if (obj1->collidedWithObj(*obj2, window->dt)) {
-            break;
-         }
-      }
-   }
-
-   for (int i=0; i<objects.size(); ++i) { 
-      bject* obj = objects[i];
-      // If the object has finished shrinking, remove it
-      if (obj->radius <= 0.0) {
-         objects[i] = objects.back();
-         objects.pop_back();
-         --i;
-         delete obj;
-         // Increment the score
-         numCollected++;
-         continue;
-      }
-      if (obj->collidedWithPlayer(camera->calcNewPos(window), window->dt)) {
-         // Stop the camera from moving into object
-         camera->blocked = true;
-      }
-      // Update the object normally
-      obj->step(window->dt);
    }*/
+
    for (int i=0; i<extras.size(); ++i) {
       Object* extra = extras[i];
       extra->draw();
@@ -99,6 +56,7 @@ void World::step(Camera *camera, Window* window) {
       // TODO influence check should use player position in the future
       structures[i]->checkInteract(camera->pos);
       if (structures[i]->checkCameraCollision(camera->pos, &colPlane)) {
+
          /* debug output for camera collisions
          printf("boundry hit: ");
          printVec3(colPlane);
@@ -271,7 +229,7 @@ void World::setupOverWorld() {
    booth2->scale(glm::vec3(15.0f, 5.0f, 5.0f));
    //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    Booth* bbooth2 = new Booth(booth2, (const string*)"booth2");
-   bbooth2->setType(BOOTH_TYPE);
+   bbooth2->setType(MISC_TYPE);
    structures.push_back(bbooth2);
    
    Object* booth3 = new Object(shapes, materials, ShadeProg);
@@ -280,7 +238,7 @@ void World::setupOverWorld() {
    booth3->scale(glm::vec3(15.0f, 5.0f, 5.0f));
    //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    Booth* bbooth3 = new Booth(booth3, (const string*)"booth3");
-   bbooth3->setType(BOOTH_TYPE);
+   bbooth3->setType(MISC_TYPE);
    structures.push_back(bbooth3);
    
    Object* booth4_1 = new Object(shapes, materials, ShadeProg);
@@ -320,13 +278,29 @@ void World::setupOverWorld() {
    player->step();
 }
 
-void World::createExtra(const string &meshName) {
-   Object* extra = new Object(shapes, materials, ShadeProg);
-   extra->load(meshName);
-   extra->setPos(glm::vec3(2*Util::randF()*SIZE - SIZE, 1.0, 2*Util::randF()*SIZE - SIZE));
-   extra->setDir(glm::normalize(glm::vec3(Util::randF()-0.5, 0.0, Util::randF()-0.5)));
-   extra->setSpeed(OBJ_SPEED);
-   extras.push_back(extra);
+bool World::detectSpawnCollision(Object* object) {
+   for (int i=0; i<structures.size(); ++i) {
+      if (structures[i]->checkCollision(object)) {
+         return true;
+      }
+   }
+   for (int i=0; i<extras.size(); ++i) {
+      if (extras[i]->collision(object)
+   return false;
+}
+
+void World::createExtras(const string &meshName) {
+   for (int i=0; i<MAX_OBJS; ++i) {
+      Object* extra = new Object(shapes, materials, ShadeProg);
+      extra->load(meshName);
+      extra->setPos(glm::vec3(2*Util::randF()*SIZE - SIZE, 1.0, 2*Util::randF()*SIZE - SIZE));
+      while (detectSpawnCollision(extra)) {
+         extra->setPos(glm::vec3(2*Util::randF()*SIZE - SIZE, 1.0, 2*Util::randF()*SIZE - SIZE));
+      }
+      extra->setDir(glm::normalize(glm::vec3(Util::randF()-0.5, 0.0, Util::randF()-0.5)));
+      extra->setSpeed(OBJ_SPEED);
+      extras.push_back(extra);
+   }
 }
 
 void World::createPlayer(const string &meshName) {
