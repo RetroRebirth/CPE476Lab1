@@ -16,11 +16,15 @@ class Session {
       Window* getWindow();
       void enterMinigame();
       void leaveMinigame();
+      int getGameState() { return game_state; };
    private:
       Window* window;
       Camera* camera;
       World* world;
       Player* player;
+      
+      // defines current state of game... consts defined in includes.h
+      int game_state;
 
       GLuint ShadeProg;
       GLint h_aPos;

@@ -49,10 +49,14 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
       }
       break;
    case GLFW_KEY_ENTER:
-      session->enterMinigame();
+      if (session->getGameState() == WORLD_STATE) {
+         session->enterMinigame();
+      }
       break;
    case GLFW_KEY_SPACE:
-      session->leaveMinigame();
+      if (session->getGameState() == MINIGAME_STATE) {
+         session->leaveMinigame();
+      }
       break;
    }
 }

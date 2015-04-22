@@ -8,6 +8,8 @@ Session::Session() {
    camera = new Camera(h_uP, h_uV, h_uView);
    player = new Player(camera);
    world = new World(ShadeProg, player);
+   
+   game_state = WORLD_STATE;
 }
 
 Session::~Session() {
@@ -156,12 +158,16 @@ Window* Session::getWindow() {
 }
 
 void Session::enterMinigame() {
-   camera->moveToMinigame();
-   // TODO set up controls for playing minigame
-   // TODO draw a sphere that we can click
+   if (world->hasActiveBooth()) {
+      game_state = MINIGAME_STATE;
+      camera->moveToMinigame();
+      // TODO set up controls for playing minigame
+      // TODO draw a sphere that we can click
+   }
 }
 
 void Session::leaveMinigame() {
+   game_state = WORLD_STATE;
    camera->moveToOverworld();
    // TODO set up controls for moving around overworld
 }

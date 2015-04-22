@@ -125,6 +125,15 @@ void World::step(Camera *camera, Window* window) {
    player->step();
 }
 
+bool World::hasActiveBooth() {
+   for (int i=0; i<structures.size(); ++i) {
+      if (structures[i]->isActive()) {
+         return true;
+      }
+   }
+   return false;
+}
+
 inline void World::safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
    if (handle >= 0)
       glUniformMatrix4fv(handle, 1, GL_FALSE, data);
@@ -240,6 +249,7 @@ void World::setupOverWorld() {
    booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    Booth* bbooth1 = new Booth(booth1, (const string*)"booth1");
+   bbooth1->setType(BOOTH_TYPE);
    structures.push_back(bbooth1);
    
    Object* booth2 = new Object(shapes, materials, ShadeProg);
@@ -248,6 +258,7 @@ void World::setupOverWorld() {
    booth2->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    Booth* bbooth2 = new Booth(booth2, (const string*)"booth2");
+   bbooth2->setType(BOOTH_TYPE);
    structures.push_back(bbooth2);
    
    Object* booth3 = new Object(shapes, materials, ShadeProg);
@@ -256,6 +267,7 @@ void World::setupOverWorld() {
    booth3->scale(glm::vec3(15.0f, 5.0f, 5.0f));
    //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    Booth* bbooth3 = new Booth(booth3, (const string*)"booth3");
+   bbooth3->setType(BOOTH_TYPE);
    structures.push_back(bbooth3);
    
    // initialize world along with bounding boxes

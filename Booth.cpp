@@ -15,6 +15,9 @@ Booth::Booth(
   //What should be shown to screen when inside the interact radius
   //this should go away when the player leaves the interact radius
   
+  //type is initialized to miscillaneous
+  type = MISC_TYPE;
+  
   // initiate bounding box
   object->getBounds(&bounds);
   active = false;
@@ -80,6 +83,7 @@ bool Booth::checkCameraCollision(glm::vec3 cam_pos, glm::vec3 *colPlane) {
 }
 
 //Checks for if the player is within the interact radius
+//Only returns true if type is BOOTH_TYPE
 bool Booth::checkInteract(glm::vec3 player_pos){
 //TODO magic collision work again
    if ((player_pos.x < influence_bounds.x_min) || (player_pos.x > influence_bounds.x_max)) {
@@ -96,12 +100,15 @@ bool Booth::checkInteract(glm::vec3 player_pos){
    }
    
    //if it gets here, player exists in bounds
-   if (!active) { // anything your only want done once, put here. 
+   if (!active && (type == BOOTH_TYPE)) { // anything your only want done once, put here. 
       active = true;
       // debug print
       printf("Within Influece Bounds\n");
    }
-   return true;
+   if (type == BOOTH_TYPE) {
+      return true;
+   }
+   return false;
   //while(true /*The actual interact check would go here*/ ){
     //showMessage();
     //TODO check for whatever interaction

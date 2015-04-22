@@ -24,6 +24,8 @@ class Booth {
     bool checkCameraCollision(glm::vec3 cam_pos, glm::vec3 *colPlane);
     //Checks for if the player is within the interact radius. Returns true if hit is registered within interaction box
     bool checkInteract(glm::vec3 player_pos);
+    //Check to see if booth is active (has been interacted with)
+    bool isActive() { return active; };
     //Set the position for the booth
     void setPosition(glm::vec3 position);
     //Calculate the bounding box for the booth... should only be called once after first draw

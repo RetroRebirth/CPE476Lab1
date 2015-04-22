@@ -20,6 +20,7 @@ class World {
       void initGround();
       void drawGround();
       int numLeft();
+      bool hasActiveBooth();
       
    private:
       vector<tinyobj::shape_t> shapes; // TODO map of mesh data

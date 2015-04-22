@@ -2,7 +2,7 @@
 
 static string objectFiles[] = {"bunny.obj"};
 
-World::World(GLuint _ShadeProg) {
+World::World(GLuint _ShadeProg, Player* _player) {
    // Default attribute values
    objStartTime = 0.0;
    numCollected = 0;
@@ -19,6 +19,7 @@ World::World(GLuint _ShadeProg) {
    h_uTexUnit = GLSL::getUniformLocation(ShadeProg, "uTexUnit");
 
    skybox = new SkyBox(ShadeProg);
+   player = _player;
    initGround();
    setupOverWorld();
 }
@@ -96,7 +97,7 @@ void World::step(Camera *camera, Window* window) {
       // if camera.pos violates bounds, then set pos to be equal to bound... 
       glm::vec3 colPlane;
       // TODO influence check should use player position in the future
-      structures[i]->checkInflunce(camera->pos);
+      structures[i]->checkInteract(camera->pos);
       if (structures[i]->checkCameraCollision(camera->pos, &colPlane)) {
          /* debug output for camera collisions
          printf("boundry hit: ");
@@ -121,6 +122,16 @@ void World::step(Camera *camera, Window* window) {
 
    camera->step(window);
    skybox->draw(camera, window);
+   player->step();
+}
+
+bool World::hasActiveBooth() {
+   for (int i=0; i<structures.size(); ++i) {
+      if (structures[i].isActive()) {
+         return true;
+      }
+   }
+   return false;
 }
 
 inline void World::safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
@@ -238,6 +249,7 @@ void World::setupOverWorld() {
    booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    Booth* bbooth1 = new Booth(booth1, (const string*)"booth1");
+   bbooth1->setType(BOOTH_TYPE);
    structures.push_back(bbooth1);
    
    Object* booth2 = new Object(shapes, materials, ShadeProg);
@@ -246,6 +258,7 @@ void World::setupOverWorld() {
    booth2->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    Booth* bbooth2 = new Booth(booth2, (const string*)"booth2");
+   bbooth2->setType(BOOTH_TYPE);
    structures.push_back(bbooth2);
    
    Object* booth3 = new Object(shapes, materials, ShadeProg);
@@ -254,6 +267,7 @@ void World::setupOverWorld() {
    booth3->scale(glm::vec3(15.0f, 5.0f, 5.0f));
    //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    Booth* bbooth3 = new Booth(booth3, (const string*)"booth3");
+   bbooth3->setType(BOOTH_TYPE);
    structures.push_back(bbooth3);
    
    // initialize world along with bounding boxes
@@ -261,6 +275,9 @@ void World::setupOverWorld() {
    for (int i=0; i<structures.size(); ++i) {
       structures[i]->calculateBoundingBox();
    }
+
+   createPlayer(PLAYER_FILE_NAME);
+   player->step();
 }
 
 void World::createExtra(const string &meshName) {
@@ -270,6 +287,12 @@ void World::createExtra(const string &meshName) {
    extra->setDir(glm::normalize(glm::vec3(Util::randF()-0.5, 0.0, Util::randF()-0.5)));
    extra->setSpeed(OBJ_SPEED);
    extras.push_back(extra);
+}
+
+void World::createPlayer(const string &meshName) {
+   Object* playerObj = new Object(shapes, materials, ShadeProg);
+   playerObj->load(meshName);
+   player->initPlayer(playerObj);
 }
 
 int World::numLeft() {

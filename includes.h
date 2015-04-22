@@ -59,6 +59,11 @@
 #define TEXTURE_GROUND 2
 #define TEXTURE_WOOD 3
 
+// Game States
+#define WORLD_STATE 0
+#define TRANSITION_STATE 1
+#define MINIGAME_STATE 2
+
 using namespace std;
 
 struct bufID_t {
