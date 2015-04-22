@@ -2,7 +2,7 @@
 
 static string objectFiles[] = {"bunny.obj"};
 
-World::World(GLuint _ShadeProg, Player* _player) {
+World::World(GLuint _ShadeProg, Camera* _camera) {
    // Default attribute values
    objStartTime = 0.0;
    numCollected = 0;
@@ -19,7 +19,7 @@ World::World(GLuint _ShadeProg, Player* _player) {
    h_uTexUnit = GLSL::getUniformLocation(ShadeProg, "uTexUnit");
 
    skybox = new SkyBox(ShadeProg);
-   player = _player;
+   camera = _camera;
    initGround();
    setupOverWorld();
 }
@@ -39,8 +39,11 @@ void World::step(Camera *camera, Window* window) {
       createExtra(EXTRA_FILE_NAME);
       objStartTime = window->time;
 
+<<<<<<< HEAD
    }
 
+=======
+>>>>>>> square one 3rd person camera
    for (int i=0; i<extras.size(); ++i) {
       Object* extra = extras[i];
       extra->draw();
@@ -80,7 +83,6 @@ void World::step(Camera *camera, Window* window) {
 
    camera->step(window);
    skybox->draw(camera, window);
-   player->step();
 }
 
 bool World::hasActiveBooth() {
@@ -230,7 +232,7 @@ void World::setupOverWorld() {
    booth2->scale(glm::vec3(15.0f, 5.0f, 5.0f));
    //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    Booth* bbooth2 = new Booth(booth2, (const string*)"booth2");
-   bbooth2->setType(BOOTH_TYPE);
+   bbooth2->setType(MISC_TYPE);
    structures.push_back(bbooth2);
    
    Object* booth3 = new Object(shapes, materials, ShadeProg);
@@ -239,7 +241,7 @@ void World::setupOverWorld() {
    booth3->scale(glm::vec3(15.0f, 5.0f, 5.0f));
    //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    Booth* bbooth3 = new Booth(booth3, (const string*)"booth3");
-   bbooth3->setType(BOOTH_TYPE);
+   bbooth3->setType(MISC_TYPE);
    structures.push_back(bbooth3);
    
    Object* booth4_1 = new Object(shapes, materials, ShadeProg);
@@ -276,7 +278,6 @@ void World::setupOverWorld() {
    }
 
    createPlayer(PLAYER_FILE_NAME);
-   player->step();
 }
 
 void World::createExtra(const string &meshName) {
@@ -289,9 +290,9 @@ void World::createExtra(const string &meshName) {
 }
 
 void World::createPlayer(const string &meshName) {
-   Object* playerObj = new Object(shapes, materials, ShadeProg);
-   playerObj->load(meshName);
-   player->initPlayer(playerObj);
+   Object* player = new Object(shapes, materials, ShadeProg);
+   player->load(meshName);
+   camera->initPlayer(player);
 }
 
 int World::numLeft() {

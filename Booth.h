@@ -3,10 +3,9 @@
 
 #include "includes.h"
 #include "Object.h"
-#include "Player.h"
 
 class Booth {
-  public:
+   public:
     
     Booth(
 	   Object *_object,

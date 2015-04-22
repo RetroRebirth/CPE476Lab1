@@ -2,7 +2,7 @@
 
 static string objectFiles[] = {"bunny.obj"};
 
-World::World(GLuint _ShadeProg, Player* _player) {
+World::World(GLuint _ShadeProg, Camera* _camera) {
    // Default attribute values
    objStartTime = 0.0;
    numCollected = 0;
@@ -19,7 +19,7 @@ World::World(GLuint _ShadeProg, Player* _player) {
    h_uTexUnit = GLSL::getUniformLocation(ShadeProg, "uTexUnit");
 
    skybox = new SkyBox(ShadeProg);
-   player = _player;
+   camera = _camera;
    initGround();
    setupOverWorld();
 }
@@ -33,7 +33,7 @@ World::~World() {
    }
 }
 
-void World::step(Camera *camera, Window* window) {
+void World::step(Window* window) {
    // Create a new object every SECS_PER_OBJ
    if (numLeft() < MAX_OBJS && window->time - objStartTime >= SECS_PER_OBJ) {
       createExtra(EXTRA_FILE_NAME);
@@ -80,7 +80,6 @@ void World::step(Camera *camera, Window* window) {
 
    camera->step(window);
    skybox->draw(camera, window);
-   player->step();
 }
 
 bool World::hasActiveBooth() {
@@ -276,7 +275,6 @@ void World::setupOverWorld() {
    }
 
    createPlayer(PLAYER_FILE_NAME);
-   player->step();
 }
 
 void World::createExtra(const string &meshName) {
@@ -289,9 +287,9 @@ void World::createExtra(const string &meshName) {
 }
 
 void World::createPlayer(const string &meshName) {
-   Object* playerObj = new Object(shapes, materials, ShadeProg);
-   playerObj->load(meshName);
-   player->initPlayer(playerObj);
+   Object* player = new Object(shapes, materials, ShadeProg);
+   player->load(meshName);
+   camera->initPlayer(player);
 }
 
 int World::numLeft() {
