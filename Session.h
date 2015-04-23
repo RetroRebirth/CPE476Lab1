@@ -21,7 +21,6 @@ class Session {
       Window* window;
       Camera* camera;
       World* world;
-      Player* player;
       
       // defines current state of game... consts defined in includes.h
       int game_state;

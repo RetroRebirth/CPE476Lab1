@@ -6,8 +6,7 @@ Session::Session() {
    initGL();
 
    camera = new Camera(h_uP, h_uV, h_uView);
-   player = new Player(camera);
-   world = new World(ShadeProg, player);
+   world = new World(ShadeProg, camera);
    
    game_state = WORLD_STATE;
 }
@@ -16,7 +15,6 @@ Session::~Session() {
    delete window;
    delete camera;
    delete world;
-   delete player;
 }
 
 /**
@@ -139,7 +137,7 @@ void Session::step() {
 
    // Step other components
    window->step();
-   world->step(camera, window);
+   world->step(window);
 
    // Disable and unbind
    GLSL::disableVertexAttribArray(h_aPos);

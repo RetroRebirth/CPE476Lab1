@@ -61,11 +61,25 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
    }
 }
 
+void mouse_click_callback(GLFWwindow *window, int button, int action, int mods){
+  double mouse_x;
+  double mouse_y;
+  glfwGetCursorPos(window, &mouse_x, &mouse_y);
+
+  int height;
+  int width;
+  glfwGetWindowSize(window, &width, &height);
+  
+  Util::mouse_click(mouse_x, mouse_y, height, width, session->getCamera()->Projection, 
+      session->getCamera()->View, session->getCamera()->pos);
+}
+
 void setInputCallbacks() {
    GLFWwindow* win = session->getWindow()->glfw_window;
    // Set input callbacks
    glfwSetWindowSizeCallback(win, window_size_callback);
    glfwSetCursorPosCallback(win, mouse_callback);
+   glfwSetMouseButtonCallback(win, mouse_click_callback);
    glfwSetCursorEnterCallback(win, enter_callback);
    glfwSetKeyCallback(win, key_callback);
 }

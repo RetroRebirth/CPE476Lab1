@@ -3,6 +3,7 @@
 
 #include "includes.h"
 #include "Window.h"
+#include "Object.h"
 
 class Camera {
    public:
@@ -11,14 +12,18 @@ class Camera {
       glm::vec3 pos;
       bool blocked;
       bool pov;
+      glm::mat4 Projection;
+      glm::mat4 View;
 
+
+      
       Camera(
          GLint _h_uP,
          GLint _h_uV,
          GLint _h_uView);
       virtual ~Camera();
 
-      float getYRot();
+      void initPlayer(Object *_player);
       void toggleBounded();
       glm::vec3 lookAtPt();
       void setProjectionMatrix(int g_width, int g_height);
@@ -32,11 +37,15 @@ class Camera {
    private:
       float theta;
       float phi;
+      float radius;
       GLint h_uP;
       GLint h_uV;
       GLint h_uView;
       bool playingMinigame;
+      Object* player;
 
+      glm::vec3 calculatePlayerPos();
+      float getYRot();
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
 };
 

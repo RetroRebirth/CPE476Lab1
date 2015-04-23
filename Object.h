@@ -56,6 +56,7 @@ class Object {
       vector<tinyobj::shape_t> shapes;
       vector<tinyobj::material_t> materials;
       bufID_t bufIDs;
+      GLuint ShadeProg;
       GLint h_aPos, h_aNor;
       GLint h_uM;
       GLint h_uAClr, h_uDClr, h_uSClr, h_uS;

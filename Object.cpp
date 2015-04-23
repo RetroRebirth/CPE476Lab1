@@ -3,7 +3,7 @@
 Object::Object(
       vector<tinyobj::shape_t> &_shapes,
       vector<tinyobj::material_t> &_materials,
-      GLuint ShadeProg)  :
+      GLuint _ShadeProg)  :
       
 	      posBufID(0),
 	      norBufID(0),
@@ -25,6 +25,7 @@ Object::Object(
    // Defined attribute values
    shapes = _shapes;
    materials = _materials;
+   ShadeProg = _ShadeProg;
    h_uAClr = GLSL::getUniformLocation(ShadeProg, "uAClr");
    h_uDClr = GLSL::getUniformLocation(ShadeProg, "uDClr");
    h_uSClr = GLSL::getUniformLocation(ShadeProg, "uSClr");
@@ -332,6 +333,8 @@ void Object::init()
 
 void Object::draw()
 {
+   setTextureCoordinates(2, ShadeProg);
+
    // Bind the texture
    glEnable(GL_TEXTURE_2D);
    glActiveTexture(GL_TEXTURE0);

@@ -20,6 +20,7 @@ using namespace std;
 
 namespace Util
 {
+    
     //Returns a random float 
     float randF()
     {
@@ -63,6 +64,36 @@ namespace Util
          if ((i+1)%4 == 0) {
             printf("\n");
          }
+      }
+    }
+
+
+    /* Clicking stuff */
+
+    glm::vec3 mouse_click(int mouse_x, int mouse_y, int height, int width, glm::mat4 Position, glm::mat4 View, glm::vec3 o){
+      float x = (2.0f * mouse_x) / width - 1.0f;
+      float y = 1.0f - (2.0f * mouse_y) / height;
+      glm::vec4 ray_clip = glm::vec4 (x, y, -1.0f, 1.0);
+      glm::vec4 ray_eye = glm::inverse(Position) * ray_clip; 
+      ray_eye = glm::vec4(ray_eye.x, ray_eye.y, -1.0, 0.0);
+      glm::vec4 ray_hol = (glm::inverse(View) * ray_eye);
+      glm::vec3 ray_wor = glm::vec3 (ray_hol.x, ray_hol.y, ray_hol.z);
+      
+      //THE DIRECTION OF THE CLICK
+      ray_wor = glm::normalize (ray_wor);
+    
+      //How to check: use checkAgainstSphere (the area the center is, radius, ray_wor, o);
+    }
+
+    bool checkAgainstSphere(glm::vec3 center, float radius, glm::vec3 direction, glm::vec3 o){
+      glm::vec3 infoHold = glm::vec3(o.x - center.x, o.y - center.y, o.z - center.z);
+      float b = glm::dot(direction, infoHold);
+      float c = glm::dot(infoHold, infoHold) - (radius * radius);
+      if(b * b - c >= 0){
+	return true;
+      }
+      else{
+	return false;
       }
     }
 
@@ -135,6 +166,55 @@ namespace Util
        return 1;
     }
 
+    void setTextureCoordinates(int value, GLuint ShadeProg)
+    {
+       switch(value) {
+          case 1:
+             glEnable(GL_TEXTURE_GEN_S);
+             glEnable(GL_TEXTURE_GEN_T);
+
+             glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);
+             glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);
+             break;
+          case 2:
+             GLuint tex_coord;
+             GLint h_aTexCoord = GLSL::getAttribLocation(ShadeProg, "aTexCoord");
+             glEnable(GL_TEXTURE_GEN_S);
+             glEnable(GL_TEXTURE_GEN_T);
+
+             // Texture coordinate mapping of a box
+             static GLfloat CubeTex[] = {
+                0, 0, // back 
+                0, 1,
+                1, 1,
+                1, 0,
+                0, 0, //right 
+                0, 1,
+                1, 1,
+                1, 0,
+                0, 0, //front 
+                0, 1,
+                1, 1,
+                1, 0,
+                0, 0, // left 
+                0, 1,
+                1, 1,
+                1, 0
+             };
+             glGenBuffers(1, &tex_coord);
+             glBindBuffer(GL_ARRAY_BUFFER, tex_coord);
+             glBufferData(GL_ARRAY_BUFFER, sizeof(CubeTex), CubeTex, GL_STATIC_DRAW);
+
+             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+             GLSL::enableVertexAttribArray(h_aTexCoord);
+             glBindBuffer(GL_ARRAY_BUFFER, tex_coord);
+             glVertexAttribPointer(h_aTexCoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
+             break;
+       }
+    }
+
     void loadTexture(char *filename, int texture_id)
     {
        Image* TextureImage;
@@ -153,13 +233,6 @@ namespace Util
        glBindTexture(GL_TEXTURE_2D, texture_id);
        glTexImage2D(GL_TEXTURE_2D, 0, 3,
          TextureImage->sizeX, TextureImage->sizeY, 0, GL_RGB, GL_UNSIGNED_BYTE, TextureImage->data);
-       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // cheap scaling when image bigger than texture
-       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // cheap scaling when image smalled than texture
-    }
-
-    void bindTexture()
-    {
-        
     }
 }
 

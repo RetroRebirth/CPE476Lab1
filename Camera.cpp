@@ -15,6 +15,7 @@ Camera::Camera(
    blocked = false;
    pov = true;
    playingMinigame = false;
+   radius = 1.0;
 
    // Defined attribute values
    h_uP = _h_uP;
@@ -40,12 +41,12 @@ glm::vec3 Camera::lookAtPt() {
 }
 
 void Camera::setProjectionMatrix(int g_width, int g_height) {
-   glm::mat4 Projection = glm::perspective(90.0f, (float)g_width/g_height, 0.1f, 100.f);
+   Projection = glm::perspective(90.0f, (float)g_width/g_height, 0.1f, 100.f);
    safe_glUniformMatrix4fv(h_uP, glm::value_ptr(Projection));
 }
 
 void Camera::setView() {
-   glm::mat4 View = glm::lookAt(pos, lookAtPt(), glm::vec3(0, 1, 0));
+   View = glm::lookAt(pos, lookAtPt(), glm::vec3(0, 1, 0));
    safe_glUniformMatrix4fv(h_uV, glm::value_ptr(View));
    glUniform3f(h_uView, pos.x, pos.y, pos.z);
 }
@@ -61,7 +62,7 @@ void Camera::step(Window* window) {
    blocked = false;
 }
 
-glm::vec3 Camera::calcNewPos(Window* window) {
+   glm::vec3 Camera::calcNewPos(Window* window) {
    glm::vec3 newPos = pos;
 
    glm::vec3 viewVector = glm::normalize(lookAtPt() - newPos);
@@ -100,6 +101,18 @@ glm::vec3 Camera::calcNewPos(Window* window) {
 
      newPos.y = 2;
   }
+
+   float Yrot = getYRot();
+
+   if (player != NULL) {
+      player->pos = calculatePlayerPos();
+      player->scale(glm::vec3(1.0, 2.0, 1.0));
+      player->setPos(player->pos);
+      player->rotate(-Yrot, glm::vec3(0, 1, 0)); //may not need this
+      
+      if (pov) 
+         player->draw();
+   }
 
    return newPos;
 }
@@ -151,3 +164,30 @@ void Camera::moveToOverworld() {
    this->phi = 0.0;
 }
 
+/*#include "Player.h"
+
+Player::Player(
+      Camera *_camera) {
+
+   object = NULL;
+   camera = _camera;
+   radius = 1.0;
+}
+
+Player::~Player() {}
+*/
+void Camera::initPlayer(Object *_player) {
+   player = _player;
+}
+
+glm::vec3 Camera::calculatePlayerPos() {
+   glm::vec3 temp;
+   float Yrot = getYRot();
+
+   temp.x = pos.x - radius * sin((Yrot + 270.0f) * M_PI / 180.0);
+   temp.y = 1;
+   temp.z = pos.z - radius * cos((Yrot - 270.0f) * M_PI / 180.0);
+
+   return temp;
+}
+  
