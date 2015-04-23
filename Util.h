@@ -81,7 +81,7 @@ namespace Util
       
       //THE DIRECTION OF THE CLICK
       ray_wor = glm::normalize (ray_wor);
-    
+      return ray_wor; 
       //How to check: use checkAgainstSphere (the area the center is, radius, ray_wor, o);
     }
 
