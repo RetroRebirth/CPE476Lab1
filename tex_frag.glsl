@@ -3,10 +3,12 @@ uniform mat4 uV;
 uniform mat4 uM;
 uniform int uID;
 uniform vec3 uView;
+/*
 uniform vec3 uAClr;
 uniform vec3 uDClr;
 uniform vec3 uSClr;
 uniform float uS;
+*/
 uniform sampler2D uTexUnit;
 
 varying vec4 vPos;
@@ -14,6 +16,7 @@ varying vec4 vNor;
 varying vec2 vTexCoord;
 
 void main() {
+   /*
    vec3 col;
    float light; // Dot prod b/t normal and light source
    float h; // Specular light
@@ -41,6 +44,7 @@ void main() {
    col = dClr + aClr + sClr;
 
    gl_FragColor = vec4(col, 1.0);
+   */
 
    // Color based on textures
    vec4 texColor = texture2D(uTexUnit, vTexCoord);

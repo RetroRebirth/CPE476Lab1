@@ -166,6 +166,7 @@ void Session::mouseClick(glm::vec3 direction) {
 void Session::enterMinigame() {
    if (world->hasActiveBooth()) {
       game_state = MINIGAME_STATE;
+      world->inMiniGame();
       camera->moveToMinigame();
       // TODO set up controls for playing minigame
       // TODO draw a sphere that we can click
@@ -174,6 +175,7 @@ void Session::enterMinigame() {
 
 void Session::leaveMinigame() {
    game_state = WORLD_STATE;
+   world->leftMiniGame();
    camera->moveToOverworld();
    // TODO set up controls for moving around overworld
 }

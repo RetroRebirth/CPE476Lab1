@@ -21,6 +21,8 @@ class World {
       int numLeft();
       bool hasActiveBooth();
       void mouseClick(glm::vec3 direction);
+      void inMiniGame();
+      void leftMiniGame();
       
    private:
       vector<tinyobj::shape_t> shapes; // TODO map of mesh data
@@ -36,6 +38,7 @@ class World {
       bufID_t groundBufIDs;
       vector<Object*> objects;
       double objStartTime;
+      bool inGame;
 
       SkyBox* skybox;
       Camera* camera;
