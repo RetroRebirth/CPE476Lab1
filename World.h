@@ -20,11 +20,13 @@ class World {
       void drawGround();
       int numLeft();
       bool hasActiveBooth();
+      void mouseClick(glm::vec3 direction);
       
    private:
       vector<tinyobj::shape_t> shapes; // TODO map of mesh data
       vector<Object*> extras; // bunnies for now.
       vector<Booth*> structures;
+      vector<Object*> bullets; // TODO should be moved to minigame class
       vector<tinyobj::material_t> materials;
       GLuint ShadeProg;
       GLint h_aPos, h_aNor;

@@ -90,10 +90,10 @@ namespace Util
       float b = glm::dot(direction, infoHold);
       float c = glm::dot(infoHold, infoHold) - (radius * radius);
       if(b * b - c >= 0){
-	return true;
+	      return true;
       }
       else{
-	return false;
+	      return false;
       }
     }
 

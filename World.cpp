@@ -34,6 +34,18 @@ World::~World() {
    }
 }
 
+// click stuff
+void World::mouseClick(glm::vec3 direction) {
+   Object* bullet = new Object(shapes, materials, ShadeProg);
+   bullet->load("sphere.obj");
+   //printVec3(camera->pos);
+   bullet->setPos(camera->pos);
+   //printVec3(direction);
+   bullet->setDir(direction);
+   bullet->setSpeed(1.0f); // TODO make a constant
+   bullets.push_back(bullet);
+}
+
 void World::step(Window* window) {
    // Create a new object every SECS_PER_OBJ
    /*if (numLeft() < MAX_OBJS && window->time - objStartTime >= SECS_PER_OBJ) {
@@ -44,6 +56,18 @@ void World::step(Window* window) {
    for (int i=0; i<extras.size(); ++i) {
       Object* extra = extras[i];
       extra->draw();
+   }
+   
+   // draw bullets TODO move this to a minigame class in the future
+   for (int i=0; i<bullets.size(); ++i) {
+      if (glm::length(bullets[i]->pos) < 100.0f) {
+         bullets[i]->setPos(bullets[i]->calculateNewPos(1.0f));  
+         bullets[i]->draw();
+         //printf("drawing bullet!\n");
+      }
+      else {
+         //delete bullets[i]; TODO this needs to happen...
+      }
    }
 
    drawGround();

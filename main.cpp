@@ -72,6 +72,7 @@ void mouse_click_callback(GLFWwindow *window, int button, int action, int mods){
   
   glm::vec3 direction = Util::mouse_click(mouse_x, mouse_y, height, width, session->getCamera()->Projection, 
       session->getCamera()->View, session->getCamera()->pos);
+  session->mouseClick(direction);
 }
 
 

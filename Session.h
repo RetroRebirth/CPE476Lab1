@@ -16,6 +16,7 @@ class Session {
       Window* getWindow();
       void enterMinigame();
       void leaveMinigame();
+      void mouseClick(glm::vec3 direction);
       int getGameState() { return game_state; };
    private:
       Window* window;
