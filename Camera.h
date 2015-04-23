@@ -47,7 +47,6 @@ class Camera {
       Object* player;
 
       glm::vec3 calculatePlayerPos();
-      float getYRot();
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
 };
 
