@@ -34,6 +34,10 @@ float Camera::getYRot() {
    return Util::radiansToDegrees(theta);
 }
 
+float Camera::getXRot() {
+   return Util::radiansToDegrees(phi);
+}
+
 glm::vec3 Camera::lookAtPt() {
    glm::vec3 lookAtPt = glm::vec3(cos(phi)*cos(theta), sin(phi), cos(phi)*cos((M_PI/2)-theta));
    lookAtPt += pos;

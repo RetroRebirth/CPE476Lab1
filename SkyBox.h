@@ -14,10 +14,6 @@ class SkyBox
    private:
       GLuint ShadeProg;
       GLint h_aPos, h_aNor, h_uM, h_uTexUnit;
-
-      Object* skydome;
-      vector<tinyobj::shape_t> shapes;
-      vector<tinyobj::material_t> materials;
 };
 
 

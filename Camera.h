@@ -24,6 +24,8 @@ class Camera {
       virtual ~Camera();
 
       void initPlayer(Object *_player);
+      float getXRot();
+      float getYRot();
       void toggleBounded();
       glm::vec3 lookAtPt();
       void setProjectionMatrix(int g_width, int g_height);

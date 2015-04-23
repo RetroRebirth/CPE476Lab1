@@ -41,6 +41,8 @@ Object::Object(
    vel = 0.0f;
    
    directional = false;
+   setTexture((char *)"misc.bmp", MISC_TYPE);
+
    // Place the object randomly in the world
    /*pos = glm::vec3(2*Util::randF()*SIZE - SIZE, 1.0, 2*Util::randF()*SIZE - SIZE);
    dir = glm::normalize(glm::vec3(Util::randF()-0.5, 0.0, Util::randF()-0.5));

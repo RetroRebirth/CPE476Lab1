@@ -229,7 +229,7 @@ void World::setupOverWorld() {
    booth2->scale(glm::vec3(15.0f, 5.0f, 5.0f));
    //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    Booth* bbooth2 = new Booth(booth2, (const string*)"booth2");
-   bbooth2->setType(MISC_TYPE);
+   bbooth2->setType(BOOTH_TYPE);
    structures.push_back(bbooth2);
    
    Object* booth3 = new Object(shapes, materials, ShadeProg);
@@ -238,7 +238,7 @@ void World::setupOverWorld() {
    booth3->scale(glm::vec3(15.0f, 5.0f, 5.0f));
    //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    Booth* bbooth3 = new Booth(booth3, (const string*)"booth3");
-   bbooth3->setType(MISC_TYPE);
+   bbooth3->setType(BOOTH_TYPE);
    structures.push_back(bbooth3);
    
    Object* booth4_1 = new Object(shapes, materials, ShadeProg);
