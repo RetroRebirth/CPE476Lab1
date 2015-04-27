@@ -24,7 +24,7 @@ Booth::Booth(
   active = false;
 
   // set the texture to a booth texture
-  object->setTexture((char *)"misc.bmp", type);
+  object->setTexture(type);
 }
 
 Booth::~Booth(){}
@@ -38,8 +38,8 @@ void Booth::showMessage(){
 //Checks if anything is colliding with the booth so it stops them.
 bool Booth::checkCollision(Object* _otherObject){
    //TODO magic collision work
-   glm::vec3 max = glm::vec3(_otherObject->pos.x + _otherObject->radius, _otherObject->pos.y + _otherObject->radius, _otherObject->pos.z + _otherObject->radius);
-   glm::vec3 min = glm::vec3(_otherObject->pos.x - _otherObject->radius, _otherObject->pos.y - _otherObject->radius, _otherObject->pos.z - _otherObject->radius);
+   glm::vec3 max = glm::vec3(_otherObject->getPos().x + _otherObject->getRadius(), _otherObject->getPos().y + _otherObject->getRadius(), _otherObject->getPos().z + _otherObject->getRadius());
+   glm::vec3 min = glm::vec3(_otherObject->getPos().x - _otherObject->getRadius(), _otherObject->getPos().y - _otherObject->getRadius(), _otherObject->getPos().z - _otherObject->getRadius());
    
    if ((max.x < bounds.x_min) || (min.x > bounds.x_max)) {
       return false;
@@ -153,6 +153,5 @@ void Booth::startMinigame(){
 
 //Sets the position for the booth
 void Booth::setPosition(glm::vec3 position){
-  object->pos = position;
-
+    object->setPos(position);
 }

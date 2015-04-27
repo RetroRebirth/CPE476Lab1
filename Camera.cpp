@@ -109,9 +109,9 @@ void Camera::step(Window* window) {
    float Yrot = getYRot();
 
    if (player != NULL) {
-      player->pos = calculatePlayerPos();
+      player->setPos(calculatePlayerPos());
       player->scale(glm::vec3(1.0, 2.0, 1.0));
-      player->setPos(player->pos);
+      player->setPos(player->getPos());
       player->rotate(-Yrot, glm::vec3(0, 1, 0)); //may not need this
       
       if (pov) 

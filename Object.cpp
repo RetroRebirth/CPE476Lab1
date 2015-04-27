@@ -4,7 +4,6 @@ Object::Object(
       vector<tinyobj::shape_t> &_shapes,
       vector<tinyobj::material_t> &_materials,
       GLuint _ShadeProg)  :
-      
 	      posBufID(0),
 	      norBufID(0),
 	      indBufID(0) {
@@ -33,7 +32,7 @@ Object::Object(
    h_uM = GLSL::getUniformLocation(ShadeProg, "uM");
    h_aPos = GLSL::getAttribLocation(ShadeProg, "aPos");
    h_aNor = GLSL::getAttribLocation(ShadeProg, "aNor");
-   h_uTexUnit = GLSL::getUniformLocation(ShadeProg, "uTexUnit");
+   h_uTex = GLSL::getUniformLocation(ShadeProg, "uTexUnit");
 
    pos = glm::vec3(0.0f, 0.0f, 0.0f);
    dimensions = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -41,38 +40,10 @@ Object::Object(
    vel = 0.0f;
    
    directional = false;
-   setTexture((char *)"misc.bmp", MISC_TYPE);
-
-   // Place the object randomly in the world
-   /*pos = glm::vec3(2*Util::randF()*SIZE - SIZE, 1.0, 2*Util::randF()*SIZE - SIZE);
-   dir = glm::normalize(glm::vec3(Util::randF()-0.5, 0.0, Util::randF()-0.5));
-   vel = OBJ_SPEED;*/
-   
-   //printf("Creating object at (%f, %f, %f)!\n",pos.x, pos.y, pos.z);
+   setTexture(MISC_TYPE);
 }
 
 Object::~Object() {}
-
-glm::vec3 Object::calculateNewPos(float dt) {
-   return pos + dir * vel * dt;
-}
-
-void Object::setPos(glm::vec3 position) {
-   pos = position;
-}
-
-void Object::setDir(glm::vec3 direction) {
-   dir = direction;
-}
-
-void Object::setSpeed(float speed) {
-   vel = speed;
-}
-
-// controls whether or not the object is affected by directional rotation
-void Object::setDirectional(bool dir) {
-   directional = dir;
-}
 
 // scale object by flat amount, applied on top of scaling done by the radius
 void Object::scale(glm::vec3 scaler) {
@@ -83,7 +54,7 @@ void Object::scale(glm::vec3 scaler) {
    float y = scaler.y;
    float z = scaler.z;
    if (scaler.x > 2.5f) { 
-      temp_scaler.x -= ((scaler.x*SCALE_CONST1)+((1.0f/scaler.x)*SCALE_CONST2));//(1.5f*0.25f);
+      temp_scaler.x -= ((scaler.x * SCALE_CONST1) + ((1.0f / scaler.x) *SCALE_CONST2));//(1.5f*0.25f);
       //temp_scaler.x -= ((x*0.025f)+((1.0f/x)*0.6f));
       //temp_scaler.x -= (1.5f*0.25f);
    }
@@ -201,24 +172,13 @@ void Object::getBounds(struct bound_box *bounds) {
          }
       }
    }
-   // populate bounds - used to drawing bounding box debug stuff... doesn't work
-   /*bounds.bot_a_pos = glm::vec4(x_min, y_min, z_min, 1.0f);
-   bounds.bot_b_pos = glm::vec4(x_max, y_min, z_min, 1.0f);
-   bounds.bot_c_pos = glm::vec4(x_max, y_min, z_max, 1.0f);
-   bounds.bot_d_pos = glm::vec4(x_min, y_min, z_max, 1.0f);
-   
-   bounds.top_a_pos = glm::vec4(x_min, y_max, z_min, 1.0f);
-   bounds.top_b_pos = glm::vec4(x_max, y_max, z_min, 1.0f);
-   bounds.top_c_pos = glm::vec4(x_max, y_max, z_max, 1.0f);
-   bounds.top_d_pos = glm::vec4(x_min, y_max, z_max, 1.0f);*/
-   
+    
    bounds->x_min = x_min;
    bounds->x_max = x_max;
    bounds->y_min = y_min;
    bounds->y_max = y_max;
    bounds->z_min = z_min;
    bounds->z_max = z_max;
-   
 }
 
 void Object::step(float dt) {
@@ -249,11 +209,49 @@ float Object::calcYFacingAngle() {
 
 void Object::load(const string &meshName)
 {
-	// Load geometry
-	// Some obj files contain material information.
-	// We'll ignore them for this assignment.
+    std::vector<tinyobj::material_t> objMaterials;
+    string err = tinyobj::LoadObj(shapes, objMaterials, meshName.c_str());
+    if(!err.empty()) {
+        cerr << err << endl;
+    }
+    
+    // Scale the vertex positions so that they fit within [-1, +1] in all three dimensions.
+    vector<float> &posBuf = shapes[0].mesh.positions;
+    
+    glm::vec3 vmin(posBuf[0], posBuf[1], posBuf[2]);
+    glm::vec3 vmax(posBuf[0], posBuf[1], posBuf[2]);
+    for(int i = 3; i < (int)posBuf.size(); i += 3) {
+        glm::vec3 v(posBuf[i], posBuf[i+1], posBuf[i+2]);
+        vmin.x = min(vmin.x, v.x);
+        vmin.y = min(vmin.y, v.y);
+        vmin.z = min(vmin.z, v.z);
+        vmax.x = max(vmax.x, v.x);
+        vmax.y = max(vmax.y, v.y);
+        vmax.z = max(vmax.z, v.z);
+    }
+    glm::vec3 center = 0.5f*(vmin + vmax);
+    glm::vec3 diff = vmax - vmin;
+    float diffmax = diff.x;
+    diffmax = max(diffmax, diff.y);
+    diffmax = max(diffmax, diff.z);
+    float scale = 1.0f / diffmax;
+    
+    //transBuf.resize((int)(posBuf.size()/3));
+    //int j = 0;
+    for(int i = 0; i < (int)posBuf.size(); i += 3) {
+        posBuf[i  ] = (posBuf[i  ] - center.x) * scale;
+        posBuf[i+1] = (posBuf[i+1] - center.y) * scale;
+        posBuf[i+2] = (posBuf[i+2] - center.z) * scale;
+    }
+    
+    init();
+    resize_obj();
+}
+
+void Object::load(const string &meshName, const string &matName)
+{
 	std::vector<tinyobj::material_t> objMaterials;
-	string err = tinyobj::LoadObj(shapes, objMaterials, meshName.c_str());
+	string err = tinyobj::LoadObj(shapes, objMaterials, meshName.c_str(), matName.c_str());
 	if(!err.empty()) {
 		cerr << err << endl;
 	}
@@ -279,21 +277,11 @@ void Object::load(const string &meshName)
 	diffmax = max(diffmax, diff.z);
 	float scale = 1.0f / diffmax;
 	
-	//transBuf.resize((int)(posBuf.size()/3));
-	//int j = 0;
 	for(int i = 0; i < (int)posBuf.size(); i += 3) {
 		posBuf[i  ] = (posBuf[i  ] - center.x) * scale;
 		posBuf[i+1] = (posBuf[i+1] - center.y) * scale;
 		posBuf[i+2] = (posBuf[i+2] - center.z) * scale;
-   }/* TODO bounding box stuff
-		// populate transBuf
-		transBuf[j] = glm::vec3(posBuf[i], posBuf[i+1], posBuf[i+2]);
-	}
-	
-	// edit: init the transformation and collision stuff
-	transMat = glm::mat4();
-	
-	update();*/
+   }
 	
    init();
    resize_obj();
@@ -325,26 +313,39 @@ void Object::init()
 		norBufID = 0;
 	}
 	
-	
+    // Send the texture coordinate array (if it exists) to the GPU
+    const vector<float> texBuf = shapes[0].mesh.texcoords;
+    if (!texBuf.empty()) {
+        glGenTextures(1, &texture);
+        glGenBuffers(1, &texBufID);
+        glBindBuffer(GL_ARRAY_BUFFER, texBufID);
+        glBufferData(GL_ARRAY_BUFFER, texBuf.size() * sizeof(float), &texBuf[0], GL_STATIC_DRAW);
+    } else {
+        texBufID = 0;
+    }
+    
 	// Unbind the arrays
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	
-	//assert(glGetError() == GL_NO_ERROR);
 }
 
 void Object::draw()
 {
-   setTextureCoordinates(2, ShadeProg);
-
    // Bind the texture
    glEnable(GL_TEXTURE_2D);
+   glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
    glActiveTexture(GL_TEXTURE0);
-   glUniform1i(h_uTexUnit, 0);
+   glUniform1i(h_uTex, 0);
+
+   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    
    glBindTexture(GL_TEXTURE_2D, texture_id);
 
    GLint h_pos = h_aPos;
    GLint h_nor = h_aNor;
+   GLint h_tex = GLSL::getAttribLocation(ShadeProg, "aTexCoord");
+    
 	// Enable and bind position array for drawing
 	GLSL::enableVertexAttribArray(h_pos);
 	glBindBuffer(GL_ARRAY_BUFFER, posBufID);
@@ -360,13 +361,21 @@ void Object::draw()
 	// Bind index array for drawing
 	int nIndices = (int)shapes[0].mesh.indices.size();
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufID);
+    
+    // Enable and bind texture coordinate array (if it exists) for drawing
+    if (texBufID) {
+        GLSL::enableVertexAttribArray(h_tex);
+        glBindBuffer(GL_ARRAY_BUFFER, texBufID);
+        glVertexAttribPointer(h_tex, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    }
 	
-	// Send data to the GPU and draw
+   /* Send data to the GPU and draw */
    // Set the color
    glUniform3f(h_uAClr, col.x/5.0, col.y/5.0, col.z/5.0);
    glUniform3f(h_uDClr, col.x/3.0, col.y/3.0, col.z/3.0);
    glUniform3f(h_uSClr, col.x/3.0, col.y/3.0, col.z/3.0);
    glUniform1f(h_uS, shine);
+    
    // Set the model transformation
    glm::vec3 position = pos + glm::vec3(0.0f, -0.5f, 0.0f);
    //glm::mat4 S = glm::scale(glm::mat4(1.0f), glm::vec3(radius, radius, radius)) * scalerMat;
@@ -378,30 +387,13 @@ void Object::draw()
       glm::mat4 RZ = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0, 0.0, 1.0));
       R *= RX*RY*RZ;
    }
-   // might be using this for bound box stuff
-   //glm::vec4 temp_pos =  T * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-   //draw_pos = glm::vec3(temp_pos.x, temp_pos.y, temp_pos.z);
-  //printf("pos: (%f, %f, %f)\n\n",pos.x, pos.y, pos.z);
-   /*glm::vec4 temp_dim = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f) * S;
-   dimensions = glm::vec3(temp_dim.x, temp_dim.y, temp_dim.z);
-   */
-      
+    
    modelMat = T*R*scalerMat*boundBoxScalerMat;//S;
    
-   //pos = glm::vec3(0.0f, 0.0f, 0.0f);
-   
-   //printf("modelMat set\n");
-
    Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T*R*scalerMat));
 	
 	// Draw
 	glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-}
-
-void Object::setTexture(char* filename, int texID)
-{
-   texture_id = texID;
-   loadTexture(filename, texture_id);
 }
 
 vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> indBuf) {
@@ -532,4 +524,3 @@ void Object::resize_obj() {
       }
    }
 }
-

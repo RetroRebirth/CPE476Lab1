@@ -58,7 +58,7 @@ void World::step(Window* window) {
    
    // draw bullets TODO move this to a minigame class in the future
    for (int i=0; i<bullets.size(); ++i) {
-      if (glm::length(bullets[i]->pos) < 100.0f) {
+      if (glm::length(bullets[i]->getPos()) < 100.0f) {
          bullets[i]->setPos(bullets[i]->calculateNewPos(1.0f));  
          bullets[i]->draw();
          //printf("drawing bullet!\n");
@@ -125,10 +125,6 @@ inline void World::safe_glUniformMatrix4fv(const GLint handle, const GLfloat dat
 }
 
 void World::initGround() {
-
-   // Load the texture for the ground
-   loadTexture((char *)"grass.bmp", TEXTURE_GROUND);
-
    // Position array of ground
    GLfloat vertices[] = {
       -1.0f, 0.0, -1.0f, //0

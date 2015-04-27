@@ -42,7 +42,7 @@ Window::Window(
    char *fakeargv[] = {fakeParam, NULL};
    int fakeargc = 1;
 
-   glutInit(&fakeargc, fakeargv);
+   //glutInit(&fakeargc, fakeargv);
 }
 
 Window::~Window() {
@@ -53,7 +53,7 @@ void Window::drawText(char *string, float x, float y) {
    glColor3f(1.0f, 1.0f, 1.0f);   
    glRasterPos2f(x, y);
 
-   glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)string);
+   //glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)string);
 }
 
 /**
