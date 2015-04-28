@@ -8,7 +8,7 @@ uniform vec3 uDClr;
 uniform vec3 uSClr;
 uniform float uS;
 */
-uniform sampler2D uTexUnit;
+uniform sampler2D uSampler;
 
 varying vec4 vPos;
 varying vec4 vNor;
@@ -16,8 +16,7 @@ varying vec2 vTexCoord;
 
 void main() {
     // Color based on textures
-    vec4 texColor = texture2D(uTexUnit, vTexCoord);
-    gl_FragColor = texColor;
+    gl_FragColor = texture2D(uSampler, vTexCoord);;
     
     // Shade the textures
     vec3 pos = vec3(uM * vPos);
@@ -25,6 +24,7 @@ void main() {
     vec3 view = uView - pos;
     vec3 lightVec = normalize(vec3(0, 1, 0));
     float light = max(0.0, dot(normalize(nor), normalize(lightVec)));
+    
     //vec3 half = normalize(view + lightVec);
     //float spec = pow(max(0.0, dot(normalize(nor), half)), 1.0); // temporary spec value is 1.0
     //vec3 diffuseClr = light * texColor;

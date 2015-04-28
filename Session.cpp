@@ -179,4 +179,3 @@ void Session::leaveMinigame() {
    camera->moveToOverworld();
    // TODO set up controls for moving around overworld
 }
-

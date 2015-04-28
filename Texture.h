@@ -34,6 +34,7 @@ private:
     // variables
     GLuint texture, sampler;
     char* data;
+    int minification, magnification;
     
     // image descriptors
     int width, height, bpp;

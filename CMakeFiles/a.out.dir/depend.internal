@@ -11,6 +11,7 @@ CMakeFiles/a.out.dir/Booth.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
@@ -40,6 +41,8 @@ CMakeFiles/a.out.dir/Booth.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -126,6 +129,7 @@ CMakeFiles/a.out.dir/Camera.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
@@ -155,6 +159,8 @@ CMakeFiles/a.out.dir/Camera.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -319,6 +325,7 @@ CMakeFiles/a.out.dir/Model.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Model.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
@@ -348,6 +355,8 @@ CMakeFiles/a.out.dir/Model.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -432,6 +441,7 @@ CMakeFiles/a.out.dir/Object.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
@@ -461,6 +471,8 @@ CMakeFiles/a.out.dir/Object.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -548,6 +560,7 @@ CMakeFiles/a.out.dir/Player.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Player.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
@@ -577,6 +590,8 @@ CMakeFiles/a.out.dir/Player.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -669,6 +684,7 @@ CMakeFiles/a.out.dir/Session.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/World.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
@@ -698,6 +714,8 @@ CMakeFiles/a.out.dir/Session.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -787,6 +805,7 @@ CMakeFiles/a.out.dir/SkyBox.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
@@ -816,6 +835,8 @@ CMakeFiles/a.out.dir/SkyBox.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -900,6 +921,7 @@ CMakeFiles/a.out.dir/Texture.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
@@ -929,6 +951,8 @@ CMakeFiles/a.out.dir/Texture.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -1013,6 +1037,7 @@ CMakeFiles/a.out.dir/Window.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
@@ -1042,6 +1067,8 @@ CMakeFiles/a.out.dir/Window.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -1133,6 +1160,7 @@ CMakeFiles/a.out.dir/World.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/World.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/World.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
@@ -1162,6 +1190,8 @@ CMakeFiles/a.out.dir/World.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -1253,6 +1283,7 @@ CMakeFiles/a.out.dir/main.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/World.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
@@ -1282,6 +1313,8 @@ CMakeFiles/a.out.dir/main.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp

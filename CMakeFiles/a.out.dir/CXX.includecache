@@ -192,6 +192,10 @@ SkyBox.h
 Booth.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Booth.h
 
+/Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
+types.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/assimp/types.h
+
 /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
@@ -429,6 +433,28 @@ vector3.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
 cmath
 -
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
+types.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/assimp/types.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
+types.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/assimp/types.h
+texture.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/assimp/texture.h
+mesh.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/assimp/mesh.h
+light.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/assimp/light.h
+camera.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/assimp/camera.h
+material.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/assimp/material.h
+anim.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/assimp/anim.h
+metadata.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/assimp/metadata.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
 stddef.h
@@ -937,6 +963,12 @@ Util.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
 MatrixStack.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
+assimp/cimport.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
+assimp/scene.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
+assimp/postprocess.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/main.cpp
 math.h

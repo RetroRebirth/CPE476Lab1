@@ -60,6 +60,8 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
     fclose(file);
     
     // Generate an OpenGL texture id
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
     glBindTexture(GL_TEXTURE_2D, texture_id);
     
     // Generate a 2D image for the image's format
@@ -70,6 +72,7 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
         glGenerateMipmap(GL_TEXTURE_2D);
     }
     mipmapsGenerated = genMipMaps;
+    //glGenSamplers(1, &sampler);
 }
 
 /* Loads a texture from the given texture file */

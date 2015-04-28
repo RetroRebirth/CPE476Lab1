@@ -366,7 +366,7 @@ void Object::draw()
     if (texBufID) {
         GLSL::enableVertexAttribArray(h_tex);
         glBindBuffer(GL_ARRAY_BUFFER, texBufID);
-        glVertexAttribPointer(h_tex, 3, GL_FLOAT, GL_FALSE, 0, 0);
+        glVertexAttribPointer(h_tex, 2, GL_FLOAT, GL_FALSE, 0, 0);
     }
 	
    /* Send data to the GPU and draw */
