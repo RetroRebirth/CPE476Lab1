@@ -49,6 +49,7 @@ class World {
       void setupOverWorld();
       void drawOverWorld();
       bool detectSpawnCollision(Object* object);
+      void parseMapFile(const char* fileName);
 };
 
 #endif

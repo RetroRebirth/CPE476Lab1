@@ -67,7 +67,7 @@ void World::step(Window* window) {
          //delete bullets[i]; TODO this needs to happen...
       }
    }
-
+   if (!inGame) {
    for (int i=0; i<extras.size(); ++i) {
       Object* extra = extras[i];
       extra->draw();
@@ -103,6 +103,7 @@ void World::step(Window* window) {
             camera->pos.z = colPlane.z;
          }
       }
+   }
    }
 
    camera->step(window);
@@ -241,7 +242,7 @@ void World::setupOverWorld() {
    bwall4->setType(WALL_TYPE);
    structures.push_back(bwall4);
    
-   Object* booth1_1 = new Object(shapes, materials, ShadeProg);
+   /*Object* booth1_1 = new Object(shapes, materials, ShadeProg);
    booth1_1->load(STALL_FILE_NAME);
    booth1_1->translate(glm::vec3(10.0f, 2.5f, -15.0f));
    booth1_1->scale(glm::vec3(7.5f, 7.5f, 7.5f));
@@ -307,7 +308,9 @@ void World::setupOverWorld() {
    //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
    Booth* bbooth4_3 = new Booth(booth4_3, (const string*)"booth1");
    bbooth4_3->setType(BOOTH_TYPE);
-   structures.push_back(bbooth4_3);
+   structures.push_back(bbooth4_3);*/
+   
+   parseMapFile(MAP_FILE_NAME);
    
    // initialize world along with bounding boxes
    drawOverWorld();
@@ -316,6 +319,43 @@ void World::setupOverWorld() {
    }
 
    createPlayer(PLAYER_FILE_NAME);
+}
+
+void World::parseMapFile(const char* fileName) {
+   ifstream mapFile;
+   mapFile.open(fileName);
+   string line;
+   if (mapFile.is_open()) {
+      while (getline(mapFile,line)) {
+         // read in the lines;
+         //const char* charline = line.c_str();
+         if (line[0] == '#') {
+            // this line is a comment... skip it
+            continue;  
+         }
+         // parse line format
+         char booth_type[10];
+         float x_pos, y_pos, z_pos;
+         float x_dim, y_dim, z_dim;
+         float angle;
+         sscanf(line.c_str(), "%s (%f,%f,%f) (%f,%f,%f) %f\n",
+            booth_type,&x_pos,&y_pos,&z_pos,&x_dim,&y_dim,&z_dim,&angle);
+            
+         Object* structure = new Object(shapes, materials, ShadeProg);
+         structure->load(STALL_FILE_NAME);
+         structure->translate(glm::vec3(x_pos, y_pos, z_pos));
+         structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
+         structure->scale(glm::vec3(x_dim, y_dim, z_dim));
+         //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
+         Booth* booth = new Booth(structure, (const string*)"booth");
+         booth->setType(BOOTH_TYPE);
+         structures.push_back(booth);
+      }
+      mapFile.close();
+   }
+   else {
+      printf("file %s was not available or could not be opened\n", fileName);
+   }
 }
 
 bool World::detectSpawnCollision(Object* object) {

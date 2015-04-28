@@ -10,6 +10,8 @@
 #include <cassert>
 #include <cmath>
 #include <ctime>
+#include <iostream>
+#include <fstream>
 #include <SOIL/src/SOIL.h>
 #include "glew.h"
 #include "glfw3.h"
@@ -22,6 +24,7 @@
 #include "Util.h"
 #include "MatrixStack.h"
 #include "assimp/cimport.h"
+#include "assimp/Importer.hpp"
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
 
@@ -30,6 +33,9 @@
 #define WALL_FILE_NAME "cube.obj"
 #define STALL_FILE_NAME "base_lantern_stall.obj"
 #define PLAYER_FILE_NAME "sphere.obj"
+
+// define map file
+#define MAP_FILE_NAME "map.txt"
 
 // defines the type of structure related to the Booth class
 #define WALL_TYPE 0
