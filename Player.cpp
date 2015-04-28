@@ -18,9 +18,9 @@ void Player::step() {
    float Yrot = camera->getYRot();
 
    if (object != NULL) {
-      object->pos = calculatePos();
+      object->setPos(calculatePos());
       object->scale(glm::vec3(1.0, 2.0, 1.0));
-      object->setPos(object->pos);
+      object->setPos(object->getPos());
       object->rotate(-Yrot, glm::vec3(0, 1, 0));
       
       if (camera->pov) 

@@ -469,7 +469,7 @@ std::string LoadMtl (
   // flush last material.
   material_map.insert(std::pair<std::string, int>(material.name, materials.size()));
   materials.push_back(material);
-
+    
   return err.str();
 }
 
@@ -619,7 +619,7 @@ std::string LoadObj(
 
     // use mtl
     if ((0 == strncmp(token, "usemtl", 6)) && isSpace((token[6]))) {
-
+        
       char namebuf[4096];
       token += 7;
       sscanf(token, "%s", namebuf);
@@ -641,6 +641,7 @@ std::string LoadObj(
 
     // load mtl
     if ((0 == strncmp(token, "mtllib", 6)) && isSpace((token[6]))) {
+        
       char namebuf[4096];
       token += 7;
       sscanf(token, "%s", namebuf);

@@ -4,15 +4,16 @@
 #define _USE_MATH_DEFINES
 #define _LIB
 #define FREEGLUT_LIB_PRAGMAS 0
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
 #include <cassert>
 #include <cmath>
 #include <ctime>
+
 #include <iostream>
 #include <fstream>
-#include <SOIL/src/SOIL.h>
 #include "glew.h"
 #include "glfw3.h"
 #include "GL/freeglut.h"
@@ -20,6 +21,8 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp" //perspective, trans etc
 #include "glm/gtc/type_ptr.hpp" //value_ptr
+#include "glm/glm.h"
+#include "glm/glmint.h"
 #include "tiny_obj_loader.h"
 #include "Util.h"
 #include "MatrixStack.h"
@@ -44,7 +47,6 @@
 // Texture IDs
 #define TEXTURE_SKY 3
 #define TEXTURE_GROUND 4
-#define TEXTURE_WOOD 5
 // TODO add defines for specific minigame types
 
 // misc defines for globally accessed values

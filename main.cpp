@@ -1,7 +1,14 @@
+#include <math.h>
+#include <fstream>
+#include <map>
+#include <string>
+#include <vector>
+
 #include "includes.h"
 #include "Session.h"
 #include "Window.h"
 #include "Camera.h"
+#include "Texture.h"
 
 Session* session;
 
@@ -90,7 +97,8 @@ void setInputCallbacks() {
 int main(int argc, char **argv) {
    session = new Session(); // Create the main game session
    setInputCallbacks();
-
+    
+   loadAllTextures();
    session->run(); // Runs the main game loop
 
    delete session; // Free the main game session from the heap
