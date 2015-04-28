@@ -14,7 +14,8 @@
 
 <h1>Cross-Platform Building</h1>
 This project supports janky builds on macs, linux, and the CSL machines.<br>
-<b>IF YOU WANT TO CHANGE includes.h BE SURE TO MODIFY YOUR RESPECTIVE INCLUDES FILE. For instance, if you are on a CSL machine, change includes_csl.h.</b><br>
+<b>IF YOU WANT TO CHANGE includes.h BE SURE TO MODIFY YOUR RESPECTIVE INCLUDES FILE.</b><br>
+For instance, if you are on a CSL machine, change includes_csl.h.<br>
 <br>
 To build the standard build, run <code>make</code><br>
 To build the CSL build, run <code>make csl</code><br>
