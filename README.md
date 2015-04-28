@@ -12,5 +12,17 @@
  &nbsp;&nbsp;&nbsp;&nbsp;  <code>git rebase --continue</code>  
 <code>git push</code>  
 
+<h1>Creating the path variable for freetype2:</h1>
+First install freetype <a href="http://www.linuxfromscratch.org/blfs/view/svn/general/freetype2.html">here</a>
+<br>Find the path:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; <code>freetype-config --cflags</code>
+<br>Copy the path in the output<br>
+<br>Past line into ~/.profile like this:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; <code>export FREETYPE_DIR=paste here</code>
+<br>Adding this line into ~/.profile will run the export command every time you open a new terminal.<br>
+<br>Without restarting your terminal, or if things aren't working, try:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; <code>source ~/.profile</code>
+<br>Makefile should work at this point<br>
+
 <h1>Issue Tracking</h1>
 <a href="https://bitbucket.org/japanesefestival/cpe476-final-project/issues?status=new&status=open">Go to BitBucket</a>
