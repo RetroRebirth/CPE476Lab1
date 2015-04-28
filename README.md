@@ -17,7 +17,7 @@ First install freetype <a href="http://www.linuxfromscratch.org/blfs/view/svn/ge
 <br>Find the path:<br>
 &nbsp;&nbsp;&nbsp;&nbsp; <code>freetype-config --cflags</code>
 <br>Copy the path in the output<br>
-<br>Past line into ~/.profile like this:<br>
+<br>Add line into ~/.profile like this:<br>
 &nbsp;&nbsp;&nbsp;&nbsp; <code>export FREETYPE_DIR=paste here</code>
 <br>Adding this line into ~/.profile will run the export command every time you open a new terminal.<br>
 <br>Without restarting your terminal, or if things aren't working, try:<br>
