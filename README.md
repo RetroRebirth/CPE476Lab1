@@ -12,6 +12,13 @@
  &nbsp;&nbsp;&nbsp;&nbsp;  <code>git rebase --continue</code>  
 <code>git push</code>  
 
+<h1>Cross-Platform Building</h1>
+This project supports janky builds on macs, linux, and the CSL machines.<br>
+IF YOU WANT TO CHANGE includes.h BE SURE TO MODIFY YOUR RESPECTIVE INCLUDES FILE. For instance, if you are on a CSL machine, change includes_csl.h.<br>
+<br>
+To build the standard build, run <code>make</code><br>
+To build the CSL build, run <code>make csl</code><br>
+
 <h1>Creating the path variable for freetype2:</h1>
 First install freetype <a href="http://www.linuxfromscratch.org/blfs/view/svn/general/freetype2.html">here</a>
 <br>Find the path:<br>
