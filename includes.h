@@ -30,6 +30,8 @@
 #include "assimp/Importer.hpp"
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 // defines file names for various meshes
 #define EXTRA_FILE_NAME "bunny.obj"
