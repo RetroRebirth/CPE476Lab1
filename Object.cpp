@@ -20,6 +20,8 @@ Object::Object(
    scalerMat = glm::mat4(1.0f);
    rotateMat = glm::mat4(1.0f);
    transMat = glm::mat4(1.0f);
+   
+   boundBoxScalerMat = glm::scale(glm::mat4(1.0f), glm::vec3(1.1f,1.1f,1.1f));
 
    // Defined attribute values
    shapes = _shapes;
@@ -41,6 +43,7 @@ Object::Object(
    
    directional = false;
    setTexture(MISC_TYPE);
+   
 }
 
 Object::~Object() {}
@@ -49,26 +52,28 @@ Object::~Object() {}
 void Object::scale(glm::vec3 scaler) {
    scalerMat = glm::scale(glm::mat4(1.0f), scaler);
    // an attempt to correct for the mesh resizing... which breaks the bounding box stuff
-   glm::vec3 temp_scaler = glm::vec3(1.0f, 1.0f, 1.0f);
+   //glm::vec3 temp_scaler = glm::vec3(1.1f*scaler.x, 1.1f*scaler.y, 1.1f*scaler.z);
+   /*glm::vec3 temp_scaler = glm::vec3(1.0f, 1.0f, 1.0f);
    float x = scaler.x;
    float y = scaler.y;
    float z = scaler.z;
    if (scaler.x > 2.5f) { 
-      temp_scaler.x -= ((scaler.x * SCALE_CONST1) + ((1.0f / scaler.x) *SCALE_CONST2));//(1.5f*0.25f);
+      //temp_scaler.x -= ((scaler.x * SCALE_CONST1) + ((1.0f / scaler.x) *SCALE_CONST2));//(1.5f*0.25f);
       //temp_scaler.x -= ((x*0.025f)+((1.0f/x)*0.6f));
       //temp_scaler.x -= (1.5f*0.25f);
    }
    if (scaler.y > 2.5f) {
-      temp_scaler.y -= ((scaler.y*SCALE_CONST1)+((1.0f/scaler.y)*SCALE_CONST2));//(1.5f*0.25f);
+      //temp_scaler.y -= ((scaler.y*SCALE_CONST1)+((1.0f/scaler.y)*SCALE_CONST2));//(1.5f*0.25f);
       //temp_scaler.y -= ((y*0.025f)+((1.0f/y)*0.6f));
       //temp_scaler.y -= (1.5f*0.25f);
    }
    if (scaler.z > 2.5f) {
-      temp_scaler.z -= ((scaler.z*SCALE_CONST1)+((1.0f/scaler.z)*SCALE_CONST2));//(1.5f*0.25f);
+      //temp_scaler.z -= ((scaler.z*SCALE_CONST1)+((1.0f/scaler.z)*SCALE_CONST2));//(1.5f*0.25f);
       //temp_scaler.z -= ((z*0.025f)+((1.0f/z)*0.6f));
       //temp_scaler.z -= (1.5f*0.25f);
-   }
-   boundBoxScalerMat = glm::scale(glm::mat4(1.0f), temp_scaler);
+   }*/
+   
+   //boundBoxScalerMat = glm::scale(glm::mat4(1.0f), glm::vec3(1.1f,1.1f,1.1f));
 }
 
 // rotate object by flat amount, this will be applied on top of directional rotations
@@ -245,7 +250,7 @@ void Object::load(const string &meshName)
     }
     
     init();
-    resize_obj();
+    //resize_obj();
 }
 
 void Object::load(const string &meshName, const string &matName)
@@ -284,7 +289,7 @@ void Object::load(const string &meshName, const string &matName)
    }
 	
    init();
-   resize_obj();
+   //resize_obj();
 }
 
 /* initialize a new shape */

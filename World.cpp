@@ -338,7 +338,12 @@ void World::parseMapFile(const char* fileName) {
             booth_type,&x_pos,&y_pos,&z_pos,&x_dim,&y_dim,&z_dim,&angle);
             
          Object* structure = new Object(shapes, materials, ShadeProg);
-         structure->load(STALL_FILE_NAME);
+         if (strcmp(booth_type, "booth") == 0) {
+            structure->load(STALL_FILE_NAME);
+         }
+         else if (strcmp(booth_type, "wall") == 0) {
+            structure->load(WALL_FILE_NAME);
+         }
          structure->translate(glm::vec3(x_pos, y_pos, z_pos));
          structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
          structure->scale(glm::vec3(x_dim, y_dim, z_dim));

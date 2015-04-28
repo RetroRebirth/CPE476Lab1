@@ -58,7 +58,7 @@ void World::step(Window* window) {
    
    // draw bullets TODO move this to a minigame class in the future
    for (int i=0; i<bullets.size(); ++i) {
-      if (glm::length(bullets[i]->pos) < 100.0f) {
+      if (glm::length(bullets[i]->getPos()) < 100.0f) {
          bullets[i]->setPos(bullets[i]->calculateNewPos(1.0f));  
          bullets[i]->draw();
          //printf("drawing bullet!\n");
@@ -125,10 +125,6 @@ inline void World::safe_glUniformMatrix4fv(const GLint handle, const GLfloat dat
 }
 
 void World::initGround() {
-
-   // Load the texture for the ground
-   loadTexture((char *)"grass.bmp", TEXTURE_GROUND);
-
    // Position array of ground
    GLfloat vertices[] = {
       -1.0f, 0.0, -1.0f, //0
@@ -342,11 +338,14 @@ void World::parseMapFile(const char* fileName) {
             booth_type,&x_pos,&y_pos,&z_pos,&x_dim,&y_dim,&z_dim,&angle);
             
          Object* structure = new Object(shapes, materials, ShadeProg);
-         structure->load(STALL_FILE_NAME);
+         if (strcmp(booth_type, "booth") == 0) {
+            structure->load(STALL_FILE_NAME);
+         else if (strcmp(booth_type, "wall") == 0) {
+            structure->load(WALL_FILE_NAME);
+         }
          structure->translate(glm::vec3(x_pos, y_pos, z_pos));
          structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
          structure->scale(glm::vec3(x_dim, y_dim, z_dim));
-         //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
          Booth* booth = new Booth(structure, (const string*)"booth");
          booth->setType(BOOTH_TYPE);
          structures.push_back(booth);

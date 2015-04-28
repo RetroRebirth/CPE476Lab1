@@ -11,9 +11,11 @@
 #include <cassert>
 #include <cmath>
 #include <ctime>
-
 #include <iostream>
 #include <fstream>
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
 #include "glew.h"
 #include "glfw3.h"
 #include "GL/freeglut.h"
@@ -30,8 +32,6 @@
 #include "assimp/Importer.hpp"
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
-#include <ft2build.h>
-#include FT_FREETYPE_H
 
 // defines file names for various meshes
 #define EXTRA_FILE_NAME "bunny.obj"
@@ -52,9 +52,9 @@
 // TODO add defines for specific minigame types
 
 // misc defines for globally accessed values
-#define MAX_OBJS 30
+#define MAX_OBJS 50
 #define SECS_PER_OBJ 2.0
-#define SIZE 25.0
+#define SIZE 50.0
 #define SKY_SIZE 100.0
 #define NUM_OBJ_TYPES 1
 #define SPHERE 0
