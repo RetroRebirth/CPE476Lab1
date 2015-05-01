@@ -76,7 +76,7 @@ glm::vec3 Camera::calcNewPos(Window* window) {
    float moveInc = speed * window->dt;
    float playerYrad = Util::degreesToRadians(playerYrot);
 
-   glm::vec3 viewVector = glm::normalize(lookAtPt() - newPos);
+   glm::vec3 viewVector = glm::normalize(newPos - lookAtPt());
    glm::vec3 strafeVector = glm::normalize(glm::cross(viewVector, glm::vec3(0, 1, 0)));
    glm::vec3 crossVector = glm::normalize(glm::cross(viewVector, strafeVector));
    // Scale vectors
@@ -97,7 +97,7 @@ glm::vec3 Camera::calcNewPos(Window* window) {
    }
    // for debugging purposes
    if (glfwGetKey(win, GLFW_KEY_S) == GLFW_PRESS) { // Move backward
-      newPos += viewVector;
+      newPos -= viewVector;
    }
    if (glfwGetKey(win, GLFW_KEY_Q) == GLFW_PRESS) { // Move up
       newPos -= crossVector;
