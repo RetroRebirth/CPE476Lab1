@@ -314,7 +314,7 @@ void World::setupOverWorld() {
       structures[i]->calculateBoundingBox();
    }
 
-   createPlayer(PLAYER_FILE_NAME);
+   createPlayer(EXTRA_FILE_NAME);
 }
 
 void World::parseMapFile(const char* fileName) {

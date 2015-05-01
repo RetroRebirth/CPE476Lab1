@@ -74,6 +74,7 @@ void Camera::step(Window* window) {
 glm::vec3 Camera::calcNewPos(Window* window) {
    glm::vec3 newPos = pos;
    float moveInc = speed * window->dt;
+   float playerYrad = Util::degreesToRadians(playerYrot);
 
    glm::vec3 viewVector = glm::normalize(lookAtPt() - newPos);
    glm::vec3 strafeVector = glm::normalize(glm::cross(viewVector, glm::vec3(0, 1, 0)));
@@ -84,19 +85,26 @@ glm::vec3 Camera::calcNewPos(Window* window) {
    crossVector *= moveInc;
 
    GLFWwindow* win = window->glfw_window;
-   if (glfwGetKey(win, GLFW_KEY_W) == GLFW_PRESS) // Move forward
-      newPos -= viewVector;
-   if (glfwGetKey(win, GLFW_KEY_A) == GLFW_PRESS) // Strafe left
+   if (glfwGetKey(win, GLFW_KEY_W) == GLFW_PRESS) { // Move forward
+      newPos.x += moveInc * sin(playerYrad);
+      newPos.z += moveInc * cos(playerYrad);
+   }
+   if (glfwGetKey(win, GLFW_KEY_A) == GLFW_PRESS) { // Strafe left
       playerYrot += PLAYER_ROT_DEG;
-   if (glfwGetKey(win, GLFW_KEY_D) == GLFW_PRESS) // Strafe right
+   }
+   if (glfwGetKey(win, GLFW_KEY_D) == GLFW_PRESS) { // Strafe right
       playerYrot -= PLAYER_ROT_DEG;
+   }
    // for debugging purposes
-   if (glfwGetKey(win, GLFW_KEY_S) == GLFW_PRESS) // Move backward
+   if (glfwGetKey(win, GLFW_KEY_S) == GLFW_PRESS) { // Move backward
       newPos += viewVector;
-   if (glfwGetKey(win, GLFW_KEY_Q) == GLFW_PRESS) // Move up
+   }
+   if (glfwGetKey(win, GLFW_KEY_Q) == GLFW_PRESS) { // Move up
       newPos -= crossVector;
-   if (glfwGetKey(win, GLFW_KEY_E) == GLFW_PRESS) // Move down
+   }
+   if (glfwGetKey(win, GLFW_KEY_E) == GLFW_PRESS) { // Move down
       newPos += crossVector;
+   }
    
    // this is what we had originally with strafing
    // using the above code we can move and see the front of our char/potato

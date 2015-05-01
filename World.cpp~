@@ -331,9 +331,9 @@ void World::parseMapFile(const char* fileName) {
          }
          // parse line format
          char booth_type[10];
-         float x_pos, y_pos, z_pos;
-         float x_dim, y_dim, z_dim;
-         float angle;
+         float x_pos = 0.0f, y_pos = 0.0f, z_pos = 0.0f;
+         float x_dim = 0.0f, y_dim = 0.0f, z_dim = 0.0f;
+         float angle = 0.0f;
          sscanf(line.c_str(), "%s (%f,%f,%f) (%f,%f,%f) %f\n",
             booth_type,&x_pos,&y_pos,&z_pos,&x_dim,&y_dim,&z_dim,&angle);
             
