@@ -1,5 +1,4 @@
 #<structure type> <center pos (x,y,z)> <dimensions (x,y,z)> <rotate angle> TODO add support for active minigame type
-wall 
 booth (10.0,2.5,-15.0) (7.5,7.5,7.5) 0.0
 booth (-10.0,2.5,-15.0) (7.5,7.5,7.5) 0.0
 booth (15.0,2.5,0.0) (7.5,7.5,7.5) -90.0

@@ -45,6 +45,7 @@ class Camera {
       GLint h_uView;
       bool playingMinigame;
       Object* player;
+      float playerYrot;
 
       glm::vec3 calculatePlayerPos();
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);

@@ -16,6 +16,7 @@ Camera::Camera(
    pov = true;
    playingMinigame = false;
    radius = 1.0;
+   playerYrot = 0.0;
 
    // Defined attribute values
    h_uP = _h_uP;
@@ -50,7 +51,11 @@ void Camera::setProjectionMatrix(int g_width, int g_height) {
 }
 
 void Camera::setView() {
-   View = glm::lookAt(pos, lookAtPt(), glm::vec3(0, 1, 0));
+   glm::mat4 lookAtMat = glm::lookAt(lookAtPt(), pos, glm::vec3(0, 1, 0));
+
+   //mult view by phi rotation matrix
+   View = glm::rotate(glm::mat4(1.0f), phi, glm::vec3(1, 0, 0)) * lookAtMat;
+
    safe_glUniformMatrix4fv(h_uV, glm::value_ptr(View));
    glUniform3f(h_uView, pos.x, pos.y, pos.z);
 }
@@ -62,34 +67,53 @@ void Camera::step(Window* window) {
    if (!playingMinigame && (!bounded || !blocked)) {
       pos = calcNewPos(window);
    }
-//   pos = !bounded || !blocked ? calcNewPos(window) : pos;
+   // pos = !bounded || !blocked ? calcNewPos(window) : pos;
    blocked = false;
 }
 
-   glm::vec3 Camera::calcNewPos(Window* window) {
+glm::vec3 Camera::calcNewPos(Window* window) {
    glm::vec3 newPos = pos;
+   float moveInc = speed * window->dt;
 
    glm::vec3 viewVector = glm::normalize(lookAtPt() - newPos);
    glm::vec3 strafeVector = glm::normalize(glm::cross(viewVector, glm::vec3(0, 1, 0)));
    glm::vec3 crossVector = glm::normalize(glm::cross(viewVector, strafeVector));
    // Scale vectors
-   viewVector *= (speed * window->dt);
-   strafeVector *= (speed * window->dt);
-   crossVector *= (speed * window->dt);
+   viewVector *= moveInc;
+   strafeVector *= moveInc;
+   crossVector *= moveInc;
 
    GLFWwindow* win = window->glfw_window;
    if (glfwGetKey(win, GLFW_KEY_W) == GLFW_PRESS) // Move forward
-      newPos += viewVector;
-   if (glfwGetKey(win, GLFW_KEY_S) == GLFW_PRESS) // Move backward
       newPos -= viewVector;
    if (glfwGetKey(win, GLFW_KEY_A) == GLFW_PRESS) // Strafe left
-      newPos -= strafeVector;
+      playerYrot += PLAYER_ROT_DEG;
    if (glfwGetKey(win, GLFW_KEY_D) == GLFW_PRESS) // Strafe right
-      newPos += strafeVector;
+      playerYrot -= PLAYER_ROT_DEG;
+   // for debugging purposes
+   if (glfwGetKey(win, GLFW_KEY_S) == GLFW_PRESS) // Move backward
+      newPos += viewVector;
    if (glfwGetKey(win, GLFW_KEY_Q) == GLFW_PRESS) // Move up
-      newPos += crossVector;
-   if (glfwGetKey(win, GLFW_KEY_E) == GLFW_PRESS) // Move down
       newPos -= crossVector;
+   if (glfwGetKey(win, GLFW_KEY_E) == GLFW_PRESS) // Move down
+      newPos += crossVector;
+   
+   // this is what we had originally with strafing
+   // using the above code we can move and see the front of our char/potato
+   /*
+   if (glfwGetKey(win, GLFW_KEY_W) == GLFW_PRESS) // Move forward
+      newPos -= viewVector;
+   if (glfwGetKey(win, GLFW_KEY_S) == GLFW_PRESS) // Move backward
+      newPos += viewVector;
+   if (glfwGetKey(win, GLFW_KEY_A) == GLFW_PRESS) // Strafe left
+      newPos += strafeVector;
+   if (glfwGetKey(win, GLFW_KEY_D) == GLFW_PRESS) // Strafe right
+      newPos -= strafeVector;
+   if (glfwGetKey(win, GLFW_KEY_Q) == GLFW_PRESS) // Move up
+      newPos -= crossVector;
+   if (glfwGetKey(win, GLFW_KEY_E) == GLFW_PRESS) // Move down
+      newPos += crossVector;*/
+
 
    // Bounding
   if (bounded) {
@@ -103,16 +127,13 @@ void Camera::step(Window* window) {
      if (newPos.z > s)
         newPos.z = s;
 
-     newPos.y = 2;
+     newPos.y = 1;
   }
-
-   float Yrot = getYRot();
 
    if (player != NULL) {
       player->setPos(calculatePlayerPos());
       player->scale(glm::vec3(1.0, 2.0, 1.0));
-      player->setPos(player->getPos());
-      player->rotate(-Yrot, glm::vec3(0, 1, 0)); //may not need this
+      player->rotate(playerYrot, glm::vec3(0, 1, 0));
       
       if (pov) 
          player->draw();
@@ -133,7 +154,8 @@ void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos, int g_
    theta += MOUSE_SPEED*M_PI*xMag;
    // Bound phi to 80 degrees
    float newPhi = phi - MOUSE_SPEED*M_PI*yMag/2.0;
-   if (glm::degrees(newPhi) < 80 && glm::degrees(newPhi) > -80) {
+   //bounded between 80 and -40 to keep from going into the char
+   if (glm::degrees(newPhi) < 80 && glm::degrees(newPhi) > -40) {
       phi = newPhi;
    }
 
@@ -168,18 +190,6 @@ void Camera::moveToOverworld() {
    this->phi = 0.0;
 }
 
-/*#include "Player.h"
-
-Player::Player(
-      Camera *_camera) {
-
-   object = NULL;
-   camera = _camera;
-   radius = 1.0;
-}
-
-Player::~Player() {}
-*/
 void Camera::initPlayer(Object *_player) {
    player = _player;
 }
@@ -188,9 +198,9 @@ glm::vec3 Camera::calculatePlayerPos() {
    glm::vec3 temp;
    float Yrot = getYRot();
 
-   temp.x = pos.x - radius * sin((Yrot + 270.0f) * M_PI / 180.0);
+   temp.x = pos.x;
    temp.y = 1;
-   temp.z = pos.z - radius * cos((Yrot - 270.0f) * M_PI / 180.0);
+   temp.z = pos.z;
 
    return temp;
 }

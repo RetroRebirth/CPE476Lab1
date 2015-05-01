@@ -39,7 +39,7 @@
 #define STALL_FILE_NAME "base_lantern_stall.obj"
 #define PLAYER_FILE_NAME "sphere.obj"
 
-// define map file
+// defines map file
 #define MAP_FILE_NAME "map.txt"
 
 // defines the type of structure related to the Booth class
@@ -72,6 +72,7 @@
 #define SCALE_CONST1 0.025f
 #define SCALE_CONST2 1.3f
 #define INFLUENCE_WIDTH 2.0f
+#define PLAYER_ROT_DEG 2
 
 // Game States
 #define WORLD_STATE 0

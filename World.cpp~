@@ -340,6 +340,7 @@ void World::parseMapFile(const char* fileName) {
          Object* structure = new Object(shapes, materials, ShadeProg);
          if (strcmp(booth_type, "booth") == 0) {
             structure->load(STALL_FILE_NAME);
+         }
          else if (strcmp(booth_type, "wall") == 0) {
             structure->load(WALL_FILE_NAME);
          }
