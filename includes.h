@@ -39,7 +39,7 @@
 #define STALL_FILE_NAME "base_lantern_stall.obj"
 #define PLAYER_FILE_NAME "sphere.obj"
 
-// defines map file
+// define map file
 #define MAP_FILE_NAME "map.txt"
 
 // defines the type of structure related to the Booth class
