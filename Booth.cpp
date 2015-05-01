@@ -27,7 +27,9 @@ Booth::Booth(
   object->setTexture(type);
 }
 
-Booth::~Booth(){}
+Booth::~Booth(){
+   delete object;
+}
 
 //Shows the message to the screen through whatever magic we're going
 //to use

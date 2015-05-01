@@ -8,7 +8,9 @@ Player::Player(
    radius = 1.0;
 }
 
-Player::~Player() {}
+Player::~Player() {
+   delete object;
+}
 
 void Player::initPlayer(Object *_object) {
    object = _object;
@@ -38,4 +40,3 @@ glm::vec3 Player::calculatePos() {
 
    return pos;
 }
-   

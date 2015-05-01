@@ -41,6 +41,7 @@ public:
     float getSpeed()          { return vel; }
     bool isDirectional()      { return directional; }
     void getBounds(struct bound_box *bounds);
+    float getXRadius();
     vector<tinyobj::shape_t> getShapes() { return shapes; }
     vector<tinyobj::material_t> getMaterials() { return materials; }
     

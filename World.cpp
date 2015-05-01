@@ -34,6 +34,12 @@ World::~World() {
    for (int i=0; i<extras.size(); ++i) { 
       delete extras[i];
    }
+   for (int i=0; i<structures.size(); ++i) {
+      delete structures[i];
+   }
+   for (int i=0; i<bullets.size(); ++i) {
+      delete bullets[i];
+   }
 }
 
 // click stuff
@@ -59,51 +65,58 @@ void World::step(Window* window) {
    // draw bullets TODO move this to a minigame class in the future
    for (int i=0; i<bullets.size(); ++i) {
       if (glm::length(bullets[i]->getPos()) < 100.0f) {
-         bullets[i]->setPos(bullets[i]->calculateNewPos(1.0f));  
-         bullets[i]->draw();
-         //printf("drawing bullet!\n");
+         if (bullets[i] != NULL) {
+            bullets[i]->setPos(bullets[i]->calculateNewPos(1.0f));  
+            bullets[i]->draw();
+            //printf("drawing bullet!\n");
+         }
       }
       else {
          //delete bullets[i]; TODO this needs to happen...
+         if (bullets[i]->getPos().length() > 100.0f) {
+            delete bullets[i];
+         }
       }
    }
    if (!inGame) {
-   for (int i=0; i<extras.size(); ++i) {
-      Object* extra = extras[i];
-      extra->draw();
-   }
+      for (int i=0; i<extras.size(); ++i) {
+         Object* extra = extras[i];
+         extra->draw();
+      }
 
-   drawGround();
-   drawOverWorld();
-   
-   // code to stop camera from going through things... will probably need to be moved somewhere else
-   for (int i=0; i<structures.size(); ++i) {
-      // if camera.pos violates bounds, then set pos to be equal to bound... 
-      glm::vec3 colPlane;
-      // TODO influence check should use player position in the future
-      structures[i]->checkInteract(camera->pos);
-      if (structures[i]->checkCameraCollision(camera->pos, &colPlane)) {
+      drawGround();
+      drawOverWorld();
+      
+      // code to stop camera from going through things... will probably need to be moved somewhere else
+      for (int i=0; i<structures.size(); ++i) {
+         // if camera.pos violates bounds, then set pos to be equal to bound... 
+         glm::vec3 colPlane;
+         // TODO influence check should use player position in the future
+         structures[i]->checkInteract(camera->pos);
+         
+         // collision detection
+         if (structures[i]->checkCameraCollision(camera->pos, &colPlane)) {
 
-         /* debug output for camera collisions
-         printf("boundry hit: ");
-         printVec3(colPlane);
-         printf("camera position: ");
-         printVec3(camera->pos);*/
-           
-         if (abs(colPlane.x) > 0.0f) {
-            // hit an x boundary
-            camera->pos.x = colPlane.x;
-         }
-         else if (abs(colPlane.y) > 0.0f) {
-            // hit a y boundary
-            camera->pos.y = colPlane.y;
-         }
-         else if (abs(colPlane.z) > 0.0f) {
-            // hit a z boundary
-            camera->pos.z = colPlane.z;
+            /* debug output for camera collisions
+            printf("boundry hit: ");
+            printVec3(colPlane);
+            printf("camera position: ");
+            printVec3(camera->pos);*/
+              
+            if (abs(colPlane.x) > 0.0f) {
+               // hit an x boundary
+               camera->pos.x = colPlane.x;
+            }
+            else if (abs(colPlane.y) > 0.0f) {
+               // hit a y boundary
+               camera->pos.y = colPlane.y;
+            }
+            else if (abs(colPlane.z) > 0.0f) {
+               // hit a z boundary
+               camera->pos.z = colPlane.z;
+            }
          }
       }
-   }
    }
 
    camera->step(window);
@@ -206,6 +219,7 @@ void World::leftMiniGame() {
    
 
 void World::setupOverWorld() {
+   // build walls based on map size
    Object* wall1 = new Object(shapes, materials, ShadeProg);
    wall1->load(WALL_FILE_NAME);
    wall1->translate(glm::vec3(-SIZE-0.5f, 2.5f, 0.0f));
@@ -238,74 +252,6 @@ void World::setupOverWorld() {
    bwall4->setType(WALL_TYPE);
    structures.push_back(bwall4);
    
-   /*Object* booth1_1 = new Object(shapes, materials, ShadeProg);
-   booth1_1->load(STALL_FILE_NAME);
-   booth1_1->translate(glm::vec3(10.0f, 2.5f, -15.0f));
-   booth1_1->scale(glm::vec3(7.5f, 7.5f, 7.5f));
-   //booth1->scale(glm::vec3(7.5f, 7.5f, 7.5f));
-   Booth* bbooth1_1 = new Booth(booth1_1, (const string*)"booth1");
-   bbooth1_1->setType(BOOTH_TYPE);
-   structures.push_back(bbooth1_1);
-   
-   Object* booth1_2 = new Object(shapes, materials, ShadeProg);
-   booth1_2->load(STALL_FILE_NAME);
-   booth1_2->translate(glm::vec3(-10.0f, 2.5f, -15.0f));
-   booth1_2->scale(glm::vec3(7.5f, 7.5f, 7.5f));
-   //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
-   Booth* bbooth1_2 = new Booth(booth1_2, (const string*)"booth1");
-   bbooth1_2->setType(BOOTH_TYPE);
-   structures.push_back(bbooth1_2);
-   
-   Object* booth2 = new Object(shapes, materials, ShadeProg);
-   booth2->load(STALL_FILE_NAME);
-   booth2->translate(glm::vec3(15.0f, 2.5f, 0.0f));
-   booth2->rotate(-90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-   booth2->scale(glm::vec3(7.5f, 7.5f, 7.5f));
-   //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
-   Booth* bbooth2 = new Booth(booth2, (const string*)"booth2");
-   bbooth2->setType(BOOTH_TYPE);
-   structures.push_back(bbooth2);
-   
-   Object* booth3 = new Object(shapes, materials, ShadeProg);
-   booth3->load(STALL_FILE_NAME);
-   booth3->translate(glm::vec3(-15.0f, 2.5f, 0.0f));
-   booth3->rotate(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-   booth3->scale(glm::vec3(7.5f, 7.5f, 7.5f));
-   //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
-   Booth* bbooth3 = new Booth(booth3, (const string*)"booth3");
-   bbooth3->setType(BOOTH_TYPE);
-   structures.push_back(bbooth3);
-   
-   Object* booth4_1 = new Object(shapes, materials, ShadeProg);
-   booth4_1->load(STALL_FILE_NAME);
-   booth4_1->translate(glm::vec3(10.0f, 2.5f, 17.0f));
-   booth4_1->rotate(180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-   booth4_1->scale(glm::vec3(7.5f, 7.5f, 7.5f));
-   //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
-   Booth* bbooth4_1 = new Booth(booth4_1, (const string*)"booth1");
-   bbooth4_1->setType(BOOTH_TYPE);
-   structures.push_back(bbooth4_1);
-   
-   Object* booth4_2 = new Object(shapes, materials, ShadeProg);
-   booth4_2->load(STALL_FILE_NAME);
-   booth4_2->translate(glm::vec3(-10.0f, 2.5f, 17.0f));
-   booth4_2->rotate(180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-   booth4_2->scale(glm::vec3(7.5f, 7.5f, 7.5f));
-   //booth1->scale(glm::vec3(5.0f, 5.0f, 7.5f));
-   Booth* bbooth4_2 = new Booth(booth4_2, (const string*)"booth1");
-   bbooth4_2->setType(BOOTH_TYPE);
-   structures.push_back(bbooth4_2);
-   
-   Object* booth4_3 = new Object(shapes, materials, ShadeProg);
-   booth4_3->load(STALL_FILE_NAME);
-   booth4_3->translate(glm::vec3(0.0f, 2.5f, 17.0f));
-   booth4_3->rotate(180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-   booth4_3->scale(glm::vec3(7.5f, 7.5f, 7.5f));
-   //booth1->scale(glm::vec3(5.0f, 5.0f, 5.0f));
-   Booth* bbooth4_3 = new Booth(booth4_3, (const string*)"booth1");
-   bbooth4_3->setType(BOOTH_TYPE);
-   structures.push_back(bbooth4_3);*/
-   
    parseMapFile(MAP_FILE_NAME);
    
    // initialize world along with bounding boxes
@@ -314,9 +260,10 @@ void World::setupOverWorld() {
       structures[i]->calculateBoundingBox();
    }
 
-   createPlayer(EXTRA_FILE_NAME);
+   createPlayer(PLAYER_FILE_NAME);
 }
 
+/* Read in a map file and parse based on defined by-line format */
 void World::parseMapFile(const char* fileName) {
    ifstream mapFile;
    mapFile.open(fileName);
@@ -334,6 +281,8 @@ void World::parseMapFile(const char* fileName) {
          float x_pos = 0.0f, y_pos = 0.0f, z_pos = 0.0f;
          float x_dim = 0.0f, y_dim = 0.0f, z_dim = 0.0f;
          float angle = 0.0f;
+         
+         // create a string layout to scan in data pointers...
          sscanf(line.c_str(), "%s (%f,%f,%f) (%f,%f,%f) %f\n",
             booth_type,&x_pos,&y_pos,&z_pos,&x_dim,&y_dim,&z_dim,&angle);
             
@@ -345,7 +294,7 @@ void World::parseMapFile(const char* fileName) {
             structure->load(WALL_FILE_NAME);
          }
          structure->translate(glm::vec3(x_pos, y_pos, z_pos));
-         structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
+         structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
          structure->scale(glm::vec3(x_dim, y_dim, z_dim));
          Booth* booth = new Booth(structure, (const string*)"booth");
          booth->setType(BOOTH_TYPE);

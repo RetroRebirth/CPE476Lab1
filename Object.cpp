@@ -141,6 +141,26 @@ bool Object::collision(Object* o) {
    return false;
 }
 
+float Object::getXRadius() {
+   const vector<float> &posBuf = shapes[0].mesh.positions;
+   
+   float x_rad = 1.0f;
+   for (int i = 0; i < (int)posBuf.size(); i += 3) {
+      glm::vec3 v;
+      v = glm::vec3(posBuf[i], posBuf[i+1], posBuf[i+2]);
+      if (i == 0) {
+         // initialize radius on first pass
+         x_rad = v.x;
+      }
+      else {
+         if (v.x > x_rad) {
+            x_rad = v.x;
+         }
+      }
+   }
+   return x_rad;
+}
+
 void Object::getBounds(struct bound_box *bounds) {
    
    float x_min, x_max, y_min, y_max, z_min, z_max; 

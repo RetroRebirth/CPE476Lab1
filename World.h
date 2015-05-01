@@ -39,6 +39,9 @@ class World {
       vector<Object*> objects;
       double objStartTime;
       bool inGame;
+      
+      glm::vec3 player_pos;
+      float player_rad;
 
       SkyBox* skybox;
       Camera* camera;

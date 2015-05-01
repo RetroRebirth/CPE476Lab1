@@ -36,24 +36,16 @@ Window::Window(
 
    glfwSetInputMode(glfw_window, GLFW_STICKY_KEYS, GL_TRUE); // Ensure we "hear" ESC
    glfwSetInputMode(glfw_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); // Hide the mouse
-
-   //This is a hack :V
-   char fakeParam[] = "fake";
-   char *fakeargv[] = {fakeParam, NULL};
-   int fakeargc = 1;
-
-   //glutInit(&fakeargc, fakeargv);
 }
 
 Window::~Window() {
+   printf("terminating glfw\n");
    glfwTerminate();
 }
 
 void Window::drawText(char *string, float x, float y) {
    glColor3f(1.0f, 1.0f, 1.0f);   
    glRasterPos2f(x, y);
-
-   //glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)string);
 }
 
 /**

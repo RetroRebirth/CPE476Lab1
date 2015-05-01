@@ -5,6 +5,8 @@
 #include "Camera.h"
 #include "Object.h"
 
+// player class (used in 3rd person camera)
+// hit detection will be sphere based for simplification
 class Player {
    public:
       Object *object;
@@ -17,6 +19,9 @@ class Player {
 
       void initPlayer(Object *_object);
       void step();
+      
+      // calculate the bounding radius for the player... should only be called once.
+      void calulateRadius();
 
    private:
       glm::vec3 calculatePos();
