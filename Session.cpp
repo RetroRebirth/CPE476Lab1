@@ -91,12 +91,20 @@ bool Session::installShaders(const string &vShaderName, const string &fShaderNam
 }
 
 void Session::initGL() {
+   FT_Library ft;
+
+   // Initialize Freetype 
+   if(FT_Init_FreeType(&ft)) {
+      fprintf(stderr, "Failed to intialize Freetype\n");
+      exit(-1);
+   }
+   
    // Initialize GLEW
    if (glewInit() != GLEW_OK) {
       fprintf(stderr, "Failed to initialize GLEW\n");
       exit(-1);
    }
-
+   
    installShaders("vert.glsl", "frag.glsl");
 
    // Enable alpha drawing

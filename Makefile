@@ -4,7 +4,7 @@ CFLAGS=  -I $(ROOT_DIR) -I$(FREETYPE_DIR) -L $(ROOT_DIR) -g
 CSL_CFLAGS=  -I $(ROOT_DIR) -L $(ROOT_DIR) -g
 SOURCES= main.cpp GLSL.cpp tiny_obj_loader.cc Camera.cpp Object.cpp Window.cpp World.cpp MatrixStack.cpp Booth.cpp SkyBox.cpp Session.cpp Model.cpp Texture.cpp
 CSL_SOURCES= main.cpp GLSL.cpp tiny_obj_loader.cc Camera.cpp Object.cpp Window.cpp World.cpp MatrixStack.cpp Booth.cpp SkyBox.cpp Session.cpp Texture.cpp
-LIBFLAGS= -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -lglut -lassimp libglfw3.a libGLEW.a
+LIBFLAGS= -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -lglut -lassimp -lfreetype libglfw3.a libGLEW.a
 CSL_LIBFLAGS= -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -lglut libglfw3.a libGLEW.a
 
 all:
