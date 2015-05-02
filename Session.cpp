@@ -91,6 +91,7 @@ bool Session::installShaders(const string &vShaderName, const string &fShaderNam
 }
 
 void Session::initGL() {
+/*
    FT_Library ft;
 
    // Initialize Freetype 
@@ -98,6 +99,7 @@ void Session::initGL() {
       fprintf(stderr, "Failed to intialize Freetype\n");
       exit(-1);
    }
+*/
    
    // Initialize GLEW
    if (glewInit() != GLEW_OK) {
