@@ -1,10 +1,19 @@
 #<structure type> <pos top (x,y,z)> <pos mid (x,y,z)> <pos bot (x,y,z)> <scale top> <scale mid> <scale bot> <rotate angle> <minigame type as a string>
-booth (9.95,3.5,-15.0) (10.0,3.2,-15.0) (9.9,0.7,-14.5) 11.0 7.5 6.0 0.0 shooting_gallery
-booth (-10.05,3.5,-15.0) (-10.0,3.2,-15.0) (-9.9,0.7,-14.5) 11.0 7.5 6.0 0.0 shooting_gallery
-booth (15.0,3.5,0.0) (15.0,3.2,0.0) (14.7,0.7,0.0) 11.0 7.5 6.0 -90.0 shooting_gallery
-booth (-15.0,3.5,0.0) (-15.0,3.2,0.0) (-14.3,0.7,0.0) 11.0 7.5 6.0 90.0 shooting_gallery
-booth (10.0,3.5,17.0) (10.0,3.2,17.0) (10.0,0.7,16.5) 11.0 7.5 6.0 180.0 shooting_gallery
-booth (-10.0,3.5,17.0) (-10.0,3.2,17.0) (-10.0,0.7,16.5) 11.0 7.5 6.0 180.0 shooting_gallery
+#booth (9.95,3.5,-15.0) (10.0,3.2,-15.0) (9.9,0.7,-14.5) 11.0 7.5 6.0 0.0 shooting_gallery
+#booth (-10.05,3.5,-15.0) (-10.0,3.2,-15.0) (-9.9,0.7,-14.5) 11.0 7.5 6.0 0.0 shooting_gallery
+#booth (15.0,3.5,0.0) (15.0,3.2,0.0) (14.7,0.7,0.0) 11.0 7.5 6.0 -90.0 shooting_gallery
+#booth (-15.0,3.5,0.0) (-15.0,3.2,0.0) (-14.3,0.7,0.0) 11.0 7.5 6.0 90.0 shooting_gallery
+#booth (10.0,3.5,17.0) (10.0,3.2,17.0) (10.0,0.7,16.5) 11.0 7.5 6.0 180.0 shooting_gallery
+#booth (-10.0,3.5,17.0) (-10.0,3.2,17.0) (-10.0,0.7,16.5) 11.0 7.5 6.0 180.0 shooting_gallery
+
+# booths
+booth (10.0,3.2,-15.0) (7.5,7.5,7.5) 0.0 shooting_gallery
+booth (-10.0,3.2,-15.0) (7.5,7.5,7.5) 0.0 shooting_gallery
+booth (15.0,3.2,0.0) (7.5,7.5,7.5) -90.0 shooting_gallery
+booth (-15.0,3.2,0.0) (7.5,7.5,7.5) 90.0 shooting_gallery
+booth (10.0,3.2,17.0) (7.5,7.5,7.5) 180.0 shooting_gallery
+booth (-10.0,3.2,17.0) (7.5,7.5,7.5) 180.0 shooting_gallery
+
 #top/left quadrant
 wall (-30.0,5.0,-40.0) (40.0,10.0,20.0) 0.0
 wall (-40.0,5.0,-20.0) (20.0,10.0,20.0) 0.0

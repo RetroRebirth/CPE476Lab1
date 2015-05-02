@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Booth::Booth(string data,
+Booth::Booth(glm::vec3 _pos, glm::vec3 _scalar, float _angle, char* _minigame,
              vector<tinyobj::shape_t> shapes,
              vector<tinyobj::material_t> materials,
              GLuint ShadeProg) {
@@ -17,7 +17,7 @@ Booth::Booth(string data,
     booth[2] = new Object(shapes, materials, ShadeProg);
     booth[2]->load((char *)"objs/stall_bottom.obj", (char *)"objs/stall_bottom.mtl");
     booth[2]->setTexture(TEX_WOOD_LIGHT);
-    initBooth(data);
+    initBooth(_pos, _scalar, _angle, _minigame);
     
     // initiate bounding box
     booth[1]->getBounds(&bounds);
@@ -28,25 +28,31 @@ Booth::Booth(string data,
     interactMessage = NULL;
 }
 
-void Booth::initBooth(string data) {
-    char type[10];
-    minigame = (char *)calloc(20, sizeof(char));
-    float x0, y0, z0, x1, y1, z1, x2, y2, z2;
-    float s0, s1, s2, angle;
+void Booth::initBooth(glm::vec3 _pos, glm::vec3 _scalar, float _angle, char* _minigame) {
+    float x0, y0, z0, x2, y2, z2;
+    float s0, s2, angle;
+    
+    glm::vec3 bot_pos, top_pos, bot_scalar, top_scalar;
+    
+    top_pos = glm::vec3(_pos.x-0.05f, _pos.y+0.3f, _pos.z);
+    bot_pos = glm::vec3(_pos.x, _pos.y-2.5f, _pos.z);
+    
+    top_scalar = _scalar*1.4667f;
+    bot_scalar = _scalar*0.8f;
     
     // load the booth data
-    sscanf(data.c_str(), "%s (%f,%f,%f) (%f,%f,%f) (%f,%f,%f) %f %f %f %f %s\n", type, &x0, &y0, &z0, &x1, &y1, &z1, &x2, &y2, &z2, &s0, &s1, &s2, &angle, minigame);
+    //sscanf(data.c_str(), "%s (%f,%f,%f) (%f,%f,%f) (%f,%f,%f) %f %f %f %f %s\n", type, &x0, &y0, &z0, &x1, &y1, &z1, &x2, &y2, &z2, &s0, &s1, &s2, &angle, minigame);
     
     // place the booths
-    booth[0]->translate(glm::vec3(x0, y0, z0));
-    booth[0]->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
-    booth[0]->scale(glm::vec3(s0, s0, s0));
-    booth[1]->translate(glm::vec3(x1, y1, z1));
-    booth[1]->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
-    booth[1]->scale(glm::vec3(s1, s1, s1));
-    booth[2]->translate(glm::vec3(x2, y2, z2));
-    booth[2]->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
-    booth[2]->scale(glm::vec3(s2, s2, s2));
+    booth[0]->translate(top_pos);
+    booth[0]->rotate(_angle, glm::vec3(0.0f, 1.0f, 0.0f));
+    booth[0]->scale(top_scalar);
+    booth[1]->translate(_pos);
+    booth[1]->rotate(_angle, glm::vec3(0.0f, 1.0f, 0.0f));
+    booth[1]->scale(_scalar);
+    booth[2]->translate(bot_pos);
+    booth[2]->rotate(_angle, glm::vec3(0.0f, 1.0f, 0.0f));
+    booth[2]->scale(bot_scalar);
 }
 
 Booth::~Booth(){
@@ -68,65 +74,21 @@ void Booth::showMessage() {
 
 //Checks if anything is colliding with the booth so it stops them.
 bool Booth::checkCollision(Object* _otherObject){
-   glm::vec3 max = glm::vec3(_otherObject->getPos().x + _otherObject->getRadius(), _otherObject->getPos().y + _otherObject->getRadius(), _otherObject->getPos().z + _otherObject->getRadius());
-   glm::vec3 min = glm::vec3(_otherObject->getPos().x - _otherObject->getRadius(), _otherObject->getPos().y - _otherObject->getRadius(), _otherObject->getPos().z - _otherObject->getRadius());
-   
-   if ((max.x < bounds.x_min) || (min.x > bounds.x_max)) {
-      return false;
-   }
-   if ((max.y < bounds.y_min) || (min.y > bounds.y_max)) {
-      return false;
-   }
-   if ((max.z < bounds.z_min) || (min.z > bounds.z_max)) {
-      return false;
-   }
-   
-   return true;
+   booth[1]->checkCollision(_otherObject);
+}
+
+void Booth::getCollisionAxis(glm::vec3 pos, glm::vec3* colPlane) {
+   booth[1]->getCollisionAxis(pos, colPlane);
 }
 
 // check for camera collision set colPlane equal to the bound that has been passed through
 bool Booth::checkCameraCollision(glm::vec3 cam_pos, glm::vec3 *colPlane) {
-   if ((cam_pos.x < bounds.x_min) || (cam_pos.x > bounds.x_max)) {
-      return false;
-   }
-   if ((cam_pos.y < bounds.y_min) || (cam_pos.y > bounds.y_max)) {
-      return false;
-   }
-   if ((cam_pos.z < bounds.z_min) || (cam_pos.z > bounds.z_max)) {
-      return false;
-   }
-   
-   float x_diff, y_diff, z_diff;
-   x_diff = bounds.x_min - cam_pos.x;
-   if (abs(bounds.x_max - cam_pos.x) < abs(x_diff)) {
-      x_diff = bounds.x_max - cam_pos.x;
-   }
-   y_diff = bounds.y_min - cam_pos.y;
-   if (abs(bounds.y_max - cam_pos.y) < abs(y_diff)) {
-      y_diff = bounds.y_max - cam_pos.y;
-   }
-   z_diff = bounds.z_min - cam_pos.z;
-   if (abs(bounds.z_max - cam_pos.z) < abs(z_diff)) {
-      z_diff = bounds.z_max - cam_pos.z;
-   }
-   
-   float diffs[3] = {x_diff, y_diff, z_diff};
-   float min = abs(diffs[0]);
-   glm::vec3 plane = glm::vec3(1.0f, 0.0f, 0.0f);
-   for (int i=0; i<3; ++i) {
-      if (abs(diffs[i]) < min) {
-         min = abs(diffs[i]);
-         plane = glm::vec3(0.0f);
-         plane[i] = 1.0f;
-      }
-   }
-   glm::vec3 temp_vec = glm::vec3(cam_pos.x + x_diff, cam_pos.y + y_diff, cam_pos.z + z_diff);
-   plane *= temp_vec;
-   colPlane->x = plane.x;
-   colPlane->y = plane.y;
-   colPlane->z = plane.z;
-   
-   return true;
+   return booth[1]->checkCameraCollision(cam_pos, colPlane);
+}
+
+// check for player collision
+bool Booth::checkPlayerCollision(Object* player, glm::vec3* colPlane) {
+   return booth[1]->checkPlayerCollision(player, colPlane);
 }
 
 //Checks for if the player is within the interact radius
@@ -149,7 +111,7 @@ bool Booth::checkInteract(glm::vec3 player_pos){
    if (!active) { // anything you only want done once, put here.
       active = true;
       // debug print
-      printf("Within Influece Bounds\n");
+      printf("Bonk!\n");
    }
    return false;
   //while(true /*The actual interact check would go here*/ ){
@@ -169,7 +131,6 @@ void Booth::calculateBoundingBox() {
    influence_bounds.z_min = bounds.z_min - INFLUENCE_WIDTH;
    influence_bounds.z_max = bounds.z_max + INFLUENCE_WIDTH;
 }
-
 
 //Sets the position for the booth
 void Booth::setPosition(glm::vec3 position){

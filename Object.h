@@ -11,6 +11,12 @@ public:
            GLuint ShadeProg);
     virtual ~Object();
     
+    // position
+    glm::vec3 pos;
+    
+    // bounding box
+    struct bound_box bounds;
+    
     // methods
     void init();
     void load(const string &meshName);
@@ -20,10 +26,16 @@ public:
     void draw();
     
     // collision detection
+    // circular bounds
     bool collidedWithPlayer(glm::vec3 camPos, float dt);
     bool collidedWithWall(float dt);
     bool collidedWithObj(Object o, float dt);
     bool collision(Object* o);
+    // boxed bounds
+    bool checkCollision(Object* _otherObject);
+    void getCollisionAxis(glm::vec3 pos, glm::vec3* colPlane);
+    bool checkCameraCollision(glm::vec3 cam_pos, glm::vec3 *colPlane);
+    bool checkPlayerCollision(Object* player, glm::vec3* colPlane);
     
     // setters
     void setPos(glm::vec3 position)     { pos = position;    }
@@ -42,7 +54,7 @@ public:
     float getSpeed()          { return vel; }
     bool isDirectional()      { return directional; }
     void getBounds(struct bound_box *bounds);
-    float getXRadius();
+    float getXZRadius();
     vector<tinyobj::shape_t> getShapes() { return shapes; }
     vector<tinyobj::material_t> getMaterials() { return materials; }
     glm::mat4 getModelMatrix();
@@ -54,7 +66,8 @@ public:
 
 private:
     // Object information
-    glm::vec3 pos, dimensions, dir;
+    glm::vec3 dimensions, dir, col;
+    
     float vel, shine, radius;
     bool collected, directional, castShadows;
     vector<tinyobj::shape_t> shapes;

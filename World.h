@@ -26,8 +26,13 @@ class World {
    private:
       vector<tinyobj::shape_t> shapes; // TODO map of mesh data
       vector<Object*> extras; // bunnies for now.
-      vector<Booth*> structures;
+      vector<Booth*> booths;
+      vector<Object*> structures;
       vector<tinyobj::material_t> materials;
+      
+      Object* player;
+      float playerXZRad;
+      
       GLuint ShadeProg;
       GLint h_aPos, h_aNor;
       GLint h_uM;
@@ -36,9 +41,6 @@ class World {
       vector<Object*> objects;
       double objStartTime;
       bool inGame;
-      
-      glm::vec3 player_pos;
-      float player_rad;
 
       SkyBox* skybox;
       Object* ground;

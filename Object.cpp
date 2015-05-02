@@ -111,27 +111,107 @@ bool Object::collision(Object* o) {
    return false;
 }
 
-float Object::getXRadius() {
+float Object::getXZRadius() {
    const vector<float> &posBuf = shapes[0].mesh.positions;
    
-   float x_rad = 1.0f;
+   float xz_rad;
    for (int i = 0; i < (int)posBuf.size(); i += 3) {
-      glm::vec3 v;
-      v = glm::vec3(posBuf[i], posBuf[i+1], posBuf[i+2]);
+      glm::vec4 v;
+      v = glm::vec4(posBuf[i], posBuf[i+1], posBuf[i+2], 1.0f) * scalerMat;
       if (i == 0) {
          // initialize radius on first pass
-         x_rad = v.x;
+         xz_rad = abs(v.x);
       }
       else {
-         if (v.x > x_rad) {
-            x_rad = v.x;
+         if (abs(v.x) > xz_rad) {
+            xz_rad = abs(v.x);
+         }
+         if (abs(v.z) > xz_rad) {
+            xz_rad = abs(v.z);
          }
       }
    }
-   return x_rad;
+   return xz_rad;
 }
 
-void Object::getBounds(struct bound_box *bounds) {
+//Checks if anything is colliding with the object so it stops them.
+bool Object::checkCollision(Object* _otherObject){
+   glm::vec3 max = glm::vec3(_otherObject->getPos().x + _otherObject->getRadius(), _otherObject->getPos().y + _otherObject->getRadius(), _otherObject->getPos().z + _otherObject->getRadius());
+   glm::vec3 min = glm::vec3(_otherObject->getPos().x - _otherObject->getRadius(), _otherObject->getPos().y - _otherObject->getRadius(), _otherObject->getPos().z - _otherObject->getRadius());
+   
+   if ((max.x < bounds.x_min) || (min.x > bounds.x_max)) {
+      return false;
+   }
+   if ((max.y < bounds.y_min) || (min.y > bounds.y_max)) {
+      return false;
+   }
+   if ((max.z < bounds.z_min) || (min.z > bounds.z_max)) {
+      return false;
+   }
+   
+   return true;
+}
+
+void Object::getCollisionAxis(glm::vec3 pos, glm::vec3* colPlane) {
+   float x_diff, y_diff, z_diff;
+   x_diff = bounds.x_min - pos.x;
+   if (abs(bounds.x_max - pos.x) < abs(x_diff)) {
+      x_diff = bounds.x_max - pos.x;
+   }
+   y_diff = bounds.y_min - pos.y;
+   if (abs(bounds.y_max - pos.y) < abs(y_diff)) {
+      y_diff = bounds.y_max - pos.y;
+   }
+   z_diff = bounds.z_min - pos.z;
+   if (abs(bounds.z_max - pos.z) < abs(z_diff)) {
+      z_diff = bounds.z_max - pos.z;
+   }
+   
+   float diffs[3] = {x_diff, y_diff, z_diff};
+   float min = abs(diffs[0]);
+   glm::vec3 plane = glm::vec3(1.0f, 0.0f, 0.0f);
+   for (int i=0; i<3; ++i) {
+      if (abs(diffs[i]) < min) {
+         min = abs(diffs[i]);
+         plane = glm::vec3(0.0f);
+         plane[i] = 1.0f;
+      }
+   }
+   glm::vec3 temp_vec = glm::vec3(pos.x + x_diff, pos.y + y_diff, pos.z + z_diff);
+   plane *= temp_vec;
+   colPlane->x = plane.x;
+   colPlane->y = plane.y;
+   colPlane->z = plane.z;
+}
+
+// check for camera collision set colPlane equal to the bound that has been passed through
+bool Object::checkCameraCollision(glm::vec3 cam_pos, glm::vec3 *colPlane) {
+   if ((cam_pos.x < bounds.x_min) || (cam_pos.x > bounds.x_max)) {
+      return false;
+   }
+   if ((cam_pos.y < bounds.y_min) || (cam_pos.y > bounds.y_max)) {
+      return false;
+   }
+   if ((cam_pos.z < bounds.z_min) || (cam_pos.z > bounds.z_max)) {
+      return false;
+   }
+   
+   getCollisionAxis(cam_pos, colPlane);
+   
+   return true;
+}
+
+// check for player collision
+bool Object::checkPlayerCollision(Object* player, glm::vec3* colPlane) {
+   if (!checkCollision(player)) {
+      return false;
+   }
+   
+   getCollisionAxis(player->getPos(), colPlane);
+   return true;
+}
+
+void Object::getBounds(struct bound_box *_bounds) {
    
    float x_min, x_max, y_min, y_max, z_min, z_max; 
    const vector<float> &posBuf = shapes[0].mesh.positions;
@@ -140,7 +220,7 @@ void Object::getBounds(struct bound_box *bounds) {
       v = glm::vec4(posBuf[i], posBuf[i+1], posBuf[i+2], 1.0f);
       v = modelMat * v;
       if (i == 0) { 
-         // initialize bounds on first pass
+         // initialize _bounds on first pass
          x_min = x_max = v.x;
          y_min = y_max = v.y;
          z_min = z_max = v.z;
@@ -168,12 +248,14 @@ void Object::getBounds(struct bound_box *bounds) {
       }
    }
     
-   bounds->x_min = x_min;
-   bounds->x_max = x_max;
-   bounds->y_min = y_min;
-   bounds->y_max = y_max;
-   bounds->z_min = z_min;
-   bounds->z_max = z_max;
+   _bounds->x_min = x_min;
+   _bounds->x_max = x_max;
+   _bounds->y_min = y_min;
+   _bounds->y_max = y_max;
+   _bounds->z_min = z_min;
+   _bounds->z_max = z_max;
+   
+   memcpy(&bounds, _bounds, sizeof(bounds));
 }
 
 void Object::step(float dt) {

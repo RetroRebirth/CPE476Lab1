@@ -31,10 +31,10 @@ class Camera {
       glm::vec3 lookAtPt();
       void setProjectionMatrix(int g_width, int g_height);
       void setView();
-      void step(Window* window);
+      void step(Window* window, bool playerHit);
       void mouse_callback(GLFWwindow* window, double xpos, double ypos, int g_width, int g_height);
       void enter_callback(GLFWwindow* window, int entered, int g_width, int g_height);
-      glm::vec3 calcNewPos(Window* window);
+      glm::vec3 calcNewPos(Window* window, bool playerHit);
       void moveToMinigame();
       void moveToOverworld();
    private:

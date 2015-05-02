@@ -8,7 +8,7 @@
 class Booth {
    public:
     
-    Booth(string data,
+    Booth(glm::vec3 _pos, glm::vec3 _scalar, float _angle, char* _minigame,
           vector<tinyobj::shape_t> shapes,
           vector<tinyobj::material_t> materials,
           GLuint ShadeProg);
@@ -17,8 +17,12 @@ class Booth {
     struct bound_box bounds;
     struct bound_box influence_bounds;
     
+    Object *booth[3];       // booth object
+    
     //Checks if anything is colliding with the booth so it stops them. Returns true if a hit is registered with given object
     bool checkCollision(Object* _otherObject);
+    //Checks to see if player is colliding with bounding box
+    bool checkPlayerCollision(Object* player, glm::vec3* colPlane);
     //Checks to see if camera is colliding with bounding box
     bool checkCameraCollision(glm::vec3 cam_pos, glm::vec3 *colPlane);
     //Checks for if the player is within the interact radius. Returns true if hit is registered within interaction box
@@ -35,10 +39,11 @@ class Booth {
     void draw();
     // Get the booths
     Object **getBooths() { return booth; }
+    
+    void getCollisionAxis(glm::vec3 pos, glm::vec3* colPlane);
 
   private:
     // Object information
-    Object *booth[3];       // booth object
     float bumpRadius;       // can't go past this (collision)
     float interactRadius;   // can enter within this range
     bool active;            // whether or not booth can be interacted with
@@ -50,7 +55,7 @@ class Booth {
     // Methods
     void showMessage();     // displays message to screen
     void startMinigame();   // starts the minigame
-    void initBooth(string data);
+    void initBooth(glm::vec3 _pos, glm::vec3 _scalar, float _angle, char* _minigame);
 };
 
 #endif

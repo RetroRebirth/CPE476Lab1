@@ -6,18 +6,18 @@ Camera::Camera(
       GLint _h_uP,
       GLint _h_uV,
       GLint _h_uView) {
-   // Default attribute values
-   pos = glm::vec3(0, 1, 0);
+   // Default attribute valuesf
+   pos = glm::vec3(0.0f, 1.0f, 0.0f);
    debug_pos = pos;
-   theta = -M_PI/2.0;
-   phi = 0.0;
+   theta = -M_PI/2.0f;
+   phi = 0.0f;
    debug = false;
    speed = INITIAL_SPEED;
    blocked = false;
    pov = true;
    playingMinigame = false;
-   radius = 1.0;
-   playerYrot = 0.0;
+   radius = 1.0f;
+   playerYrot = 0.0f;
 
    // Defined attribute values
    h_uP = _h_uP;
@@ -66,21 +66,21 @@ void Camera::setView() {
    }
 }
 
-void Camera::step(Window* window) {
+void Camera::step(Window* window, bool playerHit) {
    setProjectionMatrix(window->width, window->height);
    setView();
 
    if (debug) {
-      debug_pos = calcNewPos(window);
+      debug_pos = calcNewPos(window, playerHit);
    } else {
       if (!playingMinigame && !blocked) {
-         pos = calcNewPos(window);
+         pos = calcNewPos(window, playerHit);
       }
       blocked = false;
    }
 }
 
-glm::vec3 Camera::calcNewPos(Window* window) {
+glm::vec3 Camera::calcNewPos(Window* window, bool playerHit) {
    glm::vec3 newPos = debug ? debug_pos : pos;
    float moveInc = speed * window->dt;
    float playerYrad = Util::degreesToRadians(playerYrot);
@@ -151,10 +151,10 @@ glm::vec3 Camera::calcNewPos(Window* window) {
 
    if (player != NULL) {
       player->setPos(calculatePlayerPos());
-      player->scale(glm::vec3(1.0, 2.0, 1.0));
-      player->rotate(playerYrot, glm::vec3(0, 1, 0));
+      player->scale(glm::vec3(1.0f, 2.0f, 1.0f));
+      player->rotate(playerYrot, glm::vec3(0.0f, 1.0f, 0.0f));
       
-      if (pov) 
+      if (pov && !playerHit)
          player->draw();
    }
 
@@ -168,8 +168,8 @@ void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos, int g_
    }
 
    // Update theta (x angle) and phi (y angle)
-   float half_width = g_width / 2.0;
-   float half_height = g_height / 2.0;
+   float half_width = g_width / 2.0f;
+   float half_height = g_height / 2.0f;
    float xPosFromCenter = xpos - half_width;
    float yPosFromCenter = ypos - half_height;
    float xMag = xPosFromCenter / half_width;

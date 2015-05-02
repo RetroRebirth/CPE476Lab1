@@ -115,21 +115,6 @@ void World::step(Window* window) {
                }
             }
          }
-         // collision detection
-         if (structures[i]->checkCameraCollision(camera->pos, &colPlane)) {
-            if (abs(colPlane.x) > 0.0f) {
-               // hit an x boundary
-               camera->pos.x = colPlane.x;
-            }
-            else if (abs(colPlane.y) > 0.0f) {
-               // hit a y boundary
-               camera->pos.y = colPlane.y;
-            }
-            else if (abs(colPlane.z) > 0.0f) {
-               // hit a z boundary
-               camera->pos.z = colPlane.z;
-            }
-         }
       }
       for (int i=0; i<booths.size(); ++i) {
          // if camera.pos violates bounds, then set pos to be equal to bound... 
