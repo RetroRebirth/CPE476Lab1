@@ -7,7 +7,8 @@ Session::Session() {
 
    camera = new Camera(h_uP, h_uV, h_uView);
    world = new World(ShadeProg, camera);
-   
+   clicks = new Clicks();   
+
    game_state = WORLD_STATE;
 }
 
