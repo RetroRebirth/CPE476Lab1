@@ -155,10 +155,6 @@ void Booth::calculateBoundingBox() {
   
 }
 
-//Starts the minigame
-void Booth::startMinigame(){
-  //Need minigame things
-}
 
 //Sets the position for the booth
 void Booth::setPosition(glm::vec3 position){

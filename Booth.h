@@ -56,7 +56,5 @@ class Booth {
     //Shows the message to the screen through whatever magic we're going
     //to use
     void showMessage();
-    //Starts the minigame
-    void startMinigame();
 };
 #endif
