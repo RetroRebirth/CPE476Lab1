@@ -19,7 +19,7 @@ class World {
       void initGround();
       void drawGround();
       int numLeft();
-      bool hasActiveBooth();
+      Booth* currentActiveBooth();
       void mouseClick(glm::vec3 direction);
       void inMiniGame();
       void leftMiniGame();

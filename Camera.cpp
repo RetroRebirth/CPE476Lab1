@@ -180,11 +180,6 @@ void Camera::moveToMinigame() {
    // Set the appropriate flags
    this->playingMinigame = true;
    this->pov = false;
-
-   // Send the camera to some abritrary place outside the overworld.
-   //this->pos = glm::vec3(20*SIZE, 2, 0);
-   //this->theta = -M_PI/2.0;
-   //this->phi = 0.0;
 }
 
 void Camera::moveToOverworld() {

@@ -4,10 +4,12 @@ using namespace std;
 
 Booth::Booth(
     Object *_object,
-    const string *_message) { 
+    const string* _message,
+    const string* _minigame) { 
 
   object = _object;
   interactMessage = _message;
+  minigame = _minigame;
 
   //can't go past this
   bumpRadius = 1.0f;
@@ -156,4 +158,9 @@ void Booth::startMinigame(){
 //Sets the position for the booth
 void Booth::setPosition(glm::vec3 position){
     object->setPos(position);
+}
+
+// Return the minigame associated with this booth
+const string* Booth::getMinigameType() {
+   return minigame;
 }

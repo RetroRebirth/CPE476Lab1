@@ -1,4 +1,5 @@
 #include "World.h"
+#include "Booth.h"
 
 static string objectFiles[] = {"bunny.obj"};
 
@@ -123,13 +124,13 @@ void World::step(Window* window) {
    skybox->draw(camera, window);
 }
 
-bool World::hasActiveBooth() {
+Booth* World::currentActiveBooth() {
    for (int i=0; i<structures.size(); ++i) {
       if (structures[i]->isActive()) {
-         return true;
+         return structures[i];
       }
    }
-   return false;
+   return NULL;
 }
 
 inline void World::safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
@@ -224,7 +225,7 @@ void World::setupOverWorld() {
    wall1->load(WALL_FILE_NAME);
    wall1->translate(glm::vec3(-SIZE-0.5f, 2.5f, 0.0f));
    wall1->scale(glm::vec3(1.0f, 10.0f, SIZE*2.0f));
-   Booth* bwall1 = new Booth(wall1, (const string*)"wall1");
+   Booth* bwall1 = new Booth(wall1, (const string*)"wall1", NULL);
    bwall1->setType(WALL_TYPE);
    structures.push_back(bwall1);
    
@@ -232,7 +233,7 @@ void World::setupOverWorld() {
    wall2->load(WALL_FILE_NAME);
    wall2->translate(glm::vec3(SIZE+0.5f, 2.5f, 0.0f));
    wall2->scale(glm::vec3(1.0f, 10.0f, SIZE*2.0f));
-   Booth* bwall2 = new Booth(wall2, (const string*)"wall2");
+   Booth* bwall2 = new Booth(wall2, (const string*)"wall2", NULL);
    bwall2->setType(WALL_TYPE);
    structures.push_back(bwall2);
    
@@ -240,7 +241,7 @@ void World::setupOverWorld() {
    wall3->load(WALL_FILE_NAME);
    wall3->translate(glm::vec3(0.0f, 2.5f, -SIZE-0.5f));
    wall3->scale(glm::vec3(SIZE*2.0f, 10.0f, 1.0f));
-   Booth* bwall3 = new Booth(wall3, (const string*)"wall3");
+   Booth* bwall3 = new Booth(wall3, (const string*)"wall3", NULL);
    bwall3->setType(WALL_TYPE);
    structures.push_back(bwall3);
    
@@ -248,7 +249,7 @@ void World::setupOverWorld() {
    wall4->load(WALL_FILE_NAME);
    wall4->translate(glm::vec3(0.0f, 2.5f, SIZE+0.5f));
    wall4->scale(glm::vec3(SIZE*2.0f, 10.0f, 1.0f));
-   Booth* bwall4 = new Booth(wall4, (const string*)"wall4");
+   Booth* bwall4 = new Booth(wall4, (const string*)"wall4", NULL);
    bwall4->setType(WALL_TYPE);
    structures.push_back(bwall4);
    
@@ -296,7 +297,7 @@ void World::parseMapFile(const char* fileName) {
          structure->translate(glm::vec3(x_pos, y_pos, z_pos));
          structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
          structure->scale(glm::vec3(x_dim, y_dim, z_dim));
-         Booth* booth = new Booth(structure, (const string*)"booth");
+         Booth* booth = new Booth(structure, (const string*)"booth", NULL);
          booth->setType(BOOTH_TYPE);
          structures.push_back(booth);
       }
