@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "Camera.h"
 #include "World.h"
+#include "Clicks.h"
 
 class Session {
    public:
