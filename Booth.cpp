@@ -5,11 +5,16 @@ using namespace std;
 Booth::Booth(
     Object *_object,
     const string* _message,
-    const string* _minigame) { 
+    char** _minigame) { 
 
   object = _object;
   interactMessage = _message;
-  minigame = _minigame;
+  minigame = (char*) calloc(20, sizeof(char));
+  if (_minigame == NULL) {
+     strcpy(minigame, NO_GAME);
+  } else {
+     strcpy(minigame, *_minigame);
+  }
 
   //can't go past this
   bumpRadius = 1.0f;
@@ -171,6 +176,6 @@ void Booth::setType(int t) {
 }
 
 // Return the minigame associated with this booth
-const string* Booth::getMinigame() {
+char* Booth::getMinigame() {
    return minigame;
 }

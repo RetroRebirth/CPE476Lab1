@@ -11,7 +11,7 @@ class Booth {
     Booth(
 	   Object *_object,
 	   const string* _message,
-      const string* _minigame);
+      char** _minigame);
     virtual ~Booth();
     
     Object* object;
@@ -36,7 +36,7 @@ class Booth {
     //Get the booth/structure type. Defined in include.h
     int getType() { return type; };
     // Return the minigame associated with this booth
-    const string* getMinigame();
+    char* getMinigame();
 
   private:
     //type of booth/structure - default type is a wall
@@ -51,7 +51,7 @@ class Booth {
     //Boolean describing if the booth is able to be interacted with.
     bool active;
     // Minigame associated with this booth
-    const string* minigame;
+    char* minigame;
 
     //Shows the message to the screen through whatever magic we're going
     //to use

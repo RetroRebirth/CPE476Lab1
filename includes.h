@@ -31,6 +31,9 @@
 #include "assimp/Importer.hpp"
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
+/*
+#include "assimp/cimport.h" #include "assimp/Importer.hpp" #include "assimp/scene.h" #include "assimp/postprocess.h"
+*/
 
 // defines file names for various meshes
 #define EXTRA_FILE_NAME "bunny.obj"
@@ -74,6 +77,10 @@
 #define WORLD_STATE 0
 #define TRANSITION_STATE 1
 #define MINIGAME_STATE 2
+
+// Minigames
+#define NO_GAME "null"
+#define SHOOTING_GALLERY "shooting_gallery"
 
 using namespace std;
 

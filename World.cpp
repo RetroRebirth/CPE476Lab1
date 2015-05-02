@@ -162,6 +162,7 @@ void World::leftMiniGame() {
    
 
 void World::setupOverWorld() {
+/*
    // build walls based on map size
    Object* wall1 = new Object(shapes, materials, ShadeProg);
    wall1->load(WALL_FILE_NAME);
@@ -194,6 +195,7 @@ void World::setupOverWorld() {
    Booth* bwall4 = new Booth(wall4, (const string*)"wall4", NULL);
    bwall4->setType(WALL_TYPE);
    structures.push_back(bwall4);
+*/
    
    parseMapFile(MAP_FILE_NAME);
    
@@ -224,10 +226,11 @@ void World::parseMapFile(const char* fileName) {
          float x_pos = 0.0f, y_pos = 0.0f, z_pos = 0.0f;
          float x_dim = 0.0f, y_dim = 0.0f, z_dim = 0.0f;
          float angle = 0.0f;
+         char* minigame = (char*) calloc(20, sizeof(char));
          
          // create a string layout to scan in data pointers...
-         sscanf(line.c_str(), "%s (%f,%f,%f) (%f,%f,%f) %f\n",
-            booth_type,&x_pos,&y_pos,&z_pos,&x_dim,&y_dim,&z_dim,&angle);
+         sscanf(line.c_str(), "%s (%f,%f,%f) (%f,%f,%f) %f %s\n",
+            booth_type,&x_pos,&y_pos,&z_pos,&x_dim,&y_dim,&z_dim,&angle,minigame);
             
          Object* structure = new Object(shapes, materials, ShadeProg);
          if (strcmp(booth_type, "booth") == 0) {
@@ -239,7 +242,7 @@ void World::parseMapFile(const char* fileName) {
          structure->translate(glm::vec3(x_pos, y_pos, z_pos));
          structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
          structure->scale(glm::vec3(x_dim, y_dim, z_dim));
-         Booth* booth = new Booth(structure, (const string*)"booth", NULL);
+         Booth* booth = new Booth(structure, (const string*)"booth", &minigame);
          booth->setType(BOOTH_TYPE);
          structures.push_back(booth);
       }

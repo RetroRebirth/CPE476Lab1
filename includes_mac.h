@@ -82,6 +82,10 @@
 #define TRANSITION_STATE 1
 #define MINIGAME_STATE 2
 
+// Minigames
+#define NO_GAME "null"
+#define SHOOTING_GALLERY "shooting_gallery"
+
 using namespace std;
 
 struct bufID_t {

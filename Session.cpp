@@ -171,7 +171,7 @@ void Session::mouseClick(glm::vec3 direction) {
 
 void Session::enterMinigame() {
    Booth* booth = world->currentActiveBooth();
-   if (booth->getMinigame() != NULL) {
+   if (booth != NULL && booth->getMinigame() != NULL && strcmp(booth->getMinigame(), NO_GAME) != 0) {
       game_state = MINIGAME_STATE;
       world->inMiniGame();
       camera->moveToMinigame();
