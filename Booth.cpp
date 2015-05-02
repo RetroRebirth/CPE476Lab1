@@ -161,6 +161,6 @@ void Booth::setPosition(glm::vec3 position){
 }
 
 // Return the minigame associated with this booth
-const string* Booth::getMinigameType() {
+const string* Booth::getMinigame() {
    return minigame;
 }

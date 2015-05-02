@@ -38,7 +38,7 @@ class Booth {
     //Get the booth/structure type. Defined in include.h
     int getType() { return type; };
     // Return the minigame associated with this booth
-    const string* getMinigameType();
+    const string* getMinigame();
 
   private:
     //type of booth/structure - default type is a wall
