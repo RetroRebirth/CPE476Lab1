@@ -152,6 +152,11 @@ glm::vec3 Camera::calcNewPos(Window* window) {
 }
 
 void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos, int g_width, int g_height) {
+   // Don't do anything if we are playing the minigame
+   if (playingMinigame) {
+      return;
+   }
+
    // Update theta (x angle) and phi (y angle)
    float half_width = g_width / 2.0;
    float half_height = g_height / 2.0;
@@ -173,6 +178,11 @@ void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos, int g_
 }
 
 void Camera::enter_callback(GLFWwindow* window, int entered, int g_width, int g_height) {
+   // Don't do anything if we are playing the minigame
+   if (playingMinigame) {
+      return;
+   }
+
    // Position mouse at center if enter screen
    glfwSetCursorPos(window, g_width/2, g_height/2);
 }
@@ -181,17 +191,17 @@ void Camera::moveToMinigame() {
    // Set the appropriate flags
    this->playingMinigame = true;
    this->pov = false;
+
+   // Send camera to the origin
+   this->pos = glm::vec3(0, 2, 0);
+   this->theta = -M_PI/2.0;
+   this->phi = 0.0;
 }
 
 void Camera::moveToOverworld() {
    // Set the appropriate flags
    this->playingMinigame = false;
    this->pov = true;
-
-   // Send the camera to some abritrary place outside the overworld.
-   this->pos = glm::vec3(0, 2, 0);
-   this->theta = -M_PI/2.0;
-   this->phi = 0.0;
 }
 
 void Camera::initPlayer(Object *_player) {

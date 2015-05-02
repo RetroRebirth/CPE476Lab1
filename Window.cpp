@@ -35,7 +35,7 @@ Window::Window(
    glfwMakeContextCurrent(glfw_window);
 
    glfwSetInputMode(glfw_window, GLFW_STICKY_KEYS, GL_TRUE); // Ensure we "hear" ESC
-   glfwSetInputMode(glfw_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); // Hide the mouse
+   hideMouse();
 }
 
 Window::~Window() {
@@ -73,3 +73,12 @@ void Window::step() {
 
    prev_time = time;
 }
+
+void Window::showMouse() {
+   glfwSetInputMode(glfw_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+}
+
+void Window::hideMouse() {
+   glfwSetInputMode(glfw_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+}
+

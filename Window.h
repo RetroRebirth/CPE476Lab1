@@ -22,6 +22,8 @@ class Window {
       void drawText(char* string, float x, float y);
       bool isActive();
       void step();
+      void showMouse();
+      void hideMouse();
    private:
       double prev_time;
       long prev_frames;

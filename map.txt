@@ -2,10 +2,10 @@
 booth (10.0,2.5,-15.0) (7.5,7.5,7.5) 0.0 shooting_gallery
 booth (-10.0,2.5,-15.0) (7.5,7.5,7.5) 0.0 shooting_gallery
 booth (15.0,2.5,0.0) (7.5,7.5,7.5) -90.0 shooting_gallery
-booth (-15.0,2.5,0.0) (7.5,7.5,7.5) 90.0 null
-booth (10.0,2.5,17.0) (7.5,7.5,7.5) 180.0 null
-booth (-10.0,2.5,17.0) (7.5,7.5,7.5) 180.0 null
-booth (0.0,2.5,17.0) (7.5,7.5,7.5) 180.0 null
+booth (-15.0,2.5,0.0) (7.5,7.5,7.5) 90.0 shooting_gallery
+booth (10.0,2.5,17.0) (7.5,7.5,7.5) 180.0 shooting_gallery
+booth (-10.0,2.5,17.0) (7.5,7.5,7.5) 180.0 shooting_gallery
+booth (0.0,2.5,17.0) (7.5,7.5,7.5) 180.0 shooting_gallery
 #wall (-37.5,5.0,-50.0) (45.0,10.0,20.0) 0.0 null
 #wall (-50.0,5.0,-37.5) (20.0,10.0,45.0) 0.0 null
 #top/left quadrant

@@ -175,6 +175,7 @@ void Session::enterMinigame() {
       game_state = MINIGAME_STATE;
       world->inMiniGame();
       camera->moveToMinigame();
+      window->showMouse();
       // TODO set up controls for playing minigame
       // TODO draw a sphere that we can click
    }
@@ -184,5 +185,6 @@ void Session::leaveMinigame() {
    game_state = WORLD_STATE;
    world->leftMiniGame();
    camera->moveToOverworld();
+   window->hideMouse();
    // TODO set up controls for moving around overworld
 }
