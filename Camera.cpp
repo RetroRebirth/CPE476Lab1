@@ -97,7 +97,8 @@ glm::vec3 Camera::calcNewPos(Window* window) {
    }
    // for debugging purposes
    if (glfwGetKey(win, GLFW_KEY_S) == GLFW_PRESS) { // Move backward
-      newPos -= viewVector;
+      newPos.x -= moveInc * sin(playerYrad);
+      newPos.z -= moveInc * cos(playerYrad);
    }
    if (glfwGetKey(win, GLFW_KEY_Q) == GLFW_PRESS) { // Move up
       newPos -= crossVector;
@@ -161,7 +162,7 @@ void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos, int g_
 
    theta += MOUSE_SPEED*M_PI*xMag;
    // Bound phi to 80 degrees
-   float newPhi = phi - MOUSE_SPEED*M_PI*yMag/2.0;
+   float newPhi = phi + MOUSE_SPEED*M_PI*yMag/2.0;
    //bounded between 80 and -40 to keep from going into the char
    if (glm::degrees(newPhi) < 80 && glm::degrees(newPhi) > -40) {
       phi = newPhi;
