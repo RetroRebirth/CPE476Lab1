@@ -12,7 +12,10 @@ LIBFLAGS= -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -lglut -las
 CSL_LIBFLAGS= -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -lglut libglfw3.a libGLEW.a
 
 all:
-	#cp includes_mac.h includes.h
+	cp includesmac.h includes.h
+	$(CC) $(CFLAsGS) $(SOURCES) $(LIBFLAGS)
+	
+ubuntu:
 	$(CC) $(CFLAGS) $(SOURCES) $(LIBFLAGS)
 	
 ubuntu:
