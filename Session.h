@@ -15,6 +15,7 @@ class Session {
       void run();
       Camera* getCamera();
       Window* getWindow();
+      Clicks* getClicks();
       void enterMinigame();
       void leaveMinigame();
       void mouseClick(glm::vec3 direction);

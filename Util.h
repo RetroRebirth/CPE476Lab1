@@ -54,36 +54,6 @@ namespace Util
          }
       }
     }
-
-
-    /* Clicking stuff */
-
-    glm::vec3 mouse_click(int mouse_x, int mouse_y, int height, int width, glm::mat4 Position, glm::mat4 View, glm::vec3 o){
-      float x = (2.0f * mouse_x) / width - 1.0f;
-      float y = 1.0f - (2.0f * mouse_y) / height;
-      glm::vec4 ray_clip = glm::vec4 (x, y, -1.0f, 1.0);
-      glm::vec4 ray_eye = glm::inverse(Position) * ray_clip; 
-      ray_eye = glm::vec4(ray_eye.x, ray_eye.y, -1.0, 0.0);
-      glm::vec4 ray_hol = (glm::inverse(View) * ray_eye);
-      glm::vec3 ray_wor = glm::vec3 (ray_hol.x, ray_hol.y, ray_hol.z);
-      
-      //THE DIRECTION OF THE CLICK
-      ray_wor = glm::normalize (ray_wor);
-      return ray_wor; 
-      //How to check: use checkAgainstSphere (the area the center is, radius, ray_wor, o);
-    }
-
-    bool checkAgainstSphere(glm::vec3 center, float radius, glm::vec3 direction, glm::vec3 o){
-      glm::vec3 infoHold = glm::vec3(o.x - center.x, o.y - center.y, o.z - center.z);
-      float b = glm::dot(direction, infoHold);
-      float c = glm::dot(infoHold, infoHold) - (radius * radius);
-      if(b * b - c >= 0){
-	      return true;
-      }
-      else{
-	      return false;
-      }
-    }
 }
 
 #endif

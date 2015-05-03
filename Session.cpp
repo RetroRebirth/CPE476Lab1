@@ -162,6 +162,10 @@ Window* Session::getWindow() {
    return window;
 }
 
+Clicks* Session::getClicks() {
+  return clicks;
+}
+
 /* handles mouse clicks thrown in main! Takes in a direction */
 void Session::mouseClick(glm::vec3 direction) {
    //if (game_state == MINIGAME_STATE) {
