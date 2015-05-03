@@ -5,7 +5,6 @@ using namespace std;
 Clicks::Clicks()
 {
   objects = NULL;
-  checkSphere = true;
   direction = glm::vec3(NULL, NULL, NULL);
 }
 
@@ -24,7 +23,7 @@ void Clicks::setObjects(vector<Object*>* bob){
   objects = bob;
 }
 
-//This is what main calls for click call back
+//This is what main calls for click call back this is also where the objects get inserted into clickedObjects
 void Clicks::mouse_click (int mouse_x, int mouse_y, int height, int width, glm::mat4 position, glm::mat4 view, glm::vec3 o){
   float x = (2.0f * mouse_x) / width - 1.0f;
   float y = 1.0f - (2.0f * mouse_y) / height;
@@ -35,6 +34,15 @@ void Clicks::mouse_click (int mouse_x, int mouse_y, int height, int width, glm::
   glm::vec4 ray_hol = (glm::inverse(view) * ray_eye);
   direction = glm::vec3(ray_hol.x, ray_hol.y, ray_hol.z);
   direction = glm::normalize (direction);
+
+  if(objects != NULL){
+    //Information to start adding to the clickedObjects array.
+    for(vector<Object *>::iterator count = objects->begin(); count != objects->end(); ++count){
+      if(checkAgainstSphere(*count, o)){
+      clickedObjects.push_back(*count);
+      }
+    }
+  }
 }
 
 //Used to check against spheres. Give in the object and the o that it is provided into mouse_click
@@ -56,7 +64,3 @@ glm::vec3 Clicks::getDirection(){
   return holder;
 }
 
-//Switches between the sphere check and the plane check. True is for spheres and false is for planes
-void Clicks::changeCheck(bool which){
-  checkSphere = which;
-}
