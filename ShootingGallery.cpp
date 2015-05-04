@@ -8,7 +8,10 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Clicks* _clicks) {
    Object* object = new Object(shapes, materials, ShadeProg);
    object->load("sphere.obj");
    object->setPos(glm::vec3(0.0, 2.0, 3.0));
+   object->setTexture(MISC_TYPE);
    objects.push_back(object);
+
+   clicks->setObjects(&objects);
 }
 
 ShootingGallery::~ShootingGallery() {
@@ -18,7 +21,13 @@ ShootingGallery::~ShootingGallery() {
 }
 
 void ShootingGallery::step() {
+   vector<Object*> clickedObjects = clicks->getClickedObjects();
+   for (int i=0; i < clickedObjects.size(); ++i) {
+      clickedObjects[i]->setTexture(WALL_TYPE); // switch texture when clicked
+   }
+
    for (int i=0; i < objects.size(); ++i) {
       objects[i]->draw();
    }
 }
+
