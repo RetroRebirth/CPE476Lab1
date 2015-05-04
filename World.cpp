@@ -34,21 +34,6 @@ World::~World() {
    for (int i=0; i<structures.size(); ++i) {
       delete structures[i];
    }
-   for (int i=0; i<bullets.size(); ++i) {
-      delete bullets[i];
-   }
-}
-
-// click stuff
-void World::mouseClick(glm::vec3 direction) {
-   Object* bullet = new Object(shapes, materials, ShadeProg);
-   bullet->load("sphere.obj");
-   //printVec3(camera->pos);
-   bullet->setPos(camera->pos);
-   //printVec3(direction);
-   bullet->setDir(direction);
-   bullet->setSpeed(1.0f); // TODO make a constant
-   bullets.push_back(bullet);
 }
 
 void World::step(Window* window) {
@@ -58,23 +43,6 @@ void World::step(Window* window) {
       objStartTime = window->time;
    }*/
 
-   
-   // draw bullets TODO move this to a minigame class in the future
-   for (int i=0; i<bullets.size(); ++i) {
-      if (glm::length(bullets[i]->getPos()) < 100.0f) {
-         if (bullets[i] != NULL) {
-            bullets[i]->setPos(bullets[i]->calculateNewPos(1.0f));  
-            bullets[i]->draw();
-            //printf("drawing bullet!\n");
-         }
-      }
-      else {
-         //delete bullets[i]; TODO this needs to happen...
-         if (bullets[i]->getPos().length() > 100.0f) {
-            delete bullets[i];
-         }
-      }
-   }
    if (!inGame) {
       for (int i=0; i<extras.size(); ++i) {
          Object* extra = extras[i];

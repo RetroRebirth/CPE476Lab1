@@ -174,15 +174,12 @@ Clicks* Session::getClicks() {
 
 /* handles mouse clicks thrown in main! Takes in a direction */
 void Session::mouseClick(glm::vec3 direction) {
-   //if (game_state == MINIGAME_STATE) {
-      // bullet time!
-      world->mouseClick(direction);
-   //}
+   // TODO pass click along to clicks
 }
 
 void Session::startMinigame(char* type) {
    if (strcmp(type, SHOOTING_GALLERY) == 0) {
-      minigame = new ShootingGallery(); // TODO support other minigames
+      minigame = new ShootingGallery(ShadeProg, clicks); // TODO support other minigames
    }
 }
 
