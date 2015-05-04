@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "World.h"
 #include "Clicks.h"
+#include "ShootingGallery.h"
 
 class Session {
    public:
@@ -25,6 +26,7 @@ class Session {
       Camera* camera;
       Clicks* clicks;
       World* world;
+      ShootingGallery* minigame; // TODO support other minigames
       
       // defines current state of game... consts defined in includes.h
       int game_state;
@@ -45,6 +47,9 @@ class Session {
 
       /** MAIN GAME LOOP **/
       void step();
+
+      /** MISC **/
+      void startMinigame(char* type);
 };
 
 #endif
