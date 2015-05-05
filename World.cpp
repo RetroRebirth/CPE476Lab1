@@ -46,7 +46,8 @@ void World::step(Window* window) {
    if (!inGame) {
       for (int i=0; i<extras.size(); ++i) {
          Object* extra = extras[i];
-         extra->draw();
+         drawObject(extra);
+         //extra->draw();
       }
 
       drawGround();
@@ -116,7 +117,8 @@ void World::drawGround() {
 void World::drawOverWorld() {
    for (int i=0; i<structures.size(); ++i) {
       Booth* structure = structures[i];
-      structure->object->draw();
+      drawObject(structure->object);
+      //structure->object->draw();
    }
 }
 
@@ -260,14 +262,29 @@ int World::numLeft() {
 }
 
 void World::drawObject(Object* obj) {
-   // TODO Get the model-view matrix for this object
-   glm::mat4 matrix = obj->getModelMatrix();
+   // Get the model-view matrix for this object
+   glm::mat4 matrix = camera->Projection * camera->View * obj->getModelMatrix();
 
    // Extract the planes of the view frustum
    glm::vec4* planes = (glm::vec4*) calloc(6, sizeof(glm::vec4));
    extractViewFrustumPlanes(planes, matrix);
 
+   // TODO Extract the plane components to separate float variables
+   // pass object's position to each plane in array
+
    // TODO Check if the object is in the view frustum
+/*
+   if (-w < x     // left
+      && x < w    // right
+      && -w < y   // bottom
+      && y < w    // top
+      && -w < z   // near
+      && z < w) { // far
+      // Object is inside the view frustum, draw it
+      obj->draw();
+   }
+*/
+   obj->draw();
 
    // Free the planes (stops memory leaks)
    free(planes);
