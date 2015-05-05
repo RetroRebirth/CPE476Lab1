@@ -271,12 +271,13 @@ void World::drawObject(Object* obj) {
 
    // Check if the object is in the view frustum
    glm::vec3 pos = obj->getPos();
-   if (checkPlane(planes[0], pos)      // left
-      && checkPlane(planes[1], pos)    // right
-      && checkPlane(planes[2], pos)    // top
-      && checkPlane(planes[3], pos)    // bottom
-      && checkPlane(planes[4], pos)    // near
-      && checkPlane(planes[5], pos)) { // far
+   float rad = obj->getRadius();
+   if (checkPlane(planes[0], pos, rad)      // left
+      && checkPlane(planes[1], pos, rad)    // right
+      && checkPlane(planes[2], pos, rad)    // top
+      && checkPlane(planes[3], pos, rad)    // bottom
+      && checkPlane(planes[4], pos, rad)    // near
+      && checkPlane(planes[5], pos, rad)) { // far
       // Object is inside the view frustum, draw it
       obj->draw();
    }
@@ -340,11 +341,15 @@ void World::normalizePlane(glm::vec4& plane) {
    plane.w = plane.w / mag;
 }
 
-bool World::checkPlane(glm::vec4 plane, glm::vec3 pos) {
+bool World::checkPlane(glm::vec4 plane, glm::vec3 pos, float rad) {
    glm::vec4 v = glm::vec4(pos.x, pos.y, pos.z, 1.0);
 
    float result = plane.x * v.x + plane.y * v.y + plane.z * v.z + plane.w * v.w;
 
-   return result > 0;
+   bool correctHalfSpace = result > 0;
+   bool clipping = glm::abs(result) < glm::abs(rad);
+
+//   return correctHalfSpace;// || clipping;
+   return true; // TODO why does correctHalfSpace not work correctly?
 }
 

@@ -54,7 +54,7 @@ class World {
       void drawObject(Object* obj);
       void extractViewFrustumPlanes(glm::vec4* planes, const glm::mat4 matrix);
       void normalizePlane(glm::vec4& plane);
-      bool checkPlane(glm::vec4 plane, glm::vec3 pos);
+      bool checkPlane(glm::vec4 plane, glm::vec3 pos, float rad);
 };
 
 #endif

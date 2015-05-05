@@ -45,6 +45,7 @@ Object::~Object() {}
 // scale object by flat amount, applied on top of scaling done by the radius
 void Object::scale(glm::vec3 scaler) {
    scalerMat = glm::scale(glm::mat4(1.0f), scaler);
+   radius = glm::max(glm::max(scaler.x, scaler.y), scaler.z);
    // an attempt to correct for the mesh resizing... which breaks the bounding box stuff
    //glm::vec3 temp_scaler = glm::vec3(1.1f*scaler.x, 1.1f*scaler.y, 1.1f*scaler.z);
    /*glm::vec3 temp_scaler = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -392,7 +393,8 @@ void Object::draw()
       R *= RX*RY*RZ;
    }
     
-   modelMat = T*R*scalerMat*boundBoxScalerMat;//S;
+   //modelMat = T*R*scalerMat*boundBoxScalerMat;//S;
+   modelMat = T*R*scalerMat;//S;
    
    Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T*R*scalerMat));
 	
