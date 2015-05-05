@@ -7,7 +7,9 @@ Session::Session() {
 
    camera = new Camera(h_uP, h_uV, h_uView);
    world = new World(ShadeProg, camera);
-   
+   clicks = new Clicks();   
+   minigame = NULL;
+
    game_state = WORLD_STATE;
 }
 
@@ -15,6 +17,8 @@ Session::~Session() {
    delete window;
    delete camera;
    delete world;
+   if (minigame != NULL)
+      delete minigame;
 }
 
 /**
@@ -144,6 +148,9 @@ void Session::step() {
    // Step other components
    window->step();
    world->step(window);
+   if (game_state == MINIGAME_STATE) {
+      minigame->step();
+   }
 
    // Disable and unbind
    GLSL::disableVertexAttribArray(h_aPos);
@@ -161,22 +168,30 @@ Window* Session::getWindow() {
    return window;
 }
 
+Clicks* Session::getClicks() {
+  return clicks;
+}
+
 /* handles mouse clicks thrown in main! Takes in a direction */
 void Session::mouseClick(glm::vec3 direction) {
-   //if (game_state == MINIGAME_STATE) {
-      // bullet time!
-      world->mouseClick(direction);
-   //}
+   // TODO pass click along to clicks
+}
+
+void Session::startMinigame(char* type) {
+   if (strcmp(type, SHOOTING_GALLERY) == 0) {
+      minigame = new ShootingGallery(ShadeProg, clicks); // TODO support other minigames
+   }
 }
 
 void Session::enterMinigame() {
    Booth* booth = world->currentActiveBooth();
-   if (booth->getMinigame() != NULL) {
+   if (booth != NULL && booth->getMinigame() != NULL && strcmp(booth->getMinigame(), NO_GAME) != 0) {
       game_state = MINIGAME_STATE;
       world->inMiniGame();
       camera->moveToMinigame();
-      // TODO set up controls for playing minigame
-      // TODO draw a sphere that we can click
+      window->showMouse();
+      minigame = NULL;
+      startMinigame(booth->getMinigame());
    }
 }
 
@@ -184,5 +199,7 @@ void Session::leaveMinigame() {
    game_state = WORLD_STATE;
    world->leftMiniGame();
    camera->moveToOverworld();
+   window->hideMouse();
+   minigame = NULL;
    // TODO set up controls for moving around overworld
 }

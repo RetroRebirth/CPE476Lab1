@@ -34,21 +34,6 @@ World::~World() {
    for (int i=0; i<structures.size(); ++i) {
       delete structures[i];
    }
-   for (int i=0; i<bullets.size(); ++i) {
-      delete bullets[i];
-   }
-}
-
-// click stuff
-void World::mouseClick(glm::vec3 direction) {
-   Object* bullet = new Object(shapes, materials, ShadeProg);
-   bullet->load("sphere.obj");
-   //printVec3(camera->pos);
-   bullet->setPos(camera->pos);
-   //printVec3(direction);
-   bullet->setDir(direction);
-   bullet->setSpeed(1.0f); // TODO make a constant
-   bullets.push_back(bullet);
 }
 
 void World::step(Window* window) {
@@ -58,23 +43,6 @@ void World::step(Window* window) {
       objStartTime = window->time;
    }*/
 
-   
-   // draw bullets TODO move this to a minigame class in the future
-   for (int i=0; i<bullets.size(); ++i) {
-      if (glm::length(bullets[i]->getPos()) < 100.0f) {
-         if (bullets[i] != NULL) {
-            bullets[i]->setPos(bullets[i]->calculateNewPos(1.0f));  
-            bullets[i]->draw();
-            //printf("drawing bullet!\n");
-         }
-      }
-      else {
-         //delete bullets[i]; TODO this needs to happen...
-         if (bullets[i]->getPos().length() > 100.0f) {
-            delete bullets[i];
-         }
-      }
-   }
    if (!inGame) {
       for (int i=0; i<extras.size(); ++i) {
          Object* extra = extras[i];
@@ -162,6 +130,7 @@ void World::leftMiniGame() {
    
 
 void World::setupOverWorld() {
+/*
    // build walls based on map size
    Object* wall1 = new Object(shapes, materials, ShadeProg);
    wall1->load(WALL_FILE_NAME);
@@ -194,6 +163,7 @@ void World::setupOverWorld() {
    Booth* bwall4 = new Booth(wall4, (const string*)"wall4", NULL);
    bwall4->setType(WALL_TYPE);
    structures.push_back(bwall4);
+*/
    
    parseMapFile(MAP_FILE_NAME);
    
@@ -224,10 +194,11 @@ void World::parseMapFile(const char* fileName) {
          float x_pos = 0.0f, y_pos = 0.0f, z_pos = 0.0f;
          float x_dim = 0.0f, y_dim = 0.0f, z_dim = 0.0f;
          float angle = 0.0f;
+         char* minigame = (char*) calloc(20, sizeof(char));
          
          // create a string layout to scan in data pointers...
-         sscanf(line.c_str(), "%s (%f,%f,%f) (%f,%f,%f) %f\n",
-            booth_type,&x_pos,&y_pos,&z_pos,&x_dim,&y_dim,&z_dim,&angle);
+         sscanf(line.c_str(), "%s (%f,%f,%f) (%f,%f,%f) %f %s\n",
+            booth_type,&x_pos,&y_pos,&z_pos,&x_dim,&y_dim,&z_dim,&angle,minigame);
             
          Object* structure = new Object(shapes, materials, ShadeProg);
          if (strcmp(booth_type, "booth") == 0) {
@@ -239,7 +210,7 @@ void World::parseMapFile(const char* fileName) {
          structure->translate(glm::vec3(x_pos, y_pos, z_pos));
          structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
          structure->scale(glm::vec3(x_dim, y_dim, z_dim));
-         Booth* booth = new Booth(structure, (const string*)"booth", NULL);
+         Booth* booth = new Booth(structure, (const string*)"booth", &minigame);
          booth->setType(BOOTH_TYPE);
          structures.push_back(booth);
       }
