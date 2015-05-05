@@ -269,28 +269,82 @@ void World::drawObject(Object* obj) {
    glm::vec4* planes = (glm::vec4*) calloc(6, sizeof(glm::vec4));
    extractViewFrustumPlanes(planes, matrix);
 
-   // TODO Extract the plane components to separate float variables
-   // pass object's position to each plane in array
-
-   // TODO Check if the object is in the view frustum
-/*
-   if (-w < x     // left
-      && x < w    // right
-      && -w < y   // bottom
-      && y < w    // top
-      && -w < z   // near
-      && z < w) { // far
+   // Check if the object is in the view frustum
+   glm::vec3 pos = obj->getPos();
+   if (checkPlane(planes[0], pos)      // left
+      && checkPlane(planes[1], pos)    // right
+      && checkPlane(planes[2], pos)    // top
+      && checkPlane(planes[3], pos)    // bottom
+      && checkPlane(planes[4], pos)    // near
+      && checkPlane(planes[5], pos)) { // far
       // Object is inside the view frustum, draw it
       obj->draw();
    }
-*/
-   obj->draw();
 
    // Free the planes (stops memory leaks)
    free(planes);
 }
 
 void World::extractViewFrustumPlanes(glm::vec4* planes, const glm::mat4 matrix) {
-   // TODO Get the 6 planes of the view frustum from the model-view matrix
+   // Left plane
+   planes[0].x = matrix[3][0] + matrix[0][0];
+   planes[0].y = matrix[3][1] + matrix[0][1];
+   planes[0].z = matrix[3][2] + matrix[0][2];
+   planes[0].w = matrix[3][3] + matrix[0][3];
+
+   // Right plane
+   planes[1].x = matrix[3][0] - matrix[0][0];
+   planes[1].y = matrix[3][1] - matrix[0][1];
+   planes[1].z = matrix[3][2] - matrix[0][2];
+   planes[1].w = matrix[3][3] - matrix[0][3];
+
+   // Top plane
+   planes[2].x = matrix[3][0] - matrix[1][0];
+   planes[2].y = matrix[3][1] - matrix[1][1];
+   planes[2].z = matrix[3][2] - matrix[1][2];
+   planes[2].w = matrix[3][3] - matrix[1][3];
+
+   // Bottom plane
+   planes[3].x = matrix[3][0] + matrix[1][0];
+   planes[3].y = matrix[3][1] + matrix[1][1];
+   planes[3].z = matrix[3][2] + matrix[1][2];
+   planes[3].w = matrix[3][3] + matrix[1][3];
+
+   // Near plane
+   planes[4].x = matrix[3][0] + matrix[2][0];
+   planes[4].y = matrix[3][1] + matrix[2][1];
+   planes[4].z = matrix[3][2] + matrix[2][2];
+   planes[4].w = matrix[3][3] + matrix[2][3];
+
+   // Far plane
+   planes[5].x = matrix[3][0] - matrix[2][0];
+   planes[5].y = matrix[3][1] - matrix[2][1];
+   planes[5].z = matrix[3][2] - matrix[2][2];
+   planes[5].w = matrix[3][3] - matrix[2][3];
+
+   // Normalize planes
+   normalizePlane(planes[0]);
+   normalizePlane(planes[1]);
+   normalizePlane(planes[2]);
+   normalizePlane(planes[3]);
+   normalizePlane(planes[4]);
+   normalizePlane(planes[5]);
+}
+
+void World::normalizePlane(glm::vec4& plane) {
+   float mag = sqrt(plane.x * plane.x + plane.y * plane.y + plane.z * plane.z);
+
+   plane.x = plane.x / mag;
+   plane.y = plane.y / mag;
+   plane.z = plane.z / mag;
+   plane.w = plane.w / mag;
+}
+
+bool World::checkPlane(glm::vec4 plane, glm::vec3 pos) {
+   glm::vec4 v = glm::vec4(pos.x, pos.y, pos.z, 1.0);
+
+   float result = plane.x * v.x + plane.y * v.y + plane.z * v.z + plane.w * v.w;
+
+   return result > 0;
 }
 

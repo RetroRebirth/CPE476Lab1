@@ -53,6 +53,8 @@ class World {
       void parseMapFile(const char* fileName);
       void drawObject(Object* obj);
       void extractViewFrustumPlanes(glm::vec4* planes, const glm::mat4 matrix);
+      void normalizePlane(glm::vec4& plane);
+      bool checkPlane(glm::vec4 plane, glm::vec3 pos);
 };
 
 #endif
