@@ -35,7 +35,6 @@ class World {
       GLint h_uM;
       GLint h_uAClr, h_uDClr, h_uSClr, h_uS;
       GLint h_uTexUnit;
-      bufID_t groundBufIDs;
       vector<Object*> objects;
       double objStartTime;
       bool inGame;
@@ -44,6 +43,7 @@ class World {
       float player_rad;
 
       SkyBox* skybox;
+      Object* ground;
       Camera* camera;
 
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);

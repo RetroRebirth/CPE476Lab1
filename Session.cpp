@@ -79,10 +79,6 @@ bool Session::installShaders(const string &vShaderName, const string &fShaderNam
    h_uV = GLSL::getUniformLocation(ShadeProg, "uV");
    h_uM = GLSL::getUniformLocation(ShadeProg, "uM");
    h_uView = GLSL::getUniformLocation(ShadeProg, "uView");
-   h_uAClr = GLSL::getUniformLocation(ShadeProg, "uAClr");
-   h_uDClr = GLSL::getUniformLocation(ShadeProg, "uDClr");
-   h_uSClr = GLSL::getUniformLocation(ShadeProg, "uSClr");
-   h_uS = GLSL::getUniformLocation(ShadeProg, "uS");
    h_aTexCoord = GLSL::getAttribLocation(ShadeProg,  "aTexCoord");
    h_uTexUnit = GLSL::getUniformLocation(ShadeProg, "uTexUnit");
 

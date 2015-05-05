@@ -3,6 +3,7 @@
 
 #include "includes.h"
 #include "Object.h"
+#include "Texture.h"
 
 class Booth {
    public:
@@ -31,10 +32,7 @@ class Booth {
     //Calculate the bounding box for the booth... should only be called once after first draw
     void calculateBoundingBox();
     //Set the booth/structure type. Supported parameters are defined in include.h
-    void setType(int t) {
-        type = t;
-        object->setTexture(type);
-    };
+    void setType(int t);
     //Get the booth/structure type. Defined in include.h
     int getType() { return type; };
     // Return the minigame associated with this booth

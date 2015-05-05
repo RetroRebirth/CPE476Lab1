@@ -1,15 +1,14 @@
-attribute vec4 aPos;
-attribute vec4 aNor;
-attribute vec2 aTexCoord;
+// Object coordinates
+attribute vec4 aPos;        // vertex coordinates
+attribute vec4 aNor;        // normals
+attribute vec2 aTexCoord;   // texture coordinates
 
-uniform mat4 uP;
-uniform mat4 uV;
-uniform mat4 uM;
-uniform vec3 uAClr;
-uniform vec3 uDClr;
-uniform vec3 uSClr;
-uniform float uS;
+// Matrices
+uniform mat4 uP;            // projection matrix
+uniform mat4 uV;            // view matrix
+uniform mat4 uM;            // model matrix
 
+// Outgoing variables
 varying vec4 vPos;
 varying vec4 vNor;
 varying vec2 vTexCoord;

@@ -5,11 +5,16 @@ Texture textures[NUM_TEXTURES];
 /* Initially loads all textures used in this program */
 void loadAllTextures()
 {
-    char *textureNames[] = {(char *)"textures/wall.bmp",
-                            (char *)"textures/booth.bmp",
-                            (char *)"textures/misc.bmp",
-                            (char *)"objs/SkyDome-Cloud-Wispy-MidMorning.bmp",
-                            (char *)"textures/grass.bmp"};
+    char *textureNames[] = {
+        (char *)"textures/misc.bmp",
+        (char *)"textures/skydome.bmp",
+        (char *)"textures/ground_sakura.bmp",
+        (char *)"textures/ground_grass.bmp",
+        (char *)"textures/wood_light.bmp",
+        (char *)"textures/wood_dark.bmp",
+        (char *)"textures/wood_red.bmp",
+        (char *)"textures/wood_wall.bmp"
+    };
     // load the textures
     for (int i = 0; i < NUM_TEXTURES; i++)
     {
@@ -22,6 +27,8 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
 {
     FILE *file;
     filename = _filename;
+    texture = texture_id;
+    
     // make sure the file is there
     if ((file = fopen(filename, "rb")) == NULL) {
         printf("File Not Found: %s\n", filename);
@@ -60,8 +67,6 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
     fclose(file);
     
     // Generate an OpenGL texture id
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
     glBindTexture(GL_TEXTURE_2D, texture_id);
     
     // Generate a 2D image for the image's format
@@ -72,83 +77,17 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
         glGenerateMipmap(GL_TEXTURE_2D);
     }
     mipmapsGenerated = genMipMaps;
-    //glGenSamplers(1, &sampler);
-}
-
-/* Loads a texture from the given texture file */
-bool Texture::loadTextureX(char *_filename, bool _genMipMaps)
-{
-    printf("Trying to load a texture...\n");
-    
-    filename = _filename;
-    mipmapsGenerated = _genMipMaps;
-    FILE *file;
-    
-    printf("Trying to open %s\n", filename);
-    
-    // Load the texture from the image
-    if ((file = fopen(filename, "rb")) == NULL) {
-        printf("File not found: %s\n", filename);
-    }
-    
-    printf("Checkpoint 1\n");
-    
-    fseek(file, 18, SEEK_CUR);
-    width = getint (file);
-    height = getint (file);
-    unsigned long size = width * height * 3;
-    bpp = getshort(file);
-    fseek(file, 24, SEEK_CUR);
-    
-    printf("Checkpoint 2\n");
-    
-    // read the data and reverse all of the colors. (bgr -> rgb)
-    char temp;
-    data = (char *) malloc(size);
-    for (int i = 0; i < size; i += 3) {
-        temp = data[i];
-        data[i] = data[i+2];
-        data[i+2] = temp;
-    }
-    fclose(file);
-    
-    printf("Checkpoint 3\n");
-    
-    // Generate an OpenGL texture id
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    
-    printf("Checkpoint 4\n");
-    
-    // Generate a 2D image for the image's format
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
-    
-    printf("Checkpoint 5\n");
-    
-    // Genereate mip maps
-    if (_genMipMaps) {
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    
-    printf("Checkpoint 6\n");
-
-    //glGenSamplers(h_tex, &sampler);
-    
-    printf("... and we loaded it!\n");
 }
 
 /* Binds a texture to the texture unit id */
-void Texture::bindTexture(int texture_id)
+void Texture::bindTexture()
 {
-    glActiveTexture(GL_TEXTURE0 + texture_id);
     glBindTexture(GL_TEXTURE_2D, texture);
-    glBindSampler(texture_id, sampler);
 }
 
 /* Deletes the memory used by this textures */
 void Texture::deleteTexture()
 {
-    //glDeleteSamplers(1, &sampler);
     //glDeleteTextures(1, &texture);
 }
 

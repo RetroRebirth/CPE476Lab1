@@ -10,7 +10,6 @@ Object::Object(
 	      
    // Default attribute values
    collected = false;
-   col = glm::vec3(0.313, 0.784, 0.470);
    shine = 800.0;
    radius = OBJ_SIZE;
    
@@ -27,14 +26,9 @@ Object::Object(
    shapes = _shapes;
    materials = _materials;
    ShadeProg = _ShadeProg;
-   h_uAClr = GLSL::getUniformLocation(ShadeProg, "uAClr");
-   h_uDClr = GLSL::getUniformLocation(ShadeProg, "uDClr");
-   h_uSClr = GLSL::getUniformLocation(ShadeProg, "uSClr");
-   h_uS = GLSL::getUniformLocation(ShadeProg, "uS");
    h_uM = GLSL::getUniformLocation(ShadeProg, "uM");
    h_aPos = GLSL::getAttribLocation(ShadeProg, "aPos");
    h_aNor = GLSL::getAttribLocation(ShadeProg, "aNor");
-   h_uTex = GLSL::getUniformLocation(ShadeProg, "uTexUnit");
 
    pos = glm::vec3(0.0f, 0.0f, 0.0f);
    dimensions = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -92,8 +86,6 @@ bool Object::collidedWithPlayer(glm::vec3 camPos, float dt) {
    if (glm::distance(testPos, camPos) <= radius) {
       vel = 0;
       collected = true;
-      col = glm::vec3(1.0, 0.68, 0.0);
-      
       return true;
    }
    else {
@@ -270,9 +262,8 @@ void Object::load(const string &meshName)
     }
     
     init();
-    //resize_obj();
 }
-
+ 
 void Object::load(const string &meshName, const string &matName)
 {
 	std::vector<tinyobj::material_t> objMaterials;
@@ -309,7 +300,6 @@ void Object::load(const string &meshName, const string &matName)
    }
 	
    init();
-   //resize_obj();
 }
 
 /* initialize a new shape */
@@ -341,7 +331,6 @@ void Object::init()
     // Send the texture coordinate array (if it exists) to the GPU
     const vector<float> texBuf = shapes[0].mesh.texcoords;
     if (!texBuf.empty()) {
-        glGenTextures(1, &texture);
         glGenBuffers(1, &texBufID);
         glBindBuffer(GL_ARRAY_BUFFER, texBufID);
         glBufferData(GL_ARRAY_BUFFER, texBuf.size() * sizeof(float), &texBuf[0], GL_STATIC_DRAW);
@@ -360,11 +349,8 @@ void Object::draw()
    glEnable(GL_TEXTURE_2D);
    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
    glActiveTexture(GL_TEXTURE0);
-   glUniform1i(h_uTex, 0);
-
    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    
    glBindTexture(GL_TEXTURE_2D, texture_id);
 
    GLint h_pos = h_aPos;
@@ -394,13 +380,6 @@ void Object::draw()
         glVertexAttribPointer(h_tex, 2, GL_FLOAT, GL_FALSE, 0, 0);
     }
 	
-   /* Send data to the GPU and draw */
-   // Set the color
-   glUniform3f(h_uAClr, col.x/5.0, col.y/5.0, col.z/5.0);
-   glUniform3f(h_uDClr, col.x/3.0, col.y/3.0, col.z/3.0);
-   glUniform3f(h_uSClr, col.x/3.0, col.y/3.0, col.z/3.0);
-   glUniform1f(h_uS, shine);
-    
    // Set the model transformation
    glm::vec3 position = pos + glm::vec3(0.0f, -0.5f, 0.0f);
    //glm::mat4 S = glm::scale(glm::mat4(1.0f), glm::vec3(radius, radius, radius)) * scalerMat;
@@ -482,70 +461,4 @@ vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> 
    }
 
    return norBuf;
-}
-
-void Object::resize_obj() {
-   float minX, minY, minZ;
-   float maxX, maxY, maxZ;
-   float scaleX, scaleY, scaleZ;
-   float shiftX, shiftY, shiftZ;
-   float epsilon = 0.001;
-
-   minX = minY = minZ = 1.1754E+38F;
-   maxX = maxY = maxZ = -1.1754E+38F;
-
-   //Go through all vertices to determine min and max of each dimension
-   for (size_t i = 0; i < shapes.size(); i++) {
-      for (size_t v = 0; v < shapes[i].mesh.positions.size() / 3; v++) {
-         if(shapes[i].mesh.positions[3*v+0] < minX)
-            minX = shapes[i].mesh.positions[3*v+0];
-         if(shapes[i].mesh.positions[3*v+0] > maxX)
-            maxX = shapes[i].mesh.positions[3*v+0];
-
-         if(shapes[i].mesh.positions[3*v+1] < minY)
-            minY = shapes[i].mesh.positions[3*v+1];
-         if(shapes[i].mesh.positions[3*v+1] > maxY)
-            maxY = shapes[i].mesh.positions[3*v+1];
-
-         if(shapes[i].mesh.positions[3*v+2] < minZ)
-            minZ = shapes[i].mesh.positions[3*v+2];
-         if(shapes[i].mesh.positions[3*v+2] > maxZ)
-            maxZ = shapes[i].mesh.positions[3*v+2];
-      }
-   }
-   //From min and max compute necessary scale and shift for each dimension
-   float maxExtent, xExtent, yExtent, zExtent;
-   xExtent = maxX-minX;
-   yExtent = maxY-minY;
-   zExtent = maxZ-minZ;
-   if (xExtent >= yExtent && xExtent >= zExtent) {
-      maxExtent = xExtent;
-   }
-   if (yExtent >= xExtent && yExtent >= zExtent) {
-      maxExtent = yExtent;
-   }
-   if (zExtent >= xExtent && zExtent >= yExtent) {
-      maxExtent = zExtent;
-   }
-   scaleX = 2.0 /maxExtent;
-   shiftX = minX + (xExtent/ 2.0);
-   scaleY = 2.0 / maxExtent;
-   shiftY = minY + (yExtent / 2.0);
-   scaleZ = 2.0/ maxExtent;
-   shiftZ = minZ + (zExtent)/2.0;
-
-   // Go through all verticies shift and scale them
-   for (size_t i = 0; i < shapes.size(); i++) {
-      for (size_t v = 0; v < shapes[i].mesh.positions.size() / 3; v++) {
-         shapes[i].mesh.positions[3*v+0] = (shapes[i].mesh.positions[3*v+0] - shiftX) * scaleX;
-         assert(shapes[i].mesh.positions[3*v+0] >= -1.0 - epsilon);
-         assert(shapes[i].mesh.positions[3*v+0] <= 1.0 + epsilon);
-         shapes[i].mesh.positions[3*v+1] = (shapes[i].mesh.positions[3*v+1] - shiftY) * scaleY;
-         assert(shapes[i].mesh.positions[3*v+1] >= -1.0 - epsilon);
-         assert(shapes[i].mesh.positions[3*v+1] <= 1.0 + epsilon);
-         shapes[i].mesh.positions[3*v+2] = (shapes[i].mesh.positions[3*v+2] - shiftZ) * scaleZ;
-         assert(shapes[i].mesh.positions[3*v+2] >= -1.0 - epsilon);
-         assert(shapes[i].mesh.positions[3*v+2] <= 1.0 + epsilon);
-      }
-   }
 }

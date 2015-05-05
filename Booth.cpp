@@ -26,7 +26,7 @@ Booth::Booth(
   active = false;
 
   // set the texture to a booth texture
-  object->setTexture(type);
+  object->setTexture(TEX_MISC);
 }
 
 Booth::~Booth(){
@@ -158,6 +158,16 @@ void Booth::startMinigame(){
 //Sets the position for the booth
 void Booth::setPosition(glm::vec3 position){
     object->setPos(position);
+}
+
+void Booth::setType(int t) {
+    type = t;
+    if (t == WALL_TYPE)
+        object->setTexture(TEX_WOOD_WALL);
+    else if (t == BOOTH_TYPE)
+        object->setTexture(TEX_WOOD_LIGHT);
+    else if (t == MISC_TYPE)
+        object->setTexture(TEX_MISC);
 }
 
 // Return the minigame associated with this booth

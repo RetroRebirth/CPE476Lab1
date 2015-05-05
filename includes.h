@@ -15,7 +15,6 @@
 #include <fstream>
 #include <ft2build.h>
 #include FT_FREETYPE_H
-
 #include "glew.h"
 #include "glfw3.h"
 #include "GL/freeglut.h"
@@ -36,7 +35,7 @@
 // defines file names for various meshes
 #define EXTRA_FILE_NAME "bunny.obj"
 #define WALL_FILE_NAME "cube.obj"
-#define STALL_FILE_NAME "base_lantern_stall.obj"
+#define STALL_FILE_NAME "objs/base_lantern_stall.obj"
 #define PLAYER_FILE_NAME "sphere.obj"
 
 // define map file
@@ -46,16 +45,13 @@
 #define WALL_TYPE 0
 #define BOOTH_TYPE 1
 #define MISC_TYPE 2
-// Texture IDs
-#define TEXTURE_SKY 3
-#define TEXTURE_GROUND 4
 // TODO add defines for specific minigame types
 
 // misc defines for globally accessed values
 #define MAX_OBJS 50
 #define SECS_PER_OBJ 2.0
 #define SIZE 50.0
-#define SKY_SIZE 100.0
+#define SKY_SIZE 200.0
 #define NUM_OBJ_TYPES 1
 #define SPHERE 0
 #define MOUSE_SPEED 0.25

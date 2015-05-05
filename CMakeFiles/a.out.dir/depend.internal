@@ -10,39 +10,8 @@ CMakeFiles/a.out.dir/Booth.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Importer.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/PostProcess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Scene.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/anim.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/camera.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/config.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/defs.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/light.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/mesh.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/metadata.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/texture.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/types.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -114,6 +83,7 @@ CMakeFiles/a.out.dir/Booth.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
@@ -129,38 +99,6 @@ CMakeFiles/a.out.dir/Camera.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Importer.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/PostProcess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Scene.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/anim.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/camera.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/config.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/defs.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/light.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/mesh.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/metadata.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/texture.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/types.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -232,6 +170,7 @@ CMakeFiles/a.out.dir/Camera.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
@@ -315,123 +254,6 @@ CMakeFiles/a.out.dir/MatrixStack.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtx/transform.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtx/transform.inl
-CMakeFiles/a.out.dir/Model.cpp.o
- /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_ext.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/Model.cpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/Model.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Importer.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/PostProcess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Scene.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/anim.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/camera.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/config.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/defs.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/light.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/mesh.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/metadata.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/texture.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/types.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle_func.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_vectorize.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_common.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_common.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_exponential.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_exponential.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_geometric.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_geometric.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_integer.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_integer.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_matrix.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_matrix.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_noise.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_noise.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_packing.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_packing.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_trigonometric.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_trigonometric.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_vector_relational.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_vector_relational.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/setup.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_float.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_gentype.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_half.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_half.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_int.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x2.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x2.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x3.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x4.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x2.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x2.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x3.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x4.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x2.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x2.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x3.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x4.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_size.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec1.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec1.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec2.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec2.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec3.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec4.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/core/_fixes.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/core/setup.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glm.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glm.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glmint.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/half_float.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/half_float.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
 CMakeFiles/a.out.dir/Object.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_ext.h
@@ -441,38 +263,6 @@ CMakeFiles/a.out.dir/Object.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Importer.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/PostProcess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Scene.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/anim.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/camera.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/config.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/defs.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/light.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/mesh.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/metadata.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/texture.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/types.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -544,6 +334,7 @@ CMakeFiles/a.out.dir/Object.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
@@ -560,38 +351,6 @@ CMakeFiles/a.out.dir/Player.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Player.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Importer.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/PostProcess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Scene.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/anim.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/camera.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/config.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/defs.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/light.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/mesh.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/metadata.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/texture.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/types.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -663,6 +422,7 @@ CMakeFiles/a.out.dir/Player.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
@@ -684,38 +444,6 @@ CMakeFiles/a.out.dir/Session.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/World.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Importer.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/PostProcess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Scene.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/anim.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/camera.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/config.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/defs.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/light.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/mesh.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/metadata.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/texture.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/types.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -787,6 +515,7 @@ CMakeFiles/a.out.dir/Session.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
@@ -805,38 +534,6 @@ CMakeFiles/a.out.dir/SkyBox.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Importer.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/PostProcess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Scene.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/anim.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/camera.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/config.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/defs.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/light.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/mesh.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/metadata.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/texture.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/types.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -908,6 +605,7 @@ CMakeFiles/a.out.dir/SkyBox.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
@@ -921,38 +619,6 @@ CMakeFiles/a.out.dir/Texture.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Importer.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/PostProcess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Scene.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/anim.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/camera.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/config.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/defs.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/light.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/mesh.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/metadata.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/texture.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/types.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -1024,6 +690,7 @@ CMakeFiles/a.out.dir/Texture.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
@@ -1037,38 +704,6 @@ CMakeFiles/a.out.dir/Window.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Importer.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/PostProcess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Scene.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/anim.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/camera.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/config.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/defs.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/light.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/mesh.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/metadata.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/texture.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/types.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -1140,6 +775,7 @@ CMakeFiles/a.out.dir/Window.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
@@ -1160,38 +796,6 @@ CMakeFiles/a.out.dir/World.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/World.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/World.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Importer.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/PostProcess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Scene.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/anim.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/camera.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/config.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/defs.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/light.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/mesh.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/metadata.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/texture.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/types.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -1263,6 +867,7 @@ CMakeFiles/a.out.dir/World.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
@@ -1283,38 +888,6 @@ CMakeFiles/a.out.dir/main.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/World.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/cimport.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/poppack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/./Compiler/pushpack1.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Compiler/pstdint.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Importer.hpp
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/PostProcess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/Scene.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/anim.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/camera.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/color4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/config.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/defs.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/light.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/material.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix3x3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/matrix4x4.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/mesh.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/metadata.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/quaternion.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/texture.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/types.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector2.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/include/assimp/vector3.inl
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/postprocess.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/assimp/scene.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -1386,6 +959,7 @@ CMakeFiles/a.out.dir/main.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h

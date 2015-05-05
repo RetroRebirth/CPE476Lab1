@@ -8,7 +8,6 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/kayla/Projects/Graphics/CPE476Lab1/Camera.cpp" "/Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles/a.out.dir/Camera.cpp.o"
   "/Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.cpp" "/Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles/a.out.dir/GLSL.cpp.o"
   "/Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.cpp" "/Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles/a.out.dir/MatrixStack.cpp.o"
-  "/Users/kayla/Projects/Graphics/CPE476Lab1/Model.cpp" "/Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles/a.out.dir/Model.cpp.o"
   "/Users/kayla/Projects/Graphics/CPE476Lab1/Object.cpp" "/Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles/a.out.dir/Object.cpp.o"
   "/Users/kayla/Projects/Graphics/CPE476Lab1/Player.cpp" "/Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles/a.out.dir/Player.cpp.o"
   "/Users/kayla/Projects/Graphics/CPE476Lab1/Session.cpp" "/Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles/a.out.dir/Session.cpp.o"

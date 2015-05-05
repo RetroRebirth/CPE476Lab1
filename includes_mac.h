@@ -32,6 +32,9 @@
 #include "assimp/Importer.hpp"
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
+#include <OpenGL/glu.h>
+#include <OpenGL/gl.h>
+#include <OpenGL/glut.h>
 
 // defines file names for various meshes
 #define EXTRA_FILE_NAME "bunny.obj"

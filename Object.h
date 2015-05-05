@@ -52,7 +52,7 @@ public:
 
 private:
     // Object information
-    glm::vec3 pos, dimensions, dir, col;
+    glm::vec3 pos, dimensions, dir;
     float vel, shine, radius;
     bool collected, directional;
     vector<tinyobj::shape_t> shapes;
@@ -67,9 +67,7 @@ private:
     // Shader information
     GLuint ShadeProg;
     GLuint posBufID, indBufID, norBufID, texBufID;
-    GLuint texture, sampler;
-    GLint h_aPos, h_aNor, h_uM, h_uAClr, h_uDClr, h_uSClr, h_uS, h_uTex;
-    bufID_t bufIDs;
+    GLint h_aPos, h_aNor, h_uM;
     
     // Texture information
     int texture_id;

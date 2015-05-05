@@ -21,6 +21,6 @@ elseif(WIN32)
 
 endif()
 
-add_executable(${PROJECT_NAME} main.cpp GLSL.cpp tiny_obj_loader.cc Booth.cpp Camera.cpp MatrixStack.cpp Object.cpp Player.cpp Session.cpp SkyBox.cpp Window.cpp World.cpp Texture.cpp Model.cpp)
+add_executable(${PROJECT_NAME} main.cpp GLSL.cpp tiny_obj_loader.cc Booth.cpp Camera.cpp MatrixStack.cpp Object.cpp Player.cpp Session.cpp SkyBox.cpp Window.cpp World.cpp Texture.cpp)
 
 target_link_libraries(${PROJECT_NAME} ${ASSIMP_LIB} ${OPENGL_gl_LIBRARY} ${GLFW_LIB} ${GLEW_LIBRARY} ${PLATFORM_LIBS})

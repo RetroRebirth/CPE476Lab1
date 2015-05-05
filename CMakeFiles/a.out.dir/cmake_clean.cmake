@@ -12,7 +12,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/a.out.dir/Window.cpp.o"
   "CMakeFiles/a.out.dir/World.cpp.o"
   "CMakeFiles/a.out.dir/Texture.cpp.o"
-  "CMakeFiles/a.out.dir/Model.cpp.o"
   "a.out.pdb"
   "a.out"
 )
