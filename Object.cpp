@@ -462,3 +462,8 @@ vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> 
 
    return norBuf;
 }
+
+glm::mat4 Object::getModelMatrix() {
+   return modelMat;
+}
+

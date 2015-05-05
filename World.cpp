@@ -258,3 +258,22 @@ void World::createPlayer(const string &meshName) {
 int World::numLeft() {
    return extras.size();
 }
+
+void World::drawObject(Object* obj) {
+   // TODO Get the model-view matrix for this object
+   glm::mat4 matrix = obj->getModelMatrix();
+
+   // Extract the planes of the view frustum
+   glm::vec4* planes = (glm::vec4*) calloc(6, sizeof(glm::vec4));
+   extractViewFrustumPlanes(planes, matrix);
+
+   // TODO Check if the object is in the view frustum
+
+   // Free the planes (stops memory leaks)
+   free(planes);
+}
+
+void World::extractViewFrustumPlanes(glm::vec4* planes, const glm::mat4 matrix) {
+   // TODO Get the 6 planes of the view frustum from the model-view matrix
+}
+

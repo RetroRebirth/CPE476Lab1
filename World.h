@@ -51,6 +51,8 @@ class World {
       void drawOverWorld();
       bool detectSpawnCollision(Object* object);
       void parseMapFile(const char* fileName);
+      void drawObject(Object* obj);
+      void extractViewFrustumPlanes(glm::vec4* planes, const glm::mat4 matrix);
 };
 
 #endif

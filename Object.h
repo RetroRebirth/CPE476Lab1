@@ -44,6 +44,7 @@ public:
     float getXRadius();
     vector<tinyobj::shape_t> getShapes() { return shapes; }
     vector<tinyobj::material_t> getMaterials() { return materials; }
+    glm::mat4 getModelMatrix();
     
     // modifiers
     void scale(glm::vec3 scalar);
