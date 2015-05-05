@@ -40,7 +40,10 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
 
    switch(key) {
    case GLFW_KEY_C:
-      camera->bounded = !camera->bounded;
+      camera->debug = !camera->debug;
+      if (camera->debug == false) {
+         camera->debug_pos = camera->pos;
+      }
       break;
    case GLFW_KEY_P:
       camera->pov = !camera->pov;

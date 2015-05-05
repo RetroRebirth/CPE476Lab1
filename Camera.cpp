@@ -8,9 +8,10 @@ Camera::Camera(
       GLint _h_uView) {
    // Default attribute values
    pos = glm::vec3(0, 1, 0);
+   debug_pos = pos;
    theta = -M_PI/2.0;
    phi = 0.0;
-   bounded = true;
+   debug = false;
    speed = INITIAL_SPEED;
    blocked = false;
    pov = true;
@@ -41,7 +42,7 @@ float Camera::getXRot() {
 
 glm::vec3 Camera::lookAtPt() {
    glm::vec3 lookAtPt = glm::vec3(cos(phi)*cos(theta), sin(phi), cos(phi)*cos((M_PI/2)-theta));
-   lookAtPt += pos;
+   lookAtPt += debug ? debug_pos : pos;
    return lookAtPt;
 }
 
@@ -51,28 +52,36 @@ void Camera::setProjectionMatrix(int g_width, int g_height) {
 }
 
 void Camera::setView() {
-   glm::mat4 lookAtMat = glm::lookAt(lookAtPt(), pos, glm::vec3(0, 1, 0));
+   glm::vec3 curPos = debug ? debug_pos : pos;
+   glm::mat4 lookAtMat = glm::lookAt(lookAtPt(), curPos, glm::vec3(0, 1, 0));
 
    //mult view by phi rotation matrix
-   View = glm::rotate(glm::mat4(1.0f), phi, glm::vec3(1, 0, 0)) * lookAtMat;
+   glm::mat4 view_mat = glm::rotate(glm::mat4(1.0f), phi, glm::vec3(1, 0, 0)) * lookAtMat;
 
-   safe_glUniformMatrix4fv(h_uV, glm::value_ptr(View));
+   safe_glUniformMatrix4fv(h_uV, glm::value_ptr(view_mat));
    glUniform3f(h_uView, pos.x, pos.y, pos.z);
+
+   if (!debug) {
+      View = view_mat;
+   }
 }
 
 void Camera::step(Window* window) {
    setProjectionMatrix(window->width, window->height);
    setView();
 
-   if (!playingMinigame && (!bounded || !blocked)) {
-      pos = calcNewPos(window);
+   if (debug) {
+      debug_pos = calcNewPos(window);
+   } else {
+      if (!playingMinigame && !blocked) {
+         pos = calcNewPos(window);
+      }
+      blocked = false;
    }
-   // pos = !bounded || !blocked ? calcNewPos(window) : pos;
-   blocked = false;
 }
 
 glm::vec3 Camera::calcNewPos(Window* window) {
-   glm::vec3 newPos = pos;
+   glm::vec3 newPos = debug ? debug_pos : pos;
    float moveInc = speed * window->dt;
    float playerYrad = Util::degreesToRadians(playerYrot);
 
@@ -85,26 +94,44 @@ glm::vec3 Camera::calcNewPos(Window* window) {
    crossVector *= moveInc;
 
    GLFWwindow* win = window->glfw_window;
-   if (glfwGetKey(win, GLFW_KEY_W) == GLFW_PRESS) { // Move forward
-      newPos.x += moveInc * sin(playerYrad);
-      newPos.z += moveInc * cos(playerYrad);
-   }
-   if (glfwGetKey(win, GLFW_KEY_A) == GLFW_PRESS) { // Strafe left
-      playerYrot += PLAYER_ROT_DEG;
-   }
-   if (glfwGetKey(win, GLFW_KEY_D) == GLFW_PRESS) { // Strafe right
-      playerYrot -= PLAYER_ROT_DEG;
-   }
-   // for debugging purposes
-   if (glfwGetKey(win, GLFW_KEY_S) == GLFW_PRESS) { // Move backward
-      newPos.x -= moveInc * sin(playerYrad);
-      newPos.z -= moveInc * cos(playerYrad);
-   }
-   if (glfwGetKey(win, GLFW_KEY_Q) == GLFW_PRESS) { // Move up
-      newPos -= crossVector;
-   }
-   if (glfwGetKey(win, GLFW_KEY_E) == GLFW_PRESS) { // Move down
-      newPos += crossVector;
+   if (!debug) {
+      // Normal camera controls
+      if (glfwGetKey(win, GLFW_KEY_W) == GLFW_PRESS) { // Move forward
+         newPos.x += moveInc * sin(playerYrad);
+         newPos.z += moveInc * cos(playerYrad);
+      }
+      if (glfwGetKey(win, GLFW_KEY_A) == GLFW_PRESS) { // Rotate left
+         playerYrot += PLAYER_ROT_DEG;
+      }
+      if (glfwGetKey(win, GLFW_KEY_D) == GLFW_PRESS) { // Rotate right
+         playerYrot -= PLAYER_ROT_DEG;
+      }
+      /*
+      if (glfwGetKey(win, GLFW_KEY_S) == GLFW_PRESS) { // Move backward
+         newPos.x -= moveInc * sin(playerYrad);
+         newPos.z -= moveInc * cos(playerYrad);
+      }
+      */
+   } else {
+      // Debug free-flying camera
+      if (glfwGetKey(win, GLFW_KEY_W) == GLFW_PRESS) { // Move forward
+         newPos += viewVector;
+      }
+      if (glfwGetKey(win, GLFW_KEY_S) == GLFW_PRESS) { // Move backward
+         newPos -= viewVector;
+      }
+      if (glfwGetKey(win, GLFW_KEY_A) == GLFW_PRESS) { // Strafe left
+         newPos -= strafeVector;
+      }
+      if (glfwGetKey(win, GLFW_KEY_D) == GLFW_PRESS) { // Strafe right
+         newPos += strafeVector;
+      }
+      if (glfwGetKey(win, GLFW_KEY_Q) == GLFW_PRESS) { // Move up
+         newPos += crossVector;
+      }
+      if (glfwGetKey(win, GLFW_KEY_E) == GLFW_PRESS) { // Move down
+         newPos -= crossVector;
+      }
    }
    
    // this is what we had originally with strafing
@@ -125,7 +152,7 @@ glm::vec3 Camera::calcNewPos(Window* window) {
 
 
    // Bounding
-  if (bounded) {
+  if (!debug) {
      float s = SIZE - 0.2f;
      if (newPos.x < -s)
         newPos.x = -s;

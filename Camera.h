@@ -7,9 +7,10 @@
 
 class Camera {
    public:
-      bool bounded;
+      bool debug;
       float speed;
       glm::vec3 pos;
+      glm::vec3 debug_pos;
       bool blocked;
       bool pov;
       glm::mat4 Projection;
