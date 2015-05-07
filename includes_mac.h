@@ -32,6 +32,7 @@
 #include "assimp/Importer.hpp"
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
+#include <irrKlang.h>
 #include <OpenGL/glu.h>
 #include <OpenGL/gl.h>
 #include <OpenGL/glut.h>

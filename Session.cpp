@@ -7,7 +7,11 @@ Session::Session() {
 
    camera = new Camera(h_uP, h_uV, h_uView);
    world = new World(ShadeProg, camera);
-   clicks = new Clicks();   
+   clicks = new Clicks(); 
+   
+   sound = new Sound();
+   sound->initSound();   
+     
    minigame = NULL;
 
    game_state = WORLD_STATE;
@@ -17,6 +21,7 @@ Session::~Session() {
    delete window;
    delete camera;
    delete world;
+   delete sound;
    if (minigame != NULL)
       delete minigame;
 }
@@ -25,6 +30,7 @@ Session::~Session() {
  * Starts the main game loop.
  */
 void Session::run() {
+   sound->playBackgroundMusic();
    do {
       step();
    } while(window->isActive());

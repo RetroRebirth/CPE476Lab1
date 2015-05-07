@@ -166,7 +166,7 @@ void Model::drawModel()
     for (int i = 0; i < numMeshes; i++)
     {
         int matIndex = materialIndices[i];
-        textures[matIndex].bindTexture(0);
+        textures[matIndex].bindTexture();
         glDrawArrays(GL_TRIANGLES, meshIndices[i], meshSizes[i]);
     }
 }

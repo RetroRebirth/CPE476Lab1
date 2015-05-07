@@ -133,23 +133,6 @@ glm::vec3 Camera::calcNewPos(Window* window) {
          newPos -= crossVector;
       }
    }
-   
-   // this is what we had originally with strafing
-   // using the above code we can move and see the front of our char/potato
-   /*
-   if (glfwGetKey(win, GLFW_KEY_W) == GLFW_PRESS) // Move forward
-      newPos -= viewVector;
-   if (glfwGetKey(win, GLFW_KEY_S) == GLFW_PRESS) // Move backward
-      newPos += viewVector;
-   if (glfwGetKey(win, GLFW_KEY_A) == GLFW_PRESS) // Strafe left
-      newPos += strafeVector;
-   if (glfwGetKey(win, GLFW_KEY_D) == GLFW_PRESS) // Strafe right
-      newPos -= strafeVector;
-   if (glfwGetKey(win, GLFW_KEY_Q) == GLFW_PRESS) // Move up
-      newPos -= crossVector;
-   if (glfwGetKey(win, GLFW_KEY_E) == GLFW_PRESS) // Move down
-      newPos += crossVector;*/
-
 
    // Bounding
   if (!debug) {
