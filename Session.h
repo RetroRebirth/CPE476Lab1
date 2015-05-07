@@ -6,7 +6,7 @@
 #include "Camera.h"
 #include "World.h"
 #include "Clicks.h"
-#include "Sound.h"
+//#include "Sound.h"
 #include "ShootingGallery.h"
 
 class Session {
@@ -26,7 +26,7 @@ class Session {
       Window* window;
       Camera* camera;
       Clicks* clicks;
-      Sound* sound;
+//      Sound* sound;
       World* world;
       ShootingGallery* minigame; // TODO support other minigames
       
