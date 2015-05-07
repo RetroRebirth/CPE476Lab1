@@ -37,9 +37,9 @@ First install freetype <a href="http://www.linuxfromscratch.org/blfs/view/svn/ge
 <h1>Creating the path variables for irrKlang:</h1>
 <br>I think you have to manually coppy the irrKlang header files into wherever your computer keeps them, sorry :( For ubuntu this is /usr/include/ The other thing we could do is just pull it from the irrKlang directory that has to be in there anyway.</br>
 <br>Add the following lines into ~/.profile:<br>
-&nbsp;&nbsp;&nbsp;&nbsp; <code>export IRRKLANG_DIR=irrKlang-64bit-1.5.0/bin/linux-gcc-64/libIrrKlang.so</code>
-<code>export IRRKLANGFLAC_DIR=irrKlang-64bit-1.5.0/bin/linux-gcc-64/ikpFlac.so</code>
-<code>export IRRKLANGMP3_DIR=irrKlang-64bit-1.5.0/bin/linux-gcc-64/ikpMP3.so</code>
+&nbsp;&nbsp;&nbsp;&nbsp; <code>export IRRKLANG_DIR=irrKlang-64bit-1.5.0/bin/linux-gcc-64/libIrrKlang.so</code></br>
+<br>&nbsp;&nbsp;&nbsp;&nbsp; <code>export IRRKLANGFLAC_DIR=irrKlang-64bit-1.5.0/bin/linux-gcc-64/ikpFlac.so</code></br>
+<br>&nbsp;&nbsp;&nbsp;&nbsp; <code>export IRRKLANGMP3_DIR=irrKlang-64bit-1.5.0/bin/linux-gcc-64/ikpMP3.so</code></br>
 <br>Adding this line into ~/.profile will run the export command every time you open a new terminal.<br>
 <br>Without restarting your terminal, or if things aren't working, try:<br>
 &nbsp;&nbsp;&nbsp;&nbsp; <code>source ~/.profile</code>
