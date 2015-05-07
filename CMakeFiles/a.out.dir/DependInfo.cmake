@@ -6,11 +6,13 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/kayla/Projects/Graphics/CPE476Lab1/Booth.cpp" "/Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles/a.out.dir/Booth.cpp.o"
   "/Users/kayla/Projects/Graphics/CPE476Lab1/Camera.cpp" "/Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles/a.out.dir/Camera.cpp.o"
+  "/Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.cpp" "/Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles/a.out.dir/Clicks.cpp.o"
   "/Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.cpp" "/Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles/a.out.dir/GLSL.cpp.o"
   "/Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.cpp" "/Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles/a.out.dir/MatrixStack.cpp.o"
   "/Users/kayla/Projects/Graphics/CPE476Lab1/Object.cpp" "/Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles/a.out.dir/Object.cpp.o"
   "/Users/kayla/Projects/Graphics/CPE476Lab1/Player.cpp" "/Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles/a.out.dir/Player.cpp.o"
   "/Users/kayla/Projects/Graphics/CPE476Lab1/Session.cpp" "/Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles/a.out.dir/Session.cpp.o"
+  "/Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.cpp" "/Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles/a.out.dir/ShootingGallery.cpp.o"
   "/Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.cpp" "/Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles/a.out.dir/SkyBox.cpp.o"
   "/Users/kayla/Projects/Graphics/CPE476Lab1/Texture.cpp" "/Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles/a.out.dir/Texture.cpp.o"
   "/Users/kayla/Projects/Graphics/CPE476Lab1/Window.cpp" "/Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles/a.out.dir/Window.cpp.o"

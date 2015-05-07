@@ -31,6 +31,7 @@ public:
     void setSpeed(float speed)          { vel = speed;       }
     void setTexture(int tex)            { texture_id = tex;  }
     void setDirectional(bool dir)       { directional = dir; }
+    void setShadows(bool shadows)       { castShadows = shadows; }
     
     // getters
     glm::vec3 getPos()        { return pos; }
@@ -55,7 +56,7 @@ private:
     // Object information
     glm::vec3 pos, dimensions, dir;
     float vel, shine, radius;
-    bool collected, directional;
+    bool collected, directional, castShadows;
     vector<tinyobj::shape_t> shapes;
     vector<tinyobj::material_t> materials;
     
@@ -76,6 +77,35 @@ private:
     // Helper functions
     vector<float> computeNormals(vector<float> posBuf, vector<unsigned int> indBuf);
     float calcYFacingAngle();
+    
+    // Get the shadow projection matrix (for drawing a shadow)
+    glm::mat4 ShadowMatrix()
+    {
+        glm::mat4 ShadowMatrix;
+        float ground[4] = {0.0, 1.0, 0.0, 0.0};
+        float light[4] = {-1.0, 1.0, 0.278, 0.0};
+        float dot = ground[0] * light[0] +
+            ground[1] * light[1] +
+            ground[2] * light[2] +
+            ground[3] * light[2];
+        ShadowMatrix[0][0] = dot - light[0] * ground[0];
+        ShadowMatrix[1][0] = 0.0 - light[0] * ground[1];
+        ShadowMatrix[2][0] = 0.0 - light[0] * ground[2];
+        ShadowMatrix[3][0] = 0.0 - light[0] * ground[3];
+        ShadowMatrix[0][1] = 0.0 - light[1] * ground[0];
+        ShadowMatrix[1][1] = dot - light[1] * ground[1];
+        ShadowMatrix[2][1] = 0.0 - light[1] * ground[2];
+        ShadowMatrix[3][1] = 0.0 - light[1] * ground[3];
+        ShadowMatrix[0][2] = 0.0 - light[2] * ground[0];
+        ShadowMatrix[1][2] = 0.0 - light[2] * ground[1];
+        ShadowMatrix[2][2] = dot - light[2] * ground[2];
+        ShadowMatrix[3][2] = 0.0 - light[2] * ground[3];
+        ShadowMatrix[0][3] = 0.0 - light[3] * ground[0];
+        ShadowMatrix[1][3] = 0.0 - light[3] * ground[1];
+        ShadowMatrix[2][3] = 0.0 - light[3] * ground[2];
+        ShadowMatrix[3][3] = dot - light[3] * ground[3];
+        return ShadowMatrix;
+    }
 };
 
 #endif

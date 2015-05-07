@@ -36,8 +36,8 @@ Object::Object(
    vel = 0.0f;
    
    directional = false;
+   castShadows = true;
    setTexture(MISC_TYPE);
-   
 }
 
 Object::~Object() {}
@@ -46,29 +46,6 @@ Object::~Object() {}
 void Object::scale(glm::vec3 scaler) {
    scalerMat = glm::scale(glm::mat4(1.0f), scaler);
    radius = glm::max(glm::max(scaler.x, scaler.y), scaler.z);
-   // an attempt to correct for the mesh resizing... which breaks the bounding box stuff
-   //glm::vec3 temp_scaler = glm::vec3(1.1f*scaler.x, 1.1f*scaler.y, 1.1f*scaler.z);
-   /*glm::vec3 temp_scaler = glm::vec3(1.0f, 1.0f, 1.0f);
-   float x = scaler.x;
-   float y = scaler.y;
-   float z = scaler.z;
-   if (scaler.x > 2.5f) { 
-      //temp_scaler.x -= ((scaler.x * SCALE_CONST1) + ((1.0f / scaler.x) *SCALE_CONST2));//(1.5f*0.25f);
-      //temp_scaler.x -= ((x*0.025f)+((1.0f/x)*0.6f));
-      //temp_scaler.x -= (1.5f*0.25f);
-   }
-   if (scaler.y > 2.5f) {
-      //temp_scaler.y -= ((scaler.y*SCALE_CONST1)+((1.0f/scaler.y)*SCALE_CONST2));//(1.5f*0.25f);
-      //temp_scaler.y -= ((y*0.025f)+((1.0f/y)*0.6f));
-      //temp_scaler.y -= (1.5f*0.25f);
-   }
-   if (scaler.z > 2.5f) {
-      //temp_scaler.z -= ((scaler.z*SCALE_CONST1)+((1.0f/scaler.z)*SCALE_CONST2));//(1.5f*0.25f);
-      //temp_scaler.z -= ((z*0.025f)+((1.0f/z)*0.6f));
-      //temp_scaler.z -= (1.5f*0.25f);
-   }*/
-   
-   //boundBoxScalerMat = glm::scale(glm::mat4(1.0f), glm::vec3(1.1f,1.1f,1.1f));
 }
 
 // rotate object by flat amount, this will be applied on top of directional rotations
@@ -200,11 +177,6 @@ void Object::getBounds(struct bound_box *bounds) {
 }
 
 void Object::step(float dt) {
-   /*if (collected) {
-      radius -= dt * OBJ_SHRINK_RATE;
-   }*/
-
-   //pos = calculateNewPos(dt);
    draw();
 }
 
@@ -353,29 +325,23 @@ void Object::draw()
    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
    glBindTexture(GL_TEXTURE_2D, texture_id);
-
-   GLint h_pos = h_aPos;
-   GLint h_nor = h_aNor;
-   GLint h_tex = GLSL::getAttribLocation(ShadeProg, "aTexCoord");
     
 	// Enable and bind position array for drawing
-	GLSL::enableVertexAttribArray(h_pos);
+	GLSL::enableVertexAttribArray(h_aPos);
 	glBindBuffer(GL_ARRAY_BUFFER, posBufID);
-	glVertexAttribPointer(h_pos, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	
+	glVertexAttribPointer(h_aPos, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	// Enable and bind normal array (if it exists) for drawing
 	if(norBufID) {
-		GLSL::enableVertexAttribArray(h_nor);
+		GLSL::enableVertexAttribArray(h_aNor);
 		glBindBuffer(GL_ARRAY_BUFFER, norBufID);
-		glVertexAttribPointer(h_nor, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		glVertexAttribPointer(h_aNor, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	}
-	
 	// Bind index array for drawing
 	int nIndices = (int)shapes[0].mesh.indices.size();
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufID);
-    
     // Enable and bind texture coordinate array (if it exists) for drawing
     if (texBufID) {
+        GLint h_tex = GLSL::getAttribLocation(ShadeProg, "aTexCoord");
         GLSL::enableVertexAttribArray(h_tex);
         glBindBuffer(GL_ARRAY_BUFFER, texBufID);
         glVertexAttribPointer(h_tex, 2, GL_FLOAT, GL_FALSE, 0, 0);
@@ -383,7 +349,6 @@ void Object::draw()
 	
    // Set the model transformation
    glm::vec3 position = pos + glm::vec3(0.0f, -0.5f, 0.0f);
-   //glm::mat4 S = glm::scale(glm::mat4(1.0f), glm::vec3(radius, radius, radius)) * scalerMat;
    glm::mat4 T = glm::translate(glm::mat4(1.0f), position) * transMat;
    glm::mat4 R = rotateMat;
    if (directional) {
@@ -392,14 +357,19 @@ void Object::draw()
       glm::mat4 RZ = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0, 0.0, 1.0));
       R *= RX*RY*RZ;
    }
-    
-   //modelMat = T*R*scalerMat*boundBoxScalerMat;//S;
    modelMat = T*R*scalerMat;//S;
    
-   Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T*R*scalerMat));
-	
-	// Draw
-	glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+    // Draw the object
+    Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T*R*scalerMat));
+    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+    
+    // Draw the shadow
+    if (castShadows) {
+        glBindTexture(GL_TEXTURE_2D, 0);
+        glm::mat4 sT = glm::translate(glm::mat4(1.0f), glm::vec3(0, -.4, 0));
+        Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(sT*ShadowMatrix()*T*R*scalerMat));
+        glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+    }
 }
 
 vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> indBuf) {
@@ -468,4 +438,3 @@ vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> 
 glm::mat4 Object::getModelMatrix() {
    return modelMat;
 }
-

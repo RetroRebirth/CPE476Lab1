@@ -6,7 +6,7 @@ Texture textures[NUM_TEXTURES];
 void loadAllTextures()
 {
     char *textureNames[] = {
-        (char *)"textures/misc.bmp",
+        (char *)"textures/shadow.bmp",
         (char *)"textures/skydome.bmp",
         (char *)"textures/ground_sakura.bmp",
         (char *)"textures/ground_grass.bmp",

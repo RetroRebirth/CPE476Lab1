@@ -47,7 +47,7 @@ glm::vec3 Camera::lookAtPt() {
 }
 
 void Camera::setProjectionMatrix(int g_width, int g_height) {
-   Projection = glm::perspective(90.0f, (float)g_width/g_height, 0.1f, 100.f);
+   Projection = glm::perspective(90.0f, (float)g_width/g_height, 0.1f, 300.f);
    safe_glUniformMatrix4fv(h_uP, glm::value_ptr(Projection));
 }
 

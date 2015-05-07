@@ -30,6 +30,16 @@ Window.h
 Object.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
 
+/Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.cpp
+Clicks.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
+includes.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+Object.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
+
 /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
 freeglut_std.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
@@ -135,6 +145,16 @@ Camera.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
 World.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/World.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.cpp
+ShootingGallery.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.h
+includes.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+Clicks.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.cpp
 SkyBox.h
@@ -674,8 +694,6 @@ ctime
 iostream
 -
 fstream
--
-ft2build.h
 -
 glew.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h

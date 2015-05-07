@@ -15,8 +15,8 @@ void main() {
     // Create directional lighting
     vec3 viewDir = normalize(uView - (uV * uM * vPos).xyz);
     vec3 lColor = vec3(1.0, 1.0, 1.0);
-    vec3 lDirection = vec3(-1.0, -1.0, 0.0);
-    float aIntensity = 1.0;
+    vec3 lDirection = vec3(-1.0, 1.0, 0.278);
+    float aIntensity = 0.5;
     float dIntensity = max(0.0, dot(normalize(vNor.xyz), lDirection));
     
     // Shade the textures

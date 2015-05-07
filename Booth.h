@@ -8,17 +8,15 @@
 class Booth {
    public:
     
-    Booth(
-	   Object *_object,
-	   const string* _message,
-      char** _minigame);
+    Booth(string data,
+          vector<tinyobj::shape_t> shapes,
+          vector<tinyobj::material_t> materials,
+          GLuint ShadeProg);
     virtual ~Booth();
     
-    Object* object;
-    //bounding box for hit detection
     struct bound_box bounds;
     struct bound_box influence_bounds;
-
+    
     //Checks if anything is colliding with the booth so it stops them. Returns true if a hit is registered with given object
     bool checkCollision(Object* _otherObject);
     //Checks to see if camera is colliding with bounding box
@@ -26,35 +24,33 @@ class Booth {
     //Checks for if the player is within the interact radius. Returns true if hit is registered within interaction box
     bool checkInteract(glm::vec3 player_pos);
     //Check to see if booth is active (has been interacted with)
-    bool isActive() { return active; };
+    bool isActive() { return active; }
     //Set the position for the booth
     void setPosition(glm::vec3 position);
     //Calculate the bounding box for the booth... should only be called once after first draw
     void calculateBoundingBox();
-    //Set the booth/structure type. Supported parameters are defined in include.h
-    void setType(int t);
-    //Get the booth/structure type. Defined in include.h
-    int getType() { return type; };
     // Return the minigame associated with this booth
     char* getMinigame();
+    // Draws the booth
+    void draw();
+    // Get the booths
+    Object **getBooths() { return booth; }
 
   private:
-    //type of booth/structure - default type is a wall
-    int type;
-    //can't go past the bump radius
-    float bumpRadius;
-    //Can only interact within this radius
-    float interactRadius;
-    //What should be shown to screen when inside the interact radius
-    //this should go away when the player leaves the interact radius
-    const string* interactMessage;
-    //Boolean describing if the booth is able to be interacted with.
-    bool active;
-    // Minigame associated with this booth
-    char* minigame;
-
-    //Shows the message to the screen through whatever magic we're going
-    //to use
-    void showMessage();
+    // Object information
+    Object *booth[3];       // booth object
+    float bumpRadius;       // can't go past this (collision)
+    float interactRadius;   // can enter within this range
+    bool active;            // whether or not booth can be interacted with
+    
+    // Minigame information
+    char* interactMessage;  // message shown when within interaction
+    char* minigame;         // minigame associated with this booth
+    
+    // Methods
+    void showMessage();     // displays message to screen
+    void startMinigame();   // starts the minigame
+    void initBooth(string data);
 };
+
 #endif

@@ -97,43 +97,45 @@ bool Session::installShaders(const string &vShaderName, const string &fShaderNam
 }
 
 void Session::initGL() {
-/*
-   FT_Library ft;
+    /*
+    FT_Library ft;
 
-   // Initialize Freetype 
-   if(FT_Init_FreeType(&ft)) {
+    // Initialize Freetype 
+    if(FT_Init_FreeType(&ft)) {
       fprintf(stderr, "Failed to intialize Freetype\n");
       exit(-1);
-   }
-*/
-   
-   // Initialize GLEW
-   if (glewInit() != GLEW_OK) {
+    }
+    */
+
+    // Initialize GLEW
+    if (glewInit() != GLEW_OK) {
       fprintf(stderr, "Failed to initialize GLEW\n");
       exit(-1);
-   }
-   
-   installShaders("vert.glsl", "frag.glsl");
+    }
 
-   // Enable alpha drawing
-   glEnable (GL_BLEND);
-   glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-   glEnable (GL_DEPTH_TEST);
+    installShaders("vert.glsl", "frag.glsl");
 
-   // Enable texture drawing
-   glEnable(GL_TEXTURE_2D);
-   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    // Enable alpha drawing
+    glEnable (GL_BLEND);
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable (GL_DEPTH_TEST);
 
-   // Set the background color
-   glClearColor(0.6f, 0.6f, 0.8f, 1.0f);
+    // Enable shadow drawing
 
-   // Unbind the arrays
-   glBindBuffer(GL_ARRAY_BUFFER, 0);
-   GLSL::checkVersion();
-   assert(glGetError() == GL_NO_ERROR);
+    // Enable texture drawing
+    glEnable(GL_TEXTURE_2D);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+    // Set the background color
+    glClearColor(0.6f, 0.6f, 0.8f, 1.0f);
+
+    // Unbind the arrays
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    GLSL::checkVersion();
+    assert(glGetError() == GL_NO_ERROR);
 }
 
 /**
@@ -143,7 +145,7 @@ void Session::step() {
    glfwSwapBuffers(window->glfw_window);
    glfwPollEvents();
    // Clear the screen
-   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    // Use "frag.glsl" and "vert.glsl"
    glUseProgram(ShadeProg);
    // Send position info to the attribute "aPos"
