@@ -10,7 +10,7 @@ Sound::~Sound() {
 void Sound::initSound() {
    engine = createIrrKlangDevice();
 
-   if (!engine) {
+   if (engine == NULL) {
       exit(-1);
    }
 }
