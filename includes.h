@@ -13,10 +13,15 @@
 #include <ctime>
 #include <iostream>
 #include <fstream>
+<<<<<<< HEAD
 /*
 #include <ft2build.h>
 #include FT_FREETYPE_H
 */
+=======
+//#include <ft2build.h>
+//#include FT_FREETYPE_H
+>>>>>>> minigame changes made
 
 #include "glew.h"
 #include "glfw3.h"
@@ -30,9 +35,13 @@
 #include "tiny_obj_loader.h"
 #include "Util.h"
 #include "MatrixStack.h"
+<<<<<<< HEAD
 /*
 #include "assimp/cimport.h" #include "assimp/Importer.hpp" #include "assimp/scene.h" #include "assimp/postprocess.h"
 */
+=======
+#include <irrKlang.h>
+>>>>>>> minigame changes made
 
 // defines file names for various meshes
 #define EXTRA_FILE_NAME "bunny.obj"

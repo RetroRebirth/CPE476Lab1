@@ -12,22 +12,24 @@
 #define BULLET_SPD 20.0
 
 class ShootingGallery {
-   public:
-      ShootingGallery(GLuint _ShadeProg, Clicks* _clicks);
-      virtual ~ShootingGallery();
+    public:
+        ShootingGallery(GLuint _ShadeProg, Clicks* _clicks);
+        virtual ~ShootingGallery();
+        void mouseClick(glm::vec3 direction);
+        void step(Window* window);
 
-      void mouseClick(glm::vec3 direction);
-      void step(Window* window);
-   private:
-      vector<Object*> objects;
-      vector<tinyobj::shape_t> shapes;
-      vector<tinyobj::material_t> materials;
-      GLuint ShadeProg;
-      Clicks* clicks;
-      Object* wall;
-      int score;
-      void newTarget();
-      vector<Object*> bullets;
+    private:
+        vector<Object*> objects;
+        vector<tinyobj::shape_t> shapes;
+        vector<tinyobj::material_t> materials;
+        GLuint ShadeProg;
+        Clicks* clicks;
+        Object* wall;
+        int score;
+        double time;
+        void newTarget();
+        vector<Object*> bullets;
+        void makeBullets();
 };
 
 #endif

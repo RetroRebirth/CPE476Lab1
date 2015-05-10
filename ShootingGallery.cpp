@@ -1,17 +1,9 @@
 #include "ShootingGallery.h"
 
 ShootingGallery::ShootingGallery(GLuint _ShadeProg, Clicks* _clicks) {
-   ShadeProg = _ShadeProg;
-   clicks = _clicks;
+    ShadeProg = _ShadeProg;
+    clicks = _clicks;
 
-   // Initialize a sphere to test clicking on TODO remove
-   Object* object = new Object(shapes, materials, ShadeProg);
-   object->load("sphere.obj");
-   object->setPos(glm::vec3(0.0, 2.0, 10.0));
-   object->setTexture(MISC_TYPE);
-    object->setShadows(false);
-   objects.push_back(object);
-    
     // Create a wall in the back
     wall = new Object(shapes, materials, ShadeProg);
     wall->load("cube.obj");
@@ -20,8 +12,8 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Clicks* _clicks) {
     wall->setTexture(TEX_WOOD_WALL);
     wall->setShadows(false);
     
-    //score = 0;
-   clicks->setObjects(&objects);
+    score = 0;
+    clicks->setObjects(&objects);
 }
 
 void ShootingGallery::newTarget(){
@@ -33,7 +25,7 @@ void ShootingGallery::newTarget(){
     float randY = Util::randF() * HEIGHT - (HEIGHT/2);
     float randZ = DEPTH;
     object->setPos(glm::vec3(randX, Util::randF() * 10, 10.0));
-    object->setTexture(MISC_TYPE);
+    object->setTexture(TEX_WOOD_RED);
     objects.push_back(object);
 }
 
@@ -46,17 +38,24 @@ ShootingGallery::~ShootingGallery() {
     }
 }
 
+void ShootingGallery::makeBullets(){
+    Object* bullet = new Object(shapes, materials, ShadeProg);
+    bullet->load("sphere.obj");
+    bullet->setPos(glm::vec3(0, 0, 0));
+    bullet->setDir(clicks->getDirection());
+    bullet->setSpeed(1.0f);
+    bullet->setTexture(TEX_WOOD_WALL);
+    bullets.push_back(bullet);
+}
+
 void ShootingGallery::step(Window* window) {
    vector<Object*> clickedObjects = clicks->getClickedObjects();
    for (int i = 0; i < clickedObjects.size(); ++i) {
-//    clickedObjects[i]->setTexture(WALL_TYPE);
       float randX = Util::randF() * WIDTH - (WIDTH/2);
       float randY = Util::randF() * HEIGHT - (HEIGHT/2);
       float randZ = DEPTH;
       clickedObjects[i]->setPos(glm::vec3(randX, randY, randZ)); // move the target to a random spot
-//    newTarget();
-      score++;
-      printf("Hit a target! Score: %d\n", score);
+      printf("Hit a target! Score: %d\n", ++score);
    }
    for (int i = 0; i < objects.size(); ++i) {
       objects[i]->draw();
@@ -87,4 +86,3 @@ void ShootingGallery::mouseClick(glm::vec3 direction) {
    bullet->setShadows(false);
    bullets.push_back(bullet);
 }
-

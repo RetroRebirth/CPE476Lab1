@@ -12,7 +12,10 @@ Session::Session() {
 /*
    sound = new Sound();
    sound->initSound();
+<<<<<<< HEAD
 */
+=======
+>>>>>>> minigame changes made
      
    minigame = NULL;
 
