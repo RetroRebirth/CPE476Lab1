@@ -30,17 +30,11 @@
 #include "MatrixStack.h"
 #include <irrKlang.h>
 
-#include "assimp/cimport.h"
-#include "assimp/Importer.hpp"
-#include "assimp/scene.h"
-#include "assimp/postprocess.h"
-
-
 // defines file names for various meshes
 #define EXTRA_FILE_NAME "bunny.obj"
 #define WALL_FILE_NAME "cube.obj"
 #define STALL_FILE_NAME "base_lantern_stall.obj"
-#define PLAYER_FILE_NAME "sphere.obj"
+#define PLAYER_FILE_NAME "bunny.obj"
 
 // define map file
 #define MAP_FILE_NAME "map.txt"

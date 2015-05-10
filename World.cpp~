@@ -115,8 +115,24 @@ void World::step(Window* window) {
                }
             }
          }
+         // collision detection
+         if (structures[i]->checkCameraCollision(camera->pos, &colPlane)) {
+            if (abs(colPlane.x) > 0.0f) {
+               // hit an x boundary
+               camera->pos.x = colPlane.x;
+            }
+            else if (abs(colPlane.y) > 0.0f) {
+               // hit a y boundary
+               camera->pos.y = colPlane.y;
+            }
+            else if (abs(colPlane.z) > 0.0f) {
+               // hit a z boundary
+               camera->pos.z = colPlane.z;
+            }
+         }
       }
       for (int i=0; i<booths.size(); ++i) {
+         
          // if camera.pos violates bounds, then set pos to be equal to bound... 
          glm::vec3 colPlane;
          // TODO influence check should use player position in the future
@@ -156,6 +172,7 @@ void World::step(Window* window) {
          
          // collision detection
          if (booths[i]->checkCameraCollision(camera->pos, &colPlane)) {
+            printf("Hit!\n");
             if (abs(colPlane.x) > 0.0f) {
                // hit an x boundary
                camera->pos.x = colPlane.x;
@@ -223,6 +240,7 @@ void World::drawOverWorld() {
        }
        */
       booths[i]->draw();
+      booths[i]->calculateBoundingBox();
    }
 }
 

@@ -132,6 +132,7 @@ void World::step(Window* window) {
          }
       }
       for (int i=0; i<booths.size(); ++i) {
+         
          // if camera.pos violates bounds, then set pos to be equal to bound... 
          glm::vec3 colPlane;
          // TODO influence check should use player position in the future
@@ -238,6 +239,7 @@ void World::drawOverWorld() {
        }
        */
       booths[i]->draw();
+      booths[i]->calculateBoundingBox();
    }
 }
 
