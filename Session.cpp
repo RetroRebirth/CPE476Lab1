@@ -10,7 +10,7 @@ Session::Session() {
    clicks = new Clicks(); 
    
    sound = new Sound();
-   sound->initSound();   
+   sound->initSound();
      
    minigame = NULL;
 

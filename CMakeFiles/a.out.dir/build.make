@@ -394,6 +394,29 @@ CMakeFiles/a.out.dir/ShootingGallery.cpp.o.provides: CMakeFiles/a.out.dir/Shooti
 
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o.provides.build: CMakeFiles/a.out.dir/ShootingGallery.cpp.o
 
+CMakeFiles/a.out.dir/Sound.cpp.o: CMakeFiles/a.out.dir/flags.make
+CMakeFiles/a.out.dir/Sound.cpp.o: Sound.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles $(CMAKE_PROGRESS_16)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/a.out.dir/Sound.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/a.out.dir/Sound.cpp.o -c /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.cpp
+
+CMakeFiles/a.out.dir/Sound.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/a.out.dir/Sound.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.cpp > CMakeFiles/a.out.dir/Sound.cpp.i
+
+CMakeFiles/a.out.dir/Sound.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/a.out.dir/Sound.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.cpp -o CMakeFiles/a.out.dir/Sound.cpp.s
+
+CMakeFiles/a.out.dir/Sound.cpp.o.requires:
+.PHONY : CMakeFiles/a.out.dir/Sound.cpp.o.requires
+
+CMakeFiles/a.out.dir/Sound.cpp.o.provides: CMakeFiles/a.out.dir/Sound.cpp.o.requires
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Sound.cpp.o.provides.build
+.PHONY : CMakeFiles/a.out.dir/Sound.cpp.o.provides
+
+CMakeFiles/a.out.dir/Sound.cpp.o.provides.build: CMakeFiles/a.out.dir/Sound.cpp.o
+
 # Object files for target a.out
 a_out_OBJECTS = \
 "CMakeFiles/a.out.dir/main.cpp.o" \
@@ -410,7 +433,8 @@ a_out_OBJECTS = \
 "CMakeFiles/a.out.dir/World.cpp.o" \
 "CMakeFiles/a.out.dir/Texture.cpp.o" \
 "CMakeFiles/a.out.dir/Clicks.cpp.o" \
-"CMakeFiles/a.out.dir/ShootingGallery.cpp.o"
+"CMakeFiles/a.out.dir/ShootingGallery.cpp.o" \
+"CMakeFiles/a.out.dir/Sound.cpp.o"
 
 # External object files for target a.out
 a_out_EXTERNAL_OBJECTS =
@@ -430,10 +454,13 @@ a.out: CMakeFiles/a.out.dir/World.cpp.o
 a.out: CMakeFiles/a.out.dir/Texture.cpp.o
 a.out: CMakeFiles/a.out.dir/Clicks.cpp.o
 a.out: CMakeFiles/a.out.dir/ShootingGallery.cpp.o
+a.out: CMakeFiles/a.out.dir/Sound.cpp.o
 a.out: CMakeFiles/a.out.dir/build.make
 a.out: /usr/local/lib/libassimp.dylib
 a.out: /usr/local/lib/libglfw3.dylib
 a.out: /usr/local/lib/libGLEW.dylib
+a.out: irrKlang-64bit-1.5.0/bin/macosx-gcc/libirrklang.dylib
+a.out: /usr/local/lib/libikpMP3.dylib
 a.out: CMakeFiles/a.out.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable a.out"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/a.out.dir/link.txt --verbose=$(VERBOSE)
@@ -457,6 +484,7 @@ CMakeFiles/a.out.dir/requires: CMakeFiles/a.out.dir/World.cpp.o.requires
 CMakeFiles/a.out.dir/requires: CMakeFiles/a.out.dir/Texture.cpp.o.requires
 CMakeFiles/a.out.dir/requires: CMakeFiles/a.out.dir/Clicks.cpp.o.requires
 CMakeFiles/a.out.dir/requires: CMakeFiles/a.out.dir/ShootingGallery.cpp.o.requires
+CMakeFiles/a.out.dir/requires: CMakeFiles/a.out.dir/Sound.cpp.o.requires
 .PHONY : CMakeFiles/a.out.dir/requires
 
 CMakeFiles/a.out.dir/clean:

@@ -513,7 +513,6 @@ vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> 
       norBuf[3*idx3+1] = cross3.y;
       norBuf[3*idx3+2] = cross3.z;
    }
-
    return norBuf;
 }
 

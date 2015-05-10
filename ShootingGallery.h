@@ -3,11 +3,14 @@
 
 #include "includes.h"
 #include "Clicks.h"
+#include "Texture.h"
 
 class ShootingGallery {
    public:
        ShootingGallery(GLuint _ShadeProg, Clicks* _clicks);
        virtual ~ShootingGallery();
+    
+
 
        void step();
    private:
@@ -16,6 +19,13 @@ class ShootingGallery {
       vector<tinyobj::material_t> materials;
       GLuint ShadeProg;
       Clicks* clicks;
+    Object* wall;
+    int score;
+    //Adds a new target to the objects array
+    void newTarget();
+    vector<Object*> bullets;
+    //makes bullets
+    void makeBullets();
 };
 
 #endif

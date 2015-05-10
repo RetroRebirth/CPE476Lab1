@@ -162,6 +162,30 @@ Camera.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Camera.cpp.s
 .PHONY : Camera.cpp.s
 
+Clicks.o: Clicks.cpp.o
+.PHONY : Clicks.o
+
+# target to build an object file
+Clicks.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Clicks.cpp.o
+.PHONY : Clicks.cpp.o
+
+Clicks.i: Clicks.cpp.i
+.PHONY : Clicks.i
+
+# target to preprocess a source file
+Clicks.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Clicks.cpp.i
+.PHONY : Clicks.cpp.i
+
+Clicks.s: Clicks.cpp.s
+.PHONY : Clicks.s
+
+# target to generate assembly for a file
+Clicks.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Clicks.cpp.s
+.PHONY : Clicks.cpp.s
+
 GLSL.o: GLSL.cpp.o
 .PHONY : GLSL.o
 
@@ -282,6 +306,30 @@ Session.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Session.cpp.s
 .PHONY : Session.cpp.s
 
+ShootingGallery.o: ShootingGallery.cpp.o
+.PHONY : ShootingGallery.o
+
+# target to build an object file
+ShootingGallery.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/ShootingGallery.cpp.o
+.PHONY : ShootingGallery.cpp.o
+
+ShootingGallery.i: ShootingGallery.cpp.i
+.PHONY : ShootingGallery.i
+
+# target to preprocess a source file
+ShootingGallery.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/ShootingGallery.cpp.i
+.PHONY : ShootingGallery.cpp.i
+
+ShootingGallery.s: ShootingGallery.cpp.s
+.PHONY : ShootingGallery.s
+
+# target to generate assembly for a file
+ShootingGallery.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/ShootingGallery.cpp.s
+.PHONY : ShootingGallery.cpp.s
+
 SkyBox.o: SkyBox.cpp.o
 .PHONY : SkyBox.o
 
@@ -305,6 +353,30 @@ SkyBox.s: SkyBox.cpp.s
 SkyBox.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/SkyBox.cpp.s
 .PHONY : SkyBox.cpp.s
+
+Sound.o: Sound.cpp.o
+.PHONY : Sound.o
+
+# target to build an object file
+Sound.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Sound.cpp.o
+.PHONY : Sound.cpp.o
+
+Sound.i: Sound.cpp.i
+.PHONY : Sound.i
+
+# target to preprocess a source file
+Sound.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Sound.cpp.i
+.PHONY : Sound.cpp.i
+
+Sound.s: Sound.cpp.s
+.PHONY : Sound.s
+
+# target to generate assembly for a file
+Sound.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Sound.cpp.s
+.PHONY : Sound.cpp.s
 
 Texture.o: Texture.cpp.o
 .PHONY : Texture.o
@@ -441,6 +513,9 @@ help:
 	@echo "... Camera.o"
 	@echo "... Camera.i"
 	@echo "... Camera.s"
+	@echo "... Clicks.o"
+	@echo "... Clicks.i"
+	@echo "... Clicks.s"
 	@echo "... GLSL.o"
 	@echo "... GLSL.i"
 	@echo "... GLSL.s"
@@ -456,9 +531,15 @@ help:
 	@echo "... Session.o"
 	@echo "... Session.i"
 	@echo "... Session.s"
+	@echo "... ShootingGallery.o"
+	@echo "... ShootingGallery.i"
+	@echo "... ShootingGallery.s"
 	@echo "... SkyBox.o"
 	@echo "... SkyBox.i"
 	@echo "... SkyBox.s"
+	@echo "... Sound.o"
+	@echo "... Sound.i"
+	@echo "... Sound.s"
 	@echo "... Texture.o"
 	@echo "... Texture.i"
 	@echo "... Texture.s"

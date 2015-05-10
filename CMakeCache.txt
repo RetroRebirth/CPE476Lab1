@@ -177,6 +177,9 @@ GLFW_LIB:FILEPATH=/usr/local/lib/libglfw3.dylib
 IOKIT_LIB:FILEPATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/IOKit.framework
 
 //Path to a library.
+IRRKLANGMP3_LIB:FILEPATH=/usr/local/lib/libikpMP3.dylib
+
+//Path to a library.
 IRRKLANG_LIB:FILEPATH=/Users/kayla/Projects/Graphics/CPE476Lab1/irrKlang-64bit-1.5.0/bin/macosx-gcc/libirrklang.dylib
 
 //Include for OpenGL on OSX

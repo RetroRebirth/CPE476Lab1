@@ -14,6 +14,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/a.out.dir/Texture.cpp.o"
   "CMakeFiles/a.out.dir/Clicks.cpp.o"
   "CMakeFiles/a.out.dir/ShootingGallery.cpp.o"
+  "CMakeFiles/a.out.dir/Sound.cpp.o"
   "a.out.pdb"
   "a.out"
 )

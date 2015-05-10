@@ -13,8 +13,8 @@
 #include <ctime>
 #include <iostream>
 #include <fstream>
-#include <ft2build.h>
-#include FT_FREETYPE_H
+//#include <ft2build.h>
+//#include FT_FREETYPE_H
 
 #include "glew.h"
 #include "glfw3.h"

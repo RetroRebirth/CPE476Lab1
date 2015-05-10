@@ -1,6 +1,7 @@
 uniform mat4 uP;
 uniform mat4 uV;
 uniform mat4 uM;
+uniform mat4 uRot;
 uniform vec3 uView;
 uniform sampler2D uSampler;
 

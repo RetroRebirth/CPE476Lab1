@@ -5,7 +5,7 @@ using namespace std;
 Clicks::Clicks()
 {
   objects = NULL;
-  direction = glm::vec3(NULL, NULL, NULL);
+  direction = glm::vec3(0, 0, 0);
 }
 
 Clicks::~Clicks(){
@@ -51,7 +51,9 @@ bool Clicks::checkAgainstSphere(Object *object, glm::vec3 o){
   glm::vec3 infoHold = glm::vec3(o.x - objectCenter.x, o.y - objectCenter.y, o.z - objectCenter.z);
   float b = glm::dot(direction, infoHold);
   float c = glm::dot(infoHold, infoHold) - (object->getRadius() * object->getRadius());
-  if (b * b - c >= 0){
+    float t1 = -b - sqrt(b * b - c);
+    float t2 = -b + sqrt(b * b - c);
+    if (fmin(t1, t2) > 0){
     return true;
   }else{
     return false;
