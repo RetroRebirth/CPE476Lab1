@@ -45,6 +45,9 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
          camera->debug_pos = camera->pos;
       }
       break;
+   case GLFW_KEY_L:
+      session->toggleDrawWorld();
+      break;
    case GLFW_KEY_P:
       camera->pov = !camera->pov;
       break;

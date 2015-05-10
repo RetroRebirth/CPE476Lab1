@@ -42,7 +42,7 @@ void Booth::initBooth(glm::vec3 _pos, glm::vec3 _scalar, float _angle, char* _mi
     
     // load the booth data
     //sscanf(data.c_str(), "%s (%f,%f,%f) (%f,%f,%f) (%f,%f,%f) %f %f %f %f %s\n", type, &x0, &y0, &z0, &x1, &y1, &z1, &x2, &y2, &z2, &s0, &s1, &s2, &angle, minigame);
-    
+    minigame = _minigame;
     // place the booths
     booth[0]->translate(top_pos);
     booth[0]->rotate(_angle, glm::vec3(0.0f, 1.0f, 0.0f));

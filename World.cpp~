@@ -22,6 +22,8 @@ World::World(GLuint _ShadeProg, Camera* _camera) {
    initGround();
    setupOverWorld();
    createExtras(EXTRA_FILE_NAME);
+   
+   drawWorld = true;
 }
 
 World::~World() {
@@ -137,7 +139,7 @@ void World::step(Window* window) {
          glm::vec3 colPlane;
          // TODO influence check should use player position in the future
          //booths[i]->checkInteract(camera->pos);
-         
+         booths[i]->checkInteract(camera->pos);
          // check for player hit detection
          if (booths[i]->checkPlayerCollision(player, &colPlane)) {
             playerHit = true;
@@ -172,7 +174,6 @@ void World::step(Window* window) {
          
          // collision detection
          if (booths[i]->checkCameraCollision(camera->pos, &colPlane)) {
-            printf("Hit!\n");
             if (abs(colPlane.x) > 0.0f) {
                // hit an x boundary
                camera->pos.x = colPlane.x;
@@ -224,22 +225,41 @@ void World::drawGround() {
 
 void World::drawOverWorld() {
    for (int i=0; i<structures.size(); ++i) {
-       /*
-       Object **bObjs = structure->getBooths();
-       for (int i = 0; i < 3; i++) {
-           drawObject(bObjs[i]);
-       }
-       */
-      structures[i]->draw();
+          /*
+          Object **bObjs = structure->getBooths();
+          for (int i = 0; i < 3; i++) {
+              drawObject(bObjs[i]);
+          }
+          */
+      if (drawWorld) {
+         structures[i]->draw();
+         structures[i]->drawBounds = false;
+      }
+      else {
+         structures[i]->drawBounds = true;
+      }
+         
    }
    for (int i=0; i<booths.size(); ++i) {
-       /*
-       Object **bObjs = structure->getBooths();
-       for (int i = 0; i < 3; i++) {
-           drawObject(bObjs[i]);
-       }
-       */
-      booths[i]->draw();
+          /*
+          Object **bObjs = structure->getBooths();
+          for (int i = 0; i < 3; i++) {
+              drawObject(bObjs[i]);
+          }
+          */
+      if (drawWorld) {
+         booths[i]->draw();
+         booths[i]->booth[1]->drawBounds = false;
+      }
+      else {
+         booths[i]->booth[1]->drawBounds = true;
+      }
+   }
+   
+   for (int i=0; i<structures.size(); ++i) {
+      structures[i]->getBounds(&(structures[i]->bounds));
+   }
+   for (int i=0; i<booths.size(); ++i) {
       booths[i]->calculateBoundingBox();
    }
 }
@@ -251,7 +271,6 @@ void World::inMiniGame() {
 void World::leftMiniGame() {
    inGame = false;
 }
-   
 
 void World::setupOverWorld() {
     // build walls based on map size
@@ -289,6 +308,9 @@ void World::setupOverWorld() {
    drawOverWorld();
    for (int i=0; i<structures.size(); ++i) {
       structures[i]->getBounds(&(structures[i]->bounds));
+   }
+   for (int i=0; i<booths.size(); ++i) {
+      booths[i]->calculateBoundingBox();
    }
     
    createPlayer(PLAYER_FILE_NAME);

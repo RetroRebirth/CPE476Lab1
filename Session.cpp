@@ -187,6 +187,10 @@ void Session::mouseClick(glm::vec3 direction) {
    // TODO pass click along to clicks
 }
 
+void Session::toggleDrawWorld() {
+   world->drawWorld = !world->drawWorld;
+}
+
 void Session::startMinigame(char* type) {
    if (strcmp(type, SHOOTING_GALLERY) == 0) {
       minigame = new ShootingGallery(ShadeProg, clicks); // TODO support other minigames
@@ -195,13 +199,20 @@ void Session::startMinigame(char* type) {
 
 void Session::enterMinigame() {
    // TODO remove janky code that lets us start minigame from anywhere
-   game_state = MINIGAME_STATE;
-   world->inMiniGame();
-   camera->moveToMinigame();
-   window->showMouse();
-   minigame = NULL;
-   startMinigame((char*)SHOOTING_GALLERY);
+   
+   Booth* booth = world->currentActiveBooth();
+   if (booth != NULL && booth->getMinigame() != NULL && strcmp(booth->getMinigame(), NO_GAME) != 0) {
+      game_state = MINIGAME_STATE;
+      world->inMiniGame();
+      camera->moveToMinigame();
+      window->showMouse();
+      minigame = NULL;
+      startMinigame((char*)SHOOTING_GALLERY);
+   }
    /*
+=======
+   printf("trying to enter minigame\n");
+>>>>>>> merging
    Booth* booth = world->currentActiveBooth();
    if (booth != NULL && booth->getMinigame() != NULL && strcmp(booth->getMinigame(), NO_GAME) != 0) {
       game_state = MINIGAME_STATE;

@@ -38,6 +38,8 @@ Object::Object(
    directional = false;
    castShadows = true;
    setTexture(MISC_TYPE);
+   
+   drawBounds = false;
 }
 
 Object::~Object() {}
@@ -445,6 +447,10 @@ void Object::draw()
     Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T*R*scalerMat));
     glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
     
+    if (drawBounds) {
+      drawBox();
+    }
+    
     // Draw the shadow
     if (castShadows) {
         glBindTexture(GL_TEXTURE_2D, 0);
@@ -518,4 +524,42 @@ vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> 
 
 glm::mat4 Object::getModelMatrix() {
    return modelMat;
+}
+
+void Object::drawBox() {
+	glLineWidth(3);
+	glBegin(GL_LINES);
+	glColor3f(0.0f, 0.0f, 0.0f);
+	
+	// draw top rectangle
+	glVertex3f(bounds.x_min, bounds.y_max, bounds.z_min); // 1
+	glVertex3f(bounds.x_max, bounds.y_max, bounds.z_min); // 1
+	glVertex3f(bounds.x_max, bounds.y_max, bounds.z_min); // 2
+	glVertex3f(bounds.x_max, bounds.y_max, bounds.z_max); // 2
+	glVertex3f(bounds.x_max, bounds.y_max, bounds.z_max); // 3
+	glVertex3f(bounds.x_min, bounds.y_max, bounds.z_max); // 3
+	glVertex3f(bounds.x_min, bounds.y_max, bounds.z_max); // 4
+	glVertex3f(bounds.x_min, bounds.y_max, bounds.z_min); // 4
+	
+	// draw bottom rectangle
+	glVertex3f(bounds.x_min, bounds.y_min, bounds.z_min); // 1
+	glVertex3f(bounds.x_max, bounds.y_min, bounds.z_min); // 1
+	glVertex3f(bounds.x_max, bounds.y_min, bounds.z_min); // 2
+	glVertex3f(bounds.x_max, bounds.y_min, bounds.z_max); // 2
+	glVertex3f(bounds.x_max, bounds.y_min, bounds.z_max); // 3
+	glVertex3f(bounds.x_min, bounds.y_min, bounds.z_max); // 3
+	glVertex3f(bounds.x_min, bounds.y_min, bounds.z_max); // 4
+	glVertex3f(bounds.x_min, bounds.y_min, bounds.z_min); // 4
+	
+	// connect the top and bottom rectangles
+	glVertex3f(bounds.x_min, bounds.y_min, bounds.z_min); // 1
+	glVertex3f(bounds.x_min, bounds.y_max, bounds.z_min); // 1
+	glVertex3f(bounds.x_min, bounds.y_min, bounds.z_max); // 2
+	glVertex3f(bounds.x_min, bounds.y_max, bounds.z_max); // 2
+	glVertex3f(bounds.x_max, bounds.y_min, bounds.z_min); // 3
+	glVertex3f(bounds.x_max, bounds.y_max, bounds.z_min); // 3
+	glVertex3f(bounds.x_max, bounds.y_min, bounds.z_max); // 4
+	glVertex3f(bounds.x_max, bounds.y_max, bounds.z_max); // 4
+	
+	glEnd();
 }

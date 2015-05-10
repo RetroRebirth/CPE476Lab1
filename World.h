@@ -23,6 +23,8 @@ class World {
       void inMiniGame();
       void leftMiniGame();
       
+      bool drawWorld;
+      
    private:
       vector<tinyobj::shape_t> shapes; // TODO map of mesh data
       vector<Object*> extras; // bunnies for now.

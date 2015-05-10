@@ -63,10 +63,16 @@ public:
     void scale(glm::vec3 scalar);
     void rotate(float angle, glm::vec3 axis);
     void translate(glm::vec3 trans);
+    
+    // Draw Bounding boxes?
+    bool drawBounds;
 
 private:
     // Object information
     glm::vec3 dimensions, dir, col;
+    
+    // bounding box debug
+    void drawBox();
     
     float vel, shine, radius;
     bool collected, directional, castShadows;

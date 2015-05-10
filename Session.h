@@ -22,6 +22,7 @@ class Session {
       void leaveMinigame();
       void mouseClick(glm::vec3 direction);
       int getGameState() { return game_state; };
+      void toggleDrawWorld();
    private:
       Window* window;
       Camera* camera;

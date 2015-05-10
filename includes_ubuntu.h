@@ -34,7 +34,7 @@
 #define EXTRA_FILE_NAME "bunny.obj"
 #define WALL_FILE_NAME "cube.obj"
 #define STALL_FILE_NAME "base_lantern_stall.obj"
-#define PLAYER_FILE_NAME "sphere.obj"
+#define PLAYER_FILE_NAME "bunny.obj"
 
 // define map file
 #define MAP_FILE_NAME "map.txt"
@@ -52,7 +52,7 @@
 #define MAX_OBJS 50
 #define SECS_PER_OBJ 2.0
 #define SIZE 50.0
-#define SKY_SIZE 100.0
+#define SKY_SIZE 300.0
 #define NUM_OBJ_TYPES 1
 #define SPHERE 0
 #define MOUSE_SPEED 0.25
