@@ -159,7 +159,7 @@ void Session::step() {
    window->step();
    world->step(window);
    if (game_state == MINIGAME_STATE) {
-      minigame->step();
+      minigame->step(window);
    }
 
    // Disable and unbind
@@ -194,6 +194,14 @@ void Session::startMinigame(char* type) {
 }
 
 void Session::enterMinigame() {
+   // TODO remove janky code that lets us start minigame from anywhere
+   game_state = MINIGAME_STATE;
+   world->inMiniGame();
+   camera->moveToMinigame();
+   window->showMouse();
+   minigame = NULL;
+   startMinigame((char*)SHOOTING_GALLERY);
+   /*
    Booth* booth = world->currentActiveBooth();
    if (booth != NULL && booth->getMinigame() != NULL && strcmp(booth->getMinigame(), NO_GAME) != 0) {
       game_state = MINIGAME_STATE;
@@ -203,6 +211,7 @@ void Session::enterMinigame() {
       minigame = NULL;
       startMinigame(booth->getMinigame());
    }
+   */
 }
 
 void Session::leaveMinigame() {

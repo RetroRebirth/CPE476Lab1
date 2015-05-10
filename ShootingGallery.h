@@ -4,6 +4,7 @@
 #include "includes.h"
 #include "Clicks.h"
 #include "Texture.h"
+#include "Window.h"
 
 class ShootingGallery {
    public:
@@ -12,7 +13,7 @@ class ShootingGallery {
     
 
 
-       void step();
+       void step(Window* window);
    private:
       vector<Object*> objects;
       vector<tinyobj::shape_t> shapes;

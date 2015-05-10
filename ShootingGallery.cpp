@@ -13,11 +13,12 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Clicks* _clicks) {
    objects.push_back(object);
     
     // Create a wall in the back
-    /*wall = new Object(shapes, materials, ShadeProg);
+    wall = new Object(shapes, materials, ShadeProg);
     wall->load("cube.obj");
-    wall->setPos(glm::vec3(0.0, 0.0, -15.0));
-    wall->scale(glm::vec3(1.0f, 10.0f, 100.0f));
-    wall->setTexture(TEX_WOOD_WALL);*/
+    wall->setPos(glm::vec3(0.0, 0.0, 15.0));
+    wall->scale(glm::vec3(100.0f, 100.0f, 1.0f));
+    wall->setTexture(TEX_WOOD_WALL);
+    wall->setShadows(false);
     
     //score = 0;
    clicks->setObjects(&objects);
@@ -51,7 +52,7 @@ void ShootingGallery::makeBullets(){
     bullets.push_back(bullet);
 }
 
-void ShootingGallery::step() {
+void ShootingGallery::step(Window* window) {
    vector<Object*> clickedObjects = clicks->getClickedObjects();
     makeBullets();
     for (int i = 0; i < clickedObjects.size(); ++i) {
@@ -74,5 +75,5 @@ void ShootingGallery::step() {
             delete bullets[i];
         }
     }
-    //wall->draw();
+    wall->draw();
 }
