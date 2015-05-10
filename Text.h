@@ -21,7 +21,7 @@ class Text {
       int width;
       int height;
 
-      void initFace();
+      void initLibrary();
       float pixelToWorldCoordX(int pix);
       float pixelToWorldCoordY(int pix);      
       void renderText(const char *text, glm::vec3 camPos, float x, float y, float sx, float sy);

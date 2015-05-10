@@ -11,20 +11,18 @@ Text::Text(
    width = _width;
    height = _height;
 
-   initFace();
+   //initFace();
 }
 
 Text::~Text(){
    // delete stuff...
 }
 
-void Text::initFace() {
-   if(FT_New_Face(ft, "Fonts/GoodDog.otf", 0, &face)) {
-      fprintf(stderr, "Could not open font\n");
-      exit(-1);
+void Text::initLibrary() {
+   if(FT_Init_FreeType(&ft)) {
+     fprintf(stderr, "Could not init freetype library\n");
+     exit(1);
    }
-   
-   g = face->glyph;
 }
 
 void Text::initObjs(Object** _objs) {

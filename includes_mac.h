@@ -52,7 +52,7 @@
 #define MAX_OBJS 50
 #define SECS_PER_OBJ 2.0
 #define SIZE 50.0
-#define SKY_SIZE 100.0
+#define SKY_SIZE 300.0
 #define NUM_OBJ_TYPES 1
 #define SPHERE 0
 #define MOUSE_SPEED 0.25
