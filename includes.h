@@ -35,6 +35,7 @@
 #define WALL_FILE_NAME "cube.obj"
 #define STALL_FILE_NAME "base_lantern_stall.obj"
 #define PLAYER_FILE_NAME "bunny.obj"
+#define LANTERN_FILE_NAME "standing_lantern.obj"
 
 // define map file
 #define MAP_FILE_NAME "map.txt"

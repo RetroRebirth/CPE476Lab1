@@ -13,7 +13,8 @@ void loadAllTextures()
         (char *)"textures/wood_light.bmp",
         (char *)"textures/wood_dark.bmp",
         (char *)"textures/wood_red.bmp",
-        (char *)"textures/wood_wall.bmp"
+        (char *)"textures/wood_wall.bmp",
+        (char *)"textures/greyConcrete.bmp"
     };
     // load the textures
     for (int i = 0; i < NUM_TEXTURES; i++)

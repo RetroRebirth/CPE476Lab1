@@ -52,8 +52,9 @@ private:
 #define TEX_WOOD_DARK 5
 #define TEX_WOOD_RED 6
 #define TEX_WOOD_WALL 7
+#define TEX_LANTERN 8
 
-#define NUM_TEXTURES 8
+#define NUM_TEXTURES 9
 extern Texture textures[NUM_TEXTURES];
 void loadAllTextures();
 #endif

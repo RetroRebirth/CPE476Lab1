@@ -30,6 +30,7 @@ class World {
       vector<Object*> extras; // bunnies for now.
       vector<Booth*> booths;
       vector<Object*> structures;
+      vector<Object*> lanterns;
       vector<tinyobj::material_t> materials;
       
       Object* player;

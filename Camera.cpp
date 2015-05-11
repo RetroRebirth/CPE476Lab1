@@ -28,8 +28,9 @@ Camera::Camera(
 Camera::~Camera() {}
 
 inline void Camera::safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]) {
-   if (handle >= 0)
+   if (handle >= 0) {
       glUniformMatrix4fv(handle, 1, GL_FALSE, data);
+   }
 }
 
 float Camera::getYRot() {
@@ -220,7 +221,6 @@ void Camera::initPlayer(Object *_player) {
 
 glm::vec3 Camera::calculatePlayerPos() {
    glm::vec3 temp;
-   float Yrot = getYRot();
 
    temp.x = pos.x;
    temp.y = 1;
@@ -228,4 +228,3 @@ glm::vec3 Camera::calculatePlayerPos() {
 
    return temp;
 }
-  

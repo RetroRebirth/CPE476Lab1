@@ -39,6 +39,9 @@ World::~World() {
    for (int i=0; i<booths.size(); ++i) {
       delete booths[i];
    }
+   for (int i=0; i<lanterns.size(); ++i) {
+      delete lanterns[i];
+   }
 }
 
 void World::step(Window* window) {
@@ -262,6 +265,9 @@ void World::drawOverWorld() {
    for (int i=0; i<booths.size(); ++i) {
       booths[i]->calculateBoundingBox();
    }
+   for (int i=0; i<lanterns.size(); ++i) {
+      lanterns[i]->draw();
+   }
 }
 
 void World::inMiniGame() {
@@ -372,6 +378,15 @@ void World::parseMapFile(const char* fileName) {
          
             structure->load(WALL_FILE_NAME);
             structures.push_back(structure);
+         }
+         else if (strcmp(type, "lantern") == 0) {
+            structure->translate(_pos);
+            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
+            structure->scale(_scalar);
+            
+            structure->load(LANTERN_FILE_NAME);
+            structure->setTexture(TEX_LANTERN);
+            lanterns.push_back(structure);
          }
       }
       mapFile.close();
