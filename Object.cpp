@@ -11,7 +11,7 @@ Object::Object(
    // Default attribute values
    collected = false;
    shine = 800.0;
-   radius = OBJ_SIZE;
+   radius = OBJ_SIZE/2.0f;
    
    // initialize transform matrices
    //printf("modelMat initialized\n");
@@ -40,7 +40,7 @@ Object::Object(
    directional = false;
    castShadows = true;
    setTexture(MISC_TYPE);
-   
+   xzRadius = -1.0f;
    drawBounds = false;
 }
 
@@ -116,26 +116,29 @@ bool Object::collision(Object* o) {
 }
 
 float Object::getXZRadius() {
-   const vector<float> &posBuf = shapes[0].mesh.positions;
-   
-   float xz_rad;
-   for (int i = 0; i < (int)posBuf.size(); i += 3) {
-      glm::vec4 v;
-      v = glm::vec4(posBuf[i], posBuf[i+1], posBuf[i+2], 1.0f) * scalerMat;
-      if (i == 0) {
-         // initialize radius on first pass
-         xz_rad = abs(v.x);
-      }
-      else {
-         if (abs(v.x) > xz_rad) {
+   if (xzRadius == -1.0f) {
+      const vector<float> &posBuf = shapes[0].mesh.positions;
+      
+      float xz_rad;
+      for (int i = 0; i < (int)posBuf.size(); i += 3) {
+         glm::vec4 v;
+         v = glm::vec4(posBuf[i], posBuf[i+1], posBuf[i+2], 1.0f) * scalerMat;
+         if (i == 0) {
+            // initialize radius on first pass
             xz_rad = abs(v.x);
          }
-         if (abs(v.z) > xz_rad) {
-            xz_rad = abs(v.z);
+         else {
+            if (abs(v.x) > xz_rad) {
+               xz_rad = abs(v.x);
+            }
+            if (abs(v.z) > xz_rad) {
+               xz_rad = abs(v.z);
+            }
          }
       }
+      return xz_rad;
    }
-   return xz_rad;
+   return xzRadius;
 }
 
 //Checks if anything is colliding with the object so it stops them.
@@ -263,7 +266,8 @@ void Object::getBounds(struct bound_box *_bounds) {
 }
 
 void Object::step(float dt) {
-   draw();
+   
+   //draw();
 }
 
 /**
@@ -411,6 +415,9 @@ void Object::draw()
    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
    glBindTexture(GL_TEXTURE_2D, texture_id);
+   
+   
+   glEnable(GL_CULL_FACE);
     
 	// Enable and bind position array for drawing
 	GLSL::enableVertexAttribArray(h_aPos);

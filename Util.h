@@ -14,6 +14,12 @@ namespace Util
     {
       return (float) rand() / RAND_MAX;
     }
+    
+    float randFloat(float l, float h)
+    {
+	   float r = rand() / (float)RAND_MAX;
+	   return (1.0f - r) * l + r * h;
+    }
 
     //Safely uses the glUniformMatrix4fv function
     void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[])
@@ -53,6 +59,13 @@ namespace Util
             printf("\n");
          }
       }
+    }
+    
+    bool cmpVec3(glm::vec3 a, glm::vec3 b) {
+      if (a.x == b.x && a.y == b.y && a.z == b.z) {
+         return true;
+      }
+      return false;
     }
 
     /* Clicking stuff */

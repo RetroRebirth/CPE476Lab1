@@ -47,7 +47,7 @@
 #define MISC_TYPE 2
 
 // misc defines for globally accessed values
-#define MAX_OBJS 50
+#define MAX_OBJS 20
 #define SECS_PER_OBJ 2.0
 #define SIZE 50.0
 #define SKY_SIZE 300.0
@@ -67,7 +67,7 @@
 #define SCALE_CONST1 0.025f
 #define SCALE_CONST2 1.3f
 #define INFLUENCE_WIDTH 2.0f
-#define PLAYER_ROT_DEG 2
+#define PLAYER_ROT_DEG 4
 
 // Game States
 #define WORLD_STATE 0

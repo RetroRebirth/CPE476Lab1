@@ -31,6 +31,7 @@ World::~World() {
       delete objects[i];
    }
    for (int i=0; i<extras.size(); ++i) { 
+      delete extras[i]->object;
       delete extras[i];
    }
    for (int i=0; i<structures.size(); ++i) {
@@ -51,13 +52,42 @@ void World::step(Window* window) {
       objStartTime = window->time;
    }*/
    
+	float alpha = std::fmod(window->dt, 1.0f);
+	//printf("alpha: %f\n",alpha);
+   
    bool playerHit = false;
    
    if (!inGame) {
       for (int i=0; i<extras.size(); ++i) {
-         Object* extra = extras[i];
-         drawObject(extra);
-         //extra->draw();
+         struct Extra* extra = extras[i];
+         //extra->step();
+         //drawObject(extra);
+         if (cmpVec3(extra->currPos,extra->targetPos)) {
+            if (extra->rest == 0) {
+               //extra->rest = 100;
+            }
+         }
+         // use alpha to linearly interpolate between startPos and targetPos
+         //extra->currPos.x += alpha;
+         //extra->object->pos = extra->currPos;
+         if (extra->rest > 0) {
+            extra->rest--;
+         }
+         if (extra->rest == 0) {
+            //extra->object->pos.x += alpha;
+            if (!passedTarget(extra)) {
+               extra->object->pos += extra->object->getDir() * alpha;
+               extra->currPos = extra->object->pos;
+            }
+            else {
+               extra->rest = 100;
+               extra->startPos = extra->targetPos;
+               extra->currPos = extra->object->pos;
+               findNewExtraTarget(extra);
+            }
+         }
+         extra->object->pos.y = 0.6f;
+         extra->object->draw();
       }
       drawGround();
       drawOverWorld();
@@ -193,11 +223,102 @@ void World::step(Window* window) {
       }
    }
 
+   
+   camera->step(window, playerHit);
+   skybox->draw(camera, window);
    if (playerHit) {
       player->draw();
    }
-   camera->step(window, playerHit);
-   skybox->draw(camera, window);
+}
+
+bool World::passedTarget(struct Extra* extra) {
+   if (glm::distance(extra->currPos, extra->startPos) > glm::distance(extra->targetPos, extra->startPos)) {
+      return true;
+   }
+   return false;
+}
+
+bool World::checkStructureCollisions(Object* object) {
+   for (int i=0; i<structures.size(); ++i) {
+      if (structures[i]->checkCollision(object)) {
+         return true;
+      }
+   }
+   return false;
+}
+
+bool World::checkBoothCollisions(Object* object) {
+   for (int i=0; i<booths.size(); ++i) {
+      if (booths[i]->booth[1]->checkCollision(object)) {
+         return true;
+      }
+   }
+   return false;
+}
+
+void World::findNewExtraTarget(struct Extra* extra) {
+   // populate a buffer containing the available spaces not interrupted by an object.
+   vector<glm::vec3> availablePositions;
+   vector<int> Is;
+   vector<int> Js;
+   Object* tempObj = new Object(shapes, materials, ShadeProg);
+   for (int i = extra->i; i < (int)SIZE * 2 - 2; i++) {
+      tempObj->pos = mapGrid[i][extra->j];
+      if (checkStructureCollisions(tempObj)) {
+         break;
+      }
+      if (checkBoothCollisions(tempObj)) {
+         break;
+      }
+      availablePositions.push_back(mapGrid[i][extra->j]);
+      Is.push_back(i);
+      Js.push_back(extra->j);
+   }
+   for (int i = extra->i; i > 0; i--) {
+      tempObj->pos = mapGrid[i][extra->j];
+      if (checkStructureCollisions(tempObj)) {
+         break;
+      }
+      if (checkBoothCollisions(tempObj)) {
+         break;
+      }
+      availablePositions.push_back(mapGrid[i][extra->j]);
+      Is.push_back(i);
+      Js.push_back(extra->j);
+   }  
+   for (int j = extra->j; j < (int)SIZE * 2 - 2; j++) {
+      tempObj->pos = mapGrid[extra->i][j];
+      if (checkStructureCollisions(tempObj)) {
+         break;
+      }
+      if (checkBoothCollisions(tempObj)) {
+         break;
+      }
+      availablePositions.push_back(mapGrid[extra->i][j]);
+      Is.push_back(extra->i);
+      Js.push_back(j);
+   }
+   for (int j = extra->j; j > 0; j--) {
+      tempObj->pos = mapGrid[extra->i][j];
+      if (checkStructureCollisions(tempObj)) {
+         break;
+      }
+      if (checkBoothCollisions(tempObj)) {
+         break;
+      }
+      availablePositions.push_back(mapGrid[extra->i][j]);
+      Is.push_back(extra->i);
+      Js.push_back(j);
+   }  
+   
+   // next, we find a random position 
+   int randomIndex = (int)(randFloat(0.0f,(float)availablePositions.size()) + 0.5f);
+   extra->targetPos = availablePositions[randomIndex];
+   extra->i = Is[randomIndex];
+   extra->j = Js[randomIndex];
+   
+   extra->object->setDir(glm::normalize(extra->targetPos - extra->startPos));
+   delete tempObj;
 }
 
 Booth* World::currentActiveBooth() {
@@ -220,6 +341,16 @@ void World::initGround() {
     ground->scale(glm::vec3(SIZE * 2, SIZE * 2, SIZE * 2));
     ground->setTexture(TEX_GROUND_SAKURA);
     ground->setShadows(false);
+    
+    int i = 0;
+    for (float z = -SIZE + 1.0f; z < SIZE - 1.0f; ++z) {
+      int j = 0;
+      for (float x = -SIZE + 1.0f; x < SIZE - 1.0f; ++x) {
+         mapGrid[i][j] = glm::vec3(x, 0.75f, z);
+         j++;
+      }
+      i++;
+   }
 }
 
 void World::drawGround() {
@@ -285,28 +416,28 @@ void World::setupOverWorld() {
     wall1->translate(glm::vec3(-SIZE-0.5f, 2.5f, 0.0f));
     wall1->scale(glm::vec3(1.0f, 10.0f, SIZE*2.0f));
     wall1->setTexture(TEX_WOOD_WALL);
-    extras.push_back(wall1);
+    structures.push_back(wall1);
 
     Object* wall2 = new Object(shapes, materials, ShadeProg);
     wall2->load(WALL_FILE_NAME);
     wall2->translate(glm::vec3(SIZE+0.5f, 2.5f, 0.0f));
     wall2->scale(glm::vec3(1.0f, 10.0f, SIZE*2.0f));
     wall2->setTexture(TEX_WOOD_WALL);
-    extras.push_back(wall2);
+    structures.push_back(wall2);
 
     Object* wall3 = new Object(shapes, materials, ShadeProg);
     wall3->load(WALL_FILE_NAME);
     wall3->translate(glm::vec3(0.0f, 2.5f, -SIZE-0.5f));
     wall3->scale(glm::vec3(SIZE*2.0f, 10.0f, 1.0f));
     wall3->setTexture(TEX_WOOD_WALL);
-    extras.push_back(wall3);
+    structures.push_back(wall3);
 
     Object* wall4 = new Object(shapes, materials, ShadeProg);
     wall4->load(WALL_FILE_NAME);
     wall4->translate(glm::vec3(0.0f, 2.5f, SIZE+0.5f));
     wall4->scale(glm::vec3(SIZE*2.0f, 10.0f, 1.0f));
     wall4->setTexture(TEX_WOOD_WALL);
-    extras.push_back(wall4);
+    structures.push_back(wall4);
    
    parseMapFile(MAP_FILE_NAME);
    
@@ -376,6 +507,7 @@ void World::parseMapFile(const char* fileName) {
             structure->scale(_scalar);
          
             structure->load(WALL_FILE_NAME);
+            structure->setTexture(TEX_WOOD_RED);
             structures.push_back(structure);
          }
          else if (strcmp(type, "lantern") == 0) {
@@ -385,7 +517,7 @@ void World::parseMapFile(const char* fileName) {
             
             structure->load(LANTERN_FILE_NAME);
             structure->setTexture(TEX_LANTERN);
-            lanterns.push_back(structure);
+            structures.push_back(structure);
          }
       }
       mapFile.close();
@@ -402,25 +534,41 @@ bool World::detectSpawnCollision(Object* object) {
       }
    }
    for (int i=0; i<extras.size(); ++i) {
-      if (extras[i]->collision(object)) {
+      if (extras[i]->object->collision(object)) {
          return true;
       }
    }
    return false;
 }
 
+void World::calcExtraSpawnPosition(struct Extra* extra) {
+   int rand_i = (int)(randFloat(0.0f, SIZE*2.0f-3.0f) + 0.5f); 
+   int rand_j = (int)(randFloat(0.0f, SIZE*2.0f-3.0f) + 0.5f);
+   extra->object->setPos(mapGrid[rand_i][rand_j]);
+   while (detectSpawnCollision(extra->object)) {
+      rand_i = (int)(randFloat(0.0f, SIZE*2.0f-3.0f) + 0.5f); 
+      rand_j = (int)(randFloat(0.0f, SIZE*2.0f-3.0f) + 0.5f);
+      extra->object->pos = mapGrid[rand_i][rand_j];
+   }
+   extra->startPos = extra->currPos = extra->targetPos = extra->object->pos;
+   extra->i = rand_i;
+   extra->j = rand_j;
+}
+
 void World::createExtras(const string &meshName) {
+   blerch = 0;
    for (int i = 0; i < MAX_OBJS; ++i) {
-      Object* extra = new Object(shapes, materials, ShadeProg);
-      extra->load(meshName);
-      extra->setPos(glm::vec3(2*Util::randF()*SIZE - SIZE, 1.0, 2*Util::randF()*SIZE - SIZE));
-       /*
-      while (detectSpawnCollision(extra)) {
-         extra->setPos(glm::vec3(2*Util::randF()*SIZE - SIZE, 1.0, 2*Util::randF()*SIZE - SIZE));
-      }
-        */
-      extra->setDir(glm::normalize(glm::vec3(Util::randF()-0.5, 0.0, Util::randF()-0.5)));
-      extra->setSpeed(OBJ_SPEED);
+      struct Extra* extra;
+      extra = new struct Extra;
+      extra->object = new Object(shapes, materials, ShadeProg);
+      extra->object->load(meshName);
+      extra->rest = 100;
+      calcExtraSpawnPosition(extra);
+      
+      findNewExtraTarget(extra);
+      
+      //extra->object->setDir(glm::normalize(glm::vec3(Util::randF()-0.5, 0.0, Util::randF()-0.5)));
+      extra->object->setSpeed(OBJ_SPEED);
       extras.push_back(extra);
    }
 }

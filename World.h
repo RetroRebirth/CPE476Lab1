@@ -8,6 +8,18 @@
 #include "SkyBox.h"
 #include "Booth.h"
 
+struct Extra {
+   Object* object;
+   glm::vec3 startPos;
+   glm::vec3 currPos;
+   glm::vec3 targetPos;
+   
+   int i, j;
+   
+   int rest;
+};
+   
+
 class World {
    public:
       int numCollected;
@@ -27,7 +39,7 @@ class World {
       
    private:
       vector<tinyobj::shape_t> shapes; // TODO map of mesh data
-      vector<Object*> extras; // bunnies for now.
+      vector<struct Extra*> extras; // bunnies for now.
       vector<Booth*> booths;
       vector<Object*> structures;
       vector<Object*> lanterns;
@@ -48,6 +60,8 @@ class World {
       SkyBox* skybox;
       Object* ground;
       Camera* camera;
+      int blerch;
+      glm::vec3 mapGrid[(int)SIZE * 2 - 2][(int)SIZE * 2 - 2];
 
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
       void createPlayer(const string &meshName);
@@ -55,11 +69,16 @@ class World {
       void setupOverWorld();
       void drawOverWorld();
       bool detectSpawnCollision(Object* object);
+      void calcExtraSpawnPosition(struct Extra* extra);
       void parseMapFile(const char* fileName);
       void drawObject(Object* obj);
       void extractViewFrustumPlanes(glm::vec4* planes, const glm::mat4 matrix);
       void normalizePlane(glm::vec4& plane);
       bool checkPlane(glm::vec4 plane, glm::vec3 pos, float rad);
+      void findNewExtraTarget(struct Extra* extra);
+      bool checkStructureCollisions(Object* object);
+      bool checkBoothCollisions(Object* object);
+      bool passedTarget(struct Extra* extra);
 };
 
 #endif

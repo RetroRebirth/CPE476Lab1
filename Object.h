@@ -68,6 +68,7 @@ public:
     
     // Draw Bounding boxes?
     bool drawBounds;
+    float radius, xzRadius;
 
 private:
     // Object information
@@ -76,7 +77,7 @@ private:
     // bounding box debug
     void drawBox();
     
-    float vel, accel, shine, radius;
+    float vel, accel, shine;
     bool changeDir;
     bool collected, directional, castShadows;
     vector<tinyobj::shape_t> shapes;
