@@ -28,7 +28,9 @@
 #include "tiny_obj_loader.h"
 #include "Util.h"
 #include "MatrixStack.h"
-#include <irrKlang.h>
+/*
+#include "assimp/cimport.h" #include "assimp/Importer.hpp" #include "assimp/scene.h" #include "assimp/postprocess.h"
+*/
 
 // defines file names for various meshes
 #define EXTRA_FILE_NAME "bunny.obj"

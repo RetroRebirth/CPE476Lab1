@@ -6,10 +6,10 @@
 #include "Texture.h"
 #include "Window.h"
 
-#define DEPTH 10.0
-#define WIDTH 20.0
-#define HEIGHT 15.0
+#define DEPTH 3.0
 #define BULLET_SPD 20.0
+#define ROWS 2
+#define COLS 4
 
 class ShootingGallery {
     public:
@@ -29,7 +29,6 @@ class ShootingGallery {
         double time;
         void newTarget();
         vector<Object*> bullets;
-        void makeBullets();
 };
 
 #endif
