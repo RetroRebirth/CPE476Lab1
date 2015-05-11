@@ -15,6 +15,10 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Clicks* _clicks) {
    score = 0;
    time = 0.0;
    clicks->setObjects(&targets);
+
+   printf("\t\t----- Welcome to the SHOOTING GALLERY -----\n");
+   printf("\t\tTest your skills by shooting your targets as they appear!\n");
+   printf("\t\tOnce you are done, press SPACE to exit.\n\n");
 }
 
 void ShootingGallery::newTarget(){
@@ -53,7 +57,7 @@ void ShootingGallery::step(Window* window) {
    srand(window->time);
 
    // Adds a new target every amount of time
-   if (window->time - time >= 1.0) {
+   if (window->time - time >= 2.0) {
       newTarget();
       time = window->time;
    }
