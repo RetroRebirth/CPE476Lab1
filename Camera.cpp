@@ -53,14 +53,14 @@ void Camera::setProjectionMatrix(int g_width, int g_height) {
 }
 
 void Camera::setView() {
-   glm::vec3 curPos = debug ? debug_pos : pos;
+   glm::vec3 curPos = debug ? debug_pos : player->pos;
    glm::mat4 lookAtMat = glm::lookAt(lookAtPt(), curPos, glm::vec3(0, 1, 0));
 
    //mult view by phi rotation matrix
    glm::mat4 view_mat = glm::rotate(glm::mat4(1.0f), phi, glm::vec3(1, 0, 0)) * lookAtMat;
 
    safe_glUniformMatrix4fv(h_uV, glm::value_ptr(view_mat));
-   glUniform3f(h_uView, pos.x, pos.y, pos.z);
+   glUniform3f(h_uView, player->pos.x, player->pos.y, player->pos.z);
 
    if (!debug) {
       View = view_mat;
@@ -75,14 +75,14 @@ void Camera::step(Window* window, bool playerHit) {
       debug_pos = calcNewPos(window, playerHit);
    } else {
       if (!playingMinigame && !blocked) {
-         pos = calcNewPos(window, playerHit);
+         player->pos = calcNewPos(window, playerHit);
       }
       blocked = false;
    }
 }
 
 glm::vec3 Camera::calcNewPos(Window* window, bool playerHit) {
-   glm::vec3 newPos = debug ? debug_pos : pos;
+   glm::vec3 newPos = debug ? debug_pos : player->pos;
    float moveInc = speed * window->dt;
    float playerYrad = Util::degreesToRadians(playerYrot);
 
@@ -100,6 +100,9 @@ glm::vec3 Camera::calcNewPos(Window* window, bool playerHit) {
       if (glfwGetKey(win, GLFW_KEY_W) == GLFW_PRESS) { // Move forward
          newPos.x += moveInc * sin(playerYrad);
          newPos.z += moveInc * cos(playerYrad);
+         
+         pos.x += moveInc * sin(playerYrad);
+         pos.z += moveInc * cos(playerYrad);
       }
       if (glfwGetKey(win, GLFW_KEY_A) == GLFW_PRESS) { // Rotate left
          playerYrot += PLAYER_ROT_DEG;
@@ -151,14 +154,16 @@ glm::vec3 Camera::calcNewPos(Window* window, bool playerHit) {
   }
 
    if (player != NULL) {
-      player->setPos(calculatePlayerPos());
+      player->setPos(newPos);//calculatePlayerPos());
       player->scale(glm::vec3(1.0f, 2.0f, 1.0f));
       player->rotate(playerYrot, glm::vec3(0.0f, 1.0f, 0.0f));
       
       if (pov && !playerHit)
          player->draw();
    }
-
+   
+   
+   
    return newPos;
 }
 
@@ -176,7 +181,7 @@ void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos, int g_
    float xMag = xPosFromCenter / half_width;
    float yMag = yPosFromCenter / half_height;
 
-   theta += MOUSE_SPEED*M_PI*xMag;
+   theta -= MOUSE_SPEED*M_PI*xMag;
    // Bound phi to 80 degrees
    float newPhi = phi + MOUSE_SPEED*M_PI*yMag/2.0;
    //bounded between 80 and -40 to keep from going into the char
@@ -219,7 +224,7 @@ void Camera::initPlayer(Object *_player) {
    player = _player;
 }
 
-glm::vec3 Camera::calculatePlayerPos() {
+glm::vec3 Camera::setPlayerPos() {
    glm::vec3 temp;
 
    temp.x = pos.x;
