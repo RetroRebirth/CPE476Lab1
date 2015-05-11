@@ -34,6 +34,8 @@ Object::Object(
    dimensions = glm::vec3(1.0f, 1.0f, 1.0f);
    dir = glm::vec3(0.0f, 0.0f, 0.0f);
    vel = 0.0f;
+   accel = 1.0f;
+   changeDir = true;
    
    directional = false;
    castShadows = true;
@@ -563,3 +565,10 @@ void Object::drawBox() {
 	
 	glEnd();
 }
+
+glm::vec3 Object::calculateNewPos(float dt) {
+   if (vel > 0.0 || changeDir)
+      vel += accel * dt;
+   return pos + dir * vel * dt;
+}
+

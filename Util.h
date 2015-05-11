@@ -14,7 +14,7 @@ namespace Util
     {
       return (float) rand() / RAND_MAX;
     }
-    
+
     //Safely uses the glUniformMatrix4fv function
     void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[])
     {

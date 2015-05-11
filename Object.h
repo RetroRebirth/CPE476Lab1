@@ -41,6 +41,8 @@ public:
     void setPos(glm::vec3 position)     { pos = position;    }
     void setDir(glm::vec3 direction)    { dir = direction;   }
     void setSpeed(float speed)          { vel = speed;       }
+    void setAccel(float _accel)         { accel = _accel;       }
+    void setChangeDir(bool _changeDir)  { changeDir = _changeDir;       }
     void setTexture(int tex)            { texture_id = tex;  }
     void setDirectional(bool dir)       { directional = dir; }
     void setShadows(bool shadows)       { castShadows = shadows; }
@@ -48,7 +50,7 @@ public:
     // getters
     glm::vec3 getPos()        { return pos; }
     glm::vec3 getDir()        { return dir; }
-    glm::vec3 calculateNewPos(float dt) { return pos + dir * vel * dt; }
+    glm::vec3 calculateNewPos(float dt);
     int getTexture()          { return texture_id; }
     float getRadius()         { return radius; }
     float getSpeed()          { return vel; }
@@ -74,7 +76,8 @@ private:
     // bounding box debug
     void drawBox();
     
-    float vel, shine, radius;
+    float vel, accel, shine, radius;
+    bool changeDir;
     bool collected, directional, castShadows;
     vector<tinyobj::shape_t> shapes;
     vector<tinyobj::material_t> materials;
