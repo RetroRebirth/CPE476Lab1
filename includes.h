@@ -13,15 +13,10 @@
 #include <ctime>
 #include <iostream>
 #include <fstream>
-<<<<<<< HEAD
 /*
 #include <ft2build.h>
 #include FT_FREETYPE_H
 */
-=======
-//#include <ft2build.h>
-//#include FT_FREETYPE_H
->>>>>>> minigame changes made
 
 #include "glew.h"
 #include "glfw3.h"
@@ -35,18 +30,11 @@
 #include "tiny_obj_loader.h"
 #include "Util.h"
 #include "MatrixStack.h"
-<<<<<<< HEAD
-/*
-#include "assimp/cimport.h" #include "assimp/Importer.hpp" #include "assimp/scene.h" #include "assimp/postprocess.h"
-*/
-=======
 #include <irrKlang.h>
->>>>>>> minigame changes made
 
 // defines file names for various meshes
 #define EXTRA_FILE_NAME "bunny.obj"
 #define WALL_FILE_NAME "cube.obj"
-#define STALL_FILE_NAME "base_lantern_stall.obj"
 #define PLAYER_FILE_NAME "bunny.obj"
 #define LANTERN_FILE_NAME "standing_lantern.obj"
 
@@ -57,10 +45,6 @@
 #define WALL_TYPE 0
 #define BOOTH_TYPE 1
 #define MISC_TYPE 2
-// Texture IDs
-#define TEXTURE_SKY 3
-#define TEXTURE_GROUND 4
-// TODO add defines for specific minigame types
 
 // misc defines for globally accessed values
 #define MAX_OBJS 50

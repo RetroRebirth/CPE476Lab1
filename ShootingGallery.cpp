@@ -13,7 +13,8 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Clicks* _clicks) {
     wall->setShadows(false);
     
     score = 0;
-    clicks->setObjects(&objects);
+    time = 0.0;
+    clicks->setObjects(&targets);
 }
 
 void ShootingGallery::newTarget(){
@@ -26,12 +27,12 @@ void ShootingGallery::newTarget(){
     float randZ = DEPTH;
     object->setPos(glm::vec3(randX, Util::randF() * 10, 10.0));
     object->setTexture(TEX_WOOD_RED);
-    objects.push_back(object);
+    targets.push_back(object);
 }
 
 ShootingGallery::~ShootingGallery() {
-   for (int i = 0; i < objects.size(); ++i) {
-      delete objects[i];
+   for (int i = 0; i < targets.size(); ++i) {
+      delete targets[i];
    }
     for(int i = 0; i < bullets.size(); ++i){
         delete bullets[i];
@@ -49,30 +50,48 @@ void ShootingGallery::makeBullets(){
 }
 
 void ShootingGallery::step(Window* window) {
-   vector<Object*> clickedObjects = clicks->getClickedObjects();
-   for (int i = 0; i < clickedObjects.size(); ++i) {
-      float randX = Util::randF() * WIDTH - (WIDTH/2);
-      float randY = Util::randF() * HEIGHT - (HEIGHT/2);
-      float randZ = DEPTH;
-      clickedObjects[i]->setPos(glm::vec3(randX, randY, randZ)); // move the target to a random spot
-      printf("Hit a target! Score: %d\n", ++score);
-   }
-   for (int i = 0; i < objects.size(); ++i) {
-      objects[i]->draw();
-   }
-   for(int i = 0; i< bullets.size(); ++i){
-      if (bullets[i]->getPos().z <= DEPTH){
-         if(bullets[i] != NULL){
-            bullets[i]->setPos(bullets[i]->calculateNewPos(BULLET_SPD*window->dt));
-            bullets[i]->draw();
-         }
-      } else {
-         // Remove the bullet if it has gone past the target
-         bullets.erase(bullets.begin() + i);
-         --i;
-      }
-   }
-   wall->draw();
+    vector<Object*> clickedObjects = clicks->getClickedObjects();
+    
+    // Adds a new target every second
+    if (window->time - time >= 1.0) {
+        newTarget();
+        time = window->time;
+    }
+    // Record score for hit targets
+    for (int i = 0; i < clickedObjects.size(); ++i) {
+        /*
+        delete clickedObjects[i];
+        clickedObjects.erase(clickedObjects.begin() + i);
+         */
+        
+        float randX = Util::randF() * WIDTH - (WIDTH/2);
+        float randY = Util::randF() * HEIGHT - (HEIGHT/2);
+        float randZ = DEPTH;
+        clickedObjects[i]->setPos(glm::vec3(randX, randY, randZ));
+        
+        printf("Hit a target! Score: %d\n", ++score);
+    }
+    
+    // Draw the targets
+    for (int i = 0; i < targets.size(); ++i) {
+        if (targets[i] == NULL)
+            targets.erase(targets.begin() + i);
+        targets[i]->draw();
+    }
+    // Draw the bullets
+    for(int i = 0; i< bullets.size(); ++i){
+        if (bullets[i]->getPos().z <= DEPTH){
+            if(bullets[i] != NULL){
+                bullets[i]->setPos(bullets[i]->calculateNewPos(BULLET_SPD*window->dt));
+                bullets[i]->draw();
+            }
+        } else {
+            // Remove the bullet if it has gone past the target
+            bullets.erase(bullets.begin() + i);
+            --i;
+        }
+    }
+    wall->draw();
 }
 
 void ShootingGallery::mouseClick(glm::vec3 direction) {

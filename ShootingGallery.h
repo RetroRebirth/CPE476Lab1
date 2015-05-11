@@ -19,7 +19,7 @@ class ShootingGallery {
         void step(Window* window);
 
     private:
-        vector<Object*> objects;
+        vector<Object*> targets;
         vector<tinyobj::shape_t> shapes;
         vector<tinyobj::material_t> materials;
         GLuint ShadeProg;

@@ -620,6 +620,7 @@ CMakeFiles/a.out.dir/Player.cpp.o: irrKlang-64bit-1.5.0/include/irrKlang.h
 
 CMakeFiles/a.out.dir/Session.cpp.o: Booth.h
 CMakeFiles/a.out.dir/Session.cpp.o: Camera.h
+CMakeFiles/a.out.dir/Session.cpp.o: Clicks.h
 CMakeFiles/a.out.dir/Session.cpp.o: GL/freeglut.h
 CMakeFiles/a.out.dir/Session.cpp.o: GL/freeglut_ext.h
 CMakeFiles/a.out.dir/Session.cpp.o: GL/freeglut_std.h
@@ -629,6 +630,7 @@ CMakeFiles/a.out.dir/Session.cpp.o: Model.h
 CMakeFiles/a.out.dir/Session.cpp.o: Object.h
 CMakeFiles/a.out.dir/Session.cpp.o: Session.cpp
 CMakeFiles/a.out.dir/Session.cpp.o: Session.h
+CMakeFiles/a.out.dir/Session.cpp.o: ShootingGallery.h
 CMakeFiles/a.out.dir/Session.cpp.o: SkyBox.h
 CMakeFiles/a.out.dir/Session.cpp.o: Texture.h
 CMakeFiles/a.out.dir/Session.cpp.o: Util.h
@@ -743,6 +745,7 @@ CMakeFiles/a.out.dir/ShootingGallery.cpp.o: ShootingGallery.cpp
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: ShootingGallery.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: Texture.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: Util.h
+CMakeFiles/a.out.dir/ShootingGallery.cpp.o: Window.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: glew.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: glfw3.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: glm/./core/_detail.hpp
@@ -1385,6 +1388,7 @@ CMakeFiles/a.out.dir/World.cpp.o: irrKlang-64bit-1.5.0/include/irrKlang.h
 
 CMakeFiles/a.out.dir/main.cpp.o: Booth.h
 CMakeFiles/a.out.dir/main.cpp.o: Camera.h
+CMakeFiles/a.out.dir/main.cpp.o: Clicks.h
 CMakeFiles/a.out.dir/main.cpp.o: GL/freeglut.h
 CMakeFiles/a.out.dir/main.cpp.o: GL/freeglut_ext.h
 CMakeFiles/a.out.dir/main.cpp.o: GL/freeglut_std.h
@@ -1393,6 +1397,7 @@ CMakeFiles/a.out.dir/main.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/main.cpp.o: Model.h
 CMakeFiles/a.out.dir/main.cpp.o: Object.h
 CMakeFiles/a.out.dir/main.cpp.o: Session.h
+CMakeFiles/a.out.dir/main.cpp.o: ShootingGallery.h
 CMakeFiles/a.out.dir/main.cpp.o: SkyBox.h
 CMakeFiles/a.out.dir/main.cpp.o: Texture.h
 CMakeFiles/a.out.dir/main.cpp.o: Util.h

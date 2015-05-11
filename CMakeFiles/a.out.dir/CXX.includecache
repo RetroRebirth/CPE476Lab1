@@ -145,6 +145,10 @@ Camera.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
 World.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/World.h
+Clicks.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
+ShootingGallery.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.cpp
 ShootingGallery.h
@@ -157,6 +161,8 @@ Clicks.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
 Texture.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
+Window.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.cpp
 SkyBox.h
@@ -704,6 +710,8 @@ ctime
 iostream
 -
 fstream
+-
+ft2build.h
 -
 glew.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h

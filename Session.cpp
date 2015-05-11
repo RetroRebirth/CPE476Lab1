@@ -14,11 +14,8 @@ Session::Session() {
    sound->initSound();
 <<<<<<< HEAD
 */
-=======
->>>>>>> minigame changes made
-     
+    
    minigame = NULL;
-
    game_state = WORLD_STATE;
 }
 

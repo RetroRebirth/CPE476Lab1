@@ -366,7 +366,6 @@ void World::parseMapFile(const char* fileName) {
          glm::vec3 _scalar = glm::vec3(xs, ys, zs);
          
          if (strcmp(type, "booth") == 0) {
-            structure->load(STALL_FILE_NAME);
             Booth* booth = new Booth(_pos, _scalar, angle, minigame, shapes, materials, ShadeProg);
             booths.push_back(booth);
          }

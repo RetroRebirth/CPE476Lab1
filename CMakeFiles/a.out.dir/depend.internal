@@ -621,6 +621,7 @@ CMakeFiles/a.out.dir/Player.cpp.o
 CMakeFiles/a.out.dir/Session.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Booth.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_ext.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
@@ -630,6 +631,7 @@ CMakeFiles/a.out.dir/Session.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Session.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Session.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
@@ -744,6 +746,7 @@ CMakeFiles/a.out.dir/ShootingGallery.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
@@ -1386,6 +1389,7 @@ CMakeFiles/a.out.dir/World.cpp.o
 CMakeFiles/a.out.dir/main.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Booth.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_ext.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
@@ -1394,6 +1398,7 @@ CMakeFiles/a.out.dir/main.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Model.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Session.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h

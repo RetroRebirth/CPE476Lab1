@@ -48,10 +48,6 @@
 #define WALL_TYPE 0
 #define BOOTH_TYPE 1
 #define MISC_TYPE 2
-// Texture IDs
-#define TEXTURE_SKY 3
-#define TEXTURE_GROUND 4
-// TODO add defines for specific minigame types
 
 // misc defines for globally accessed values
 #define MAX_OBJS 50
