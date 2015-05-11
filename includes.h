@@ -13,8 +13,10 @@
 #include <ctime>
 #include <iostream>
 #include <fstream>
+/*
 #include <ft2build.h>
 #include FT_FREETYPE_H
+*/
 
 #include "glew.h"
 //#include "glfw3.h"
@@ -70,6 +72,7 @@
 #define SCALE_CONST2 1.3f
 #define INFLUENCE_WIDTH 2.0f
 #define PLAYER_ROT_DEG 2
+#define NUM_PLANES_VIEW_FRUSTUM 6
 
 // Game States
 #define WORLD_STATE 0

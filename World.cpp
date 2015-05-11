@@ -526,6 +526,5 @@ bool World::checkPlane(glm::vec4 plane, glm::vec3 pos, float rad) {
    bool correctHalfSpace = result > 0;
    bool clipping = glm::abs(result) < glm::abs(rad);
 
-//   return correctHalfSpace;// || clipping;
-   return true; // TODO why does correctHalfSpace not work correctly?
+   return correctHalfSpace || clipping;
 }
