@@ -76,6 +76,12 @@ void Window::step() {
 
 void Window::showMouse() {
    glfwSetInputMode(glfw_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+/*
+   // TODO upgrade to glfw 3.1 to use crosshair cursor
+   // Use the crosshare cursor
+   GLFWcursor* cursor = glfwCreateStandardCursor(GLFW_CROSSHAIR_CURSOR);
+   glfwSetCursor(glfw_window, cursor);
+*/
 }
 
 void Window::hideMouse() {

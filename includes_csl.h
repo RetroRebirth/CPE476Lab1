@@ -19,7 +19,8 @@
 */
 
 #include "glew.h"
-#include "glfw3.h"
+//#include "glfw3.h"
+#include "glfw3_1.h"
 #include "GL/freeglut.h"
 #include "GLSL.h"
 #include "glm/glm.hpp"

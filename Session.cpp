@@ -201,8 +201,6 @@ void Session::startMinigame(char* type) {
 }
 
 void Session::enterMinigame() {
-   // TODO remove janky code that lets us start minigame from anywhere
-   
    Booth* booth = world->currentActiveBooth();
    if (booth != NULL && booth->getMinigame() != NULL && strcmp(booth->getMinigame(), NO_GAME) != 0) {
       game_state = MINIGAME_STATE;
@@ -212,20 +210,6 @@ void Session::enterMinigame() {
       minigame = NULL;
       startMinigame((char*)SHOOTING_GALLERY);
    }
-   /*
-=======
-   printf("trying to enter minigame\n");
->>>>>>> merging
-   Booth* booth = world->currentActiveBooth();
-   if (booth != NULL && booth->getMinigame() != NULL && strcmp(booth->getMinigame(), NO_GAME) != 0) {
-      game_state = MINIGAME_STATE;
-      world->inMiniGame();
-      camera->moveToMinigame();
-      window->showMouse();
-      minigame = NULL;
-      startMinigame(booth->getMinigame());
-   }
-   */
 }
 
 void Session::leaveMinigame() {
