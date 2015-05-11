@@ -7,8 +7,8 @@
 #include "Window.h"
 
 #define DEPTH 10.0
-#define WIDTH 24.0
-#define HEIGHT 20.0
+#define WIDTH 20.0
+#define HEIGHT 15.0
 #define BULLET_SPD 20.0
 
 class ShootingGallery {
