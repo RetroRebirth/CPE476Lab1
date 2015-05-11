@@ -75,19 +75,23 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
 }
 
 void mouse_click_callback(GLFWwindow *window, int button, int action, int mods){
-  double mouse_x;
-  double mouse_y;
-  glfwGetCursorPos(window, &mouse_x, &mouse_y);
+   // Only read the user releasing the mouse button
+   if (action == GLFW_PRESS) {
+      return;
+   }
+   double mouse_x;
+   double mouse_y;
+   glfwGetCursorPos(window, &mouse_x, &mouse_y);
 
-  int height;
-  int width;
-  glfwGetWindowSize(window, &width, &height);
+   int height;
+   int width;
+   glfwGetWindowSize(window, &width, &height);
 
-  
-  session->getClicks()->mouse_click(mouse_x, mouse_y, height, width, session->getCamera()->Projection, 
-      session->getCamera()->View, session->getCamera()->pos);
-  glm::vec3 direction = session->getClicks()->getDirection();
-  session->mouseClick(direction);
+
+   session->getClicks()->mouse_click(mouse_x, mouse_y, height, width, session->getCamera()->Projection, 
+         session->getCamera()->View, session->getCamera()->pos);
+   glm::vec3 direction = session->getClicks()->getDirection();
+   session->mouseClick(direction);
 }
 
 
