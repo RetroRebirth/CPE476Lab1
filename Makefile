@@ -1,14 +1,22 @@
+export IRRKLANG_INC := irrKlang-64bit-1.5.0/include
+export IRRKLANG_LIB_U := irrKlang-64bit-1.5.0/bin/linux-gcc-64/libIrrKlang.so
+export IRRKLANG_MP3_U := irrKlang-64bit-1.5.0/bin/linux-gcc-64/ikpMP3.so
+
 CC=g++
 ROOT_DIR= $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-CFLAGS=  -I $(ROOT_DIR) -I$(FREETYPE_DIR) -L $(ROOT_DIR) -g
+CFLAGS=  -I $(ROOT_DIR) -I$(FREETYPE_DIR) -I $(IRRKLANG_INC) -L $(ROOT_DIR) -g
 CSL_CFLAGS=  -I $(ROOT_DIR) -L $(ROOT_DIR) -g
-SOURCES= main.cpp GLSL.cpp tiny_obj_loader.cc Camera.cpp Object.cpp Window.cpp World.cpp MatrixStack.cpp Booth.cpp SkyBox.cpp Session.cpp Model.cpp Texture.cpp Clicks.cpp ShootingGallery.cpp
+SOURCES= main.cpp GLSL.cpp tiny_obj_loader.cc Camera.cpp Object.cpp Window.cpp World.cpp MatrixStack.cpp Booth.cpp SkyBox.cpp Session.cpp Texture.cpp Clicks.cpp ShootingGallery.cpp Sound.cpp
 CSL_SOURCES= main.cpp GLSL.cpp tiny_obj_loader.cc Camera.cpp Object.cpp Window.cpp World.cpp MatrixStack.cpp Booth.cpp SkyBox.cpp Session.cpp Texture.cpp Clicks.cpp ShootingGallery.cpp
-LIBFLAGS= -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -lglut -lfreetype libglfw3.a libGLEW.a
+LIBFLAGS= -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -lglut -lfreetype $(IRRKLANG_LIB_U) $(IRRKLANG_MP3_U) libglfw3.a libGLEW.a
 CSL_LIBFLAGS= -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -lglut libglfw3.a libGLEW.a
 
 all:
 	cp includes_mac.h includes.h
+	$(CC) $(CFLAGS) $(SOURCES) $(LIBFLAGS)
+
+ubuntu:
+	cp includes_ubuntu.h includes.h
 	$(CC) $(CFLAGS) $(SOURCES) $(LIBFLAGS)
 
 csl:

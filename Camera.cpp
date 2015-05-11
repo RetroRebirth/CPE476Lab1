@@ -43,7 +43,7 @@ float Camera::getXRot() {
 
 glm::vec3 Camera::lookAtPt() {
    glm::vec3 lookAtPt = glm::vec3(cos(phi)*cos(theta), sin(phi), cos(phi)*cos((M_PI/2)-theta));
-   lookAtPt += debug ? debug_pos : pos;
+   lookAtPt += debug ? debug_pos : player->pos;
    return lookAtPt;
 }
 
@@ -106,9 +106,13 @@ glm::vec3 Camera::calcNewPos(Window* window, bool playerHit) {
       }
       if (glfwGetKey(win, GLFW_KEY_A) == GLFW_PRESS) { // Rotate left
          playerYrot += PLAYER_ROT_DEG;
+         
+         theta -= Util::degreesToRadians(PLAYER_ROT_DEG);
       }
       if (glfwGetKey(win, GLFW_KEY_D) == GLFW_PRESS) { // Rotate right
          playerYrot -= PLAYER_ROT_DEG;
+         
+         theta += Util::degreesToRadians(PLAYER_ROT_DEG);         
       }
       /*
       if (glfwGetKey(win, GLFW_KEY_S) == GLFW_PRESS) { // Move backward
@@ -162,8 +166,6 @@ glm::vec3 Camera::calcNewPos(Window* window, bool playerHit) {
          player->draw();
    }
    
-   
-   
    return newPos;
 }
 
@@ -209,7 +211,7 @@ void Camera::moveToMinigame() {
    this->pov = false;
 
    // Send camera to the origin
-   this->pos = glm::vec3(0, 2, 0);
+   this->player->pos = glm::vec3(0, 2, 0);
    this->theta = -M_PI/2.0;
    this->phi = 0.0;
 }
@@ -224,7 +226,7 @@ void Camera::initPlayer(Object *_player) {
    player = _player;
 }
 
-glm::vec3 Camera::setPlayerPos() {
+/*glm::vec3 Camera::setPlayerPos() {
    glm::vec3 temp;
 
    temp.x = pos.x;
@@ -232,4 +234,4 @@ glm::vec3 Camera::setPlayerPos() {
    temp.z = pos.z;
 
    return temp;
-}
+}*/

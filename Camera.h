@@ -48,7 +48,7 @@ class Camera {
       Object* player;
       float playerYrot;
 
-      glm::vec3 setPlayerPos();
+      //glm::vec3 setPlayerPos();
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
 };
 
