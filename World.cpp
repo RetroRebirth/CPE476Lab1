@@ -286,6 +286,7 @@ void World::findNewExtraTarget(struct Extra* extra) {
       Is.push_back(i);
       Js.push_back(extra->j);
    }  
+   
    for (int j = extra->j; j < (int)SIZE * 2 - 2; j++) {
       tempObj->pos = mapGrid[extra->i][j];
       if (checkStructureCollisions(tempObj)) {
@@ -312,13 +313,19 @@ void World::findNewExtraTarget(struct Extra* extra) {
    }  
    
    // next, we find a random position 
-   int randomIndex = (int)(randFloat(0.0f,(float)availablePositions.size()) + 0.5f);
-   extra->targetPos = availablePositions[randomIndex];
-   extra->i = Is[randomIndex];
-   extra->j = Js[randomIndex];
-   
-   extra->object->setDir(glm::normalize(extra->targetPos - extra->startPos));
+   if ((int)availablePositions.size() > 0) {
+      
+      int randomIndex = (int)(randFloat(0.0f,(float)availablePositions.size()-1.0f) + 0.5f);
+         
+      extra->targetPos = availablePositions[randomIndex];
+      extra->i = Is[randomIndex];
+      extra->j = Js[randomIndex];
+      extra->object->setDir(glm::normalize(extra->targetPos - extra->startPos));
+   }
    delete tempObj;
+   availablePositions.clear();
+   Is.clear();
+   Js.clear();
 }
 
 Booth* World::currentActiveBooth() {
