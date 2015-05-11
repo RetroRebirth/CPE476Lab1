@@ -7,7 +7,6 @@
 #include "World.h"
 #include "Clicks.h"
 #include "Sound.h"
-#include "Text.h"
 #include "ShootingGallery.h"
 
 class Session {
@@ -27,7 +26,7 @@ class Session {
    private:
       Window* window;
       Camera* camera;
-      Text* text;
+      //Text* text;
       FT_Library ft;
 
       Clicks* clicks;
