@@ -3,13 +3,13 @@
 using namespace std;
 
 Text::Text(
-      FT_Library _ft,
-      int _width,
-      int _height) {
+      FT_Library _ft) {
+      //int _width,
+      //int _height) {
       
    ft = _ft;
-   width = _width;
-   height = _height;
+   //width = _width;
+   //height = _height;
 
    //initFace();
 }
@@ -17,6 +17,53 @@ Text::Text(
 Text::~Text(){
    // delete stuff...
 }
+
+void Text::createAtlas() {
+ 
+   if(FT_New_Face(ft, "./Fonts/ostrich-black.ttf", 0, &face)) {
+     fprintf(stderr, "Could not open font\n");
+     exit(-1);
+   }
+   
+   FT_GlyphSlot g = face->glyph;
+   int w = 0;
+   int h = 0;
+    
+   for(int i = 32; i < 128; i++) {
+      if(FT_Load_Char(face, i, FT_LOAD_RENDER)) {
+         fprintf(stderr, "Loading character %c failed!\n", i);
+         continue;
+      }
+    
+      w += g->bitmap.width;
+      //h = max(h, g->bitmap.rows);
+      if (g->bitmap.rows > h) {
+         h = g->bitmap.rows;
+      }
+    
+   }
+   /* you might as well save this value as it is needed later on */
+   atlas_width = w;
+   atlas_height = h;
+   
+   glActiveTexture(GL_TEXTURE0);
+   glGenTextures(1, &tex);
+   glBindTexture(GL_TEXTURE_2D, tex);
+   glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    
+   glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, atlas_width, atlas_height, 0, GL_ALPHA, GL_UNSIGNED_BYTE, 0);
+   
+   int x = 0;
+ 
+   for(int i = 32; i < 128; i++) {
+     if(FT_Load_Char(face, i, FT_LOAD_RENDER))
+       continue;
+    
+     glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_ALPHA, GL_UNSIGNED_BYTE, g->bitmap.buffer);
+    
+     x += g->bitmap.width;
+   }
+}  
 
 void Text::initLibrary() {
    if(FT_Init_FreeType(&ft)) {
@@ -31,12 +78,12 @@ void Text::initObjs(Object** _objs) {
 
 float Text::pixelToWorldCoordX(int pix) {
    //printf("%d\n", pix);
-   return (2.0 * width / pix - 1);
+   return (2.0 * atlas_width / pix - 1);
 }
 
 float Text::pixelToWorldCoordY(int pix) {
    //printf("%d\n", pix);
-   return (2.0 * height / pix + 1);
+   return (2.0 * atlas_height / pix + 1);
 }
 
 void Text::renderText(const char* text, glm::vec3 camPos, float x, float y, float sx, float sy) {
@@ -84,8 +131,8 @@ void Text::renderText(const char* text, glm::vec3 camPos, float x, float y, floa
 }   
 
 void Text::displayText(const char* text, glm::vec3 camPos, int x, int y) {
-   float sx = 2.0 / width;
+   /*float sx = 2.0 / width;
    float sy = 2.0 / height;
 
-   renderText(text, camPos, x, y, sx, sy);
+   renderText(text, camPos, x, y, sx, sy);*/
 }

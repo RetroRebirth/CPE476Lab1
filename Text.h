@@ -6,20 +6,22 @@
 
 class Text {
    public:
-      Text(FT_Library _ft, int _width, int _height);
+      Text(FT_Library _ft);
       virtual ~Text();
       
       FT_Library ft;
       Object** objs;
             
       void initObjs(Object** _objs);      
+      void createAtlas();
       void displayText(const char* text, glm::vec3 camPos, int x, int y);
       
    private:
       FT_GlyphSlot g;
       FT_Face face;
-      int width;
-      int height;
+      int atlas_width;
+      int atlas_height;
+      GLuint tex;
 
       void initLibrary();
       float pixelToWorldCoordX(int pix);
