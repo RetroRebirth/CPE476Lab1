@@ -57,7 +57,7 @@ void Camera::setView() {
    glm::mat4 lookAtMat = glm::lookAt(lookAtPt(), curPos, glm::vec3(0, 1, 0));
 
    //mult view by phi rotation matrix
-   glm::mat4 view_mat = glm::rotate(glm::mat4(1.0f), phi, glm::vec3(1, 0, 0)) * lookAtMat;
+   glm::mat4 view_mat = glm::rotate(glm::mat4(1.0f), -1.0f*phi, glm::vec3(1, 0, 0)) * lookAtMat;
 
    safe_glUniformMatrix4fv(h_uV, glm::value_ptr(view_mat));
    glUniform3f(h_uView, player->pos.x, player->pos.y, player->pos.z);
@@ -87,7 +87,7 @@ glm::vec3 Camera::calcNewPos(Window* window, bool playerHit) {
    float playerYrad = Util::degreesToRadians(playerYrot);
 
    glm::vec3 viewVector = glm::normalize(newPos - lookAtPt());
-   glm::vec3 strafeVector = glm::normalize(glm::cross(viewVector, glm::vec3(0, 1, 0)));
+   glm::vec3 strafeVector = glm::normalize(glm::cross(viewVector, glm::vec3(0.0f, 1.0f, 0.0f)));
    glm::vec3 crossVector = glm::normalize(glm::cross(viewVector, strafeVector));
    // Scale vectors
    viewVector *= moveInc;
@@ -183,7 +183,7 @@ void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos, int g_
    float xMag = xPosFromCenter / half_width;
    float yMag = yPosFromCenter / half_height;
 
-   theta -= MOUSE_SPEED*M_PI*xMag;
+   theta += MOUSE_SPEED*M_PI*xMag;
    // Bound phi to 80 degrees
    float newPhi = phi + MOUSE_SPEED*M_PI*yMag/2.0;
    //bounded between 80 and -40 to keep from going into the char
