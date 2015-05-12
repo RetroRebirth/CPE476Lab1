@@ -77,6 +77,7 @@ void World::step(Window* window) {
             //extra->object->pos.x += alpha;
             if (!passedTarget(extra)) {
                extra->object->pos += extra->object->getDir() * alpha;
+               //extra->object->setDir(extra->object->getDir());
                extra->currPos = extra->object->pos;
             }
             else {
@@ -569,7 +570,9 @@ void World::createExtras(const string &meshName) {
       extra = new struct Extra;
       extra->object = new Object(shapes, materials, ShadeProg);
       extra->object->load(meshName);
-      extra->rest = 100;
+      
+      extra->object->setDir(glm::vec3(0.0f, 0.0f, 1.0f));
+      extra->rest = 10;
       calcExtraSpawnPosition(extra);
       
       findNewExtraTarget(extra);

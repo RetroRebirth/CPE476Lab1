@@ -77,6 +77,7 @@ void World::step(Window* window) {
             //extra->object->pos.x += alpha;
             if (!passedTarget(extra)) {
                extra->object->pos += extra->object->getDir() * alpha;
+               //extra->object->setDir(extra->object->getDir());
                extra->currPos = extra->object->pos;
             }
             else {
@@ -258,7 +259,6 @@ bool World::checkBoothCollisions(Object* object) {
 
 void World::findNewExtraTarget(struct Extra* extra) {
    // populate a buffer containing the available spaces not interrupted by an object.
-   printf("check 1\n");
    vector<glm::vec3> availablePositions;
    vector<int> Is;
    vector<int> Js;
@@ -570,7 +570,9 @@ void World::createExtras(const string &meshName) {
       extra = new struct Extra;
       extra->object = new Object(shapes, materials, ShadeProg);
       extra->object->load(meshName);
-      extra->rest = 100;
+      
+      //extra->object->setDirectional(true);
+      extra->rest = 10;
       calcExtraSpawnPosition(extra);
       
       findNewExtraTarget(extra);

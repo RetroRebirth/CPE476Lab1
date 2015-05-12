@@ -18,7 +18,10 @@ Object::Object(
    modelMat = glm::mat4(1.0f);
    scalerMat = glm::mat4(1.0f);
    rotateMat = glm::mat4(1.0f);
+   directionalMat = glm::mat4(1.0f);
    transMat = glm::mat4(1.0f);
+   
+   dir_angle = 0.0f;
    
    boundBoxScalerMat = glm::scale(glm::mat4(1.0f), glm::vec3(1.1f,1.1f,1.1f));
 
@@ -32,7 +35,7 @@ Object::Object(
 
    pos = glm::vec3(0.0f, 0.0f, 0.0f);
    dimensions = glm::vec3(1.0f, 1.0f, 1.0f);
-   dir = glm::vec3(0.0f, 0.0f, 0.0f);
+   dir = glm::vec3(0.0f, 0.0f, 1.0f);
    vel = 0.0f;
    accel = 1.0f;
    changeDir = true;
@@ -50,6 +53,17 @@ Object::~Object() {}
 void Object::scale(glm::vec3 scaler) {
    scalerMat = glm::scale(glm::mat4(1.0f), scaler);
    radius = glm::max(glm::max(scaler.x, scaler.y), scaler.z);
+}
+
+void Object::setDir(glm::vec3 direction) {
+   float dot1 = glm::dot(direction, glm::vec3(0.0f, 0.0f, 1.0f));//, direction);
+   float dot2 = glm::dot(glm::vec3(0.0f, 0.0f, 1.0f), direction);
+   //dir_angle = acos(fmin(dot1,dot2));
+   float angle1 = acos(dot1);
+   float angle2 = acos(dot2);
+   dir_angle = fmin(angle1,angle2);
+   directionalMat = glm::rotate(glm::mat4(1.0f), -1.0f*(float)(dir_angle*180.0f/M_PI), glm::vec3(0.0f, 1.0f, 0.0f));
+   dir = direction;
 }
 
 // rotate object by flat amount, this will be applied on top of directional rotations
@@ -443,7 +457,7 @@ void Object::draw()
    // Set the model transformation
    glm::vec3 position = pos + glm::vec3(0.0f, -0.5f, 0.0f);
    glm::mat4 T = glm::translate(glm::mat4(1.0f), position) * transMat;
-   glm::mat4 R = rotateMat;
+   glm::mat4 R = rotateMat * directionalMat;
    if (directional) {
       glm::mat4 RX = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(1.0, 0.0, 0.0));
       glm::mat4 RY = glm::rotate(glm::mat4(1.0f), calcYFacingAngle(), glm::vec3(0.0, 1.0, 0.0));

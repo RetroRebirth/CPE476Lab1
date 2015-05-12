@@ -39,7 +39,7 @@ public:
     
     // setters
     void setPos(glm::vec3 position)     { pos = position;    }
-    void setDir(glm::vec3 direction)    { dir = direction;   }
+    void setDir(glm::vec3 direction);
     void setSpeed(float speed)          { vel = speed;       }
     void setAccel(float _accel)         { accel = _accel;       }
     void setChangeDir(bool _changeDir)  { changeDir = _changeDir;       }
@@ -87,7 +87,10 @@ private:
     glm::mat4 modelMat;
     glm::mat4 scalerMat, boundBoxScalerMat;
     glm::mat4 rotateMat;
+    glm::mat4 directionalMat;
     glm::mat4 transMat;
+    
+    float dir_angle;
     
     // Shader information
     GLuint ShadeProg;
