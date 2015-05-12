@@ -94,7 +94,7 @@ void World::step(Window* window) {
       drawOverWorld();
       
       
-     float s = SIZE - (playerXZRad*2.0f);
+     /*float s = SIZE - (playerXZRad*2.0f);
     
      if (player->pos.x < -s) {
         player->pos.x = -s;
@@ -221,15 +221,15 @@ void World::step(Window* window) {
                camera->pos.z = colPlane.z;
             }
          }
-      }
+      }*/
    }
 
    
-   camera->step(window, playerHit);
+   camera->step(window);//, playerHit);
    skybox->draw(camera, window);
-   if (playerHit) {
+   /*if (playerHit) {
       player->draw();
-   }
+   }*/
 }
 
 bool World::passedTarget(struct Extra* extra) {
@@ -538,6 +538,11 @@ void World::parseMapFile(const char* fileName) {
 bool World::detectSpawnCollision(Object* object) {
    for (int i = 0; i < structures.size(); ++i) {
       if (structures[i]->checkCollision(object)) {
+         return true;
+      }
+   }
+   for (int i = 0; i < booths.size(); ++i) {
+      if (booths[i]->booth[1]->checkCollision(object)) {
          return true;
       }
    }

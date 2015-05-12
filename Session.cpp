@@ -8,13 +8,14 @@ Session::Session() {
    camera = new Camera(h_uP, h_uV, h_uView);
    world = new World(ShadeProg, camera);
    clicks = new Clicks(); 
-   
 /*
    sound = new Sound();
    sound->initSound();
 <<<<<<< HEAD
 */
-    
+   camera->booths = world->booths;
+   camera->structures = world->structures;
+   
    minigame = NULL;
    game_state = WORLD_STATE;
 }
@@ -109,6 +110,9 @@ void Session::initGL() {
     //text->createAtlas();
     
 */
+    //printf("openGL version: %s\n", (const char*)glGetString(GL_VERSION​​));
+    std::cout << "openGL version " << (char*)glGetString(GL_VERSION) << endl;
+    
     // Initialize GLEW
     if (glewInit() != GLEW_OK) {
       fprintf(stderr, "Failed to initialize GLEW\n");

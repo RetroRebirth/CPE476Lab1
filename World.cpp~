@@ -94,7 +94,7 @@ void World::step(Window* window) {
       drawOverWorld();
       
       
-     float s = SIZE - (playerXZRad*2.0f);
+     /*float s = SIZE - (playerXZRad*2.0f);
     
      if (player->pos.x < -s) {
         player->pos.x = -s;
@@ -221,15 +221,15 @@ void World::step(Window* window) {
                camera->pos.z = colPlane.z;
             }
          }
-      }
+      }*/
    }
 
    
-   camera->step(window, playerHit);
+   camera->step(window);//, playerHit);
    skybox->draw(camera, window);
-   if (playerHit) {
+   /*if (playerHit) {
       player->draw();
-   }
+   }*/
 }
 
 bool World::passedTarget(struct Extra* extra) {
@@ -541,6 +541,11 @@ bool World::detectSpawnCollision(Object* object) {
          return true;
       }
    }
+   for (int i = 0; i < booths.size(); ++i) {
+      if (booths[i]->booth[1]->checkCollision(object)) {
+         return true;
+      }
+   }
    for (int i=0; i<extras.size(); ++i) {
       if (extras[i]->object->collision(object)) {
          return true;
@@ -571,7 +576,7 @@ void World::createExtras(const string &meshName) {
       extra->object = new Object(shapes, materials, ShadeProg);
       extra->object->load(meshName);
       
-      //extra->object->setDirectional(true);
+      extra->object->setDir(glm::vec3(0.0f, 0.0f, 1.0f));
       extra->rest = 10;
       calcExtraSpawnPosition(extra);
       

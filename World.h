@@ -36,12 +36,12 @@ class World {
       void leftMiniGame();
       
       bool drawWorld;
+      vector<Booth*> booths;
+      vector<Object*> structures;
       
    private:
       vector<tinyobj::shape_t> shapes; // TODO map of mesh data
       vector<struct Extra*> extras; // bunnies for now.
-      vector<Booth*> booths;
-      vector<Object*> structures;
       vector<Object*> lanterns;
       vector<tinyobj::material_t> materials;
       

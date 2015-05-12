@@ -16,6 +16,7 @@ public:
     
     // bounding box
     struct bound_box bounds;
+    vector<struct plane> planes;//x1, x2, z1, z2;
     
     // methods
     void init();
@@ -36,6 +37,7 @@ public:
     void getCollisionAxis(glm::vec3 pos, glm::vec3* colPlane);
     bool checkCameraCollision(glm::vec3 cam_pos, glm::vec3 *colPlane);
     bool checkPlayerCollision(Object* player, glm::vec3* colPlane);
+    bool planarCollisionCheck(Object* o, glm::vec3* colPlane);
     
     // setters
     void setPos(glm::vec3 position)     { pos = position;    }
@@ -82,6 +84,8 @@ private:
     bool collected, directional, castShadows;
     vector<tinyobj::shape_t> shapes;
     vector<tinyobj::material_t> materials;
+    
+    void setupPlane(glm::vec3 p, glm::vec3 q, glm::vec3 r, struct plane* plane);
     
     // Model matrices
     glm::mat4 modelMat;

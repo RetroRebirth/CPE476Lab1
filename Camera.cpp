@@ -1,5 +1,4 @@
 #include "Camera.h"
-
 using namespace std;
 
 Camera::Camera(
@@ -67,13 +66,13 @@ void Camera::setView() {
    }
 }
 
-void Camera::step(Window* window, bool playerHit) {
+void Camera::step(Window* window) {
 
    if (debug) {
-      debug_pos = calcNewPos(window, playerHit);
+      debug_pos = calcNewPos(window);
    } else {
       if (!playingMinigame && !blocked) {
-         player->pos = calcNewPos(window, playerHit);
+         player->pos = calcNewPos(window);
       }
       blocked = false;
    }
@@ -81,7 +80,22 @@ void Camera::step(Window* window, bool playerHit) {
    setView();
 }
 
-glm::vec3 Camera::calcNewPos(Window* window, bool playerHit) {
+bool Camera::checkStaticObjectCollisions(Object* o, glm::vec3* colPlane) {
+   for (int i=0; i<structures.size(); ++i) {
+      if (structures[i]->planarCollisionCheck(player, colPlane)) {
+         return true;
+      }
+   }
+   for (int i=0; i<booths.size(); ++i) {
+      if (booths[i]->booth[1]->planarCollisionCheck(player, colPlane)) {
+         return true;
+      }
+      booths[i]->checkInteract(player->pos);
+   }
+   return false;
+}
+
+glm::vec3 Camera::calcNewPos(Window* window) {
    glm::vec3 newPos = debug ? debug_pos : player->pos;
    float moveInc = speed * 0.02f;// * window->dt;
    float playerYrad = Util::degreesToRadians(playerYrot);
@@ -158,12 +172,49 @@ glm::vec3 Camera::calcNewPos(Window* window, bool playerHit) {
   }
 
    if (player != NULL) {
+   
+      // run hit detection on this so called new position!
+      glm::vec3 colPlane = glm::vec3(0.0f, 0.0f, 0.0f);
+      if (checkStaticObjectCollisions(player, &colPlane)) {
+         // there is a hit...
+         if (colPlane.x == -1.0f) { // hit minimum x plane
+            //printf("hit minimum x plane\n");
+            if (newPos.x > prevPos.x) {
+               newPos = glm::vec3(prevPos.x-0.001f, newPos.y, newPos.z);
+            }
+         }
+         else if (colPlane.x == 1.0f) { // hit maximum x plane
+            //printf("hit maximum x plane\n");
+            if (newPos.x < prevPos.x) {
+               newPos = glm::vec3(prevPos.x+0.001f, newPos.y, newPos.z);
+            }
+         }
+         else if (colPlane.z == -1.0f) { // hit minimum z plane
+            //printf("hit minimum z plane\n");
+            if (newPos.z > prevPos.z) {
+               newPos = glm::vec3(newPos.x, newPos.y, prevPos.z-0.001f);
+            }
+         }
+         else if (colPlane.z == 1.0f) { // hit maximum z plane
+            //printf("hit maximum z plane\n");
+            if (newPos.z < prevPos.z) {
+               newPos = glm::vec3(newPos.x, newPos.y, prevPos.z+0.001f);
+            }
+         }
+         else {
+            //printf("Thats not good.... error in planar hit detection...\ncolPlane: ");
+            //printVec3(colPlane);
+         }
+      }
+      
+      prevPos = newPos;
       player->setPos(newPos);//calculatePlayerPos());
       player->scale(glm::vec3(1.0f, 2.0f, 1.0f));
       player->rotate(playerYrot, glm::vec3(0.0f, 1.0f, 0.0f));
       
-      if (pov && !playerHit)
+      if (pov) {
          player->draw();
+      }
    }
    
    return newPos;

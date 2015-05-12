@@ -45,6 +45,7 @@ Object::Object(
    setTexture(MISC_TYPE);
    xzRadius = -1.0f;
    drawBounds = false;
+   
 }
 
 Object::~Object() {}
@@ -114,7 +115,6 @@ bool Object::collidedWithObj(Object o, float dt) {
 
    if (glm::distance(testPos, testPosO) <= (radius + o.radius)) {
       dir = -dir;
-      
       return true;
    }
    else {
@@ -150,6 +150,7 @@ float Object::getXZRadius() {
             }
          }
       }
+      xzRadius = xz_rad;
       return xz_rad;
    }
    return xzRadius;
@@ -174,6 +175,7 @@ bool Object::checkCollision(Object* _otherObject){
 }
 
 void Object::getCollisionAxis(glm::vec3 pos, glm::vec3* colPlane) {
+   // going to probably have to get the plane equation f
    float x_diff, y_diff, z_diff;
    x_diff = bounds.x_min - pos.x;
    if (abs(bounds.x_max - pos.x) < abs(x_diff)) {
@@ -203,6 +205,41 @@ void Object::getCollisionAxis(glm::vec3 pos, glm::vec3* colPlane) {
    colPlane->x = plane.x;
    colPlane->y = plane.y;
    colPlane->z = plane.z;
+}
+
+bool Object::planarCollisionCheck(Object* o, glm::vec3* colPlane) {
+   if (!checkCollision(o)) {
+      return false;
+   }
+   glm::vec3 position = o->pos;
+   // go through each plane and plug in position to find distance
+   for (int i=0; i<planes.size(); ++i) {
+      // distance = (a(x) + b(y) + c(z) + d)/plane norm
+      float d = planes[i].a*position.x + planes[i].b*position.y + planes[i].c*position.z + planes[i].d;
+      float distance = d / (float)sqrt(planes[i].a*planes[i].a + planes[i].b*planes[i].b + planes[i].c*planes[i].c);
+      //printf("distance: %f\n", distance);
+      if (fabs(distance) < o->getXZRadius()) {
+         // which plane? planes = {z1, z2, x1, x2}
+         if (i == 0) {
+            // collided with minimum z plane
+            colPlane->z = -1.0f;
+         }
+         else if (i == 1) {
+            // collided with maximum z plane
+            colPlane->z = 1.0f;
+         }
+         else if (i == 2) {
+            // collided with minimum x plane
+            colPlane->x = -1.0f;
+         }
+         else if (i == 3) {
+            // collided with maximum x plane
+            colPlane->x = 1.0f;
+         }
+         return true;
+      }
+   }
+   return false;
 }
 
 // check for camera collision set colPlane equal to the bound that has been passed through
@@ -276,7 +313,53 @@ void Object::getBounds(struct bound_box *_bounds) {
    _bounds->z_min = z_min;
    _bounds->z_max = z_max;
    
+   // ok set up the planes just x and z unless we need this for y too...
+   struct plane x1, x2, z1, z2;
+   planes.clear();
+   // z1 
+   glm::vec3 z1p = glm::vec3(x_min, y_min, z_min);
+   glm::vec3 z1q = glm::vec3(x_max, y_min, z_min);
+   glm::vec3 z1r = glm::vec3(x_max, y_max, z_min);
+   setupPlane(z1p, z1q, z1r, &z1);
+   planes.push_back(z1);
+   
+   // z2
+   glm::vec3 z2p = glm::vec3(x_min, y_min, z_max);
+   glm::vec3 z2q = glm::vec3(x_max, y_min, z_max);
+   glm::vec3 z2r = glm::vec3(x_max, y_max, z_max);
+   setupPlane(z2p, z2q, z2r, &z2);
+   planes.push_back(z2);
+   
+   // x1
+   glm::vec3 x1p = glm::vec3(x_min, y_min, z_max);
+   glm::vec3 x1q = glm::vec3(x_min, y_min, z_min);
+   glm::vec3 x1r = glm::vec3(x_min, y_max, z_min);
+   setupPlane(x1p, x1q, x1r, &x1);
+   planes.push_back(x1);
+  
+   // x2
+   glm::vec3 x2p = glm::vec3(x_max, y_min, z_max);
+   glm::vec3 x2q = glm::vec3(x_max, y_min, z_min);
+   glm::vec3 x2r = glm::vec3(x_max, y_max, z_min); 
+   setupPlane(x2p, x2q, x2r, &x2);
+   planes.push_back(x2);
+   
    memcpy(&bounds, _bounds, sizeof(bounds));
+}
+
+void Object::setupPlane(glm::vec3 p, glm::vec3 q, glm::vec3 r, struct plane* plane) {
+   /*glm::vec3 p = glm::vec3(x_min, y_min, z_min);
+   glm::vec3 q = glm::vec3(x_max, y_min, z_min);
+   glm::vec3 r = glm::vec3(x_max, y_max, z_min);*/
+   glm::vec3 pq = q - p;
+   glm::vec3 pr = r - p;
+   
+   glm::vec3 n = glm::cross(pq, pr);
+   
+   plane->a = n.x;
+   plane->b = n.y;
+   plane->c = n.z;
+   plane->d = n.x*(-p.x) + n.y*(-p.y) + n.z*(-p.z);
 }
 
 void Object::step(float dt) {
@@ -431,7 +514,7 @@ void Object::draw()
    glBindTexture(GL_TEXTURE_2D, texture_id);
    
    
-   glEnable(GL_CULL_FACE);
+   //glEnable(GL_CULL_FACE);
     
 	// Enable and bind position array for drawing
 	GLSL::enableVertexAttribArray(h_aPos);
