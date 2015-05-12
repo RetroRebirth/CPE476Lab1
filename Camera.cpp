@@ -271,6 +271,7 @@ void Camera::moveToOverworld() {
    // Set the appropriate flags
    this->playingMinigame = false;
    this->pov = true;
+   playerYrot = 0.0f;
 }
 
 void Camera::initPlayer(Object *_player) {
