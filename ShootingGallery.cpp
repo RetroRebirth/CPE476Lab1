@@ -1,6 +1,6 @@
 #include "ShootingGallery.h"
 
-ShootingGallery::ShootingGallery(GLuint _ShadeProg, Clicks* _clicks) {
+ShootingGallery::ShootingGallery(GLuint _ShadeProg, Clicks* _clicks, Sound* _sound) {
    ShadeProg = _ShadeProg;
    clicks = _clicks;
 
@@ -11,6 +11,8 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Clicks* _clicks) {
    wall->scale(glm::vec3(100.0f, 100.0f, 1.0f));
    wall->setTexture(TEX_WOOD_WALL);
    wall->setShadows(false);
+
+   sound = _sound;
 
    score = 0;
    time = 0.0;
@@ -96,6 +98,7 @@ void ShootingGallery::step(Window* window) {
             // TODO use spatial data structure
             for (int j = 0; j < targets.size(); ++j) {
                if (bullets[i]->collidedWithObj(*targets[j], window->dt)) {
+                  sound->playContactSound();
                   // Remove the target
                   targets.erase(targets.begin() + j);
                   --j;

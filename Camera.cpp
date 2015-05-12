@@ -277,13 +277,3 @@ void Camera::moveToOverworld() {
 void Camera::initPlayer(Object *_player) {
    player = _player;
 }
-
-/*glm::vec3 Camera::setPlayerPos() {
-   glm::vec3 temp;
-
-   temp.x = pos.x;
-   temp.y = 1;
-   temp.z = pos.z;
-
-   return temp;
-}*/

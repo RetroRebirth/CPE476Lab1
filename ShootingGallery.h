@@ -5,6 +5,7 @@
 #include "Clicks.h"
 #include "Texture.h"
 #include "Window.h"
+#include "Sound.h"
 
 #define DEPTH 3.0
 #define BULLET_SPD 20.0
@@ -13,7 +14,7 @@
 
 class ShootingGallery {
     public:
-        ShootingGallery(GLuint _ShadeProg, Clicks* _clicks);
+        ShootingGallery(GLuint _ShadeProg, Clicks* _clicks, Sound* _sound);
         virtual ~ShootingGallery();
         void mouseClick(glm::vec3 direction);
         void step(Window* window);
@@ -24,6 +25,7 @@ class ShootingGallery {
         vector<tinyobj::material_t> materials;
         GLuint ShadeProg;
         Clicks* clicks;
+        Sound* sound;
         Object* wall;
         int score;
         double time;

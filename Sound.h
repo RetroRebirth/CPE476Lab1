@@ -10,9 +10,10 @@ class Sound {
     Sound();
     virtual ~Sound();
     
-   ISoundEngine* engine;
+    ISoundEngine* engine;
     
     void initSound();
     void playBackgroundMusic();
+    void playContactSound();
 };
 #endif

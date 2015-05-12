@@ -198,7 +198,7 @@ void Session::toggleDrawWorld() {
 
 void Session::startMinigame(char* type) {
    if (strcmp(type, SHOOTING_GALLERY) == 0) {
-      minigame = new ShootingGallery(ShadeProg, clicks); // TODO support other minigames
+      minigame = new ShootingGallery(ShadeProg, clicks, sound); // TODO support other minigames
    }
 }
 
