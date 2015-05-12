@@ -97,4 +97,7 @@ struct bound_box {
    float z_min, z_max;
 };
 
+struct plane {
+   float a, b, c, d;
+};
 #endif
