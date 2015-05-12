@@ -6,7 +6,7 @@
 #include "Camera.h"
 #include "World.h"
 #include "Clicks.h"
-//#include "Sound.h"
+#include "Sound.h"
 #include "ShootingGallery.h"
 
 class Session {
