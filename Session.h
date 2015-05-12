@@ -30,7 +30,7 @@ class Session {
 //      FT_Library ft;
 
       Clicks* clicks;
-//      Sound* sound;
+      Sound* sound;
       World* world;
       ShootingGallery* minigame; // TODO support other minigames
       

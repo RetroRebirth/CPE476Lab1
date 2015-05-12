@@ -102,7 +102,7 @@ void ShootingGallery::step(Window* window) {
                   // Pop bullet up then drop
                   bullets[i]->setDir(glm::vec3(0.0, 1.0, -0.1));
                   bullets[i]->setSpeed(1.0);
-                  bullets[i]->setAccel(-4.0);
+                  bullets[i]->setAccel(-10.0);
                   // Report the score
                   printf("Hit a target! Score: %d\n", ++score);
                }
