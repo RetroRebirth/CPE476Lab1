@@ -54,7 +54,7 @@
 #define NUM_OBJ_TYPES 1
 #define SPHERE 0
 #define MOUSE_SPEED 0.25
-#define INITIAL_SPEED 10.0
+#define INITIAL_SPEED 7.0
 #define DELTA_SPEED 0.1
 #define MIN_SPEED 0.1
 #define MAX_SPEED 20.0

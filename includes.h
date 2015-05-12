@@ -13,8 +13,10 @@
 #include <ctime>
 #include <iostream>
 #include <fstream>
+/*
 #include <ft2build.h>
 #include FT_FREETYPE_H
+*/
 
 #include "glew.h"
 //#include "glfw3.h"
@@ -29,7 +31,9 @@
 #include "tiny_obj_loader.h"
 #include "Util.h"
 #include "MatrixStack.h"
-#include <irrKlang.h>
+/*
+#include "assimp/cimport.h" #include "assimp/Importer.hpp" #include "assimp/scene.h" #include "assimp/postprocess.h"
+*/
 
 // defines file names for various meshes
 #define EXTRA_FILE_NAME "bunny.obj"
@@ -54,7 +58,7 @@
 #define NUM_OBJ_TYPES 1
 #define SPHERE 0
 #define MOUSE_SPEED 0.25
-#define INITIAL_SPEED 10.0
+#define INITIAL_SPEED 7.0
 #define DELTA_SPEED 0.1
 #define MIN_SPEED 0.1
 #define MAX_SPEED 20.0
@@ -68,6 +72,7 @@
 #define SCALE_CONST2 1.3f
 #define INFLUENCE_WIDTH 2.0f
 #define PLAYER_ROT_DEG 2
+#define NUM_PLANES_VIEW_FRUSTUM 6
 
 // Game States
 #define WORLD_STATE 0
