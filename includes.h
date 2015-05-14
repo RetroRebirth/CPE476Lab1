@@ -17,6 +17,7 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 */
+
 #include "glew.h"
 //#include "glfw3.h"
 #include "glfw3_1.h"
@@ -30,7 +31,9 @@
 #include "tiny_obj_loader.h"
 #include "Util.h"
 #include "MatrixStack.h"
-#include <irrKlang.h>
+/*
+#include "assimp/cimport.h" #include "assimp/Importer.hpp" #include "assimp/scene.h" #include "assimp/postprocess.h"
+*/
 
 // defines file names for various meshes
 #define EXTRA_FILE_NAME "bunny.obj"
@@ -69,6 +72,7 @@
 #define SCALE_CONST2 1.3f
 #define INFLUENCE_WIDTH 2.0f
 #define PLAYER_ROT_DEG 2
+#define NUM_PLANES_VIEW_FRUSTUM 6
 
 // Game States
 #define WORLD_STATE 0

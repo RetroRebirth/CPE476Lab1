@@ -2,7 +2,7 @@
 #define __Sound__
 
 #include "includes.h"
-using namespace irrklang;
+//using namespace irrklang;
 
 class Sound {
    public:
@@ -10,7 +10,7 @@ class Sound {
     Sound();
     virtual ~Sound();
     
-    ISoundEngine* engine;
+//    ISoundEngine* engine;
     
     void initSound();
     void playBackgroundMusic();
