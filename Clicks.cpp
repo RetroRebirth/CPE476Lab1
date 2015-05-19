@@ -39,7 +39,7 @@ void Clicks::mouse_click (int mouse_x, int mouse_y, int height, int width, glm::
     //Information to start adding to the clickedObjects array.
     for(vector<Object *>::iterator count = objects->begin(); count != objects->end(); ++count){
       if(checkAgainstSphere(*count, o)){
-      clickedObjects.push_back(*count);
+         clickedObjects.push_back(*count);
       }
     }
   }

@@ -469,7 +469,6 @@ void World::parseMapFile(const char* fileName) {
    if (mapFile.is_open()) {
       // read in the lines;
       while (getline(mapFile, line)) {
-              
          // this line is a comment... skip it
          if (line[0] == '#') {
             continue;
@@ -478,27 +477,9 @@ void World::parseMapFile(const char* fileName) {
          char type[10];
          char minigame[20];
          float xt, yt, zt, xs, ys, zs, angle;
-         
          // load the booth data
          sscanf(line.c_str(), "%s (%f,%f,%f) (%f,%f,%f) %f %s\n", type, &xt, &yt, &zt, &xs, &ys, &zs, &angle, minigame);
-  /*          
-<<<<<<< HEAD
-            // add a new booth
-            if (strcmp(type, "booth") == 0) {
-                Booth *booth = new Booth(line.c_str(), shapes, materials, ShadeProg);
-                structures.push_back(booth);
-            }
-            // add a new wall
-            if (strcmp(type, "wall") == 0) {
-                // TODO:something to do with the walls
-            }
-        }
-        mapFile.close();
-    }
-    else {
-        printf("file %s was not available or could not be opened\n", fileName);
-    }
-=======*/
+
          Object* structure = new Object(shapes, materials, ShadeProg);
          
          glm::vec3 _pos = glm::vec3(xt, yt, zt);
@@ -674,7 +655,6 @@ void World::extractViewFrustumPlanes(glm::vec4* planes, const glm::mat4 matrix) 
 
 void World::normalizePlane(glm::vec4& plane) {
    float mag = sqrt(plane.x * plane.x + plane.y * plane.y + plane.z * plane.z);
-
    plane.x = plane.x / mag;
    plane.y = plane.y / mag;
    plane.z = plane.z / mag;
@@ -683,9 +663,7 @@ void World::normalizePlane(glm::vec4& plane) {
 
 bool World::checkPlane(glm::vec4 plane, glm::vec3 pos, float rad) {
    glm::vec4 v = glm::vec4(pos.x, pos.y, pos.z, 1.0);
-
    float result = plane.x * v.x + plane.y * v.y + plane.z * v.z + plane.w * v.w;
-
    bool correctHalfSpace = result > 0;
    bool clipping = glm::abs(result) < glm::abs(rad);
 

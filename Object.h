@@ -38,6 +38,7 @@ public:
     bool checkCameraCollision(glm::vec3 cam_pos, glm::vec3 *colPlane);
     bool checkPlayerCollision(Object* player, glm::vec3* colPlane);
     bool planarCollisionCheck(Object* o, glm::vec3* colPlane);
+    float updateRadius();
     
     // setters
     void setPos(glm::vec3 position)     { pos = position;    }

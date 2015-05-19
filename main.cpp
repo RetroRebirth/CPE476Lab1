@@ -62,8 +62,15 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
       }
       break;
    case GLFW_KEY_ENTER:
+      // Enter the minigame if in the world
       if (session->getGameState() == WORLD_STATE) {
          session->enterMinigame();
+      }
+      // Start the minigame if in the minigame
+      else if (session->getGameState() == MINIGAME_STATE) {
+         if (!session->gameStarted()) {
+            session->startMinigame();
+         }
       }
       break;
    case GLFW_KEY_SPACE:
@@ -86,12 +93,19 @@ void mouse_click_callback(GLFWwindow *window, int button, int action, int mods){
    int height;
    int width;
    glfwGetWindowSize(window, &width, &height);
-
-
-   session->getClicks()->mouse_click(mouse_x, mouse_y, height, width, session->getCamera()->Projection, 
-         session->getCamera()->View, session->getCamera()->pos);
+   
+   // convert window to world coordinates
+   double x = 2.0 * mouse_x / width - 1;
+   double y = -2.0 * mouse_y / height + 1;
+   glm::mat4 Projection = session->getCamera()->Projection;
+   glm::mat4 View = session->getCamera()->View;
+   glm::mat4 viewProjInv = glm::inverse(Projection * View);
+   glm::vec4 point = glm::vec4(x, y, 0, 1);
+   glm::vec4 newPoint = viewProjInv * point;
+   
+   session->getClicks()->mouse_click(mouse_x, mouse_y, height, width, Projection, View, session->getCamera()->pos);
    glm::vec3 direction = session->getClicks()->getDirection();
-   session->mouseClick(direction);
+   session->mouseClick(direction, newPoint);
 }
 
 
@@ -112,8 +126,7 @@ int main(int argc, char **argv) {
     
    loadAllTextures();
    session->run(); // Runs the main game loop
-
    delete session; // Free the main game session from the heap
-
+    
    return 0;
 }

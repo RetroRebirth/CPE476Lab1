@@ -1,10 +1,7 @@
 #include "includes.h"
 #include "Camera.h"
 #include "Object.h"
-#include "Model.h"
 #include "Texture.h"
-
-#define ASSIMP 0
 
 class SkyBox
 {

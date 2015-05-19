@@ -23,3 +23,4 @@ void Sound::playBackgroundMusic() {
 void Sound::playContactSound() {
    engine->play2D("bell.wav", false);
 }
+

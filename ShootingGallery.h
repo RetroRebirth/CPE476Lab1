@@ -16,9 +16,11 @@ class ShootingGallery {
     public:
         ShootingGallery(GLuint _ShadeProg, Clicks* _clicks, Sound* _sound);
         virtual ~ShootingGallery();
-        void mouseClick(glm::vec3 direction);
+        void mouseClick(glm::vec3 direction, glm::vec4 point);
         void step(Window* window);
 
+        bool gameOver, gameStart;
+    
     private:
         vector<Object*> targets;
         vector<tinyobj::shape_t> shapes;

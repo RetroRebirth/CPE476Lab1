@@ -16,6 +16,7 @@ Session::Session() {
    
    minigame = NULL;
    game_state = WORLD_STATE;
+   game_start = false;
 }
 
 Session::~Session() {
@@ -106,7 +107,6 @@ void Session::initGL() {
     }
     //text = new Text(ft);
     //text->createAtlas();
-    
 */
     //printf("openGL version: %s\n", (const char*)glGetString(GL_VERSION​​));
     std::cout << "openGL version " << (char*)glGetString(GL_VERSION) << endl;
@@ -185,10 +185,10 @@ Clicks* Session::getClicks() {
 }
 
 /* handles mouse clicks thrown in main! Takes in a direction */
-void Session::mouseClick(glm::vec3 direction) {
+void Session::mouseClick(glm::vec3 direction, glm::vec4 point) {
    // TODO pass click along to clicks
    if (minigame != NULL) {
-      minigame->mouseClick(direction);
+      minigame->mouseClick(direction, point);
    }
 }
 
@@ -198,8 +198,15 @@ void Session::toggleDrawWorld() {
 
 void Session::startMinigame(char* type) {
    if (strcmp(type, SHOOTING_GALLERY) == 0) {
-      minigame = new ShootingGallery(ShadeProg, clicks, sound); // TODO support other minigames
+      minigame = new ShootingGallery(ShadeProg, clicks, sound);
    }
+   else if (strcmp(type, WATERMELON_SMASH) == 0) {
+      //minigame = new WatermelonSmash(ShadeProg, clicks, sound);
+   }
+}
+
+void Session::startMinigame() {
+   minigame->gameStart = true;
 }
 
 void Session::enterMinigame() {
@@ -211,6 +218,7 @@ void Session::enterMinigame() {
       window->showMouse();
       minigame = NULL;
       startMinigame((char*)SHOOTING_GALLERY);
+      //startMinigame((char*)WATERMELON_SMASH);
    }
 }
 

@@ -129,6 +129,34 @@ bool Object::collision(Object* o) {
    return false;
 }
 
+float Object::updateRadius() {
+        const vector<float> &posBuf = shapes[0].mesh.positions;
+        
+        float rad;
+        for (int i = 0; i < (int)posBuf.size(); i += 3) {
+            glm::vec4 v;
+            v = glm::vec4(posBuf[i], posBuf[i+1], posBuf[i+2], 1.0f) * scalerMat;
+            if (i == 0) {
+                // initialize radius on first pass
+                rad = abs(v.x);
+            }
+            else {
+                if (abs(v.x) > rad) {
+                    rad = abs(v.x);
+                }
+                if (abs(v.y) > rad) {
+                    rad = abs(v.y);
+                }
+                if (abs(v.z) > rad) {
+                    rad = abs(v.z);
+                }
+            }
+        }
+        radius = rad;
+        return rad;
+    //return xzRadius;
+}
+
 float Object::getXZRadius() {
    if (xzRadius == -1.0f) {
       const vector<float> &posBuf = shapes[0].mesh.positions;
@@ -512,8 +540,7 @@ void Object::draw()
    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
    glBindTexture(GL_TEXTURE_2D, texture_id);
-   
-   
+    
    //glEnable(GL_CULL_FACE);
     
 	// Enable and bind position array for drawing
@@ -548,6 +575,10 @@ void Object::draw()
       R *= RX*RY*RZ;
    }
    modelMat = T*R*scalerMat;//S;
+    
+    // Send the rotation matrix
+    GLint h_rot = GLSL::getUniformLocation(ShadeProg, "uRot");
+    Util::safe_glUniformMatrix4fv(h_rot, glm::value_ptr(R));
    
     // Draw the object
     Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T*R*scalerMat));
@@ -556,7 +587,6 @@ void Object::draw()
     if (drawBounds) {
       drawBox();
     }
-    
     // Draw the shadow
     if (castShadows) {
         glBindTexture(GL_TEXTURE_2D, 0);
@@ -675,4 +705,3 @@ glm::vec3 Object::calculateNewPos(float dt) {
       vel += accel * dt;
    return pos + dir * vel * dt;
 }
-

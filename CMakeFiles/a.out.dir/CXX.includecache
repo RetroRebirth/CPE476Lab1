@@ -106,12 +106,6 @@ glm/glm.hpp
 glm/gtc/type_ptr.hpp
 /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.hpp
 
-/Users/kayla/Projects/Graphics/CPE476Lab1/Model.h
-includes.h
-/Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
-Texture.h
-/Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
-
 /Users/kayla/Projects/Graphics/CPE476Lab1/Object.cpp
 Object.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
@@ -119,18 +113,6 @@ Object.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
 includes.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
-
-/Users/kayla/Projects/Graphics/CPE476Lab1/Player.cpp
-Player.h
-/Users/kayla/Projects/Graphics/CPE476Lab1/Player.h
-
-/Users/kayla/Projects/Graphics/CPE476Lab1/Player.h
-includes.h
-/Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
-Camera.h
-/Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
-Object.h
-/Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Session.cpp
 Session.h
@@ -147,8 +129,12 @@ World.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/World.h
 Clicks.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
+Sound.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
 ShootingGallery.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.h
+WatermelonSmash.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/WatermelonSmash.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.cpp
 ShootingGallery.h
@@ -163,6 +149,8 @@ Texture.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
 Window.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
+Sound.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.cpp
 SkyBox.h
@@ -175,8 +163,6 @@ Camera.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
 Object.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
-Model.h
-/Users/kayla/Projects/Graphics/CPE476Lab1/Model.h
 Texture.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
 
@@ -201,6 +187,22 @@ cmath
 -
 includes.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/WatermelonSmash.cpp
+WatermelonSmash.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/WatermelonSmash.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/WatermelonSmash.h
+includes.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+Clicks.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
+Texture.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
+Window.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
+Sound.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Window.cpp
 Window.h
@@ -246,10 +248,12 @@ OpenGL/glu.h
 GL/glu.h
 -
 
-/Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
 stddef.h
 -
 OpenGL/gl3.h
+-
+OpenGL/gl3ext.h
 -
 OpenGL/gl.h
 -
@@ -259,11 +263,23 @@ GL/glcorearb.h
 -
 GLES/gl.h
 -
+GLES/glext.h
+-
 GLES2/gl2.h
+-
+GLES2/gl2ext.h
 -
 GLES3/gl3.h
 -
+GLES3/gl2ext.h
+-
+GLES3/gl31.h
+-
+GLES3/gl2ext.h
+-
 GL/gl.h
+-
+GL/glext.h
 -
 GL/glu.h
 -
@@ -715,8 +731,8 @@ ft2build.h
 -
 glew.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
-glfw3.h
-/Users/kayla/Projects/Graphics/CPE476Lab1/glfw3.h
+glfw3_1.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
 GL/freeglut.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
 GLSL.h

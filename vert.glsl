@@ -7,6 +7,7 @@ attribute vec2 aTexCoord;   // texture coordinates
 uniform mat4 uP;            // projection matrix
 uniform mat4 uV;            // view matrix
 uniform mat4 uM;            // model matrix
+uniform mat4 uRot;
 
 // Outgoing variables
 varying vec4 vPos;
@@ -15,7 +16,7 @@ varying vec2 vTexCoord;
 
 void main() {
    gl_Position = uP * uV * uM * aPos;
-   vPos = aPos;
-   vNor = aNor;
+   vPos = uRot * aPos;
+   vNor = uRot * aNor;
    vTexCoord = aTexCoord;
 }

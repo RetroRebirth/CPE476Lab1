@@ -14,7 +14,10 @@ void loadAllTextures()
         (char *)"textures/wood_dark.bmp",
         (char *)"textures/wood_red.bmp",
         (char *)"textures/wood_wall.bmp",
-        (char *)"textures/greyConcrete.bmp"
+        (char *)"textures/greyConcrete.bmp",
+        (char *)"textures/watermelon_outside.bmp",
+        (char *)"textures/watermelon_inside.bmp",
+        (char *)"textures/target.bmp"
     };
     // load the textures
     for (int i = 0; i < NUM_TEXTURES; i++)
@@ -84,12 +87,6 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
 void Texture::bindTexture()
 {
     glBindTexture(GL_TEXTURE_2D, texture);
-}
-
-/* Deletes the memory used by this textures */
-void Texture::deleteTexture()
-{
-    //glDeleteTextures(1, &texture);
 }
 
 void Texture::reloadTexture()

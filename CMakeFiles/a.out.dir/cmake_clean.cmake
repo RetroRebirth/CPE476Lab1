@@ -6,7 +6,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/a.out.dir/Camera.cpp.o"
   "CMakeFiles/a.out.dir/MatrixStack.cpp.o"
   "CMakeFiles/a.out.dir/Object.cpp.o"
-  "CMakeFiles/a.out.dir/Player.cpp.o"
   "CMakeFiles/a.out.dir/Session.cpp.o"
   "CMakeFiles/a.out.dir/SkyBox.cpp.o"
   "CMakeFiles/a.out.dir/Window.cpp.o"
@@ -15,6 +14,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/a.out.dir/Clicks.cpp.o"
   "CMakeFiles/a.out.dir/ShootingGallery.cpp.o"
   "CMakeFiles/a.out.dir/Sound.cpp.o"
+  "CMakeFiles/a.out.dir/WatermelonSmash.cpp.o"
   "a.out.pdb"
   "a.out"
 )

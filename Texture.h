@@ -7,13 +7,12 @@ class Texture {
 public:
     // constructors & destructors
     Texture() { mipmapsGenerated = false; }
-    virtual ~Texture() { deleteTexture(); }
+    virtual ~Texture() {}
     
     // methods
     void loadTexture(char *filename, int texture_id, bool genMipMaps);
     void bindTexture();
     void reloadTexture();
-    void deleteTexture();
     
     // getters
     int getHeight()      { return height;    }
@@ -53,8 +52,11 @@ private:
 #define TEX_WOOD_RED 6
 #define TEX_WOOD_WALL 7
 #define TEX_LANTERN 8
+#define TEX_MELON_OUT 9
+#define TEX_MELON_IN 10
+#define TEX_TARGET 11
 
-#define NUM_TEXTURES 9
+#define NUM_TEXTURES 12
 extern Texture textures[NUM_TEXTURES];
 void loadAllTextures();
 #endif

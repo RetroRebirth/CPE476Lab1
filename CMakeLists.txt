@@ -25,6 +25,6 @@ elseif(WIN32)
 
 endif()
 
-add_executable(${PROJECT_NAME} main.cpp GLSL.cpp tiny_obj_loader.cc Booth.cpp Camera.cpp MatrixStack.cpp Object.cpp Player.cpp Session.cpp SkyBox.cpp Window.cpp World.cpp Texture.cpp Clicks.cpp ShootingGallery.cpp Sound.cpp)
+add_executable(${PROJECT_NAME} main.cpp GLSL.cpp tiny_obj_loader.cc Booth.cpp Camera.cpp MatrixStack.cpp Object.cpp Session.cpp SkyBox.cpp Window.cpp World.cpp Texture.cpp Clicks.cpp ShootingGallery.cpp Sound.cpp WatermelonSmash.cpp)
 
 target_link_libraries(${PROJECT_NAME} ${ASSIMP_LIB} ${OPENGL_gl_LIBRARY} ${GLFW_LIB} ${GLEW_LIBRARY} ${PLATFORM_LIBS} ${IRRKLANG_LIB} ${IRRKLANGMP3_LIB})

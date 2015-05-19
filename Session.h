@@ -7,7 +7,9 @@
 #include "World.h"
 #include "Clicks.h"
 #include "Sound.h"
+
 #include "ShootingGallery.h"
+#include "WatermelonSmash.h"
 
 class Session {
    public:
@@ -20,9 +22,12 @@ class Session {
       Clicks* getClicks();
       void enterMinigame();
       void leaveMinigame();
-      void mouseClick(glm::vec3 direction);
+      void mouseClick(glm::vec3 direction, glm::vec4 point);
       int getGameState() { return game_state; };
       void toggleDrawWorld();
+      bool gameStarted() { return game_start; }
+      void startMinigame();
+   
    private:
       Window* window;
       Camera* camera;
@@ -32,10 +37,13 @@ class Session {
       Clicks* clicks;
       Sound* sound;
       World* world;
-      ShootingGallery* minigame; // TODO support other minigames
-      
+    
+      ShootingGallery* minigame;
+      //WatermelonSmash* minigame;
+    
       // defines current state of game... consts defined in includes.h
       int game_state;
+      bool game_start;
 
       GLuint ShadeProg;
       GLint h_aPos;

@@ -1,3 +1,0 @@
-movement based on player's position
-camera bound to player position
-update so camera moves with player rotation (but you can still move the camera around to the front of the player)

@@ -210,32 +210,9 @@ CMakeFiles/a.out.dir/Object.cpp.o.provides: CMakeFiles/a.out.dir/Object.cpp.o.re
 
 CMakeFiles/a.out.dir/Object.cpp.o.provides.build: CMakeFiles/a.out.dir/Object.cpp.o
 
-CMakeFiles/a.out.dir/Player.cpp.o: CMakeFiles/a.out.dir/flags.make
-CMakeFiles/a.out.dir/Player.cpp.o: Player.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles $(CMAKE_PROGRESS_8)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/a.out.dir/Player.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/a.out.dir/Player.cpp.o -c /Users/kayla/Projects/Graphics/CPE476Lab1/Player.cpp
-
-CMakeFiles/a.out.dir/Player.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/a.out.dir/Player.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/kayla/Projects/Graphics/CPE476Lab1/Player.cpp > CMakeFiles/a.out.dir/Player.cpp.i
-
-CMakeFiles/a.out.dir/Player.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/a.out.dir/Player.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/kayla/Projects/Graphics/CPE476Lab1/Player.cpp -o CMakeFiles/a.out.dir/Player.cpp.s
-
-CMakeFiles/a.out.dir/Player.cpp.o.requires:
-.PHONY : CMakeFiles/a.out.dir/Player.cpp.o.requires
-
-CMakeFiles/a.out.dir/Player.cpp.o.provides: CMakeFiles/a.out.dir/Player.cpp.o.requires
-	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Player.cpp.o.provides.build
-.PHONY : CMakeFiles/a.out.dir/Player.cpp.o.provides
-
-CMakeFiles/a.out.dir/Player.cpp.o.provides.build: CMakeFiles/a.out.dir/Player.cpp.o
-
 CMakeFiles/a.out.dir/Session.cpp.o: CMakeFiles/a.out.dir/flags.make
 CMakeFiles/a.out.dir/Session.cpp.o: Session.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles $(CMAKE_PROGRESS_9)
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/a.out.dir/Session.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/a.out.dir/Session.cpp.o -c /Users/kayla/Projects/Graphics/CPE476Lab1/Session.cpp
 
@@ -258,7 +235,7 @@ CMakeFiles/a.out.dir/Session.cpp.o.provides.build: CMakeFiles/a.out.dir/Session.
 
 CMakeFiles/a.out.dir/SkyBox.cpp.o: CMakeFiles/a.out.dir/flags.make
 CMakeFiles/a.out.dir/SkyBox.cpp.o: SkyBox.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles $(CMAKE_PROGRESS_10)
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/a.out.dir/SkyBox.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/a.out.dir/SkyBox.cpp.o -c /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.cpp
 
@@ -281,7 +258,7 @@ CMakeFiles/a.out.dir/SkyBox.cpp.o.provides.build: CMakeFiles/a.out.dir/SkyBox.cp
 
 CMakeFiles/a.out.dir/Window.cpp.o: CMakeFiles/a.out.dir/flags.make
 CMakeFiles/a.out.dir/Window.cpp.o: Window.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles $(CMAKE_PROGRESS_11)
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/a.out.dir/Window.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/a.out.dir/Window.cpp.o -c /Users/kayla/Projects/Graphics/CPE476Lab1/Window.cpp
 
@@ -304,7 +281,7 @@ CMakeFiles/a.out.dir/Window.cpp.o.provides.build: CMakeFiles/a.out.dir/Window.cp
 
 CMakeFiles/a.out.dir/World.cpp.o: CMakeFiles/a.out.dir/flags.make
 CMakeFiles/a.out.dir/World.cpp.o: World.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles $(CMAKE_PROGRESS_12)
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles $(CMAKE_PROGRESS_11)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/a.out.dir/World.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/a.out.dir/World.cpp.o -c /Users/kayla/Projects/Graphics/CPE476Lab1/World.cpp
 
@@ -327,7 +304,7 @@ CMakeFiles/a.out.dir/World.cpp.o.provides.build: CMakeFiles/a.out.dir/World.cpp.
 
 CMakeFiles/a.out.dir/Texture.cpp.o: CMakeFiles/a.out.dir/flags.make
 CMakeFiles/a.out.dir/Texture.cpp.o: Texture.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles $(CMAKE_PROGRESS_13)
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles $(CMAKE_PROGRESS_12)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/a.out.dir/Texture.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/a.out.dir/Texture.cpp.o -c /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.cpp
 
@@ -350,7 +327,7 @@ CMakeFiles/a.out.dir/Texture.cpp.o.provides.build: CMakeFiles/a.out.dir/Texture.
 
 CMakeFiles/a.out.dir/Clicks.cpp.o: CMakeFiles/a.out.dir/flags.make
 CMakeFiles/a.out.dir/Clicks.cpp.o: Clicks.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles $(CMAKE_PROGRESS_14)
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles $(CMAKE_PROGRESS_13)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/a.out.dir/Clicks.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/a.out.dir/Clicks.cpp.o -c /Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.cpp
 
@@ -373,7 +350,7 @@ CMakeFiles/a.out.dir/Clicks.cpp.o.provides.build: CMakeFiles/a.out.dir/Clicks.cp
 
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: CMakeFiles/a.out.dir/flags.make
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: ShootingGallery.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles $(CMAKE_PROGRESS_15)
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles $(CMAKE_PROGRESS_14)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/a.out.dir/ShootingGallery.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/a.out.dir/ShootingGallery.cpp.o -c /Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.cpp
 
@@ -396,7 +373,7 @@ CMakeFiles/a.out.dir/ShootingGallery.cpp.o.provides.build: CMakeFiles/a.out.dir/
 
 CMakeFiles/a.out.dir/Sound.cpp.o: CMakeFiles/a.out.dir/flags.make
 CMakeFiles/a.out.dir/Sound.cpp.o: Sound.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles $(CMAKE_PROGRESS_16)
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles $(CMAKE_PROGRESS_15)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/a.out.dir/Sound.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/a.out.dir/Sound.cpp.o -c /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.cpp
 
@@ -417,6 +394,29 @@ CMakeFiles/a.out.dir/Sound.cpp.o.provides: CMakeFiles/a.out.dir/Sound.cpp.o.requ
 
 CMakeFiles/a.out.dir/Sound.cpp.o.provides.build: CMakeFiles/a.out.dir/Sound.cpp.o
 
+CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: CMakeFiles/a.out.dir/flags.make
+CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: WatermelonSmash.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/kayla/Projects/Graphics/CPE476Lab1/CMakeFiles $(CMAKE_PROGRESS_16)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/a.out.dir/WatermelonSmash.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/a.out.dir/WatermelonSmash.cpp.o -c /Users/kayla/Projects/Graphics/CPE476Lab1/WatermelonSmash.cpp
+
+CMakeFiles/a.out.dir/WatermelonSmash.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/a.out.dir/WatermelonSmash.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/kayla/Projects/Graphics/CPE476Lab1/WatermelonSmash.cpp > CMakeFiles/a.out.dir/WatermelonSmash.cpp.i
+
+CMakeFiles/a.out.dir/WatermelonSmash.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/a.out.dir/WatermelonSmash.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/kayla/Projects/Graphics/CPE476Lab1/WatermelonSmash.cpp -o CMakeFiles/a.out.dir/WatermelonSmash.cpp.s
+
+CMakeFiles/a.out.dir/WatermelonSmash.cpp.o.requires:
+.PHONY : CMakeFiles/a.out.dir/WatermelonSmash.cpp.o.requires
+
+CMakeFiles/a.out.dir/WatermelonSmash.cpp.o.provides: CMakeFiles/a.out.dir/WatermelonSmash.cpp.o.requires
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/WatermelonSmash.cpp.o.provides.build
+.PHONY : CMakeFiles/a.out.dir/WatermelonSmash.cpp.o.provides
+
+CMakeFiles/a.out.dir/WatermelonSmash.cpp.o.provides.build: CMakeFiles/a.out.dir/WatermelonSmash.cpp.o
+
 # Object files for target a.out
 a_out_OBJECTS = \
 "CMakeFiles/a.out.dir/main.cpp.o" \
@@ -426,7 +426,6 @@ a_out_OBJECTS = \
 "CMakeFiles/a.out.dir/Camera.cpp.o" \
 "CMakeFiles/a.out.dir/MatrixStack.cpp.o" \
 "CMakeFiles/a.out.dir/Object.cpp.o" \
-"CMakeFiles/a.out.dir/Player.cpp.o" \
 "CMakeFiles/a.out.dir/Session.cpp.o" \
 "CMakeFiles/a.out.dir/SkyBox.cpp.o" \
 "CMakeFiles/a.out.dir/Window.cpp.o" \
@@ -434,7 +433,8 @@ a_out_OBJECTS = \
 "CMakeFiles/a.out.dir/Texture.cpp.o" \
 "CMakeFiles/a.out.dir/Clicks.cpp.o" \
 "CMakeFiles/a.out.dir/ShootingGallery.cpp.o" \
-"CMakeFiles/a.out.dir/Sound.cpp.o"
+"CMakeFiles/a.out.dir/Sound.cpp.o" \
+"CMakeFiles/a.out.dir/WatermelonSmash.cpp.o"
 
 # External object files for target a.out
 a_out_EXTERNAL_OBJECTS =
@@ -446,7 +446,6 @@ a.out: CMakeFiles/a.out.dir/Booth.cpp.o
 a.out: CMakeFiles/a.out.dir/Camera.cpp.o
 a.out: CMakeFiles/a.out.dir/MatrixStack.cpp.o
 a.out: CMakeFiles/a.out.dir/Object.cpp.o
-a.out: CMakeFiles/a.out.dir/Player.cpp.o
 a.out: CMakeFiles/a.out.dir/Session.cpp.o
 a.out: CMakeFiles/a.out.dir/SkyBox.cpp.o
 a.out: CMakeFiles/a.out.dir/Window.cpp.o
@@ -455,6 +454,7 @@ a.out: CMakeFiles/a.out.dir/Texture.cpp.o
 a.out: CMakeFiles/a.out.dir/Clicks.cpp.o
 a.out: CMakeFiles/a.out.dir/ShootingGallery.cpp.o
 a.out: CMakeFiles/a.out.dir/Sound.cpp.o
+a.out: CMakeFiles/a.out.dir/WatermelonSmash.cpp.o
 a.out: CMakeFiles/a.out.dir/build.make
 a.out: /usr/local/lib/libassimp.dylib
 a.out: /usr/local/lib/libglfw3.dylib
@@ -476,7 +476,6 @@ CMakeFiles/a.out.dir/requires: CMakeFiles/a.out.dir/Booth.cpp.o.requires
 CMakeFiles/a.out.dir/requires: CMakeFiles/a.out.dir/Camera.cpp.o.requires
 CMakeFiles/a.out.dir/requires: CMakeFiles/a.out.dir/MatrixStack.cpp.o.requires
 CMakeFiles/a.out.dir/requires: CMakeFiles/a.out.dir/Object.cpp.o.requires
-CMakeFiles/a.out.dir/requires: CMakeFiles/a.out.dir/Player.cpp.o.requires
 CMakeFiles/a.out.dir/requires: CMakeFiles/a.out.dir/Session.cpp.o.requires
 CMakeFiles/a.out.dir/requires: CMakeFiles/a.out.dir/SkyBox.cpp.o.requires
 CMakeFiles/a.out.dir/requires: CMakeFiles/a.out.dir/Window.cpp.o.requires
@@ -485,6 +484,7 @@ CMakeFiles/a.out.dir/requires: CMakeFiles/a.out.dir/Texture.cpp.o.requires
 CMakeFiles/a.out.dir/requires: CMakeFiles/a.out.dir/Clicks.cpp.o.requires
 CMakeFiles/a.out.dir/requires: CMakeFiles/a.out.dir/ShootingGallery.cpp.o.requires
 CMakeFiles/a.out.dir/requires: CMakeFiles/a.out.dir/Sound.cpp.o.requires
+CMakeFiles/a.out.dir/requires: CMakeFiles/a.out.dir/WatermelonSmash.cpp.o.requires
 .PHONY : CMakeFiles/a.out.dir/requires
 
 CMakeFiles/a.out.dir/clean:
