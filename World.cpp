@@ -575,7 +575,7 @@ void World::createPlayer(const string &meshName) {
    camera->initPlayer(player);
    
    playerXZRad = player->getXZRadius();
-   printf("playerXZRad: %f\n", playerXZRad);
+//   printf("playerXZRad: %f\n", playerXZRad);
 }
 
 int World::numLeft() {

@@ -50,7 +50,7 @@ class Booth {
     
     // Minigame information
     char* interactMessage;  // message shown when within interaction
-    char* minigame;         // minigame associated with this booth
+    char minigame[20];         // minigame associated with this booth
     
     // Methods
     void showMessage();     // displays message to screen
