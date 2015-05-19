@@ -124,7 +124,7 @@ void WatermelonSmash::step(Window* window) {
                 for (int j = 0; j < melons.size(); ++j) {
                     if (bullets[i]->collidedWithObj(*melons[j]->object, window->dt)) {
                         // Hit the melon
-                        sound->playContactSound();
+//                        sound->playContactSound();
                         int pointsEarned = melons[j]->hit();
                         printf("Hit a melon! Points earned: %d\n", pointsEarned);
                         score += pointsEarned;

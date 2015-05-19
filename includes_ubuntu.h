@@ -77,6 +77,7 @@
 // Minigames
 #define NO_GAME "null"
 #define SHOOTING_GALLERY "shooting_gallery"
+#define WATERMELON_SMASH "watermelon_smash"
 
 using namespace std;
 
