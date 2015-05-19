@@ -18,6 +18,7 @@ class ShootingGallery {
         virtual ~ShootingGallery();
         void mouseClick(glm::vec3 direction, glm::vec4 point);
         void step(Window* window);
+        bool done;
 
         bool gameOver, gameStart;
     
@@ -33,6 +34,8 @@ class ShootingGallery {
         double time;
         void newTarget();
         vector<Object*> bullets;
+        int ammo;
+        float doneTimer;
 };
 
 #endif

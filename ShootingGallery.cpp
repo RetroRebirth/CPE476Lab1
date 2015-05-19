@@ -18,18 +18,22 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Clicks* _clicks, Sound* _sou
    score = 0;
    time = 0.0;
    clicks->setObjects(&targets);
+   done = false;
+   doneTimer = -1;
+   ammo = 20;
 
    printf("\t\t----- Welcome to the SHOOTING GALLERY -----\n");
    printf("\t\tTest your skills by shooting your targets as they appear!\n");
-   printf("\t\tOnce you are done, press SPACE to exit.\n\n");
+   printf("\t\tAmmo: %d\tTime: Unlimited\n", ammo);
+   printf("\t\tIf you would like to leave early, press SPACE to exit.\n\n");
 }
 
 void ShootingGallery::newTarget(){
-   // Initialize a sphere to test clicking on TODO remove
+   // Initialize a target
    Object* object = new Object(shapes, materials, ShadeProg);
    object->load("objs/target.obj");
    object->setShadows(false);
-   // Create random coordinates for the new target
+   // Pick a random spot from 8 places
    float x = 2.0 * (int)(Util::randF() * COLS) - 3.0;
    float y = 3.0 * (int)(Util::randF() * ROWS) + 1.0 - 10.0;
    float z = DEPTH;
@@ -55,18 +59,39 @@ ShootingGallery::~ShootingGallery() {
 }
 
 void ShootingGallery::step(Window* window) {
-   
-   if (!gameStart || gameOver)
-      return;
-   vector<Object*> clickedObjects = clicks->getClickedObjects();
-   srand(window->time);
+   // Decrement the done timer if it has been set
+   if (doneTimer > 0) {
+      doneTimer -= window->dt;
+      // Set our done flag so we can exit when the timer runs out
+      if (doneTimer <= 0) {
+         done = true;
+         // TODO record score for buying prizes later?
+      }
+   }
+
+   // TODO seed with system time
+//   srand(window->time);
 
    // Adds a new target every amount of time
    if (window->time - time >= 2.0) {
       newTarget();
       time = window->time;
    }
+/*
+   // Record score for hit targets
+   vector<Object*> clickedObjects = clicks->getClickedObjects();
+   for (int i = 0; i < clickedObjects.size(); ++i) {
+      delete clickedObjects[i];
+      clickedObjects.erase(clickedObjects.begin() + i);
+      // Remove the old target
+      clickedObjects[i]->setPos(glm::vec3(0.0, 0.0, -1.0));
 
+      // Add a new target
+      newTarget();
+
+      printf("Hit a target! Score: %d\n", ++score);
+   }
+*/
    // Draw the targets
    for (int i = 0; i < targets.size(); ++i) {
       if (targets[i] == NULL) {
@@ -96,7 +121,7 @@ void ShootingGallery::step(Window* window) {
                   bullets[i]->setSpeed(1.0);
                   bullets[i]->setAccel(-10.0);
                   // Report the score
-                  printf("Hit a target! Score: %d\n", ++score);
+                  printf("\t\tHit a target! Score: %d\n", ++score);
                }
             }
          }
@@ -110,6 +135,10 @@ void ShootingGallery::step(Window* window) {
 }
 
 void ShootingGallery::mouseClick(glm::vec3 direction, glm::vec4 point) {
+   // Only shoot a bullet if we have the ammo
+   if (ammo <= 0) {
+      return;
+   }
    // Shoot a bullet
    Object* bullet = new Object(shapes, materials, ShadeProg);
    bullet->load("sphere.obj");
@@ -121,4 +150,14 @@ void ShootingGallery::mouseClick(glm::vec3 direction, glm::vec4 point) {
    bullet->setSpeed(BULLET_SPD);
    bullet->scale(glm::vec3(0.2, 0.2, 0.2));
    bullets.push_back(bullet);
+   // Decrement and print ammo
+   ammo--;
+   printf("\t\tAmmo: %d\n", ammo);
+   // If run out of ammo, set a timer for the game to finish
+   if (ammo <= 0) {
+      doneTimer = 2.0f; // 2 seconds
+      // Tell the user the game is done and we will be exiting
+      printf("\t\tFINISHED! Final score: %d\n", score);
+      printf("\t\tGame will exit in %lf seconds OR press SPACE to exit.\n", doneTimer);
+   }
 }

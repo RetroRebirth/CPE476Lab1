@@ -164,6 +164,10 @@ void Session::step() {
       minigame->step(window);
    }
 
+   if (minigame != NULL && minigame->done) {
+      leaveMinigame();
+   }
+
    // Disable and unbind
    GLSL::disableVertexAttribArray(h_aPos);
    glBindBuffer(GL_ARRAY_BUFFER, 0);
