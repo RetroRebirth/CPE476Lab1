@@ -13,17 +13,19 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Clicks* _clicks, Sound* _sou
    wall->setShadows(false);
 
    sound = _sound;
-   gameOver = gameStart = false;
+   gameStart = gameOver = false;
 
    score = 0;
-   time = 0.0;
+   elapsedTime = 0.0;
    clicks->setObjects(&targets);
-   done = false;
+   gameOver = false;
    doneTimer = -1;
    ammo = 20;
+   timeLimit = -1; // Unlimited
 
    printf("\t\t----- Welcome to the SHOOTING GALLERY -----\n");
    printf("\t\tTest your skills by shooting your targets as they appear!\n");
+   printf("\n");
    printf("\t\tAmmo: %d\tTime: Unlimited\n", ammo);
    printf("\t\tIf you would like to leave early, press SPACE to exit.\n\n");
 }
@@ -62,10 +64,18 @@ void ShootingGallery::step(Window* window) {
    // Decrement the done timer if it has been set
    if (doneTimer > 0) {
       doneTimer -= window->dt;
-      // Set our done flag so we can exit when the timer runs out
+      // If our finished game timer is done, exit the minigame
       if (doneTimer <= 0) {
-         done = true;
-         // TODO record score for buying prizes later?
+         exit();
+      }
+   }
+
+   // Decrement the time limit if not set to unlimited (< 0)
+   if (timeLimit > 0) {
+      timeLimit -= window->dt;
+      // If the time limit ran out, begin leaving the minigame
+      if (timeLimit <= 0) {
+         finished();
       }
    }
 
@@ -73,9 +83,9 @@ void ShootingGallery::step(Window* window) {
 //   srand(window->time);
 
    // Adds a new target every amount of time
-   if (window->time - time >= 2.0) {
+   if (window->time - elapsedTime >= 2.0) {
       newTarget();
-      time = window->time;
+      elapsedTime = window->time;
    }
 /*
    // Record score for hit targets
@@ -155,9 +165,21 @@ void ShootingGallery::mouseClick(glm::vec3 direction, glm::vec4 point) {
    printf("\t\tAmmo: %d\n", ammo);
    // If run out of ammo, set a timer for the game to finish
    if (ammo <= 0) {
-      doneTimer = 2.0f; // 2 seconds
-      // Tell the user the game is done and we will be exiting
-      printf("\t\tFINISHED! Final score: %d\n", score);
-      printf("\t\tGame will exit in %lf seconds OR press SPACE to exit.\n", doneTimer);
+      finished();
    }
+}
+
+/**
+ * The game is finished. Set a delay timer for kicking the player out of the minigame.
+ */
+void ShootingGallery::finished() {
+   doneTimer = 2.0f; // 2 seconds
+   // Tell the user the game is done and we will be exiting
+   printf("\t\tFINISHED! Final score: %d\n", score);
+   printf("\t\tGame will exit in %lf seconds OR press SPACE to exit.\n", doneTimer);
+}
+
+void ShootingGallery::exit() {
+   gameOver = true;
+   // TODO record score for buying prizes later?
 }

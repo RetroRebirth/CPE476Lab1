@@ -9,7 +9,7 @@ WatermelonSmash::WatermelonSmash(GLuint _ShadeProg, Clicks* _clicks, Sound* _sou
     score = 0;
     timeStart = timer = timeLeft = timeRight = 0.0;
     spawnLeft = spawnRight = false;
-    gameOver = gameStart = false;
+    gameStart = gameOver = false;
 
     // Set up the booth
     setUp();
@@ -76,7 +76,7 @@ void WatermelonSmash::checkTime(Window *window) {
     else {
         // Increment the timer every second
         if (window->time - timer >= 1.0) {
-            printf("Time remaining: %d\n", (int)(window->time - timeStart));
+            printf("Time remaining: %d\n", (int)(timeStart - window->time));
             timer = window->time;
         }
         // Check whether the game has ended (50 seconds)

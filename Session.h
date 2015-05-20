@@ -7,9 +7,7 @@
 #include "World.h"
 #include "Clicks.h"
 #include "Sound.h"
-
-#include "ShootingGallery.h"
-#include "WatermelonSmash.h"
+#include "Minigame.h"
 
 class Session {
    public:
@@ -38,8 +36,7 @@ class Session {
       Sound* sound;
       World* world;
     
-      ShootingGallery* minigame;
-      //WatermelonSmash* minigame;
+      Minigame* minigame;
     
       // defines current state of game... consts defined in includes.h
       int game_state;
@@ -63,7 +60,7 @@ class Session {
       void step();
 
       /** MISC **/
-      void startMinigame(char* type);
+      void createMinigame(char* type);
 };
 
 #endif

@@ -14,7 +14,7 @@ Session::Session() {
    camera->booths = world->booths;
    camera->structures = world->structures;
    
-   minigame = NULL;
+   minigame = new Minigame();
    game_state = WORLD_STATE;
    game_start = false;
 }
@@ -24,8 +24,7 @@ Session::~Session() {
    delete camera;
    delete world;
 //   delete sound;
-   if (minigame != NULL)
-      delete minigame;
+   delete minigame;
 }
 
 /**
@@ -164,7 +163,7 @@ void Session::step() {
       minigame->step(window);
    }
 
-   if (minigame != NULL && minigame->done) {
+   if (minigame->getGameOver()) {
       leaveMinigame();
    }
 
@@ -191,7 +190,7 @@ Clicks* Session::getClicks() {
 /* handles mouse clicks thrown in main! Takes in a direction */
 void Session::mouseClick(glm::vec3 direction, glm::vec4 point) {
    // TODO pass click along to clicks
-   if (minigame != NULL) {
+   if (game_state == MINIGAME_STATE) {
       minigame->mouseClick(direction, point);
    }
 }
@@ -200,17 +199,19 @@ void Session::toggleDrawWorld() {
    world->drawWorld = !world->drawWorld;
 }
 
-void Session::startMinigame(char* type) {
-   if (strcmp(type, SHOOTING_GALLERY) == 0) {
-      minigame = new ShootingGallery(ShadeProg, clicks, sound);
-   }
-   else if (strcmp(type, WATERMELON_SMASH) == 0) {
-      //minigame = new WatermelonSmash(ShadeProg, clicks, sound);
+void Session::startMinigame() {
+   if (game_state == MINIGAME_STATE) {
+      minigame->setGameStart(true);
    }
 }
 
-void Session::startMinigame() {
-   minigame->gameStart = true;
+void Session::createMinigame(char* type) {
+   // Which type of minigame is this?
+   if (strcmp(type, SHOOTING_GALLERY) == 0) {
+      minigame->shootingGallery = new ShootingGallery(ShadeProg, clicks, sound);
+   } else if (strcmp(type, WATERMELON_SMASH) == 0) {
+      minigame->watermelonSmash = new WatermelonSmash(ShadeProg, clicks, sound);
+   }
 }
 
 void Session::enterMinigame() {
@@ -220,9 +221,9 @@ void Session::enterMinigame() {
       world->inMiniGame();
       camera->moveToMinigame();
       window->showMouse();
-      minigame = NULL;
-      startMinigame((char*)SHOOTING_GALLERY);
-      //startMinigame((char*)WATERMELON_SMASH);
+      minigame->clearMinigames();
+//      createMinigame((char*)WATERMELON_SMASH);
+      createMinigame(booth->getMinigame());
    }
 }
 
@@ -231,6 +232,5 @@ void Session::leaveMinigame() {
    world->leftMiniGame();
    camera->moveToOverworld();
    window->hideMouse();
-   minigame = NULL;
-   // TODO set up controls for moving around overworld
+   minigame->clearMinigames();
 }
