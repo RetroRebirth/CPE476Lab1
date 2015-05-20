@@ -56,6 +56,7 @@ class Booth {
     void showMessage();     // displays message to screen
     void startMinigame();   // starts the minigame
     void initBooth(glm::vec3 _pos, glm::vec3 _scalar, float _angle, char* _minigame);
+    const string getMinigameDisplayName();
 };
 
 #endif

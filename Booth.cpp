@@ -111,7 +111,11 @@ bool Booth::checkInteract(glm::vec3 player_pos){
    if (!active) { // anything you only want done once, put here.
       active = true;
       // Print out which booth this is
-      printf("Press ENTER to play %s!\n", minigame);
+      if (strcmp(minigame, NO_GAME) == 0) {
+         printf("-- BOOTH UNDER CONSTRUCTION --\n");
+      } else {
+         printf("Press ENTER to play %s!\n", getMinigameDisplayName().c_str());
+      }
    }
    return false;
   //while(true /*The actual interact check would go here*/ ){
@@ -143,3 +147,15 @@ void Booth::setPosition(glm::vec3 position){
 char* Booth::getMinigame() {
    return minigame;
 }
+
+const string Booth::getMinigameDisplayName() {
+   if (strcmp(minigame, SHOOTING_GALLERY) == 0) {
+      return "SHOOTING GALLERY";
+   } else if (strcmp(minigame, WATERMELON_SMASH) == 0) {
+      return "WATERMELON SMASH";
+   } else {
+      // Booth doesn't have a minigame OR we haven't created a display name for it
+      return "-- BOOTH UNDER CONSTRUCTION --";
+   }
+}
+
