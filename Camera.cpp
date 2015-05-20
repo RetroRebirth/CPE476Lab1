@@ -97,7 +97,7 @@ bool Camera::checkStaticObjectCollisions(Object* o, glm::vec3* colPlane) {
 
 glm::vec3 Camera::calcNewPos(Window* window) {
    glm::vec3 newPos = debug ? debug_pos : player->pos;
-   float moveInc = speed * 0.03f;//window->dt;
+   float moveInc = speed * window->dt;
    float playerYrad = Util::degreesToRadians(playerYrot);
 
    glm::vec3 viewVector = glm::normalize(newPos - lookAtPt());
