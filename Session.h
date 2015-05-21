@@ -8,6 +8,8 @@
 #include "Clicks.h"
 #include "Sound.h"
 #include "Minigame.h"
+#include "Program.h"
+#include "ParticleTexture.h"
 
 class Session {
    public:
@@ -31,6 +33,9 @@ class Session {
       Camera* camera;
       //Text* text;
 //      FT_Library ft;
+      
+      // contains all shaders mapped to key defined in includes.h
+      map<string, Program*> shaders;
 
       Clicks* clicks;
       Sound* sound;
@@ -42,7 +47,7 @@ class Session {
       int game_state;
       bool game_start;
 
-      GLuint ShadeProg;
+      //GLuint ShadeProg;
       GLint h_aPos;
       GLint h_aNor;
       GLint h_uP;
@@ -52,8 +57,12 @@ class Session {
       GLint h_uAClr, h_uDClr, h_uSClr, h_uS;
       GLint h_aTexCoord, h_uTexUnit;
 
+      // OpenGL handle to texture data
+      ParticleTexture texture;
+      GLint h_texture0;
+
       /** INITIALIZING **/
-      bool installShaders(const string &vShaderName, const string &fShaderName);
+      bool installShaders(Program* prog);
       void initGL();
 
       /** MAIN GAME LOOP **/

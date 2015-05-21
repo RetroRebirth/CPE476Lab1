@@ -55,8 +55,9 @@ private:
 #define TEX_MELON_OUT 9
 #define TEX_MELON_IN 10
 #define TEX_TARGET 11
+#define TEX_PARTICLE 12
 
-#define NUM_TEXTURES 12
+#define NUM_TEXTURES 13
 extern Texture textures[NUM_TEXTURES];
 void loadAllTextures();
 #endif

@@ -1,7 +1,26 @@
 #include "World.h"
-#include "Booth.h"
+#include <algorithm>
 
 static string objectFiles[] = {"bunny.obj"};
+
+// Sort particles by their z values in camera space
+class ParticleSorter {
+public:
+	bool operator()(const Particle *p0, const Particle *p1) const
+	//bool operator()(const shared_ptr<Particle> p0, const shared_ptr<Particle> p1) const
+	{
+		// Particle positions in world space
+		const glm::vec3 &x0 = p0->getPosition();
+		const glm::vec3 &x1 = p1->getPosition();
+		// Particle positions in camera space
+		glm::vec4 x0w = C * glm::vec4(x0, 1.0f);
+		glm::vec4 x1w = C * glm::vec4(x1, 1.0f);
+		return x0w.z < x1w.z;
+	}
+	
+	glm::mat4 C; // current camera matrix
+};
+ParticleSorter sorter;
 
 World::World(GLuint _ShadeProg, Camera* _camera) {
    // Default attribute values
@@ -23,6 +42,13 @@ World::World(GLuint _ShadeProg, Camera* _camera) {
    setupOverWorld();
    createExtras(EXTRA_FILE_NAME);
    
+   // initialize time and gravity for particles
+   t = 0.0f;
+   t0_disp = 0.0f;
+   t_disp = 0.0f;
+	h = 1.0f;
+	g = glm::vec3(0.0f, -0.01f, 0.0f);
+   
    drawWorld = true;
 }
 
@@ -43,14 +69,61 @@ World::~World() {
    for (int i=0; i<lanterns.size(); ++i) {
       delete lanterns[i];
    }
+   for (int i=0; i<particles.size(); ++i) {
+      delete particles[i];
+   }
+}
+
+void World::initParticles(Program* prog) {
+   particles.clear();
+   // load particles
+	for(int i = 0; i < NUM_PARTICLES; ++i) {
+		Particle* particle = new Particle(); // !C++11: Particle *particle = new Particle();
+		particle->load();
+		particle->setTexture(TEX_PARTICLE);
+		particles.push_back(particle);
+	}
+   for (int i=0; i<NUM_PARTICLES; ++i) {
+      particles[i]->init(prog);
+   }
+}
+
+void World::particleStep(Program* prog, Window* window) {
+   // Display every 60 Hz
+   
+	t += h;
+	
+	t_disp = window->getElapsedTime();
+	
+	// sort the particles from back to front
+   MatrixStack temp;
+   camera->applyViewMatrix(&temp);
+   glm::mat4 V = temp.topMatrix();
+   sorter.C = glm::transpose(glm::inverse(V)); // glm is transposed!
+   std::sort(particles.begin(), particles.end(), sorter);
+   
+   // Create matrix stacks
+	MatrixStack P, MV;
+	// Apply camera transforms
+	P.pushMatrix();
+	camera->applyProjectionMatrix(&P);
+	MV.pushMatrix();
+	camera->applyViewMatrix(&MV);
+	
+	// Bind the program
+	prog->bind();
+	
+	glUniformMatrix4fv(prog->getUniform("P"), 1, GL_FALSE, glm::value_ptr(P.topMatrix()));
+	for (int i=0; i<particles.size(); ++i) {
+	   particles[i]->update(t, h, g);
+		particles[i]->draw(&MV);
+	}
+	
+	// Unbind the program
+	prog->unbind();
 }
 
 void World::step(Window* window) {
-   // Create a new object every SECS_PER_OBJ
-   /*if (numLeft() < MAX_OBJS && window->time - objStartTime >= SECS_PER_OBJ) {
-      createExtra(EXTRA_FILE_NAME);
-      objStartTime = window->time;
-   }*/
    
 	float alpha = std::fmod(window->dt, 1.0f);
 	//printf("alpha: %f\n",alpha);
@@ -225,11 +298,10 @@ void World::step(Window* window) {
    }
 
    
-   camera->step(window);//, playerHit);
-   skybox->draw(camera, window);
-   /*if (playerHit) {
-      player->draw();
-   }*/
+   camera->step(window);
+   if (!inGame) {
+      skybox->draw(camera, window);
+   }
 }
 
 bool World::passedTarget(struct Extra* extra) {

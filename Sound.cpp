@@ -10,23 +10,23 @@ Sound::~Sound() {
 void Sound::initSound() {
    return;
 
-   engine = createIrrKlangDevice();
+   //engine = createIrrKlangDevice();
 
-   if (engine == NULL) {
-      exit(-1);
-   }
+   //if (engine == NULL) {
+     // exit(-1);
+   //}
 }
 
 void Sound::playBackgroundMusic() {
    return;
 
    // play some sound stream, looped
-   engine->play2D("41Moonsetter.wav", true);
+   //engine->play2D("41Moonsetter.wav", true);
 }
 
 void Sound::playContactSound() {
    return;
 
-   engine->play2D("bell.wav", false);
+   //engine->play2D("bell.wav", false);
 }
 

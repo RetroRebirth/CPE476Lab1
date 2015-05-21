@@ -38,6 +38,9 @@ class Camera {
       glm::vec3 lookAtPt();
       void setProjectionMatrix(int g_width, int g_height);
       void setView();
+      void applyProjectionMatrix(MatrixStack* P);
+      void applyViewMatrix(MatrixStack* MV);
+      
       void step(Window* window);//, bool playerHit, glm::vec3 colPlane);
       void mouse_callback(GLFWwindow* window, double xpos, double ypos, int g_width, int g_height);
       void enter_callback(GLFWwindow* window, int entered, int g_width, int g_height);

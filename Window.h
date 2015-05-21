@@ -24,7 +24,9 @@ class Window {
       void step();
       void showMouse();
       void hideMouse();
+      float getElapsedTime();
    private:
+      double start_time;
       double prev_time;
       long prev_frames;
       double prev_second;

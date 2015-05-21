@@ -5,6 +5,8 @@
 #define _LIB
 #define FREEGLUT_LIB_PRAGMAS 0
 
+#define GLM_FORCE_RADIANS
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
@@ -13,6 +15,8 @@
 #include <ctime>
 #include <iostream>
 #include <fstream>
+#include <map>
+#include <string>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
@@ -29,7 +33,17 @@
 #include "tiny_obj_loader.h"
 #include "Util.h"
 #include "MatrixStack.h"
+#include "ParticleTexture.h"
 #include <irrKlang.h>
+
+// defines the keys for corresponding shader programs
+#define SHADER_DEFAULT "default"
+#define SHADER_BILLBOARD "billboard"
+// defines the file names for shaders
+#define DEFAULT_VERT_SHADER "shaders/vert.glsl"
+#define DEFAULT_FRAG_SHADER "shaders/frag.glsl"
+#define BILLBOARD_VERT_SHADER "shaders/billboard_vert.glsl"
+#define BILLBOARD_FRAG_SHADER "shaders/billboard_frag.glsl"
 
 // defines file names for various meshes
 #define EXTRA_FILE_NAME "bunny.obj"
@@ -47,6 +61,7 @@
 #define MISC_TYPE 2
 
 // misc defines for globally accessed values
+#define NUM_PARTICLES 100
 #define MAX_OBJS 20
 #define SECS_PER_OBJ 2.0
 #define SIZE 50.0

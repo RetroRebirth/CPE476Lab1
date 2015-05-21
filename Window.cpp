@@ -5,6 +5,7 @@ Window::Window(
    int _height,
    const char* title) {
    // Default attribute values
+   start_time = glfwGetTime();
    time = 0;
    frames = 0;
    dt = 0.0f;
@@ -54,6 +55,10 @@ void Window::drawText(char *string, float x, float y) {
 bool Window::isActive() {
    return glfwGetKey(glfw_window, GLFW_KEY_ESCAPE) != GLFW_PRESS
       && glfwWindowShouldClose(glfw_window) == 0;
+}
+
+float Window::getElapsedTime() {
+   return (float)(time - start_time);
 }
 
 void Window::step() {

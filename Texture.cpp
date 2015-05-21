@@ -17,7 +17,8 @@ void loadAllTextures()
         (char *)"textures/greyConcrete.bmp",
         (char *)"textures/watermelon_outside.bmp",
         (char *)"textures/watermelon_inside.bmp",
-        (char *)"textures/target.bmp"
+        (char *)"textures/target.bmp",
+        (char *)"textures/alpha.bmp"
     };
     // load the textures
     for (int i = 0; i < NUM_TEXTURES; i++)

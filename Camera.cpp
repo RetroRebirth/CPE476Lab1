@@ -95,6 +95,14 @@ bool Camera::checkStaticObjectCollisions(Object* o, glm::vec3* colPlane) {
    return false;
 }
 
+void Camera::applyProjectionMatrix(MatrixStack* P) {
+   P->multMatrix(Projection);
+}
+
+void Camera::applyViewMatrix(MatrixStack* MV) {
+   MV->multMatrix(View);
+}
+
 glm::vec3 Camera::calcNewPos(Window* window) {
    glm::vec3 newPos = debug ? debug_pos : player->pos;
    float moveInc = speed * window->dt;

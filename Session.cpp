@@ -6,7 +6,7 @@ Session::Session() {
    initGL();
 
    camera = new Camera(h_uP, h_uV, h_uView);
-   world = new World(ShadeProg, camera);
+   world = new World(shaders[SHADER_DEFAULT]->getPID(), camera);
    clicks = new Clicks(); 
 
 //   sound = new Sound();
@@ -17,6 +17,8 @@ Session::Session() {
    minigame = new Minigame();
    game_state = WORLD_STATE;
    game_start = false;
+   
+   world->initParticles(shaders[SHADER_BILLBOARD]);
 }
 
 Session::~Session() {
@@ -37,63 +39,8 @@ void Session::run() {
    } while(window->isActive());
 }
 
-bool Session::installShaders(const string &vShaderName, const string &fShaderName) {
-   GLint rc;
-
-   // Create shader handles
-   GLuint VS = glCreateShader(GL_VERTEX_SHADER);
-   GLuint FS = glCreateShader(GL_FRAGMENT_SHADER);
-   // Read shader sources
-   const char *vshader = GLSL::textFileRead(vShaderName.c_str());
-   const char *fshader = GLSL::textFileRead(fShaderName.c_str());
-   glShaderSource(VS, 1, &vshader, NULL);
-   glShaderSource(FS, 1, &fshader, NULL);
-
-   // Compile vertex shader
-   glCompileShader(VS);
-   GLSL::printError();
-   glGetShaderiv(VS, GL_COMPILE_STATUS, &rc);
-   GLSL::printShaderInfoLog(VS);
-   if(!rc) {
-      printf("Error compiling vertex shader %s\n", vShaderName.c_str());
-      return false;
-   }
-
-   // Compile fragment shader
-   glCompileShader(FS);
-   GLSL::printError();
-   glGetShaderiv(FS, GL_COMPILE_STATUS, &rc);
-   GLSL::printShaderInfoLog(FS);
-   if(!rc) {
-      printf("Error compiling fragment shader %s\n", fShaderName.c_str());
-      return false;
-   }
-
-   // Create the program and link
-   ShadeProg = glCreateProgram();
-   glAttachShader(ShadeProg, VS);
-   glAttachShader(ShadeProg, FS);
-   glLinkProgram(ShadeProg);
-
-   GLSL::printError();
-   glGetProgramiv(ShadeProg, GL_LINK_STATUS, &rc);
-   GLSL::printProgramInfoLog(ShadeProg);
-   if(!rc) {
-      printf("Error linking shaders %s and %s\n", vShaderName.c_str(), fShaderName.c_str());
-      return false;
-   }
-
-   // Get handles to attribute data
-   h_aPos = GLSL::getAttribLocation(ShadeProg, "aPos");
-   h_aNor = GLSL::getAttribLocation(ShadeProg, "aNor");
-   h_uP = GLSL::getUniformLocation(ShadeProg, "uP");
-   h_uV = GLSL::getUniformLocation(ShadeProg, "uV");
-   h_uM = GLSL::getUniformLocation(ShadeProg, "uM");
-   h_uView = GLSL::getUniformLocation(ShadeProg, "uView");
-   h_aTexCoord = GLSL::getAttribLocation(ShadeProg,  "aTexCoord");
-   h_uTexUnit = GLSL::getUniformLocation(ShadeProg, "uTexUnit");
-
-   assert(glGetError() == GL_NO_ERROR);
+bool Session::installShaders(Program* prog) {
+   prog->init();
    return true;
 }
 
@@ -106,6 +53,7 @@ void Session::initGL() {
     }
     //text = new Text(ft);
     //text->createAtlas();
+    
 */
     //printf("openGL version: %s\n", (const char*)glGetString(GL_VERSION​​));
     std::cout << "openGL version " << (char*)glGetString(GL_VERSION) << endl;
@@ -115,16 +63,51 @@ void Session::initGL() {
       fprintf(stderr, "Failed to initialize GLEW\n");
       exit(-1);
     }
-
-    installShaders("vert.glsl", "frag.glsl");
+    
+    // initialize shaders
+    shaders[SHADER_DEFAULT] = new Program();
+    shaders[SHADER_DEFAULT]->setShaderNames(DEFAULT_VERT_SHADER, DEFAULT_FRAG_SHADER);
+    
+    shaders[SHADER_BILLBOARD] = new Program();
+    shaders[SHADER_BILLBOARD]->setShaderNames(BILLBOARD_VERT_SHADER, BILLBOARD_FRAG_SHADER);
 
     // Enable alpha drawing
     glEnable (GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable (GL_DEPTH_TEST);
+    
+    printf("done loading shaders\n");
 
     // Enable shadow drawing
 
+    
+    printf("textrue setFilename, unit, setName, init, shaders addtexture\n");
+	texture.setFilename("textures/alpha.bmp");
+	texture.setUnit(0);
+	texture.setName("alphaTexture");
+	texture.init();
+	
+    printf("initing shader\n");
+    shaders[SHADER_DEFAULT]->init();
+    shaders[SHADER_BILLBOARD]->init();
+    
+    h_aPos = shaders[SHADER_DEFAULT]->addAttribute("aPos");
+    h_aNor = shaders[SHADER_DEFAULT]->addAttribute("aNor");
+    h_uP = shaders[SHADER_DEFAULT]->addUniform("uP");
+    h_uV = shaders[SHADER_DEFAULT]->addUniform("uV");
+    h_uM = shaders[SHADER_DEFAULT]->addUniform("uM");
+    h_uView = shaders[SHADER_DEFAULT]->addUniform("uView");
+    h_aTexCoord = shaders[SHADER_DEFAULT]->addAttribute("aTexCoord");
+    h_uTexUnit = shaders[SHADER_DEFAULT]->addUniform("uTexUnit");
+    
+    shaders[SHADER_BILLBOARD]->addAttribute("vertPosition");
+	 shaders[SHADER_BILLBOARD]->addAttribute("vertTexCoords");
+	 shaders[SHADER_BILLBOARD]->addUniform("P");
+	 shaders[SHADER_BILLBOARD]->addUniform("MV");
+	 shaders[SHADER_BILLBOARD]->addUniform("scale");
+	 shaders[SHADER_BILLBOARD]->addUniform("color");
+	shaders[SHADER_BILLBOARD]->addTexture(&texture);
+	
     // Enable texture drawing
     glEnable(GL_TEXTURE_2D);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -140,7 +123,6 @@ void Session::initGL() {
     GLSL::checkVersion();
     assert(glGetError() == GL_NO_ERROR);
 }
-
 /**
  * This is called on every game loop.
  */
@@ -150,7 +132,8 @@ void Session::step() {
    // Clear the screen
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    // Use "frag.glsl" and "vert.glsl"
-   glUseProgram(ShadeProg);
+   shaders[SHADER_DEFAULT]->bind();
+   //glUseProgram(ShadeProg);
    // Send position info to the attribute "aPos"
    GLSL::enableVertexAttribArray(h_aPos);
    // Send normal info to the attribute "aNor"
@@ -171,8 +154,10 @@ void Session::step() {
    GLSL::disableVertexAttribArray(h_aPos);
    glBindBuffer(GL_ARRAY_BUFFER, 0);
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-   glUseProgram(0);
-   //assert(glGetError() == GL_NO_ERROR);
+   shaders[SHADER_DEFAULT]->unbind();
+   
+   world->particleStep(shaders[SHADER_BILLBOARD], window);
+   camera->step(window);
 }
 
 Camera* Session::getCamera() {
@@ -208,9 +193,9 @@ void Session::startMinigame() {
 void Session::createMinigame(char* type) {
    // Which type of minigame is this?
    if (strcmp(type, SHOOTING_GALLERY) == 0) {
-      minigame->shootingGallery = new ShootingGallery(ShadeProg, clicks, sound);
+      minigame->shootingGallery = new ShootingGallery(shaders[SHADER_DEFAULT]->getPID(), clicks, sound);
    } else if (strcmp(type, WATERMELON_SMASH) == 0) {
-      minigame->watermelonSmash = new WatermelonSmash(ShadeProg, clicks, sound);
+      minigame->watermelonSmash = new WatermelonSmash(shaders[SHADER_DEFAULT]->getPID(), clicks, sound);
    }
 }
 

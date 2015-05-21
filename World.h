@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "SkyBox.h"
 #include "Booth.h"
+#include "Particle.h"
 
 struct Extra {
    Object* object;
@@ -35,6 +36,9 @@ class World {
       void inMiniGame();
       void leftMiniGame();
       
+      void initParticles(Program* prog);
+      void particleStep(Program* prog, Window* window);
+      
       bool drawWorld;
       vector<Booth*> booths;
       vector<Object*> structures;
@@ -44,6 +48,7 @@ class World {
       vector<struct Extra*> extras; // bunnies for now.
       vector<Object*> lanterns;
       vector<tinyobj::material_t> materials;
+      vector<Particle*> particles;
       
       Object* player;
       float playerXZRad;
@@ -56,6 +61,9 @@ class World {
       vector<Object*> objects;
       double objStartTime;
       bool inGame;
+      float t, t0_disp, t_disp;
+      float h;
+      glm::vec3 g;
 
       SkyBox* skybox;
       Object* ground;
