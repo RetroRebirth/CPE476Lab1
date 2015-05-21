@@ -11,10 +11,6 @@ CSL_SOURCES= main.cpp GLSL.cpp tiny_obj_loader.cc Camera.cpp Object.cpp Window.c
 LIBFLAGS= -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -lfreetype $(IRRKLANG_LIB_U) $(IRRKLANG_MP3_U) libglfw3.a libGLEW.a
 CSL_LIBFLAGS= -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -lglut libglfw3.a libGLEW.a
 
-all:
-	cp includes_mac.h includes.h
-	$(CC) $(CFLAGS) $(SOURCES) $(LIBFLAGS)
-
 ubuntu:
 	cp includes_ubuntu.h includes.h
 	$(CC) $(CFLAGS) $(SOURCES) $(LIBFLAGS)
