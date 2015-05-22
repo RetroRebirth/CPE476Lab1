@@ -1,6 +1,6 @@
 #include "FontEngine.h"
 
-std::string ostrichHandle = "Fonts/ostrich-regular.ttf";
+//std::string ostrichHandle = "Fonts/ostrich-regular.ttf";
 
 FontEngine::FontEngine(int width, int height) {
     initialized = 0;
@@ -14,10 +14,12 @@ FontEngine::FontEngine(int width, int height) {
     
     windowWidth = width;
     windowHeight = height;
+    
+    ostrichHandle = "Fonts/ostrich-regular.ttf";
 }
 
 FontEngine::~FontEngine() {
-    // clean up fonts and atlas's
+    // clean up fonts and atlas
     for (auto handle_font : fonts) {
         for (auto size_atlas : handle_font.second->sizes) {
             delete size_atlas.second;
@@ -32,9 +34,6 @@ FontEngine::~FontEngine() {
         // clean up the library
         FT_Done_FreeType(library);
     }
-
-    // clean up shader
-    //glDeleteProgram(prog);
 }
 
 bool FontEngine::init(GLuint _ShadeProg) {
@@ -43,17 +42,6 @@ bool FontEngine::init(GLuint _ShadeProg) {
     if (FT_Init_FreeType(&library)) {
         return 0;
     }
-
-    /*program = create_program("text.v.glsl", "text.f.glsl");
-    if (!program) {
-        return 0;
-    }
-    coord = get_attrib(program, "coord");
-    uniform_tex = get_uniform(program, "tex");
-    uniform_color = get_uniform(program, "color");
-    if (coord < 0 || uniform_tex < 0 || uniform_color < 0) {
-        return 0;
-    }*/
     
     h_aCoord = GLSL::getAttribLocation(ShadeProg, "aCoord");
     h_uTex = GLSL::getUniformLocation(ShadeProg, "uTex");
@@ -61,13 +49,32 @@ bool FontEngine::init(GLuint _ShadeProg) {
 
     glGenBuffers(1, &vbo);
 	 glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	 //glBufferData(GL_ARRAY_BUFFER, posBuf.size()*sizeof(float), &posBuf[0], GL_STATIC_DRAW);
 	
 	 glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
     initialized = 1;
+
+    if (!addFont(ostrichHandle, ostrichHandle)) {
+        return 0;
+    }
+
     return 1;
+}
+
+void FontEngine::display(Program* prog, glm::vec4 col, int size, const char* text) {
+    prog->bind();
+
+    setColor(col.r, col.g, col.b, col.a);
+    if (useFont(ostrichHandle, size)) {
+        float textWidth, yPos = 0.1;
+        yPos -= getLineHeight();
+        std::string aligned = text;
+        textWidth = getTextWidth(aligned);
+        renderText(aligned, 0 - textWidth / 2.0, yPos); //center of the screen
+    }
+    
+    prog->unbind();
 }
 
 bool FontEngine::addFont(std::string handle, std::string fontFile) {

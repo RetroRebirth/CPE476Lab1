@@ -52,7 +52,7 @@ class FontEngine {
 
         void updateWindowSize(int width, int height);
         
-        void display(glm::vec3 col, int size, char* text, float x, float y);
+        void display(Program* prog, glm::vec4 col, int size, const char* text);
     private:
         // was the engine intialized successfully?
         bool initialized;
@@ -102,6 +102,8 @@ class FontEngine {
         GLuint vbo;
 
         int windowWidth, windowHeight;
+        
+        std::string ostrichHandle;
 };
 
 #endif
