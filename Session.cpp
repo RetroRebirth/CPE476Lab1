@@ -8,6 +8,7 @@ Session::Session() {
    camera = new Camera(h_uP, h_uV, h_uView);
    world = new World(shaders[SHADER_DEFAULT]->getPID(), camera);
    clicks = new Clicks(); 
+   text = new Text(shaders[SHADER_TEXT], WINDOW_WIDTH, WINDOW_HEIGHT);
 
 //   sound = new Sound();
 //   sound->initSound();
@@ -19,6 +20,7 @@ Session::Session() {
    game_start = false;
    
    world->initParticles(shaders[SHADER_BILLBOARD]);
+   text->init();
 }
 
 Session::~Session() {
@@ -45,16 +47,6 @@ bool Session::installShaders(Program* prog) {
 }
 
 void Session::initGL() {
-    
-    //Initialize Freetype 
-    /*if(FT_Init_FreeType(&ft)) {
-      fprintf(stderr, "Failed to intialize Freetype\n");
-      exit(-1);
-    }
-    //text = new Text(ft);
-    //text->createAtlas();
-    
-*/
     //printf("openGL version: %s\n", (const char*)glGetString(GL_VERSION​​));
     std::cout << "openGL version " << (char*)glGetString(GL_VERSION) << endl;
     
@@ -70,6 +62,9 @@ void Session::initGL() {
     
     shaders[SHADER_BILLBOARD] = new Program();
     shaders[SHADER_BILLBOARD]->setShaderNames(BILLBOARD_VERT_SHADER, BILLBOARD_FRAG_SHADER);
+    
+    shaders[SHADER_TEXT] = new Program();
+    shaders[SHADER_TEXT]->setShaderNames(TEXT_VERT_SHADER, TEXT_FRAG_SHADER);
 
     // Enable alpha drawing
     glEnable (GL_BLEND);
@@ -90,6 +85,7 @@ void Session::initGL() {
     printf("initing shader\n");
     shaders[SHADER_DEFAULT]->init();
     shaders[SHADER_BILLBOARD]->init();
+    shaders[SHADER_TEXT]->init();
     
     h_aPos = shaders[SHADER_DEFAULT]->addAttribute("aPos");
     h_aNor = shaders[SHADER_DEFAULT]->addAttribute("aNor");
@@ -107,6 +103,10 @@ void Session::initGL() {
 	 shaders[SHADER_BILLBOARD]->addUniform("scale");
 	 shaders[SHADER_BILLBOARD]->addUniform("color");
 	shaders[SHADER_BILLBOARD]->addTexture(&texture);
+	
+	 shaders[SHADER_TEXT]->addAttribute("aCoord");
+	 shaders[SHADER_TEXT]->addUniform("uTex");
+	 shaders[SHADER_TEXT]->addUniform("uCol");	 
 	
     // Enable texture drawing
     glEnable(GL_TEXTURE_2D);
@@ -158,6 +158,8 @@ void Session::step() {
    
    world->particleStep(shaders[SHADER_BILLBOARD], window);
    camera->step(window);
+   
+   text->display(shaders[SHADER_TEXT], glm::vec4(1.0, 0.0, 0.0, 1.0), 48, "This is red text!!");
 }
 
 Camera* Session::getCamera() {

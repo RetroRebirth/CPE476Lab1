@@ -2,31 +2,21 @@
 #define __Text__
 
 #include "includes.h"
-#include "Object.h"
+#include "FontEngine.h"
+#include "Program.h"
+using namespace std;
 
 class Text {
    public:
-      Text(FT_Library _ft);
+      Text(Program* prog, int width, int height);
       virtual ~Text();
       
-      FT_Library ft;
-      Object** objs;
-            
-      void initObjs(Object** _objs);      
-      void createAtlas();
-      void displayText(const char* text, glm::vec3 camPos, int x, int y);
+      int init();
+      void display(Program* prog, glm::vec4 col, int size, const char* text);
       
    private:
-      FT_GlyphSlot g;
-      FT_Face face;
-      int atlas_width;
-      int atlas_height;
-      GLuint tex;
-
-      void initLibrary();
-      float pixelToWorldCoordX(int pix);
-      float pixelToWorldCoordY(int pix);      
-      void renderText(const char *text, glm::vec3 camPos, float x, float y, float sx, float sy);
+      FontEngine* fontEngine;
+      std::string ostrichHandle;
 };
 
 #endif

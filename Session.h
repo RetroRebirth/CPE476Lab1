@@ -10,6 +10,7 @@
 #include "Minigame.h"
 #include "Program.h"
 #include "ParticleTexture.h"
+#include "Text.h"
 
 class Session {
    public:
@@ -31,7 +32,7 @@ class Session {
    private:
       Window* window;
       Camera* camera;
-      //Text* text;
+      Text* text;
 //      FT_Library ft;
       
       // contains all shaders mapped to key defined in includes.h
