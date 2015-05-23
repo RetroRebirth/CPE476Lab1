@@ -35,6 +35,7 @@ Particle::Particle() :
 	customMass = false;
 	startScale = 0.25f;
 	customScale = false;
+	customUpdate = false;
 	
 	taperOpacity = true;
 	
@@ -244,10 +245,16 @@ void Particle::update(float t, float h, const glm::vec3 &g)
 	}
 	
 	glm::vec3 grav = m*g; // force due to grav
-	glm::vec3 vf = v + time*grav;
-	x += vf;
-	if (taperOpacity) {
-	   color.w = time/lifespan;//(tEnd-t)/(lifespan);
+	
+	if (customUpdate) {
+	   customUpdateFunc(&x, &v, &grav, &color, time);
+	}
+	else {
+	   glm::vec3 vf = v + time*grav;
+	   x += vf;
+	   if (taperOpacity) {
+	      color.w = time/lifespan;//(tEnd-t)/(lifespan);
+	   }
 	}
 	time += h;
 }
@@ -285,4 +292,9 @@ void Particle::setStartMass(float mass) {
 void Particle::setStartScale(float s) {
    startScale = s;
    customScale = true;
+}
+
+void Particle::setUpdateFunc(void (*func)(glm::vec3*,glm::vec3*,glm::vec3*,glm::vec4*,float)) {
+   customUpdateFunc = func;
+   customUpdate = true;
 }

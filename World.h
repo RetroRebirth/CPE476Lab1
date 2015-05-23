@@ -92,6 +92,7 @@ class World {
       bool checkStructureCollisions(Object* object);
       bool checkBoothCollisions(Object* object);
       bool passedTarget(struct Extra* extra);
+      
 };
 
 #endif

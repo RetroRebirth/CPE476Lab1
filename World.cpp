@@ -3,6 +3,10 @@
 
 static string objectFiles[] = {"bunny.obj"};
 
+
+// custom particle functions
+void fireflyFunc(glm::vec3* pos, glm::vec3* vel, glm::vec3* grav, glm::vec4* color, float time);
+
 // Sort particles by their z values in camera space
 class ParticleSorter {
 public:
@@ -74,6 +78,10 @@ World::~World() {
    }
 }
 
+void fireflyFunc(glm::vec3* pos, glm::vec3* vel, glm::vec3* grav, glm::vec4* color, float time) {
+   pos->y += (1.0f/50.0f)*cos(time/50.0f);
+}
+
 void World::initParticles(Program* prog) {
    // load fountainParticles
    fountainParticles.clear();
@@ -101,8 +109,10 @@ void World::initParticles(Program* prog) {
       particle->setStartVel(glm::vec3(0.0f, 0.0f, 0.0f));
       particle->setStartCol(glm::vec3(0.99f, 0.99f, 0.68f));
       particle->setStartTTL(1000.0f);
+      particle->startTime = randFloat(0.0f, 20.0f);
       particle->setStartOpacity(0.8f);
       particle->setOpacityTaper(false);
+      particle->setUpdateFunc(&fireflyFunc);
       fireflyParticles.push_back(particle);
       
       fireflyParticles[i]->init(prog);

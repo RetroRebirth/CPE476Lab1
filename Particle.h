@@ -1,7 +1,5 @@
-//
-// sueda
-// November, 2014
-//
+// Particle stuff... default creates a firework!
+// use custom setters to make a new particle system
 
 #pragma once
 #ifndef _PARTICLE_H_
@@ -39,6 +37,11 @@ public:
    void setStartMass(float mass);
    void setStartScale(float s);
    void setOpacityTaper(bool taper) { taperOpacity = taper; };
+   
+   // pass in a custom update function
+   // argument must be a function pointer with the arguments:
+   // void foo(glm::vec3* pos, glm::vec3* vel, glm::vec3* grav, glm::vec3* color, float time)
+   void setUpdateFunc(void (*func)(glm::vec3*,glm::vec3*,glm::vec3*,glm::vec4*,float));
 	
 private:
 	float charge; // +1 or -1
@@ -62,7 +65,6 @@ private:
 	
 	// custom attributes
 	//float updateTime;
-	bool customUpdate;
 	glm::vec3 startPos;
 	bool customPos;
 	glm::vec3 startVel;
@@ -78,6 +80,10 @@ private:
 	float startScale;
 	bool customScale;
 	bool taperOpacity;
+	
+	// custom updatestuff
+	void (*customUpdateFunc)(glm::vec3*,glm::vec3*,glm::vec3*,glm::vec4*,float);
+	bool customUpdate;
 };
 
 #endif
