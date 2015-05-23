@@ -155,8 +155,9 @@ void Session::step() {
    glBindBuffer(GL_ARRAY_BUFFER, 0);
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
    shaders[SHADER_DEFAULT]->unbind();
-   
-   world->particleStep(shaders[SHADER_BILLBOARD], window);
+   if (game_state == WORLD_STATE) {
+      world->particleStep(shaders[SHADER_BILLBOARD], window);
+   }
    camera->step(window);
    
    fontEngine->display(shaders[SHADER_TEXT], glm::vec4(1.0, 0.0, 0.0, 1.0), 48, "This is red text!!");

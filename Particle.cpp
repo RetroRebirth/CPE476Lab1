@@ -37,6 +37,10 @@ Particle::Particle() :
 	customScale = false;
 	
 	taperOpacity = true;
+	
+	time = 0.0f;
+	startTime = 0.0f;
+	drawNow = false;
 }
 
 Particle::~Particle()
@@ -103,6 +107,7 @@ void Particle::init(Program *prog)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	
+	rebirth(0.0f);
 	//assert(glGetError() == GL_NO_ERROR);
 }
 
@@ -175,7 +180,7 @@ void Particle::rebirth(float t)
 	}
 	else {
 	   x.x = 0.0f;
-	   x.y = 2.0f; 
+	   x.y = 2.5f; 
 	   x.z = 0.0f;
 	}
 	if (customVel) {
@@ -184,9 +189,9 @@ void Particle::rebirth(float t)
 	   v.z = startVel.z;
 	}
 	else {
-	   v.x = randFloat(-0.1f, 0.1f);
-	   v.y = randFloat(-0.1f, 0.1f);
-	   v.z = randFloat(-0.1f, 0.1f);
+	   v.x = randFloat(-0.05f, 0.05f);
+	   v.y = randFloat(0.0f, 0.1f);
+	   v.z = randFloat(-0.05f, 0.05f);
 	}
 	if (customTTL) {
 	   lifespan = startTTL;
@@ -217,18 +222,34 @@ void Particle::rebirth(float t)
 	else {
 	   color.w = 1.0f;
 	}
+	time = 0.0f;
 }
 
 void Particle::update(float t, float h, const glm::vec3 &g)
 {
-	if (t > tEnd) {
-		rebirth(t);
+   if (!drawNow) {
+      if (time >= startTime) {
+         rebirth(t);
+         drawNow = true;
+         return;
+      }
+   }
+	//if (t > tEnd) {
+		//rebirth(t);
+	//}
+	if (time > lifespan) {
+	   drawNow = false;
+	   rebirth(t);
+	   return;
 	}
-	glm::vec3 grav = m*g;
-	x += h*v + grav;
+	
+	glm::vec3 grav = m*g; // force due to grav
+	glm::vec3 vf = v + time*grav;
+	x += vf;
 	if (taperOpacity) {
-	   color.w = (tEnd-t)/(lifespan);
+	   color.w = time/lifespan;//(tEnd-t)/(lifespan);
 	}
+	time += h;
 }
 
 void Particle::setStartPos(glm::vec3 p) {

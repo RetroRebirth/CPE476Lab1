@@ -9,6 +9,8 @@
 #include "Booth.h"
 #include "Particle.h"
 
+#define FOUNTAIN_TTL 35.0f
+
 struct Extra {
    Object* object;
    glm::vec3 startPos;
@@ -48,7 +50,8 @@ class World {
       vector<struct Extra*> extras; // bunnies for now.
       vector<Object*> lanterns;
       vector<tinyobj::material_t> materials;
-      vector<Particle*> particles;
+      vector<Particle*> fountainParticles;
+      vector<Particle*> fireflyParticles;
       
       Object* player;
       float playerXZRad;
@@ -61,6 +64,8 @@ class World {
       vector<Object*> objects;
       double objStartTime;
       bool inGame;
+      
+      // time info for particles
       float t, t0_disp, t_disp;
       float h;
       glm::vec3 g;

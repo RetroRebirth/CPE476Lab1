@@ -69,22 +69,43 @@ World::~World() {
    for (int i=0; i<lanterns.size(); ++i) {
       delete lanterns[i];
    }
-   for (int i=0; i<particles.size(); ++i) {
-      delete particles[i];
+   for (int i=0; i<fountainParticles.size(); ++i) {
+      delete fountainParticles[i];
    }
 }
 
 void World::initParticles(Program* prog) {
-   particles.clear();
-   // load particles
-	for(int i = 0; i < NUM_PARTICLES; ++i) {
+   // load fountainParticles
+   fountainParticles.clear();
+	for(int i = 0; i < NUM_FOUNTAIN_PARTICLES; ++i) {
 		Particle* particle = new Particle(); // !C++11: Particle *particle = new Particle();
 		particle->load();
 		particle->setTexture(TEX_PARTICLE);
-		particles.push_back(particle);
-	}
-   for (int i=0; i<NUM_PARTICLES; ++i) {
-      particles[i]->init(prog);
+		particle->setStartPos(glm::vec3(0.0f, 3.0f, 30.0f));
+		particle->setStartCol(glm::vec3(0.1f, 0.1f, 0.8f));
+		particle->setStartTTL(FOUNTAIN_TTL);
+		particle->startTime = randFloat(0.0f, FOUNTAIN_TTL);
+		particle->setStartOpacity(0.6f);
+		particle->setOpacityTaper(false);
+		fountainParticles.push_back(particle);
+	
+      fountainParticles[i]->init(prog);
+   }
+   // load fireflies
+   fireflyParticles.clear();
+   for (int i = 0; i < NUM_FIREFLY_PARTICLES; ++i) {
+      Particle* particle = new Particle();
+      particle->load();
+      particle->setTexture(TEX_PARTICLE);
+      particle->setStartPos(glm::vec3(randFloat(-SIZE,SIZE), randFloat(0.2f, 5.0f), randFloat(-SIZE, SIZE)));
+      particle->setStartVel(glm::vec3(0.0f, 0.0f, 0.0f));
+      particle->setStartCol(glm::vec3(0.99f, 0.99f, 0.68f));
+      particle->setStartTTL(1000.0f);
+      particle->setStartOpacity(0.8f);
+      particle->setOpacityTaper(false);
+      fireflyParticles.push_back(particle);
+      
+      fireflyParticles[i]->init(prog);
    }
 }
 
@@ -95,12 +116,12 @@ void World::particleStep(Program* prog, Window* window) {
 	
 	t_disp = window->getElapsedTime();
 	
-	// sort the particles from back to front
+	// sort the fountainParticles from back to front
    MatrixStack temp;
    camera->applyViewMatrix(&temp);
    glm::mat4 V = temp.topMatrix();
    sorter.C = glm::transpose(glm::inverse(V)); // glm is transposed!
-   std::sort(particles.begin(), particles.end(), sorter);
+   std::sort(fountainParticles.begin(), fountainParticles.end(), sorter);
    
    // Create matrix stacks
 	MatrixStack P, MV;
@@ -114,11 +135,15 @@ void World::particleStep(Program* prog, Window* window) {
 	prog->bind();
 	
 	glUniformMatrix4fv(prog->getUniform("P"), 1, GL_FALSE, glm::value_ptr(P.topMatrix()));
-	for (int i=0; i<particles.size(); ++i) {
-	   particles[i]->update(t, h, g);
-		particles[i]->draw(&MV);
+	for (int i=0; i<fountainParticles.size(); ++i) {
+	   fountainParticles[i]->update(t, h, g);
+		fountainParticles[i]->draw(&MV);
 	}
 	
+	for (int i=0; i<fireflyParticles.size(); ++i) {
+	   fireflyParticles[i]->update(t, h, glm::vec3(0.0f, 0.0f, 0.0f));
+	   fireflyParticles[i]->draw(&MV);
+	}
 	// Unbind the program
 	prog->unbind();
 }

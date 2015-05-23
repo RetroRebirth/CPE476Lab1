@@ -64,7 +64,8 @@
 #define MISC_TYPE 2
 
 // misc defines for globally accessed values
-#define NUM_PARTICLES 100
+#define NUM_FOUNTAIN_PARTICLES 200
+#define NUM_FIREFLY_PARTICLES 200
 #define MAX_OBJS 20
 #define SECS_PER_OBJ 2.0
 #define SIZE 50.0

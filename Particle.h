@@ -27,6 +27,9 @@ public:
 	const glm::vec3 &getVelocity() const { return v; };
    void setTexture(int tex)            { texture_id = tex;  }
    
+   float startTime;
+   bool drawNow;
+   
    // customization setters
    void setStartPos(glm::vec3 p);
    void setStartVel(glm::vec3 v);
@@ -55,6 +58,7 @@ private:
 	GLuint indBufID;
 	Program *prog;
 	int texture_id;
+	float time;
 	
 	// custom attributes
 	//float updateTime;
