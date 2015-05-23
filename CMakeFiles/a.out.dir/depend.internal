@@ -10,6 +10,7 @@ CMakeFiles/a.out.dir/Booth.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
@@ -88,6 +89,8 @@ CMakeFiles/a.out.dir/Booth.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ freetype-2.5.5/include/config/ftheader.h
+ freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
  irrKlang-64bit-1.5.0/include/ik_ESoundOutputDrivers.h
  irrKlang-64bit-1.5.0/include/ik_EStreamModes.h
@@ -110,6 +113,7 @@ CMakeFiles/a.out.dir/Booth.cpp.o
  irrKlang-64bit-1.5.0/include/ik_vec3d.h
  irrKlang-64bit-1.5.0/include/irrKlang.h
 CMakeFiles/a.out.dir/Camera.cpp.o
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Booth.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Camera.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
@@ -118,6 +122,8 @@ CMakeFiles/a.out.dir/Camera.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
@@ -196,6 +202,8 @@ CMakeFiles/a.out.dir/Camera.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ freetype-2.5.5/include/config/ftheader.h
+ freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
  irrKlang-64bit-1.5.0/include/ik_ESoundOutputDrivers.h
  irrKlang-64bit-1.5.0/include/ik_EStreamModes.h
@@ -226,6 +234,7 @@ CMakeFiles/a.out.dir/Clicks.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
@@ -303,6 +312,228 @@ CMakeFiles/a.out.dir/Clicks.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ freetype-2.5.5/include/config/ftheader.h
+ freetype-2.5.5/include/ft2build.h
+ irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
+ irrKlang-64bit-1.5.0/include/ik_ESoundOutputDrivers.h
+ irrKlang-64bit-1.5.0/include/ik_EStreamModes.h
+ irrKlang-64bit-1.5.0/include/ik_IAudioRecorder.h
+ irrKlang-64bit-1.5.0/include/ik_IAudioStream.h
+ irrKlang-64bit-1.5.0/include/ik_IAudioStreamLoader.h
+ irrKlang-64bit-1.5.0/include/ik_IFileFactory.h
+ irrKlang-64bit-1.5.0/include/ik_IFileReader.h
+ irrKlang-64bit-1.5.0/include/ik_IRefCounted.h
+ irrKlang-64bit-1.5.0/include/ik_ISound.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundDeviceList.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundEffectControl.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundEngine.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundMixedOutputReceiver.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundSource.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundStopEventReceiver.h
+ irrKlang-64bit-1.5.0/include/ik_IVirtualRefCounted.h
+ irrKlang-64bit-1.5.0/include/ik_SAudioStreamFormat.h
+ irrKlang-64bit-1.5.0/include/ik_irrKlangTypes.h
+ irrKlang-64bit-1.5.0/include/ik_vec3d.h
+ irrKlang-64bit-1.5.0/include/irrKlang.h
+CMakeFiles/a.out.dir/FontAtlas.cpp.o
+ /Users/kayla/Projects/Graphics/CPE476Lab1/FontAtlas.cpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/FontAtlas.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_ext.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle_func.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_vectorize.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_common.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_common.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_exponential.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_exponential.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_geometric.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_geometric.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_integer.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_integer.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_matrix.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_matrix.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_noise.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_noise.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_packing.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_packing.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_trigonometric.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_trigonometric.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_vector_relational.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_vector_relational.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/setup.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_float.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_gentype.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_half.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_half.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_int.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_size.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec1.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec1.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/core/_fixes.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/core/setup.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glm.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glm.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glmint.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/half_float.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/half_float.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ freetype-2.5.5/include/config/ftheader.h
+ freetype-2.5.5/include/ft2build.h
+ irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
+ irrKlang-64bit-1.5.0/include/ik_ESoundOutputDrivers.h
+ irrKlang-64bit-1.5.0/include/ik_EStreamModes.h
+ irrKlang-64bit-1.5.0/include/ik_IAudioRecorder.h
+ irrKlang-64bit-1.5.0/include/ik_IAudioStream.h
+ irrKlang-64bit-1.5.0/include/ik_IAudioStreamLoader.h
+ irrKlang-64bit-1.5.0/include/ik_IFileFactory.h
+ irrKlang-64bit-1.5.0/include/ik_IFileReader.h
+ irrKlang-64bit-1.5.0/include/ik_IRefCounted.h
+ irrKlang-64bit-1.5.0/include/ik_ISound.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundDeviceList.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundEffectControl.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundEngine.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundMixedOutputReceiver.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundSource.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundStopEventReceiver.h
+ irrKlang-64bit-1.5.0/include/ik_IVirtualRefCounted.h
+ irrKlang-64bit-1.5.0/include/ik_SAudioStreamFormat.h
+ irrKlang-64bit-1.5.0/include/ik_irrKlangTypes.h
+ irrKlang-64bit-1.5.0/include/ik_vec3d.h
+ irrKlang-64bit-1.5.0/include/irrKlang.h
+CMakeFiles/a.out.dir/FontEngine.cpp.o
+ /Users/kayla/Projects/Graphics/CPE476Lab1/FontAtlas.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.cpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_ext.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle_func.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_vectorize.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_common.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_common.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_exponential.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_exponential.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_geometric.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_geometric.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_integer.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_integer.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_matrix.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_matrix.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_noise.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_noise.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_packing.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_packing.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_trigonometric.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_trigonometric.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_vector_relational.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_vector_relational.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/setup.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_float.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_gentype.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_half.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_half.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_int.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_size.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec1.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec1.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/core/_fixes.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/core/setup.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glm.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glm.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glmint.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/half_float.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/half_float.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ freetype-2.5.5/include/config/ftheader.h
+ freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
  irrKlang-64bit-1.5.0/include/ik_ESoundOutputDrivers.h
  irrKlang-64bit-1.5.0/include/ik_EStreamModes.h
@@ -403,6 +634,122 @@ CMakeFiles/a.out.dir/MatrixStack.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtx/transform.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtx/transform.inl
+CMakeFiles/a.out.dir/Minigame.cpp.o
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_ext.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Minigame.cpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Minigame.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/WatermelonSmash.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle_func.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_vectorize.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_common.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_common.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_exponential.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_exponential.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_geometric.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_geometric.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_integer.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_integer.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_matrix.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_matrix.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_noise.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_noise.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_packing.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_packing.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_trigonometric.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_trigonometric.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_vector_relational.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_vector_relational.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/setup.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_float.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_gentype.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_half.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_half.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_int.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_size.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec1.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec1.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/core/_fixes.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/core/setup.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glm.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glm.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glmint.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/half_float.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/half_float.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ freetype-2.5.5/include/config/ftheader.h
+ freetype-2.5.5/include/ft2build.h
+ irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
+ irrKlang-64bit-1.5.0/include/ik_ESoundOutputDrivers.h
+ irrKlang-64bit-1.5.0/include/ik_EStreamModes.h
+ irrKlang-64bit-1.5.0/include/ik_IAudioRecorder.h
+ irrKlang-64bit-1.5.0/include/ik_IAudioStream.h
+ irrKlang-64bit-1.5.0/include/ik_IAudioStreamLoader.h
+ irrKlang-64bit-1.5.0/include/ik_IFileFactory.h
+ irrKlang-64bit-1.5.0/include/ik_IFileReader.h
+ irrKlang-64bit-1.5.0/include/ik_IRefCounted.h
+ irrKlang-64bit-1.5.0/include/ik_ISound.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundDeviceList.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundEffectControl.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundEngine.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundMixedOutputReceiver.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundSource.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundStopEventReceiver.h
+ irrKlang-64bit-1.5.0/include/ik_IVirtualRefCounted.h
+ irrKlang-64bit-1.5.0/include/ik_SAudioStreamFormat.h
+ irrKlang-64bit-1.5.0/include/ik_irrKlangTypes.h
+ irrKlang-64bit-1.5.0/include/ik_vec3d.h
+ irrKlang-64bit-1.5.0/include/irrKlang.h
 CMakeFiles/a.out.dir/Object.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_ext.h
@@ -411,6 +758,7 @@ CMakeFiles/a.out.dir/Object.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
@@ -488,6 +836,335 @@ CMakeFiles/a.out.dir/Object.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ freetype-2.5.5/include/config/ftheader.h
+ freetype-2.5.5/include/ft2build.h
+ irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
+ irrKlang-64bit-1.5.0/include/ik_ESoundOutputDrivers.h
+ irrKlang-64bit-1.5.0/include/ik_EStreamModes.h
+ irrKlang-64bit-1.5.0/include/ik_IAudioRecorder.h
+ irrKlang-64bit-1.5.0/include/ik_IAudioStream.h
+ irrKlang-64bit-1.5.0/include/ik_IAudioStreamLoader.h
+ irrKlang-64bit-1.5.0/include/ik_IFileFactory.h
+ irrKlang-64bit-1.5.0/include/ik_IFileReader.h
+ irrKlang-64bit-1.5.0/include/ik_IRefCounted.h
+ irrKlang-64bit-1.5.0/include/ik_ISound.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundDeviceList.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundEffectControl.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundEngine.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundMixedOutputReceiver.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundSource.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundStopEventReceiver.h
+ irrKlang-64bit-1.5.0/include/ik_IVirtualRefCounted.h
+ irrKlang-64bit-1.5.0/include/ik_SAudioStreamFormat.h
+ irrKlang-64bit-1.5.0/include/ik_irrKlangTypes.h
+ irrKlang-64bit-1.5.0/include/ik_vec3d.h
+ irrKlang-64bit-1.5.0/include/irrKlang.h
+CMakeFiles/a.out.dir/Particle.cpp.o
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_ext.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Particle.cpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Particle.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle_func.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_vectorize.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_common.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_common.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_exponential.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_exponential.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_geometric.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_geometric.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_integer.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_integer.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_matrix.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_matrix.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_noise.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_noise.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_packing.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_packing.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_trigonometric.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_trigonometric.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_vector_relational.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_vector_relational.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/setup.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_float.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_gentype.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_half.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_half.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_int.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_size.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec1.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec1.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/core/_fixes.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/core/setup.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glm.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glm.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glmint.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/half_float.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/half_float.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ freetype-2.5.5/include/config/ftheader.h
+ freetype-2.5.5/include/ft2build.h
+ irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
+ irrKlang-64bit-1.5.0/include/ik_ESoundOutputDrivers.h
+ irrKlang-64bit-1.5.0/include/ik_EStreamModes.h
+ irrKlang-64bit-1.5.0/include/ik_IAudioRecorder.h
+ irrKlang-64bit-1.5.0/include/ik_IAudioStream.h
+ irrKlang-64bit-1.5.0/include/ik_IAudioStreamLoader.h
+ irrKlang-64bit-1.5.0/include/ik_IFileFactory.h
+ irrKlang-64bit-1.5.0/include/ik_IFileReader.h
+ irrKlang-64bit-1.5.0/include/ik_IRefCounted.h
+ irrKlang-64bit-1.5.0/include/ik_ISound.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundDeviceList.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundEffectControl.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundEngine.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundMixedOutputReceiver.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundSource.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundStopEventReceiver.h
+ irrKlang-64bit-1.5.0/include/ik_IVirtualRefCounted.h
+ irrKlang-64bit-1.5.0/include/ik_SAudioStreamFormat.h
+ irrKlang-64bit-1.5.0/include/ik_irrKlangTypes.h
+ irrKlang-64bit-1.5.0/include/ik_vec3d.h
+ irrKlang-64bit-1.5.0/include/irrKlang.h
+CMakeFiles/a.out.dir/ParticleTexture.cpp.o
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_ext.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.cpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle_func.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_vectorize.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_common.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_common.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_exponential.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_exponential.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_geometric.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_geometric.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_integer.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_integer.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_matrix.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_matrix.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_noise.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_noise.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_packing.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_packing.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_trigonometric.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_trigonometric.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_vector_relational.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_vector_relational.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/setup.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_float.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_gentype.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_half.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_half.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_int.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_size.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec1.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec1.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/core/_fixes.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/core/setup.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glm.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glm.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glmint.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/half_float.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/half_float.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ freetype-2.5.5/include/config/ftheader.h
+ freetype-2.5.5/include/ft2build.h
+ irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
+ irrKlang-64bit-1.5.0/include/ik_ESoundOutputDrivers.h
+ irrKlang-64bit-1.5.0/include/ik_EStreamModes.h
+ irrKlang-64bit-1.5.0/include/ik_IAudioRecorder.h
+ irrKlang-64bit-1.5.0/include/ik_IAudioStream.h
+ irrKlang-64bit-1.5.0/include/ik_IAudioStreamLoader.h
+ irrKlang-64bit-1.5.0/include/ik_IFileFactory.h
+ irrKlang-64bit-1.5.0/include/ik_IFileReader.h
+ irrKlang-64bit-1.5.0/include/ik_IRefCounted.h
+ irrKlang-64bit-1.5.0/include/ik_ISound.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundDeviceList.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundEffectControl.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundEngine.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundMixedOutputReceiver.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundSource.h
+ irrKlang-64bit-1.5.0/include/ik_ISoundStopEventReceiver.h
+ irrKlang-64bit-1.5.0/include/ik_IVirtualRefCounted.h
+ irrKlang-64bit-1.5.0/include/ik_SAudioStreamFormat.h
+ irrKlang-64bit-1.5.0/include/ik_irrKlangTypes.h
+ irrKlang-64bit-1.5.0/include/ik_vec3d.h
+ irrKlang-64bit-1.5.0/include/irrKlang.h
+CMakeFiles/a.out.dir/Program.cpp.o
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_ext.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Program.cpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle_func.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_vectorize.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_common.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_common.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_exponential.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_exponential.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_geometric.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_geometric.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_integer.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_integer.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_matrix.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_matrix.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_noise.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_noise.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_packing.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_packing.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_trigonometric.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_trigonometric.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_vector_relational.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/func_vector_relational.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/setup.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_float.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_gentype.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_half.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_half.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_int.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat2x4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat3x4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_mat4x4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_size.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec1.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec1.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec2.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec2.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec3.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec3.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec4.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/type_vec4.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/core/_fixes.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/core/setup.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glm.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glm.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/glmint.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/half_float.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/half_float.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/matrix_transform.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/quaternion.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.hpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
+ /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ freetype-2.5.5/include/config/ftheader.h
+ freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
  irrKlang-64bit-1.5.0/include/ik_ESoundOutputDrivers.h
  irrKlang-64bit-1.5.0/include/ik_EStreamModes.h
@@ -513,12 +1190,18 @@ CMakeFiles/a.out.dir/Session.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Booth.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/FontAtlas.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_ext.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Minigame.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Particle.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Session.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Session.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.h
@@ -605,6 +1288,8 @@ CMakeFiles/a.out.dir/Session.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ freetype-2.5.5/include/config/ftheader.h
+ freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
  irrKlang-64bit-1.5.0/include/ik_ESoundOutputDrivers.h
  irrKlang-64bit-1.5.0/include/ik_EStreamModes.h
@@ -634,6 +1319,7 @@ CMakeFiles/a.out.dir/ShootingGallery.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
@@ -716,6 +1402,8 @@ CMakeFiles/a.out.dir/ShootingGallery.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ freetype-2.5.5/include/config/ftheader.h
+ freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
  irrKlang-64bit-1.5.0/include/ik_ESoundOutputDrivers.h
  irrKlang-64bit-1.5.0/include/ik_EStreamModes.h
@@ -737,7 +1425,8 @@ CMakeFiles/a.out.dir/ShootingGallery.cpp.o
  irrKlang-64bit-1.5.0/include/ik_irrKlangTypes.h
  irrKlang-64bit-1.5.0/include/ik_vec3d.h
  irrKlang-64bit-1.5.0/include/irrKlang.h
-CMakeFiles/a.out.dir/SkyBox.cpp.o
+CMakeFiles/a.out.dir/Skybox.cpp.o
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Booth.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_ext.h
@@ -745,8 +1434,9 @@ CMakeFiles/a.out.dir/SkyBox.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.cpp
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Skybox.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
@@ -826,6 +1516,8 @@ CMakeFiles/a.out.dir/SkyBox.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ freetype-2.5.5/include/config/ftheader.h
+ freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
  irrKlang-64bit-1.5.0/include/ik_ESoundOutputDrivers.h
  irrKlang-64bit-1.5.0/include/ik_EStreamModes.h
@@ -853,6 +1545,7 @@ CMakeFiles/a.out.dir/Sound.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
@@ -932,6 +1625,8 @@ CMakeFiles/a.out.dir/Sound.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ freetype-2.5.5/include/config/ftheader.h
+ freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
  irrKlang-64bit-1.5.0/include/ik_ESoundOutputDrivers.h
  irrKlang-64bit-1.5.0/include/ik_EStreamModes.h
@@ -959,6 +1654,7 @@ CMakeFiles/a.out.dir/Texture.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
@@ -1038,6 +1734,8 @@ CMakeFiles/a.out.dir/Texture.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ freetype-2.5.5/include/config/ftheader.h
+ freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
  irrKlang-64bit-1.5.0/include/ik_ESoundOutputDrivers.h
  irrKlang-64bit-1.5.0/include/ik_EStreamModes.h
@@ -1067,6 +1765,7 @@ CMakeFiles/a.out.dir/WatermelonSmash.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
@@ -1149,6 +1848,8 @@ CMakeFiles/a.out.dir/WatermelonSmash.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ freetype-2.5.5/include/config/ftheader.h
+ freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
  irrKlang-64bit-1.5.0/include/ik_ESoundOutputDrivers.h
  irrKlang-64bit-1.5.0/include/ik_EStreamModes.h
@@ -1176,6 +1877,7 @@ CMakeFiles/a.out.dir/Window.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
@@ -1255,6 +1957,8 @@ CMakeFiles/a.out.dir/Window.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ freetype-2.5.5/include/config/ftheader.h
+ freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
  irrKlang-64bit-1.5.0/include/ik_ESoundOutputDrivers.h
  irrKlang-64bit-1.5.0/include/ik_EStreamModes.h
@@ -1285,6 +1989,9 @@ CMakeFiles/a.out.dir/World.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Particle.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
@@ -1367,6 +2074,8 @@ CMakeFiles/a.out.dir/World.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ freetype-2.5.5/include/config/ftheader.h
+ freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
  irrKlang-64bit-1.5.0/include/ik_ESoundOutputDrivers.h
  irrKlang-64bit-1.5.0/include/ik_EStreamModes.h
@@ -1392,12 +2101,18 @@ CMakeFiles/a.out.dir/main.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Booth.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/FontAtlas.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_ext.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Minigame.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Particle.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Session.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.h
@@ -1484,6 +2199,8 @@ CMakeFiles/a.out.dir/main.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/main.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ freetype-2.5.5/include/config/ftheader.h
+ freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
  irrKlang-64bit-1.5.0/include/ik_ESoundOutputDrivers.h
  irrKlang-64bit-1.5.0/include/ik_EStreamModes.h

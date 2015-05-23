@@ -12,6 +12,8 @@
 #include "ParticleTexture.h"
 #include "FontEngine.h"
 
+#define GAME 2
+
 class Session {
    public:
       Session();
@@ -33,7 +35,6 @@ class Session {
       Window* window;
       Camera* camera;
       FontEngine* fontEngine;
-//      FT_Library ft;
       
       // contains all shaders mapped to key defined in includes.h
       map<string, Program*> shaders;

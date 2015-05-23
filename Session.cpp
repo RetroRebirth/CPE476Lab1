@@ -209,7 +209,6 @@ void Session::enterMinigame() {
       camera->moveToMinigame();
       window->showMouse();
       minigame->clearMinigames();
-//      createMinigame((char*)WATERMELON_SMASH);
       createMinigame(booth->getMinigame());
    }
 }

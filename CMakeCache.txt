@@ -164,6 +164,9 @@ COCOA_LIB:FILEPATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.p
 //Path to a library.
 COREVIDEO_LIB:FILEPATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/CoreVideo.framework
 
+//Path to a library.
+FREETYPE_LIB:FILEPATH=/usr/local/lib/libfreetype.dylib
+
 //Path to a file.
 GLEW_INCLUDE_DIR:PATH=/usr/local/include
 

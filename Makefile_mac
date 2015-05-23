@@ -186,6 +186,54 @@ Clicks.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Clicks.cpp.s
 .PHONY : Clicks.cpp.s
 
+FontAtlas.o: FontAtlas.cpp.o
+.PHONY : FontAtlas.o
+
+# target to build an object file
+FontAtlas.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/FontAtlas.cpp.o
+.PHONY : FontAtlas.cpp.o
+
+FontAtlas.i: FontAtlas.cpp.i
+.PHONY : FontAtlas.i
+
+# target to preprocess a source file
+FontAtlas.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/FontAtlas.cpp.i
+.PHONY : FontAtlas.cpp.i
+
+FontAtlas.s: FontAtlas.cpp.s
+.PHONY : FontAtlas.s
+
+# target to generate assembly for a file
+FontAtlas.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/FontAtlas.cpp.s
+.PHONY : FontAtlas.cpp.s
+
+FontEngine.o: FontEngine.cpp.o
+.PHONY : FontEngine.o
+
+# target to build an object file
+FontEngine.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/FontEngine.cpp.o
+.PHONY : FontEngine.cpp.o
+
+FontEngine.i: FontEngine.cpp.i
+.PHONY : FontEngine.i
+
+# target to preprocess a source file
+FontEngine.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/FontEngine.cpp.i
+.PHONY : FontEngine.cpp.i
+
+FontEngine.s: FontEngine.cpp.s
+.PHONY : FontEngine.s
+
+# target to generate assembly for a file
+FontEngine.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/FontEngine.cpp.s
+.PHONY : FontEngine.cpp.s
+
 GLSL.o: GLSL.cpp.o
 .PHONY : GLSL.o
 
@@ -234,6 +282,30 @@ MatrixStack.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/MatrixStack.cpp.s
 .PHONY : MatrixStack.cpp.s
 
+Minigame.o: Minigame.cpp.o
+.PHONY : Minigame.o
+
+# target to build an object file
+Minigame.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Minigame.cpp.o
+.PHONY : Minigame.cpp.o
+
+Minigame.i: Minigame.cpp.i
+.PHONY : Minigame.i
+
+# target to preprocess a source file
+Minigame.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Minigame.cpp.i
+.PHONY : Minigame.cpp.i
+
+Minigame.s: Minigame.cpp.s
+.PHONY : Minigame.s
+
+# target to generate assembly for a file
+Minigame.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Minigame.cpp.s
+.PHONY : Minigame.cpp.s
+
 Object.o: Object.cpp.o
 .PHONY : Object.o
 
@@ -258,29 +330,77 @@ Object.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Object.cpp.s
 .PHONY : Object.cpp.s
 
-Player.o: Player.cpp.o
-.PHONY : Player.o
+Particle.o: Particle.cpp.o
+.PHONY : Particle.o
 
 # target to build an object file
-Player.cpp.o:
-	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Player.cpp.o
-.PHONY : Player.cpp.o
+Particle.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Particle.cpp.o
+.PHONY : Particle.cpp.o
 
-Player.i: Player.cpp.i
-.PHONY : Player.i
+Particle.i: Particle.cpp.i
+.PHONY : Particle.i
 
 # target to preprocess a source file
-Player.cpp.i:
-	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Player.cpp.i
-.PHONY : Player.cpp.i
+Particle.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Particle.cpp.i
+.PHONY : Particle.cpp.i
 
-Player.s: Player.cpp.s
-.PHONY : Player.s
+Particle.s: Particle.cpp.s
+.PHONY : Particle.s
 
 # target to generate assembly for a file
-Player.cpp.s:
-	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Player.cpp.s
-.PHONY : Player.cpp.s
+Particle.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Particle.cpp.s
+.PHONY : Particle.cpp.s
+
+ParticleTexture.o: ParticleTexture.cpp.o
+.PHONY : ParticleTexture.o
+
+# target to build an object file
+ParticleTexture.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/ParticleTexture.cpp.o
+.PHONY : ParticleTexture.cpp.o
+
+ParticleTexture.i: ParticleTexture.cpp.i
+.PHONY : ParticleTexture.i
+
+# target to preprocess a source file
+ParticleTexture.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/ParticleTexture.cpp.i
+.PHONY : ParticleTexture.cpp.i
+
+ParticleTexture.s: ParticleTexture.cpp.s
+.PHONY : ParticleTexture.s
+
+# target to generate assembly for a file
+ParticleTexture.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/ParticleTexture.cpp.s
+.PHONY : ParticleTexture.cpp.s
+
+Program.o: Program.cpp.o
+.PHONY : Program.o
+
+# target to build an object file
+Program.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Program.cpp.o
+.PHONY : Program.cpp.o
+
+Program.i: Program.cpp.i
+.PHONY : Program.i
+
+# target to preprocess a source file
+Program.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Program.cpp.i
+.PHONY : Program.cpp.i
+
+Program.s: Program.cpp.s
+.PHONY : Program.s
+
+# target to generate assembly for a file
+Program.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Program.cpp.s
+.PHONY : Program.cpp.s
 
 Session.o: Session.cpp.o
 .PHONY : Session.o
@@ -330,29 +450,29 @@ ShootingGallery.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/ShootingGallery.cpp.s
 .PHONY : ShootingGallery.cpp.s
 
-SkyBox.o: SkyBox.cpp.o
-.PHONY : SkyBox.o
+Skybox.o: Skybox.cpp.o
+.PHONY : Skybox.o
 
 # target to build an object file
-SkyBox.cpp.o:
-	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/SkyBox.cpp.o
-.PHONY : SkyBox.cpp.o
+Skybox.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Skybox.cpp.o
+.PHONY : Skybox.cpp.o
 
-SkyBox.i: SkyBox.cpp.i
-.PHONY : SkyBox.i
+Skybox.i: Skybox.cpp.i
+.PHONY : Skybox.i
 
 # target to preprocess a source file
-SkyBox.cpp.i:
-	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/SkyBox.cpp.i
-.PHONY : SkyBox.cpp.i
+Skybox.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Skybox.cpp.i
+.PHONY : Skybox.cpp.i
 
-SkyBox.s: SkyBox.cpp.s
-.PHONY : SkyBox.s
+Skybox.s: Skybox.cpp.s
+.PHONY : Skybox.s
 
 # target to generate assembly for a file
-SkyBox.cpp.s:
-	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/SkyBox.cpp.s
-.PHONY : SkyBox.cpp.s
+Skybox.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Skybox.cpp.s
+.PHONY : Skybox.cpp.s
 
 Sound.o: Sound.cpp.o
 .PHONY : Sound.o
@@ -401,6 +521,30 @@ Texture.s: Texture.cpp.s
 Texture.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Texture.cpp.s
 .PHONY : Texture.cpp.s
+
+WatermelonSmash.o: WatermelonSmash.cpp.o
+.PHONY : WatermelonSmash.o
+
+# target to build an object file
+WatermelonSmash.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/WatermelonSmash.cpp.o
+.PHONY : WatermelonSmash.cpp.o
+
+WatermelonSmash.i: WatermelonSmash.cpp.i
+.PHONY : WatermelonSmash.i
+
+# target to preprocess a source file
+WatermelonSmash.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/WatermelonSmash.cpp.i
+.PHONY : WatermelonSmash.cpp.i
+
+WatermelonSmash.s: WatermelonSmash.cpp.s
+.PHONY : WatermelonSmash.s
+
+# target to generate assembly for a file
+WatermelonSmash.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/WatermelonSmash.cpp.s
+.PHONY : WatermelonSmash.cpp.s
 
 Window.o: Window.cpp.o
 .PHONY : Window.o
@@ -516,33 +660,51 @@ help:
 	@echo "... Clicks.o"
 	@echo "... Clicks.i"
 	@echo "... Clicks.s"
+	@echo "... FontAtlas.o"
+	@echo "... FontAtlas.i"
+	@echo "... FontAtlas.s"
+	@echo "... FontEngine.o"
+	@echo "... FontEngine.i"
+	@echo "... FontEngine.s"
 	@echo "... GLSL.o"
 	@echo "... GLSL.i"
 	@echo "... GLSL.s"
 	@echo "... MatrixStack.o"
 	@echo "... MatrixStack.i"
 	@echo "... MatrixStack.s"
+	@echo "... Minigame.o"
+	@echo "... Minigame.i"
+	@echo "... Minigame.s"
 	@echo "... Object.o"
 	@echo "... Object.i"
 	@echo "... Object.s"
-	@echo "... Player.o"
-	@echo "... Player.i"
-	@echo "... Player.s"
+	@echo "... Particle.o"
+	@echo "... Particle.i"
+	@echo "... Particle.s"
+	@echo "... ParticleTexture.o"
+	@echo "... ParticleTexture.i"
+	@echo "... ParticleTexture.s"
+	@echo "... Program.o"
+	@echo "... Program.i"
+	@echo "... Program.s"
 	@echo "... Session.o"
 	@echo "... Session.i"
 	@echo "... Session.s"
 	@echo "... ShootingGallery.o"
 	@echo "... ShootingGallery.i"
 	@echo "... ShootingGallery.s"
-	@echo "... SkyBox.o"
-	@echo "... SkyBox.i"
-	@echo "... SkyBox.s"
+	@echo "... Skybox.o"
+	@echo "... Skybox.i"
+	@echo "... Skybox.s"
 	@echo "... Sound.o"
 	@echo "... Sound.i"
 	@echo "... Sound.s"
 	@echo "... Texture.o"
 	@echo "... Texture.i"
 	@echo "... Texture.s"
+	@echo "... WatermelonSmash.o"
+	@echo "... WatermelonSmash.i"
+	@echo "... WatermelonSmash.s"
 	@echo "... Window.o"
 	@echo "... Window.i"
 	@echo "... Window.s"

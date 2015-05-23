@@ -29,6 +29,8 @@ Window.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
 Object.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
+Booth.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Booth.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.cpp
 Clicks.h
@@ -39,6 +41,32 @@ includes.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
 Object.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/FontAtlas.cpp
+FontAtlas.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/FontAtlas.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/FontAtlas.h
+algorithm
+-
+includes.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.cpp
+FontEngine.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
+string
+-
+unordered_map
+-
+includes.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+FontAtlas.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/FontAtlas.h
+Program.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
 freeglut_std.h
@@ -106,11 +134,51 @@ glm/glm.hpp
 glm/gtc/type_ptr.hpp
 /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.hpp
 
+/Users/kayla/Projects/Graphics/CPE476Lab1/Minigame.cpp
+Minigame.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Minigame.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/Minigame.h
+includes.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+Window.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
+ShootingGallery.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.h
+WatermelonSmash.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/WatermelonSmash.h
+
 /Users/kayla/Projects/Graphics/CPE476Lab1/Object.cpp
 Object.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
+includes.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/Particle.cpp
+Particle.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Particle.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/Particle.h
+includes.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+Program.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.cpp
+ParticleTexture.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
+includes.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/Program.cpp
+Program.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
 includes.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
 
@@ -131,10 +199,14 @@ Clicks.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
 Sound.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
-ShootingGallery.h
-/Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.h
-WatermelonSmash.h
-/Users/kayla/Projects/Graphics/CPE476Lab1/WatermelonSmash.h
+Minigame.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Minigame.h
+Program.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
+ParticleTexture.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
+FontEngine.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.cpp
 ShootingGallery.h
@@ -152,10 +224,6 @@ Window.h
 Sound.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
 
-/Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.cpp
-SkyBox.h
-/Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.h
-
 /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.h
 includes.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
@@ -165,6 +233,10 @@ Object.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
 Texture.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/Skybox.cpp
+SkyBox.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.cpp
 Sound.h
@@ -215,8 +287,8 @@ includes.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/World.cpp
 World.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/World.h
-Booth.h
-/Users/kayla/Projects/Graphics/CPE476Lab1/Booth.h
+algorithm
+-
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/World.h
 includes.h
@@ -231,6 +303,8 @@ SkyBox.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.h
 Booth.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Booth.h
+Particle.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Particle.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
 stddef.h
@@ -727,6 +801,10 @@ iostream
 -
 fstream
 -
+map
+-
+string
+-
 ft2build.h
 -
 glew.h
@@ -753,6 +831,8 @@ Util.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
 MatrixStack.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
+ParticleTexture.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
 irrKlang.h
 -
 
@@ -804,6 +884,12 @@ string
 vector
 -
 map
+-
+
+freetype-2.5.5/include/config/ftheader.h
+
+freetype-2.5.5/include/ft2build.h
+config/ftheader.h
 -
 
 irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h

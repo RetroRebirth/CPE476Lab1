@@ -7,7 +7,7 @@ WatermelonSmash::WatermelonSmash(GLuint _ShadeProg, Clicks* _clicks, Sound* _sou
     clicks = _clicks;
     sound = _sound;
     score = 0;
-    timeStart = timer = timeLeft = timeRight = 0.0;
+    timeStart = timer = timeLeft = timeRight = timeSwing = 0.0;
     spawnLeft = spawnRight = false;
     gameStart = gameOver = false;
 
@@ -21,7 +21,7 @@ WatermelonSmash::WatermelonSmash(GLuint _ShadeProg, Clicks* _clicks, Sound* _sou
     printf("\t\tHitting a watermelon = 1 point\n");
     printf("\t\tSmall watermelon = 10 points, 2 hits\n");
     printf("\t\tMedium watermelon = 20 points, 8 hits\n");
-    printf("\t\tLarge watermelon = 30 points, 18 hits\n");
+    printf("\t\tLarge watermelon = 30 points, 15 hits\n\n");
     printf("\t\tYou have 30 seconds to smash as many watermelons as you can!\n");
     printf("\t\tPress ENTER to start the game!.\n");
     printf("\t\tOnce you are done, press SPACE to exit.\n\n");
@@ -38,12 +38,40 @@ WatermelonSmash::~WatermelonSmash() {
 
 void WatermelonSmash::setUp() {
     // Create a wall in the back
-    wall = new Object(shapes, materials, ShadeProg);
+    Object *wall = new Object(shapes, materials, ShadeProg);
     wall->load("cube.obj");
     wall->setPos(glm::vec3(0.0, 0.0, 30.0));
     wall->scale(glm::vec3(100.0f, 100.0f, 1.0f));
     wall->setTexture(TEX_WOOD_WALL);
     wall->setShadows(false);
+    misc_objects.push_back(wall);
+    
+    // Create a table for the watermelons
+    Object *table = new Object(shapes, materials, ShadeProg);
+    table->load("cube.obj");
+    table->setPos(glm::vec3(0.0, 0.0, MELON_DEPTH));
+    table->scale(glm::vec3(10.0f, 1.0f, 1.0f));
+    table->setTexture(TEX_WOOD_DARK);
+    table->setShadows(false);
+    misc_objects.push_back(table);
+    
+    // Create booth player
+    Object *npc = new Object(shapes, materials, ShadeProg);
+    npc->load("bunny.obj");
+    npc->setPos(glm::vec3(0.0, 0.0, MELON_DEPTH + 2));
+    npc->scale(glm::vec3(2.0, 3.0, 2.0));
+    npc->setTexture(TEX_LANTERN);
+    npc->setShadows(false);
+    misc_objects.push_back(npc);
+    
+    // Create the hammer
+    hammer = new Object(shapes, materials, ShadeProg);
+    hammer->load("objs/hammer.obj");
+    hammer->setPos(glm::vec3(0.0, 3.5, MELON_DEPTH + .2));
+    hammer->scale(glm::vec3(3.0, 3.0, 3.0));
+    hammer->updateRadius();
+    hammer->setTexture(TEX_HAMMER);
+    hammer->setShadows(false);
     
     // Add watermelons
     newMelon(MELON_LEFT);
@@ -57,12 +85,8 @@ void WatermelonSmash::newMelon(float xPos) {
     newObj->setTexture(TEX_MELON_OUT);
     newObj->setShadows(false);
     
-    // Decide where to put the watermelon
-    newObj->setPos(glm::vec3(xPos, 2.0, MELON_DEPTH));
-    
     // Add the watermelons to the game
-    Watermelon *newMelon = new Watermelon(newObj);
-    newMelon->xPos = xPos;
+    Watermelon *newMelon = new Watermelon(newObj, xPos);
     melons.push_back(newMelon);
 }
 
@@ -79,7 +103,7 @@ void WatermelonSmash::checkTime(Window *window) {
             printf("Time remaining: %d\n", (int)(timeStart - window->time));
             timer = window->time;
         }
-        // Check whether the game has ended (50 seconds)
+        // Check whether the game has ended
         if (window->time - timeStart >= MELON_TIME) {
             printf("Time's up! Your score is: %d\n", score);
             gameOver = true;
@@ -93,26 +117,29 @@ void WatermelonSmash::checkTime(Window *window) {
             newMelon(MELON_RIGHT);
             spawnRight = false;
         }
+        // Swing the hammer
+        if (timeSwing - window->time > 0) {
+            float angle = -360 * (timeSwing - window->time);
+            hammer->rotate(angle, glm::vec3(1.0, 0.0, 0.0));
+        }
     }
 }
 
 void WatermelonSmash::step(Window* window) {
     // Draw the booth
-    wall->draw();
+    for (int i = 0; i < misc_objects.size(); i++)
+        misc_objects[i]->draw();
     
     // Check how much time has passed and whether game is playing
     if (gameOver || !gameStart)
         return;
     checkTime(window);
     
-    // Draw the watermelons
-    for (int i = 0; i < melons.size(); i++) {
-        if (melons[i] == NULL) {
-            melons.erase(melons.begin() + i--);
-            continue;
-        }
+    // Draw the watermelons and hammer
+    for (int i = 0; i < melons.size(); i++)
         melons[i]->object->draw();
-    }
+    hammer->draw();
+    
     // Fire the bullets
     for (int i = 0; i < bullets.size(); i++){
         if (bullets[i]->getPos().z <= MELON_DEPTH) {
@@ -120,14 +147,16 @@ void WatermelonSmash::step(Window* window) {
                 bullets[i]->setPos(bullets[i]->calculateNewPos(window->dt));
                 //bullets[i]->draw();
                 
-                // Check collision of bullet against watermelons
+                // Check collision against watermelons
                 for (int j = 0; j < melons.size(); ++j) {
                     if (bullets[i]->collidedWithObj(*melons[j]->object, window->dt)) {
                         // Hit the melon
-//                        sound->playContactSound();
+                        //sound->playContactSound();
+                        timeSwing = window->time + MELON_SWING;
+                        hammer->setPos(glm::vec3(melons[j]->xPos, melons[j]->yPos + melons[j]->size * 1.0, MELON_DEPTH + .2));
                         int pointsEarned = melons[j]->hit();
-                        printf("Hit a melon! Points earned: %d\n", pointsEarned);
                         score += pointsEarned;
+                        printf("Hit a melon! Points earned: %d\n", pointsEarned);
                         printf("Score: %d\n", score);
                         
                         // Remove the melon if it was destroyed
@@ -153,12 +182,10 @@ void WatermelonSmash::step(Window* window) {
 }
 
 void WatermelonSmash::mouseClick(glm::vec3 direction, glm::vec4 point) {
-    //printf("(x, y) = (%lf, %lf)\n", point.x, point.y);
-    
     // Shoot a "bullet"
     Object* bullet = new Object(shapes, materials, ShadeProg);
     bullet->load("sphere.obj");
-    bullet->setPos(glm::vec3(point.x, 2.25, 0));
+    bullet->setPos(glm::vec3(point.x, point.y - 7.5, 0));
     bullet->setDir(direction);
     bullet->setSpeed(1.0f);
     bullet->setTexture(TEX_WOOD_WALL);

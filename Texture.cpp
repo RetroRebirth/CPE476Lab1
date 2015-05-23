@@ -18,7 +18,8 @@ void loadAllTextures()
         (char *)"textures/watermelon_outside.bmp",
         (char *)"textures/watermelon_inside.bmp",
         (char *)"textures/target.bmp",
-        (char *)"textures/alpha.bmp"
+        (char *)"textures/alpha.bmp",
+        (char *)"textures/hammer.bmp"
     };
     // load the textures
     for (int i = 0; i < NUM_TEXTURES; i++)
@@ -55,7 +56,7 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
     bpp = getshort(file);
     if (bpp != 24) {
         printf("Bpp from %s is not 24: %u\n", filename, bpp);
-        return;
+        //return;
     }
     fseek(file, 24, SEEK_CUR);
     
@@ -80,6 +81,10 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
     // Generate mip maps
     if (genMipMaps) {
         glGenerateMipmap(GL_TEXTURE_2D);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     }
     mipmapsGenerated = genMipMaps;
 }

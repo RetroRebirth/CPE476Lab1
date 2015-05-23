@@ -1,0 +1,36 @@
+newmtl EffDededeHammerTrace:mat1
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.50 0.50 0.50
+Tf 1.00 1.00 1.00
+map_Kd eff_dedede_hummer.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 10.00
+newmtl WpnKirbyHammer:mat1
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.50 0.50 0.50
+Tf 1.00 1.00 1.00
+map_Kd ItmKirbyHmmrS0.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 10.00
+newmtl WpnKirbyHammer:mat2
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.50 0.50 0.50
+Tf 1.00 1.00 1.00
+map_Kd ItmKirbyHmmrB0.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 10.00
+newmtl WpnKirbyHammer:mat5
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.50 0.50 0.50
+Tf 1.00 1.00 1.00
+map_Kd ItmKirbyHmmrG0.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 10.00

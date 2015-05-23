@@ -65,7 +65,7 @@ bool FontEngine::init(GLuint _ShadeProg) {
 void FontEngine::display(Program* prog, glm::vec4 col, int size, const char* text) {
     prog->bind();
 
-    setColor(col.r, col.g, col.b, col.a);
+    setColor(col.x, col.y, col.z, col.w);
     if (useFont(ostrichHandle, size)) {
         float textWidth, yPos = 0.1;
         yPos -= getLineHeight();
