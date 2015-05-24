@@ -1,6 +1,7 @@
 #include "Texture.h"
 
 Texture textures[NUM_TEXTURES];
+Texture thumbnails[NUM_SONGS];
 
 /* Initially loads all textures used in this program */
 void loadAllTextures()
@@ -19,12 +20,37 @@ void loadAllTextures()
         (char *)"textures/watermelon_inside.bmp",
         (char *)"textures/target.bmp",
         (char *)"textures/alpha.bmp",
-        (char *)"textures/hammer.bmp"
+        (char *)"textures/hammer.bmp",
+        (char *)"textures/miku.bmp",
+        (char *)"textures/rin.bmp",
+        (char *)"textures/len.bmp",
+        (char *)"textures/kaito.bmp"
     };
     // load the textures
     for (int i = 0; i < NUM_TEXTURES; i++)
     {
         textures[i].loadTexture(textureNames[i], i, true);
+    }
+}
+
+void loadKaraokeTextures()
+{
+    char *textureNames[] = {
+        (char *)"textures/karaoke/aldnoah_zero_op1.bmp",
+        (char *)"textures/karaoke/aldnoah_zero_op2.bmp",
+        (char *)"textures/karaoke/aldnoah_zero_ed2.bmp",
+        (char *)"textures/karaoke/angel_beats_op.bmp",
+        (char *)"textures/karaoke/pokemon_op1.bmp",
+        (char *)"textures/karaoke/shinsekai_yori_ed1.bmp",
+        (char *)"textures/karaoke/shinsekai_yori_ed2.bmp",
+        (char *)"textures/karaoke/terror_in_resonance_ed.bmp",
+        (char *)"textures/karaoke/tokyo_ghoul_op.bmp",
+        (char *)"textures/karaoke/tokyo_ghoul_ed.bmp"
+    };
+    // load the textures
+    for (int i = 0; i < NUM_SONGS; i++)
+    {
+        thumbnails[i].loadTexture(textureNames[i], i + NUM_TEXTURES, true);
     }
 }
 

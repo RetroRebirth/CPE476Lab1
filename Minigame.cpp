@@ -3,6 +3,7 @@
 Minigame::Minigame() {
    shootingGallery = NULL;
    watermelonSmash = NULL;
+   karaoke = NULL;
 }
 
 Minigame::~Minigame() {
@@ -10,6 +11,8 @@ Minigame::~Minigame() {
       delete shootingGallery;
    if (watermelonSmash != NULL)
       delete watermelonSmash;
+   if (karaoke != NULL)
+      delete karaoke;
 }
 
 void Minigame::step(Window* window) {
@@ -17,6 +20,8 @@ void Minigame::step(Window* window) {
       shootingGallery->step(window);
    if (watermelonSmash != NULL)
       watermelonSmash->step(window);
+   if (karaoke != NULL)
+      karaoke->step(window);
 }
 
 void Minigame::mouseClick(glm::vec3 direction, glm::vec4 point) {
@@ -24,6 +29,8 @@ void Minigame::mouseClick(glm::vec3 direction, glm::vec4 point) {
       shootingGallery->mouseClick(direction, point);
    if (watermelonSmash != NULL)
       watermelonSmash->mouseClick(direction, point);
+   if (karaoke != NULL)
+      karaoke->mouseClick(direction, point);
 }
 
 void Minigame::setGameStart(bool _gameStart) {
@@ -31,6 +38,8 @@ void Minigame::setGameStart(bool _gameStart) {
       shootingGallery->gameStart = _gameStart;
    if (watermelonSmash != NULL)
       watermelonSmash->gameStart = _gameStart;
+   if (karaoke != NULL)
+      karaoke->songChosen = _gameStart;
 }
 
 bool Minigame::getGameOver() {
@@ -38,6 +47,8 @@ bool Minigame::getGameOver() {
       return shootingGallery->gameOver;
    if (watermelonSmash != NULL)
       return watermelonSmash->gameOver;
+   if (karaoke != NULL)
+      return karaoke->gameOver;
 
    return false;
 }
@@ -51,5 +62,8 @@ void Minigame::clearMinigames() {
       delete watermelonSmash;
       watermelonSmash = NULL;
    }
+   if (karaoke != NULL) {
+      delete karaoke;
+      karaoke = NULL;
+   }
 }
-

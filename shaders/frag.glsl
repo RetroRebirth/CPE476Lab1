@@ -3,6 +3,7 @@ uniform mat4 uV;
 uniform mat4 uM;
 uniform mat4 uRot;
 uniform vec3 uView;
+uniform float uTrans;
 uniform sampler2D uSampler;
 
 varying vec4 vPos;

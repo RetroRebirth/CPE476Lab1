@@ -6,6 +6,7 @@
 
 #include "ShootingGallery.h"
 #include "WatermelonSmash.h"
+#include "Karaoke.h"
 
 class Minigame {
    public:
@@ -15,6 +16,7 @@ class Minigame {
       // Minigame instance objects
       ShootingGallery* shootingGallery;
       WatermelonSmash* watermelonSmash;
+      Karaoke* karaoke;
 
       // Public methods
       void step(Window* window);

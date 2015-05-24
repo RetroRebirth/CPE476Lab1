@@ -91,7 +91,7 @@ private:
 class WatermelonSmash {
 public:
     // constructor & deconstructor
-    WatermelonSmash(GLuint _ShadeProg, Clicks* _clicks, Sound* _sound);
+    WatermelonSmash(GLuint _ShadeProg, Sound* _sound);
     virtual ~WatermelonSmash();
     
     // clicks
@@ -109,7 +109,6 @@ private:
     vector<tinyobj::shape_t> shapes;
     vector<tinyobj::material_t> materials;
     GLuint ShadeProg;
-    Clicks* clicks;
     Sound* sound;
     Object* hammer;
     

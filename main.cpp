@@ -9,6 +9,7 @@
 #include "Window.h"
 #include "Camera.h"
 #include "Texture.h"
+#include "Karaoke.h"
 
 Session* session;
 
@@ -55,10 +56,32 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
       if (camera->speed < MAX_SPEED) {
          camera->speed += DELTA_SPEED;
       }
+      if (session->getMinigame()->karaoke != NULL && !session->getMinigame()->getGameOver()) {
+         session->getMinigame()->karaoke->selectCharacter(1);
+      }
       break;
    case GLFW_KEY_DOWN:
       if (camera->speed > MIN_SPEED) {
          camera->speed -= DELTA_SPEED;
+      }
+      if (session->getMinigame()->karaoke != NULL && !session->getMinigame()->getGameOver()) {
+         session->getMinigame()->karaoke->selectCharacter(2);
+      }
+      break;
+   case GLFW_KEY_LEFT:
+      if (session->getMinigame()->karaoke != NULL) {
+         if (!session->getMinigame()->karaoke->songChosen)
+            session->getMinigame()->karaoke->prevSong();
+         else if (!session->getMinigame()->getGameOver())
+            session->getMinigame()->karaoke->selectCharacter(0);
+      }
+      break;
+   case GLFW_KEY_RIGHT:
+      if (session->getMinigame()->karaoke != NULL) {
+         if (!session->getMinigame()->karaoke->songChosen)
+            session->getMinigame()->karaoke->nextSong();
+         else if (!session->getMinigame()->getGameOver())
+            session->getMinigame()->karaoke->selectCharacter(3);
       }
       break;
    case GLFW_KEY_ENTER:
@@ -125,6 +148,7 @@ int main(int argc, char **argv) {
    setInputCallbacks();
     
    loadAllTextures();
+   loadKaraokeTextures();
    session->run(); // Runs the main game loop
    delete session; // Free the main game session from the heap
     

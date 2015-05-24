@@ -1,8 +1,7 @@
 #include "ShootingGallery.h"
 
-ShootingGallery::ShootingGallery(GLuint _ShadeProg, Clicks* _clicks, Sound* _sound) {
+ShootingGallery::ShootingGallery(GLuint _ShadeProg, Sound* _sound) {
    ShadeProg = _ShadeProg;
-   clicks = _clicks;
 
    // Create a wall in the back
    wall = new Object(shapes, materials, ShadeProg);
@@ -17,7 +16,6 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Clicks* _clicks, Sound* _sou
 
    score = 0;
    elapsedTime = 0.0;
-   clicks->setObjects(&targets);
    gameOver = false;
    doneTimer = -1;
    ammo = 20;
@@ -152,7 +150,7 @@ void ShootingGallery::mouseClick(glm::vec3 direction, glm::vec4 point) {
    // Shoot a bullet
    Object* bullet = new Object(shapes, materials, ShadeProg);
    bullet->load("sphere.obj");
-   bullet->setPos(glm::vec3(point.x, 2.5, 0));
+   bullet->setPos(glm::vec3(point.x, point.y - 7.5, 0));
    bullet->setDir(direction);
    bullet->setSpeed(1.0f);
    bullet->setTexture(TEX_WOOD_WALL);

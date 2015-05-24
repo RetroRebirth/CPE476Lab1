@@ -14,7 +14,7 @@
 
 class ShootingGallery {
    public:
-      ShootingGallery(GLuint _ShadeProg, Clicks* _clicks, Sound* _sound);
+      ShootingGallery(GLuint _ShadeProg, Sound* _sound);
       virtual ~ShootingGallery();
       void mouseClick(glm::vec3 direction, glm::vec4 point);
       void step(Window* window);
@@ -26,7 +26,6 @@ class ShootingGallery {
       vector<tinyobj::shape_t> shapes;
       vector<tinyobj::material_t> materials;
       GLuint ShadeProg;
-      Clicks* clicks;
       Sound* sound;
       Object* wall;
       int score;

@@ -1,0 +1,117 @@
+newmtl KaitoFigure:lambert2
+illum 4
+Kd 0.00 0.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+map_Kd roomitems_007_color.png
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 0.06
+newmtl KaitoFigure:test_lambert302
+illum 4
+Kd 0.00 0.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+map_Kd roomitem_s_kage.png
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 0.06
+newmtl LenFigure:kage
+illum 4
+Kd 0.00 0.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+map_Kd roomitem_s_kage.png
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 0.06
+newmtl LenFigure:ren_s004
+illum 4
+Kd 0.00 0.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+map_Kd roomitems_004_color.png
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 0.06
+newmtl LenFigure:ren_s004_algha
+illum 4
+Kd 0.00 0.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+map_Kd roomitems_004_alpha.png
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 0.06
+newmtl MikuFigure:test_kage
+illum 4
+Kd 0.00 0.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+map_Kd roomitem_s_kage.png
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 0.06
+newmtl MikuFigure:test_test_alpha
+illum 4
+Kd 0.00 0.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+map_Kd roomitems_002_alfa.png
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 0.06
+newmtl MikuFigure:test_test_te_000_r1
+illum 4
+Kd 0.00 0.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+map_Kd roomitems_002_body.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.06
+newmtl RinFigure:rin_S003_Alpha
+illum 4
+Kd 0.00 0.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+map_Kd roomitems_003_alpha.png
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 0.06
+newmtl RinFigure:rin_S003_Diffuse
+illum 4
+Kd 0.00 0.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+map_Kd roomitems_003_color.png
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 0.06
+newmtl RinFigure:test_lambert302
+illum 4
+Kd 0.00 0.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+map_Kd roomitem_s_kage.png
+Ni 1.00
+Ks 1.00 1.00 1.00
+Ns 0.06
+newmtl miku:test_test_alpha
+illum 4
+Kd 0.00 0.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+map_Kd roomitems_002_alfa.png
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 0.06
+newmtl miku:test_test_te_000_r1
+illum 4
+Kd 0.00 0.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+map_Kd roomitems_002_body.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.06

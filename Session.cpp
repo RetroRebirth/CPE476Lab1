@@ -10,8 +10,8 @@ Session::Session() {
    clicks = new Clicks(); 
    fontEngine = new FontEngine(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-//   sound = new Sound();
-//   sound->initSound();
+   sound = new Sound();
+   sound->initSound();
    camera->booths = world->booths;
    camera->structures = world->structures;
    
@@ -27,7 +27,7 @@ Session::~Session() {
    delete window;
    delete camera;
    delete world;
-//   delete sound;
+   delete sound;
    delete minigame;
 }
 
@@ -35,7 +35,7 @@ Session::~Session() {
  * Starts the main game loop.
  */
 void Session::run() {
-//   sound->playBackgroundMusic();
+   sound->playBackgroundMusic();
    do {
       step();
    } while(window->isActive());
@@ -73,9 +73,6 @@ void Session::initGL() {
     
     printf("done loading shaders\n");
 
-    // Enable shadow drawing
-
-    
     printf("textrue setFilename, unit, setName, init, shaders addtexture\n");
 	texture.setFilename("textures/alpha.bmp");
 	texture.setUnit(0);
@@ -196,9 +193,11 @@ void Session::startMinigame() {
 void Session::createMinigame(char* type) {
    // Which type of minigame is this?
    if (strcmp(type, SHOOTING_GALLERY) == 0) {
-      minigame->shootingGallery = new ShootingGallery(shaders[SHADER_DEFAULT]->getPID(), clicks, sound);
+      minigame->shootingGallery = new ShootingGallery(shaders[SHADER_DEFAULT]->getPID(), sound);
    } else if (strcmp(type, WATERMELON_SMASH) == 0) {
-      minigame->watermelonSmash = new WatermelonSmash(shaders[SHADER_DEFAULT]->getPID(), clicks, sound);
+      minigame->watermelonSmash = new WatermelonSmash(shaders[SHADER_DEFAULT]->getPID(), sound);
+   } else if (strcmp(type, KARAOKE) == 0) {
+       minigame->karaoke = new Karaoke(shaders[SHADER_DEFAULT]->getPID(), sound);
    }
 }
 

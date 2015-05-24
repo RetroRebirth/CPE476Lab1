@@ -185,6 +185,54 @@ IRRKLANGMP3_LIB:FILEPATH=/usr/local/lib/libikpMP3.dylib
 //Path to a library.
 IRRKLANG_LIB:FILEPATH=/Users/kayla/Projects/Graphics/CPE476Lab1/irrKlang-64bit-1.5.0/bin/macosx-gcc/libirrklang.dylib
 
+//Path to a library.
+OPENCV_Calib3d:FILEPATH=/usr/local/lib/libopencv_calib3d.dylib
+
+//Path to a library.
+OPENCV_Core:FILEPATH=/usr/local/lib/libopencv_core.dylib
+
+//Path to a library.
+OPENCV_Features2d:FILEPATH=/usr/local/lib/libopencv_features2d.dylib
+
+//Path to a library.
+OPENCV_Flann:FILEPATH=/usr/local/lib/libopencv_flann.dylib
+
+//Path to a library.
+OPENCV_Highgui:FILEPATH=/usr/local/lib/libopencv_highgui.dylib
+
+//Path to a library.
+OPENCV_Imgcodecs:FILEPATH=/usr/local/lib/libopencv_imgcodecs.dylib
+
+//Path to a library.
+OPENCV_Imgproc:FILEPATH=/usr/local/lib/libopencv_imgproc.dylib
+
+//Path to a library.
+OPENCV_Ml:FILEPATH=/usr/local/lib/libopencv_ml.dylib
+
+//Path to a library.
+OPENCV_Objdetect:FILEPATH=/usr/local/lib/libopencv_objdetect.dylib
+
+//Path to a library.
+OPENCV_Photo:FILEPATH=/usr/local/lib/libopencv_photo.dylib
+
+//Path to a library.
+OPENCV_Shape:FILEPATH=/usr/local/lib/libopencv_shape.dylib
+
+//Path to a library.
+OPENCV_Stitching:FILEPATH=/usr/local/lib/libopencv_stitching.dylib
+
+//Path to a library.
+OPENCV_Superres:FILEPATH=/usr/local/lib/libopencv_superres.dylib
+
+//Path to a library.
+OPENCV_Video:FILEPATH=/usr/local/lib/libopencv_video.dylib
+
+//Path to a library.
+OPENCV_Videoio:FILEPATH=/usr/local/lib/libopencv_videoio.dylib
+
+//Path to a library.
+OPENCV_Videostab:FILEPATH=/usr/local/lib/libopencv_videostab.dylib
+
 //Include for OpenGL on OSX
 OPENGL_INCLUDE_DIR:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenGL.framework
 

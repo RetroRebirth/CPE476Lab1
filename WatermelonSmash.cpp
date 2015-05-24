@@ -1,10 +1,9 @@
 #include "WatermelonSmash.h"
 
-WatermelonSmash::WatermelonSmash(GLuint _ShadeProg, Clicks* _clicks, Sound* _sound) {
+WatermelonSmash::WatermelonSmash(GLuint _ShadeProg, Sound* _sound) {
     
     // Inititalize the game
     ShadeProg = _ShadeProg;
-    clicks = _clicks;
     sound = _sound;
     score = 0;
     timeStart = timer = timeLeft = timeRight = timeSwing = 0.0;
@@ -34,6 +33,9 @@ WatermelonSmash::~WatermelonSmash() {
     for (int i = 0; i < melons.size(); i++) {
         delete melons[i];
     }
+    for (int i = 0; i < misc_objects.size(); i++) {
+        delete misc_objects[i];
+    }
 }
 
 void WatermelonSmash::setUp() {
@@ -42,7 +44,7 @@ void WatermelonSmash::setUp() {
     wall->load("cube.obj");
     wall->setPos(glm::vec3(0.0, 0.0, 30.0));
     wall->scale(glm::vec3(100.0f, 100.0f, 1.0f));
-    wall->setTexture(TEX_WOOD_WALL);
+    wall->setTexture(TEX_WOOD_LIGHT);
     wall->setShadows(false);
     misc_objects.push_back(wall);
     
@@ -142,16 +144,15 @@ void WatermelonSmash::step(Window* window) {
     
     // Fire the bullets
     for (int i = 0; i < bullets.size(); i++){
-        if (bullets[i]->getPos().z <= MELON_DEPTH) {
+        if (bullets[i]->getPos().z <= MELON_DEPTH && bullets[i]->getPos().z >= -MELON_DEPTH) {
             if (bullets[i] != NULL) {
                 bullets[i]->setPos(bullets[i]->calculateNewPos(window->dt));
-                //bullets[i]->draw();
                 
                 // Check collision against watermelons
                 for (int j = 0; j < melons.size(); ++j) {
                     if (bullets[i]->collidedWithObj(*melons[j]->object, window->dt)) {
                         // Hit the melon
-                        //sound->playContactSound();
+                        sound->playContactSound();
                         timeSwing = window->time + MELON_SWING;
                         hammer->setPos(glm::vec3(melons[j]->xPos, melons[j]->yPos + melons[j]->size * 1.0, MELON_DEPTH + .2));
                         int pointsEarned = melons[j]->hit();

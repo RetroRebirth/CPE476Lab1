@@ -116,6 +116,22 @@ GLUT/glut.h
 GL/glut.h
 -
 
+/Users/kayla/Projects/Graphics/CPE476Lab1/Karaoke.cpp
+Karaoke.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Karaoke.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/Karaoke.h
+includes.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+Clicks.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
+Texture.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
+Window.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
+Sound.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
+
 /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.cpp
 MatrixStack.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
@@ -147,6 +163,8 @@ ShootingGallery.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.h
 WatermelonSmash.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/WatermelonSmash.h
+Karaoke.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Karaoke.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Object.cpp
 Object.h
@@ -224,6 +242,10 @@ Window.h
 Sound.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
 
+/Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.cpp
+SkyBox.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.h
+
 /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.h
 includes.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
@@ -233,10 +255,6 @@ Object.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
 Texture.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
-
-/Users/kayla/Projects/Graphics/CPE476Lab1/Skybox.cpp
-SkyBox.h
-/Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.cpp
 Sound.h
@@ -253,6 +271,8 @@ Texture.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
 includes.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+Sound.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
 cmath
@@ -857,6 +877,8 @@ Camera.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
 Texture.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
+Karaoke.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Karaoke.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.cc
 cstdlib
@@ -885,6 +907,24 @@ vector
 -
 map
 -
+
+/usr/local/include/GL/freeglut_std.h
+windows.h
+-
+OpenGL/gl3.h
+-
+OpenGL/glu.h
+-
+GL/gl.h
+-
+GL/glu.h
+-
+stdlib.h
+-
+
+/usr/local/include/GL/glut.h
+freeglut_std.h
+/usr/local/include/GL/freeglut_std.h
 
 freetype-2.5.5/include/config/ftheader.h
 

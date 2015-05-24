@@ -258,6 +258,30 @@ GLSL.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/GLSL.cpp.s
 .PHONY : GLSL.cpp.s
 
+Karaoke.o: Karaoke.cpp.o
+.PHONY : Karaoke.o
+
+# target to build an object file
+Karaoke.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Karaoke.cpp.o
+.PHONY : Karaoke.cpp.o
+
+Karaoke.i: Karaoke.cpp.i
+.PHONY : Karaoke.i
+
+# target to preprocess a source file
+Karaoke.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Karaoke.cpp.i
+.PHONY : Karaoke.cpp.i
+
+Karaoke.s: Karaoke.cpp.s
+.PHONY : Karaoke.s
+
+# target to generate assembly for a file
+Karaoke.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Karaoke.cpp.s
+.PHONY : Karaoke.cpp.s
+
 MatrixStack.o: MatrixStack.cpp.o
 .PHONY : MatrixStack.o
 
@@ -450,29 +474,29 @@ ShootingGallery.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/ShootingGallery.cpp.s
 .PHONY : ShootingGallery.cpp.s
 
-Skybox.o: Skybox.cpp.o
-.PHONY : Skybox.o
+SkyBox.o: SkyBox.cpp.o
+.PHONY : SkyBox.o
 
 # target to build an object file
-Skybox.cpp.o:
-	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Skybox.cpp.o
-.PHONY : Skybox.cpp.o
+SkyBox.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/SkyBox.cpp.o
+.PHONY : SkyBox.cpp.o
 
-Skybox.i: Skybox.cpp.i
-.PHONY : Skybox.i
+SkyBox.i: SkyBox.cpp.i
+.PHONY : SkyBox.i
 
 # target to preprocess a source file
-Skybox.cpp.i:
-	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Skybox.cpp.i
-.PHONY : Skybox.cpp.i
+SkyBox.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/SkyBox.cpp.i
+.PHONY : SkyBox.cpp.i
 
-Skybox.s: Skybox.cpp.s
-.PHONY : Skybox.s
+SkyBox.s: SkyBox.cpp.s
+.PHONY : SkyBox.s
 
 # target to generate assembly for a file
-Skybox.cpp.s:
-	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/Skybox.cpp.s
-.PHONY : Skybox.cpp.s
+SkyBox.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.dir/build.make CMakeFiles/a.out.dir/SkyBox.cpp.s
+.PHONY : SkyBox.cpp.s
 
 Sound.o: Sound.cpp.o
 .PHONY : Sound.o
@@ -669,6 +693,9 @@ help:
 	@echo "... GLSL.o"
 	@echo "... GLSL.i"
 	@echo "... GLSL.s"
+	@echo "... Karaoke.o"
+	@echo "... Karaoke.i"
+	@echo "... Karaoke.s"
 	@echo "... MatrixStack.o"
 	@echo "... MatrixStack.i"
 	@echo "... MatrixStack.s"
@@ -693,9 +720,9 @@ help:
 	@echo "... ShootingGallery.o"
 	@echo "... ShootingGallery.i"
 	@echo "... ShootingGallery.s"
-	@echo "... Skybox.o"
-	@echo "... Skybox.i"
-	@echo "... Skybox.s"
+	@echo "... SkyBox.o"
+	@echo "... SkyBox.i"
+	@echo "... SkyBox.s"
 	@echo "... Sound.o"
 	@echo "... Sound.i"
 	@echo "... Sound.s"
