@@ -39,7 +39,7 @@ void Minigame::setGameStart(bool _gameStart) {
    if (watermelonSmash != NULL)
       watermelonSmash->gameStart = _gameStart;
    if (karaoke != NULL)
-      karaoke->songChosen = _gameStart;
+      karaoke->selectSong();
 }
 
 bool Minigame::getGameOver() {

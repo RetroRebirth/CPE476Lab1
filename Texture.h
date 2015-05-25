@@ -2,7 +2,6 @@
 #define __TEXTURE__
 
 #include "includes.h"
-#include "Sound.h"
 
 class Texture {
 public:
@@ -65,7 +64,5 @@ private:
 
 #define NUM_TEXTURES 18
 extern Texture textures[NUM_TEXTURES];
-extern Texture thumbnails[NUM_SONGS];
 void loadAllTextures();
-void loadKaraokeTextures();
 #endif

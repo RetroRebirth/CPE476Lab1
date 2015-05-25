@@ -10,7 +10,6 @@ CMakeFiles/a.out.dir/Booth.cpp.o: GLSL.h
 CMakeFiles/a.out.dir/Booth.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/Booth.cpp.o: Object.h
 CMakeFiles/a.out.dir/Booth.cpp.o: ParticleTexture.h
-CMakeFiles/a.out.dir/Booth.cpp.o: Sound.h
 CMakeFiles/a.out.dir/Booth.cpp.o: Texture.h
 CMakeFiles/a.out.dir/Booth.cpp.o: Util.h
 CMakeFiles/a.out.dir/Booth.cpp.o: glew.h
@@ -124,7 +123,6 @@ CMakeFiles/a.out.dir/Camera.cpp.o: GLSL.h
 CMakeFiles/a.out.dir/Camera.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/Camera.cpp.o: Object.h
 CMakeFiles/a.out.dir/Camera.cpp.o: ParticleTexture.h
-CMakeFiles/a.out.dir/Camera.cpp.o: Sound.h
 CMakeFiles/a.out.dir/Camera.cpp.o: Texture.h
 CMakeFiles/a.out.dir/Camera.cpp.o: Util.h
 CMakeFiles/a.out.dir/Camera.cpp.o: Window.h
@@ -1575,7 +1573,6 @@ CMakeFiles/a.out.dir/SkyBox.cpp.o: Object.h
 CMakeFiles/a.out.dir/SkyBox.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/SkyBox.cpp.o: SkyBox.cpp
 CMakeFiles/a.out.dir/SkyBox.cpp.o: SkyBox.h
-CMakeFiles/a.out.dir/SkyBox.cpp.o: Sound.h
 CMakeFiles/a.out.dir/SkyBox.cpp.o: Texture.h
 CMakeFiles/a.out.dir/SkyBox.cpp.o: Util.h
 CMakeFiles/a.out.dir/SkyBox.cpp.o: Window.h
@@ -1688,6 +1685,7 @@ CMakeFiles/a.out.dir/Sound.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/Sound.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/Sound.cpp.o: Sound.cpp
 CMakeFiles/a.out.dir/Sound.cpp.o: Sound.h
+CMakeFiles/a.out.dir/Sound.cpp.o: Texture.h
 CMakeFiles/a.out.dir/Sound.cpp.o: Util.h
 CMakeFiles/a.out.dir/Sound.cpp.o: glew.h
 CMakeFiles/a.out.dir/Sound.cpp.o: glfw3_1.h
@@ -1796,7 +1794,6 @@ CMakeFiles/a.out.dir/Texture.cpp.o: GL/freeglut_std.h
 CMakeFiles/a.out.dir/Texture.cpp.o: GLSL.h
 CMakeFiles/a.out.dir/Texture.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/Texture.cpp.o: ParticleTexture.h
-CMakeFiles/a.out.dir/Texture.cpp.o: Sound.h
 CMakeFiles/a.out.dir/Texture.cpp.o: Texture.cpp
 CMakeFiles/a.out.dir/Texture.cpp.o: Texture.h
 CMakeFiles/a.out.dir/Texture.cpp.o: Util.h
@@ -2141,7 +2138,6 @@ CMakeFiles/a.out.dir/World.cpp.o: Particle.h
 CMakeFiles/a.out.dir/World.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/World.cpp.o: Program.h
 CMakeFiles/a.out.dir/World.cpp.o: SkyBox.h
-CMakeFiles/a.out.dir/World.cpp.o: Sound.h
 CMakeFiles/a.out.dir/World.cpp.o: Texture.h
 CMakeFiles/a.out.dir/World.cpp.o: Util.h
 CMakeFiles/a.out.dir/World.cpp.o: Window.h

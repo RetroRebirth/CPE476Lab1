@@ -265,6 +265,8 @@ Sound.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
 includes.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+Texture.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.cpp
 Texture.h
@@ -273,8 +275,6 @@ Texture.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
 includes.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
-Sound.h
-/Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
 cmath

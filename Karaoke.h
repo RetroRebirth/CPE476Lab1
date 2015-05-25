@@ -14,7 +14,6 @@
 #define KAITO 3
 #define CHARA_TEX 14
 
-
 class Karaoke {
 public:
     // constructor & deconstructor
@@ -25,13 +24,15 @@ public:
     void mouseClick(glm::vec3 direction, glm::vec4 point);
     void step(Window* window);
     
-    // called by main
+    // called by main (uses keyboard input)
     void selectCharacter(int target);
     void nextSong();
     void prevSong();
-    void selectSong();
     void increaseDifficulty();
     void decreaseDifficulty();
+    
+    // called by minigame
+    void selectSong();
     
     // getters and setters
     bool gameOver, gameStart, songChosen;
@@ -47,12 +48,12 @@ private:
     Object* arrow;
     
     // Minigame variables
-    int score;
-    int curTarget, curSong, speed;
+    int score, curTarget, curSong, speed;
     int numGood, numBad, numPerfect;
-    float timeStart, timeArrow;
-    float beat, bpm, songDuration;
-    float arrowPos;
+    float timeStart, beat, bpm, songDuration;
+    
+    // Animation variables
+    float timeArrow, timeCur, arrowPos;
     
     // Minigame functions
     void checkTime(Window *window);

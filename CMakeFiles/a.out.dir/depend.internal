@@ -11,7 +11,6 @@ CMakeFiles/a.out.dir/Booth.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
@@ -125,7 +124,6 @@ CMakeFiles/a.out.dir/Camera.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
@@ -1576,7 +1574,6 @@ CMakeFiles/a.out.dir/SkyBox.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
@@ -1689,6 +1686,7 @@ CMakeFiles/a.out.dir/Sound.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
@@ -1797,7 +1795,6 @@ CMakeFiles/a.out.dir/Texture.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
@@ -2142,7 +2139,6 @@ CMakeFiles/a.out.dir/World.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h

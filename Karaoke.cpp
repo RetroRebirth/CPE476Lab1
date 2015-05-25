@@ -6,7 +6,7 @@ Karaoke::Karaoke(GLuint _ShadeProg, Sound* _sound) {
     ShadeProg = _ShadeProg;
     sound = _sound;
     gameOver = gameStart = songChosen = false;
-    timeStart = timeArrow = 0.0;
+    timeStart = timeArrow = timeCur = 0.0;
     curTarget = -1;
     score = curSong = numGood = numBad = numPerfect = 0;
     speed = 1;
@@ -24,7 +24,9 @@ Karaoke::Karaoke(GLuint _ShadeProg, Sound* _sound) {
     printf("\t\tPress the arrow keys as they appear to earn points\n");
     printf("\t\tEarn more points for hitting the arrows at the bottom\n");
     printf("\t\tIf you hit the wrong arrow or miss an arrow you lose points\n");
-    printf("\t\tIf you miss too many arrows, it's GAME OVER!\n");
+    printf("\t\tIf you miss too many arrows, it's GAME OVER!\n\n");
+    
+    printf("\t\tYou can purchase additional songs at the SHOP BOOTH\n");
 }
 
 Karaoke::~Karaoke() {
@@ -108,12 +110,7 @@ void Karaoke::checkTime(Window *window) {
                 bpm = sound->playKaraokeMusic(curSong);
                 songDuration = sound->getSongDuration() / 1000.0;
                 beat = songDuration / ((songDuration / 60.0) * bpm);
-                if (speed == 1)
-                    beat *= 3;
-                if (speed == 2)
-                    beat *= 2;
-                if (speed == 3)
-                    beat *= 1;
+                beat *= (3 - speed) + 1;
                 timeStart = window->time;
                 for (int i = 0; i < characters.size(); i++)
                     characters[i]->setTexture(TEX_MISC);
@@ -129,6 +126,7 @@ void Karaoke::checkTime(Window *window) {
                 addCharacter((char *)"objs/miku.obj", TEX_MIKU, 2.0);
         }
         else {
+            timeCur = window->time;
             // Check whether the game has ended
             if (window->time - timeStart >= songDuration) {
                 printf("Time's up! Your score is: %d\n", score);
@@ -144,10 +142,14 @@ void Karaoke::checkTime(Window *window) {
             // Arrow time is up; remove the arrow
             else if (window->time - timeArrow >= beat) {
                 sound->playBuzzerSound();
-                characters[curTarget]->setTexture(TEX_MISC);
-                curTarget = -1;
+                /* There seems to be a bug where if the arrow disappears at the
+                 * Same time you hit it, it segfaults because curTarget = -1
+                 */
+                if (curTarget != -1)
+                    characters[curTarget]->setTexture(TEX_MISC);
                 score -= speed;
                 numBad++;
+                curTarget = -1;
             }
             // Move the arrow down the screen
             else {
@@ -155,7 +157,6 @@ void Karaoke::checkTime(Window *window) {
                 arrow->translate(glm::vec3(0.0, arrowPos, 0.0));
             }
         }
-        
     }
 }
 
@@ -165,24 +166,29 @@ void Karaoke::step(Window* window) {
 
     // Player is still choosing a song; display song info
     if (!songChosen) {
+        
         // Display the difficulty
         char msg1[30];
         char* diff = (char *)"EASY";
         if (speed == 2)         diff = (char *)"MEDIUM";
         else if (speed == 3)    diff = (char *)"HARD";
         sprintf(msg1, "Difficulty: %s", diff);
-        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), 48, msg1, -0.2, -0.5);
+        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), 48, msg1, -0.6, -0.5);
         
         // Display the song name
-        char msg2[50];
-        sprintf(msg2, "Song: %s", sound->getSongInfo(curSong).song_name);
-        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), 48, msg2, -0.3, 0.55);
+        char msg2[30], lock[6];
+        if (!sound->getSongInfo(curSong).unlocked)
+            sprintf(lock, "(%d)", sound->getSongInfo(curSong).price);
+        else
+            sprintf(lock, "");
+        sprintf(msg2, "%s %s", sound->getSongInfo(curSong).song_name, lock);
+        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), 48, msg2, -0.6, 0.55);
         
         return;
     }
     checkTime(window);
     
-    // Draw the characters and arrow
+    // Draw the characters and arrows
     for (int i = 0; i < characters.size(); i++)
         characters[i]->draw();
     if (!gameStart)
@@ -202,16 +208,20 @@ void Karaoke::step(Window* window) {
 
 // Chooses a song on song selection menu
 void Karaoke::nextSong() {
-    curSong = (curSong + 1) % NUM_SONGS;
+    curSong = (curSong + 1) % sound->getSongs().size();
     screen->setTexture(curSong + NUM_TEXTURES);
 }
 void Karaoke::prevSong() {
     curSong = curSong - 1;
     if (curSong == -1)
-        curSong = NUM_SONGS - 1;
+        curSong = sound->getSongs().size() - 1;
     screen->setTexture(curSong + NUM_TEXTURES);
 }
 void Karaoke::selectSong() {
+    if (!sound->getSongInfo(curSong).unlocked) {
+        sound->unlockSong(curSong);
+        return;
+    }
     songChosen = true;
 }
 
@@ -240,7 +250,6 @@ void Karaoke::selectCharacter(int target) {
             score += speed;
             numGood++;
         }
-        characters[curTarget]->setTexture(TEX_MISC);
     }
     // "BAD" score; wrong arrow
     else {
@@ -248,6 +257,11 @@ void Karaoke::selectCharacter(int target) {
         score -= speed;
         numBad++;
     }
+    /* There seems to be a bug where if the arrow disappears at the
+     * Same time you hit it, it segfaults because curTarget = -1
+     */
+    if (curTarget != -1)
+        characters[curTarget]->setTexture(TEX_MISC);
     curTarget = -1;
 }
 
