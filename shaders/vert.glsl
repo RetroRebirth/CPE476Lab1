@@ -8,6 +8,7 @@ uniform mat4 uP;            // projection matrix
 uniform mat4 uV;            // view matrix
 uniform mat4 uM;            // model matrix
 uniform mat4 uRot;
+uniform float transparancy;
 
 // Outgoing variables
 varying vec4 vPos;

@@ -12,7 +12,7 @@ using namespace std;
 
 class FontEngine {
     public:
-        FontEngine(int width, int height);
+        FontEngine(int width, int height, Program *_prog);
         ~FontEngine();
 
         bool init(GLuint _ShadeProg);
@@ -52,7 +52,7 @@ class FontEngine {
 
         void updateWindowSize(int width, int height);
         
-        void display(Program* prog, glm::vec4 col, int size, const char* text);
+        void display(glm::vec4 col, int size, const char* text, float x, float y);
     private:
         // was the engine intialized successfully?
         bool initialized;
@@ -62,7 +62,8 @@ class FontEngine {
         void adjustScaling(float &sx, float &sy);
 
         FT_Library library;
-        
+        Program* prog;
+    
         typedef struct Font {
             FT_Face face;
             std::string fontFile;
@@ -102,8 +103,9 @@ class FontEngine {
         GLuint vbo;
 
         int windowWidth, windowHeight;
-        
         std::string ostrichHandle;
 };
+
+extern FontEngine* fontEngine;
 
 #endif

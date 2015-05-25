@@ -1,5 +1,8 @@
 #include "Session.h"
 
+FontEngine* fontEngine;
+map<string, Program*> shaders;
+
 Session::Session() {
    window = new Window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
 
@@ -7,8 +10,8 @@ Session::Session() {
 
    camera = new Camera(h_uP, h_uV, h_uView);
    world = new World(shaders[SHADER_DEFAULT]->getPID(), camera);
-   clicks = new Clicks(); 
-   fontEngine = new FontEngine(WINDOW_WIDTH, WINDOW_HEIGHT);
+   clicks = new Clicks();
+   fontEngine = new FontEngine(WINDOW_WIDTH, WINDOW_HEIGHT, shaders[SHADER_TEXT]);
 
    sound = new Sound();
    sound->initSound();
@@ -157,7 +160,7 @@ void Session::step() {
    }
    camera->step(window);
    
-   fontEngine->display(shaders[SHADER_TEXT], glm::vec4(1.0, 0.0, 0.0, 1.0), 48, "This is red text!!");
+   fontEngine->display(glm::vec4(1.0, 0.0, 0.0, 1.0), 48, "Japanese Festival!", -1.0, 0.9);
 }
 
 Camera* Session::getCamera() {

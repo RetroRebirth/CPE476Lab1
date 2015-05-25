@@ -35,11 +35,7 @@ class Session {
    private:
       Window* window;
       Camera* camera;
-      FontEngine* fontEngine;
       
-      // contains all shaders mapped to key defined in includes.h
-      map<string, Program*> shaders;
-
       Clicks* clicks;
       Sound* sound;
       World* world;
@@ -74,5 +70,8 @@ class Session {
       /** MISC **/
       void createMinigame(char* type);
 };
+
+// contains all shaders mapped to key defined in includes.h
+extern map<string, Program*> shaders;
 
 #endif

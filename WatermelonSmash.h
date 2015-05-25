@@ -6,6 +6,8 @@
 #include "Texture.h"
 #include "Window.h"
 #include "Sound.h"
+#include "Program.h"
+#include "FontEngine.h"
 
 #define BULLET_SPD 20.0
 #define MELON_DEPTH 4.0
@@ -114,7 +116,7 @@ private:
     
     // Minigame variables
     vector<Watermelon*> melons;
-    int score;
+    int score, numMelons;
     double timeStart, timer, timeLeft, timeRight, timeSwing;
     bool spawnLeft, spawnRight;
     

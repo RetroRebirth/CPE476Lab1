@@ -570,6 +570,8 @@ CMakeFiles/a.out.dir/GLSL.cpp.o
  /usr/local/include/GL/glut.h
 CMakeFiles/a.out.dir/Karaoke.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/FontAtlas.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_ext.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
@@ -579,6 +581,7 @@ CMakeFiles/a.out.dir/Karaoke.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
@@ -760,6 +763,8 @@ CMakeFiles/a.out.dir/MatrixStack.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtx/transform.inl
 CMakeFiles/a.out.dir/Minigame.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/FontAtlas.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_ext.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
@@ -770,6 +775,7 @@ CMakeFiles/a.out.dir/Minigame.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Minigame.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
@@ -1897,6 +1903,8 @@ CMakeFiles/a.out.dir/Texture.cpp.o
  irrKlang-64bit-1.5.0/include/irrKlang.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/FontAtlas.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_ext.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
@@ -1904,6 +1912,7 @@ CMakeFiles/a.out.dir/WatermelonSmash.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h

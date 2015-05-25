@@ -6,9 +6,18 @@ using namespace irrklang;
 
 #define NUM_SONGS 15
 
-class Sound {
-   public:
+class Song {
+public:
+    char song_name[50];
+    char song_file[50];
+    float bpm;
     
+private:
+    
+};
+
+class Sound {
+public:
     Sound();
     virtual ~Sound();
     
@@ -18,6 +27,7 @@ class Sound {
     void playBackgroundMusic();
     float playKaraokeMusic(int song);
     int getSongDuration();
+    Song getSongInfo(int song) { return karaoke_songs[song]; }
 
     void playContactSound();
     void playBuzzerSound();
@@ -26,8 +36,7 @@ class Sound {
     void playJumpSound();
     
 private:
-    vector<char *> karaoke_songs;
-    vector<float> karaoke_bpm;
+    vector<Song> karaoke_songs;
     ISound* curSound;
 };
 

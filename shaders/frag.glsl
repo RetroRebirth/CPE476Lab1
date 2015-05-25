@@ -3,8 +3,8 @@ uniform mat4 uV;
 uniform mat4 uM;
 uniform mat4 uRot;
 uniform vec3 uView;
-uniform float uTrans;
 uniform sampler2D uSampler;
+uniform float transparancy;
 
 varying vec4 vPos;
 varying vec4 vNor;
@@ -22,5 +22,5 @@ void main() {
     float dIntensity = max(0.0, dot(normalize(vNor.xyz), lDirection));
     
     // Shade the textures
-    gl_FragColor = tColor * vec4(lColor * (aIntensity + dIntensity), 1.0);
+    gl_FragColor = tColor * vec4(lColor * (aIntensity + dIntensity), transparancy);
 }

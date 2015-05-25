@@ -1,0 +1,15 @@
+Aldnoah.Zero.OP1	sounds/Aldnoah_Zero_OP1.wav		157.14
+Aldnoah.Zero.OP2	sounds/Aldnoah_Zero_OP2.wav		159.16
+Aldnoah.Zero.ED2	sounds/Aldnoah_Zero_ED2.wav		108.94
+Angel.Beats.OP		sounds/Angel_Beats_OP.wav		145.02
+Pokemon.OP1		sounds/Pokemon_OP1.wav			145.20
+Shinsekai.Yori.ED1	sounds/Shinsekai_Yori_ED1.wav		120.01
+Shinsekai.Yori.ED2	sounds/Shinsekai_Yori_ED2.wav		139.95
+Terror.In.Resonance.ED	sounds/Terror_in_Resonance_ED.wav	131.46
+Tokyo.Ghoul.OP		sounds/Tokyo_Ghoul_OP.wav		121.59
+Tokyo.Ghoul.ED		sounds/Tokyo_Ghoul_ED.wav		100.11
+Howls.Moving.Castle	sounds/Howls_Moving_Castle.wav		114.80
+Princess.Mononoke	sounds/Princess_Mononoke.wav		103.31
+Spirited.Away		sounds/Spirited_Away.wav		118.84
+Code.Geass.ED1		sounds/Code_Geass_ED1.wav		126.06
+Death.Note.OP2		sounds/Death_Note_OP2.wav		135.16

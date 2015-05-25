@@ -44,8 +44,8 @@ public:
     void setPos(glm::vec3 position)     { pos = position;    }
     void setDir(glm::vec3 direction);
     void setSpeed(float speed)          { vel = speed;       }
-    void setAccel(float _accel)         { accel = _accel;       }
-    void setChangeDir(bool _changeDir)  { changeDir = _changeDir;       }
+    void setAccel(float _accel)         { accel = _accel;    }
+    void setChangeDir(bool _changeDir)  { changeDir = _changeDir; }
     void setTexture(int tex)            { texture_id = tex;  }
     void setDirectional(bool dir)       { directional = dir; }
     void setShadows(bool shadows)       { castShadows = shadows; }
@@ -100,7 +100,7 @@ private:
     // Shader information
     GLuint ShadeProg;
     GLuint posBufID, indBufID, norBufID, texBufID;
-    GLint h_aPos, h_aNor, h_uM;
+    GLint h_aPos, h_aNor, h_uM, h_uTrans;
     
     // Texture information
     int texture_id;

@@ -6,6 +6,7 @@
 #include "Texture.h"
 #include "Window.h"
 #include "Sound.h"
+#include "FontEngine.h"
 
 #define MIKU  0
 #define RIN   1
@@ -48,6 +49,7 @@ private:
     // Minigame variables
     int score;
     int curTarget, curSong, speed;
+    int numGood, numBad, numPerfect;
     float timeStart, timeArrow;
     float beat, bpm, songDuration;
     float arrowPos;

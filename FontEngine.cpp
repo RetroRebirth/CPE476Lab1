@@ -2,7 +2,7 @@
 
 //std::string ostrichHandle = "Fonts/ostrich-regular.ttf";
 
-FontEngine::FontEngine(int width, int height) {
+FontEngine::FontEngine(int width, int height, Program *_prog) {
     initialized = 0;
     curAtlas = 0;
     currentHandle = "";
@@ -11,6 +11,7 @@ FontEngine::FontEngine(int width, int height) {
     color[2] = 0.0;
     color[3] = 1.0;
     zPos = 0.0;
+    prog = _prog;
     
     windowWidth = width;
     windowHeight = height;
@@ -62,7 +63,7 @@ bool FontEngine::init(GLuint _ShadeProg) {
     return 1;
 }
 
-void FontEngine::display(Program* prog, glm::vec4 col, int size, const char* text) {
+void FontEngine::display(glm::vec4 col, int size, const char* text, float x, float y) {
     prog->bind();
 
     setColor(col.x, col.y, col.z, col.w);
@@ -71,7 +72,8 @@ void FontEngine::display(Program* prog, glm::vec4 col, int size, const char* tex
         yPos -= getLineHeight();
         std::string aligned = text;
         textWidth = getTextWidth(aligned);
-        renderText(aligned, 0 - textWidth / 2.0, yPos); //center of the screen
+        renderText(aligned, x, y);
+        //renderText(aligned, 0 - textWidth / 2.0, yPos); //center of the screen
     }
     
     prog->unbind();

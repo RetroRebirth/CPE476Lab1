@@ -1,11 +1,10 @@
 #include "WatermelonSmash.h"
 
 WatermelonSmash::WatermelonSmash(GLuint _ShadeProg, Sound* _sound) {
-    
     // Inititalize the game
     ShadeProg = _ShadeProg;
     sound = _sound;
-    score = 0;
+    score = numMelons = 0;
     timeStart = timer = timeLeft = timeRight = timeSwing = 0.0;
     spawnLeft = spawnRight = false;
     gameStart = gameOver = false;
@@ -102,12 +101,13 @@ void WatermelonSmash::checkTime(Window *window) {
     else {
         // Increment the timer every second
         if (window->time - timer >= 1.0) {
-            printf("Time remaining: %d\n", (int)(timeStart - window->time));
+            printf("Time remaining: %d\n", (int)(window->time - timeStart));
             timer = window->time;
         }
         // Check whether the game has ended
         if (window->time - timeStart >= MELON_TIME) {
             printf("Time's up! Your score is: %d\n", score);
+            printf("You smashed %d watermelons!\n", numMelons);
             gameOver = true;
         }
         // Spawn a watermelon
@@ -131,7 +131,6 @@ void WatermelonSmash::step(Window* window) {
     // Draw the booth
     for (int i = 0; i < misc_objects.size(); i++)
         misc_objects[i]->draw();
-    
     // Check how much time has passed and whether game is playing
     if (gameOver || !gameStart)
         return;
@@ -156,8 +155,6 @@ void WatermelonSmash::step(Window* window) {
                         hammer->setPos(glm::vec3(melons[j]->xPos, melons[j]->yPos + melons[j]->size * 1.0, MELON_DEPTH + .2));
                         int pointsEarned = melons[j]->hit();
                         score += pointsEarned;
-                        printf("Hit a melon! Points earned: %d\n", pointsEarned);
-                        printf("Score: %d\n", score);
                         
                         // Remove the melon if it was destroyed
                         if (pointsEarned >= 10) {
@@ -169,6 +166,7 @@ void WatermelonSmash::step(Window* window) {
                                 spawnRight = true;
                                 timeRight = window->time;
                             }
+                            numMelons++;
                             melons.erase(melons.begin() + j--);
                             sound->playSplatSound();
                         }
@@ -181,6 +179,11 @@ void WatermelonSmash::step(Window* window) {
         // Remove the bullet if it has gone past the target
         else
             bullets.erase(bullets.begin() + i--);
+        
+        // Draw the HUD
+        char scrStr[15];
+        sprintf(scrStr, "score: %d", score);
+        fontEngine->display(glm::vec4(1.0, 0.0, 0.0, 1.0), 48, scrStr, -0.1, 0.0);
     }
 }
 

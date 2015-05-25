@@ -131,6 +131,8 @@ Window.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
 Sound.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
+FontEngine.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.cpp
 MatrixStack.h
@@ -295,6 +297,10 @@ Window.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
 Sound.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
+Program.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
+FontEngine.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Window.cpp
 Window.h

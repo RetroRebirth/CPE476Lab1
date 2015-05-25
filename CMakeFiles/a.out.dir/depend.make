@@ -569,6 +569,8 @@ CMakeFiles/a.out.dir/GLSL.cpp.o: /usr/local/include/GL/freeglut_std.h
 CMakeFiles/a.out.dir/GLSL.cpp.o: /usr/local/include/GL/glut.h
 
 CMakeFiles/a.out.dir/Karaoke.cpp.o: Clicks.h
+CMakeFiles/a.out.dir/Karaoke.cpp.o: FontAtlas.h
+CMakeFiles/a.out.dir/Karaoke.cpp.o: FontEngine.h
 CMakeFiles/a.out.dir/Karaoke.cpp.o: GL/freeglut.h
 CMakeFiles/a.out.dir/Karaoke.cpp.o: GL/freeglut_ext.h
 CMakeFiles/a.out.dir/Karaoke.cpp.o: GL/freeglut_std.h
@@ -578,6 +580,7 @@ CMakeFiles/a.out.dir/Karaoke.cpp.o: Karaoke.h
 CMakeFiles/a.out.dir/Karaoke.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/Karaoke.cpp.o: Object.h
 CMakeFiles/a.out.dir/Karaoke.cpp.o: ParticleTexture.h
+CMakeFiles/a.out.dir/Karaoke.cpp.o: Program.h
 CMakeFiles/a.out.dir/Karaoke.cpp.o: Sound.h
 CMakeFiles/a.out.dir/Karaoke.cpp.o: Texture.h
 CMakeFiles/a.out.dir/Karaoke.cpp.o: Util.h
@@ -759,6 +762,8 @@ CMakeFiles/a.out.dir/MatrixStack.cpp.o: glm/gtx/transform.hpp
 CMakeFiles/a.out.dir/MatrixStack.cpp.o: glm/gtx/transform.inl
 
 CMakeFiles/a.out.dir/Minigame.cpp.o: Clicks.h
+CMakeFiles/a.out.dir/Minigame.cpp.o: FontAtlas.h
+CMakeFiles/a.out.dir/Minigame.cpp.o: FontEngine.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: GL/freeglut.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: GL/freeglut_ext.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: GL/freeglut_std.h
@@ -769,6 +774,7 @@ CMakeFiles/a.out.dir/Minigame.cpp.o: Minigame.cpp
 CMakeFiles/a.out.dir/Minigame.cpp.o: Minigame.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: Object.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: ParticleTexture.h
+CMakeFiles/a.out.dir/Minigame.cpp.o: Program.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: ShootingGallery.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: Sound.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: Texture.h
@@ -1896,6 +1902,8 @@ CMakeFiles/a.out.dir/Texture.cpp.o: irrKlang-64bit-1.5.0/include/ik_vec3d.h
 CMakeFiles/a.out.dir/Texture.cpp.o: irrKlang-64bit-1.5.0/include/irrKlang.h
 
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: Clicks.h
+CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: FontAtlas.h
+CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: FontEngine.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: GL/freeglut.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: GL/freeglut_ext.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: GL/freeglut_std.h
@@ -1903,6 +1911,7 @@ CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: GLSL.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: Object.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: ParticleTexture.h
+CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: Program.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: Sound.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: Texture.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: Util.h
