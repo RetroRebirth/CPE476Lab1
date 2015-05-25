@@ -17,6 +17,7 @@ Session* session;
 void window_size_callback(GLFWwindow* window, int w, int h) {
    glViewport(0, 0, (GLsizei)w, (GLsizei)h);
 } 
+
 void mouse_callback(GLFWwindow* win, double xpos, double ypos) {
    Camera* camera = session->getCamera();
    Window* window = session->getWindow();
