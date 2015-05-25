@@ -6,6 +6,7 @@
 #ifndef __Program__
 #define __Program__
 #include "includes.h"
+#include "ParticleTexture.h"
 
 //class Texture;
 

@@ -1,8 +1,12 @@
 #include "WatermelonSmash.h"
 
-WatermelonSmash::WatermelonSmash(GLuint _ShadeProg, Sound* _sound) {
+WatermelonSmash::WatermelonSmash(GLuint _ShadeProg, Program* _particleProg, Camera* _camera, Sound* _sound) {
+    
     // Inititalize the game
     ShadeProg = _ShadeProg;
+    particleProg = _particleProg;
+    camera = _camera;
+    
     sound = _sound;
     score = numMelons = 0;
     timeStart = timer = timeLeft = timeRight = timeSwing = 0.0;
@@ -87,7 +91,7 @@ void WatermelonSmash::newMelon(float xPos) {
     newObj->setShadows(false);
     
     // Add the watermelons to the game
-    Watermelon *newMelon = new Watermelon(newObj, xPos);
+    Watermelon *newMelon = new Watermelon(particleProg, camera, newObj, xPos);
     melons.push_back(newMelon);
 }
 
@@ -129,7 +133,7 @@ void WatermelonSmash::checkTime(Window *window) {
 
 void WatermelonSmash::step(Window* window) {
     // Draw the booth
-    for (int i = 0; i < misc_objects.size(); i++)
+    for (int i = 0; i < misc_objects.size(); i++) 
         misc_objects[i]->draw();
     // Check how much time has passed and whether game is playing
     if (gameOver || !gameStart)
@@ -137,8 +141,10 @@ void WatermelonSmash::step(Window* window) {
     checkTime(window);
     
     // Draw the watermelons and hammer
-    for (int i = 0; i < melons.size(); i++)
+    for (int i = 0; i < melons.size(); i++) {
         melons[i]->object->draw();
+        melons[i]->particleStep();
+    }
     hammer->draw();
     
     // Fire the bullets

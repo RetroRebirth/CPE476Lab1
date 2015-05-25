@@ -93,6 +93,7 @@
 
 // Minigames
 #define NO_GAME "null"
+#define NO_LIFE "Kayla and Patrick D="
 #define SHOOTING_GALLERY "shooting_gallery"
 #define WATERMELON_SMASH "watermelon_smash"
 #define KARAOKE "karaoke"

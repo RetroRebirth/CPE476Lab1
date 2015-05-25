@@ -180,7 +180,7 @@ void Karaoke::step(Window* window) {
         if (!sound->getSongInfo(curSong).unlocked)
             sprintf(lock, "(%d)", sound->getSongInfo(curSong).price);
         else
-            sprintf(lock, "");
+            sprintf(lock, " ");
         sprintf(msg2, "%s %s", sound->getSongInfo(curSong).song_name, lock);
         fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), 48, msg2, -0.6, 0.55);
         

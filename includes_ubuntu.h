@@ -33,7 +33,6 @@
 #include "tiny_obj_loader.h"
 #include "Util.h"
 #include "MatrixStack.h"
-#include "ParticleTexture.h"
 #include <irrKlang.h>
 
 // defines the keys for corresponding shader programs
@@ -64,7 +63,7 @@
 #define MISC_TYPE 2
 
 // misc defines for globally accessed values
-#define NUM_FOUNTAIN_PARTICLES 200
+#define NUM_FOUNTAIN_PARTICLES 400
 #define NUM_FIREFLY_PARTICLES 200
 #define MAX_OBJS 20
 #define SECS_PER_OBJ 2.0
@@ -96,6 +95,7 @@
 
 // Minigames
 #define NO_GAME "null"
+#define NO_LIFE "Kayla and Patrick D="
 #define SHOOTING_GALLERY "shooting_gallery"
 #define WATERMELON_SMASH "watermelon_smash"
 #define KARAOKE "karaoke"

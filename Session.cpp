@@ -198,9 +198,9 @@ void Session::createMinigame(char* type) {
    if (strcmp(type, SHOOTING_GALLERY) == 0) {
       minigame->shootingGallery = new ShootingGallery(shaders[SHADER_DEFAULT]->getPID(), sound);
    } else if (strcmp(type, WATERMELON_SMASH) == 0) {
-      minigame->watermelonSmash = new WatermelonSmash(shaders[SHADER_DEFAULT]->getPID(), sound);
+      minigame->watermelonSmash = new WatermelonSmash(shaders[SHADER_DEFAULT]->getPID(), shaders[SHADER_BILLBOARD], camera, sound);
    } else if (strcmp(type, KARAOKE) == 0) {
-       minigame->karaoke = new Karaoke(shaders[SHADER_DEFAULT]->getPID(), sound);
+      minigame->karaoke = new Karaoke(shaders[SHADER_DEFAULT]->getPID(), sound);
    }
 }
 

@@ -1,4 +1,5 @@
 #include "World.h"
+#include "ParticleSorter.h"
 #include <algorithm>
 
 static string objectFiles[] = {"bunny.obj"};
@@ -7,24 +8,6 @@ static string objectFiles[] = {"bunny.obj"};
 // custom particle functions
 void fireflyFunc(glm::vec3* pos, glm::vec3* vel, glm::vec3* grav, glm::vec4* color, float time);
 
-// Sort particles by their z values in camera space
-class ParticleSorter {
-public:
-	bool operator()(const Particle *p0, const Particle *p1) const
-	//bool operator()(const shared_ptr<Particle> p0, const shared_ptr<Particle> p1) const
-	{
-		// Particle positions in world space
-		const glm::vec3 &x0 = p0->getPosition();
-		const glm::vec3 &x1 = p1->getPosition();
-		// Particle positions in camera space
-		glm::vec4 x0w = C * glm::vec4(x0, 1.0f);
-		glm::vec4 x1w = C * glm::vec4(x1, 1.0f);
-		return x0w.z < x1w.z;
-	}
-	
-	glm::mat4 C; // current camera matrix
-};
-ParticleSorter sorter;
 
 World::World(GLuint _ShadeProg, Camera* _camera) {
    // Default attribute values
@@ -89,7 +72,12 @@ void World::initParticles(Program* prog) {
 		Particle* particle = new Particle(); // !C++11: Particle *particle = new Particle();
 		particle->load();
 		particle->setTexture(TEX_PARTICLE);
-		particle->setStartPos(glm::vec3(0.0f, 3.0f, 30.0f));
+		if (i%2 == 0) {
+		   particle->setStartPos(glm::vec3(0.0f, 3.0f, 30.0f));
+		}
+		else {
+		   particle->setStartPos(glm::vec3(0.0f, 3.0f, -30.0f));
+		}
 		particle->setStartCol(glm::vec3(0.1f, 0.1f, 0.8f));
 		particle->setStartTTL(FOUNTAIN_TTL);
 		particle->startTime = randFloat(0.0f, FOUNTAIN_TTL);
@@ -130,6 +118,7 @@ void World::particleStep(Program* prog, Window* window) {
    MatrixStack temp;
    camera->applyViewMatrix(&temp);
    glm::mat4 V = temp.topMatrix();
+   ParticleSorter sorter;
    sorter.C = glm::transpose(glm::inverse(V)); // glm is transposed!
    std::sort(fountainParticles.begin(), fountainParticles.end(), sorter);
    
