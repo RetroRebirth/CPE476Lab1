@@ -152,7 +152,6 @@ void WatermelonSmash::step(Window* window) {
                 for (int j = 0; j < melons.size(); ++j) {
                     if (bullets[i]->collidedWithObj(*melons[j]->object, window->dt)) {
                         // Hit the melon
-                        sound->playContactSound();
                         timeSwing = window->time + MELON_SWING;
                         hammer->setPos(glm::vec3(melons[j]->xPos, melons[j]->yPos + melons[j]->size * 1.0, MELON_DEPTH + .2));
                         int pointsEarned = melons[j]->hit();
@@ -171,7 +170,10 @@ void WatermelonSmash::step(Window* window) {
                                 timeRight = window->time;
                             }
                             melons.erase(melons.begin() + j--);
+                            sound->playSplatSound();
                         }
+                        else
+                            sound->playThwackSound();
                     }
                 }
             }

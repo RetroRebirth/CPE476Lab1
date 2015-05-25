@@ -13,6 +13,7 @@
 #define KAITO 3
 #define CHARA_TEX 14
 
+
 class Karaoke {
 public:
     // constructor & deconstructor
@@ -28,6 +29,8 @@ public:
     void nextSong();
     void prevSong();
     void selectSong();
+    void increaseDifficulty();
+    void decreaseDifficulty();
     
     // getters and setters
     bool gameOver, gameStart, songChosen;
@@ -44,8 +47,10 @@ private:
     
     // Minigame variables
     int score;
-    float timeStart, timeSong;
-    int curTarget, curSong;
+    int curTarget, curSong, speed;
+    float timeStart, timeArrow;
+    float beat, bpm, songDuration;
+    float arrowPos;
     
     // Minigame functions
     void checkTime(Window *window);

@@ -33,6 +33,7 @@ void loadAllTextures()
     }
 }
 
+/* Load the thumbnail textures for the karaoke songs */
 void loadKaraokeTextures()
 {
     char *textureNames[] = {
@@ -48,7 +49,9 @@ void loadKaraokeTextures()
         (char *)"textures/karaoke/tokyo_ghoul_ed.bmp",
         (char *)"textures/karaoke/howls_moving_castle.bmp",
         (char *)"textures/karaoke/princess_mononoke.bmp",
-        (char *)"textures/karaoke/spirited_away.bmp"
+        (char *)"textures/karaoke/spirited_away.bmp",
+        (char *)"textures/karaoke/code_geass_ed1.bmp",
+        (char *)"textures/karaoke/death_note_op2.bmp",
     };
     // load the textures
     for (int i = 0; i < NUM_SONGS; i++)

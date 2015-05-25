@@ -6,10 +6,10 @@ Karaoke::Karaoke(GLuint _ShadeProg, Sound* _sound) {
     ShadeProg = _ShadeProg;
     sound = _sound;
     gameOver = gameStart = songChosen = false;
-    timeStart = timeSong = 0.0;
+    timeStart = timeArrow = 0.0;
     curTarget = -1;
-    score = 0;
-    curSong = 0;
+    score = curSong = 0;
+    speed = 1;
     
     // Set up the booth
     setUp();
@@ -18,10 +18,13 @@ Karaoke::Karaoke(GLuint _ShadeProg, Sound* _sound) {
     printf("\t\t----- Welcome to the KARAOKE MACHINE-----\n\n");
     printf("\t\tHere you can relax and listen to your favorite anime songs\n");
     printf("\t\tUse the LEFT and RIGHT arrow keys to choose a song\n");
-    printf("\t\tPress ENTER to select your song\n\n");
+    printf("\t\tUse the UP and DOWN arrow keys to choose a difficulty\n");
+    printf("\t\tPress ENTER to start playing the song\n\n");
     
-    printf("\t\tPress the arrow keys to choose the target\n");
-    printf("\t\tIf you hit the wrong target you lose points, so be careful!\n");
+    printf("\t\tPress the arrow keys as they appear to earn points\n");
+    printf("\t\tEarn more points for hitting the arrows at the bottom\n");
+    printf("\t\tIf you hit the wrong arrow or miss an arrow you lose points\n");
+    printf("\t\tIf you miss too many arrows, it's GAME OVER!\n");
 }
 
 Karaoke::~Karaoke() {
@@ -29,6 +32,8 @@ Karaoke::~Karaoke() {
         delete characters[i];
     }
     delete arrow;
+    delete screen;
+    
     sound->playBackgroundMusic();
 }
 
@@ -38,10 +43,10 @@ void Karaoke::setUp() {
     screen->load((char *)"objs/screen.obj");
     screen->setTexture(curSong + NUM_TEXTURES);
     screen->setPos(glm::vec3(0.0, 2.7, 2.0));
-    screen->scale(glm::vec3(7.0, 10.0, 7.0));
+    screen->scale(glm::vec3(5.0, 7.0, 5.0));
     screen->setShadows(false);
     
-    // TEMP: add an arrow
+    // Create the arrow
     arrow = new Object(shapes, materials, ShadeProg);
     arrow->load("objs/arrow.obj");
     arrow->setTexture(curTarget + CHARA_TEX);
@@ -65,6 +70,7 @@ void Karaoke::addArrow() {
     // Choose a target position
     curTarget = Util::randF() * 4;
     characters[curTarget]->setTexture(curTarget + CHARA_TEX);
+    arrow->translate(glm::vec3(0.0, 0.0, 0.0));
     
     // Decide where to place the arrow
     if (curTarget == MIKU) {
@@ -99,7 +105,11 @@ void Karaoke::checkTime(Window *window) {
         // Begin the timer countdown for the song to start
         if (!gameStart) {
             if (window->time - timeStart >= 4.0) {
-                timeSong = sound->playKaraokeMusic(curSong) / 1000.0;
+                bpm = sound->playKaraokeMusic(curSong);
+                songDuration = sound->getSongDuration() / 1000.0;
+                beat = songDuration / ((songDuration / 60.0) * bpm);
+                beat *= 3 / speed;
+                
                 timeStart = window->time;
                 for (int i = 0; i < characters.size(); i++)
                     characters[i]->setTexture(TEX_MISC);
@@ -120,13 +130,26 @@ void Karaoke::checkTime(Window *window) {
         }
         else {
             // Check whether the game has ended
-            if (window->time - timeStart >= timeSong) {
+            if (window->time - timeStart >= songDuration) {
                 printf("Time's up! Your score is: %d\n", score);
                 gameOver = true;
             }
             // Add a new arrow
             if (curTarget == -1) {
                 addArrow();
+                timeArrow = window->time;
+            }
+            // Arrow time is up; remove the arrow
+            else if (window->time - timeArrow >= beat) {
+                sound->playBuzzerSound();
+                characters[curTarget]->setTexture(TEX_MISC);
+                curTarget = -1;
+                score -= speed;
+            }
+            // Move the arrow down the screen
+            else {
+                arrowPos = (-2.0 / beat) * (window->time - timeArrow);
+                arrow->translate(glm::vec3(0.0, arrowPos, 0.0));
             }
         }
         
@@ -142,42 +165,73 @@ void Karaoke::step(Window* window) {
         return;
     checkTime(window);
     
-    // Draw the characters
+    // Draw the characters and arrow
     for (int i = 0; i < characters.size(); i++)
         characters[i]->draw();
-
-    // Draw the arrows
     if (!gameStart)
         return;
     arrow->draw();
+    
+    // Check for game over
+    if (score < -10) {
+        printf("GAME OVER! YOU LOSE!\n");
+        gameOver = true;
+    }
 }
 
-void Karaoke::selectCharacter(int target) {
-    if (target == curTarget) {
-        characters[curTarget]->setTexture(TEX_MISC);
-        score++;
-        curTarget = -1;
-    }
-    else {
-        score--;
-    }
-    printf("score is: %d\n", score);
-}
-
+// Chooses a song on song selection menu
 void Karaoke::nextSong() {
     curSong = (curSong + 1) % NUM_SONGS;
     screen->setTexture(curSong + NUM_TEXTURES);
 }
-
 void Karaoke::prevSong() {
-    curSong = (curSong - 1) % NUM_SONGS;
+    curSong = curSong - 1;
+    if (curSong == -1)
+        curSong = NUM_SONGS - 1;
     screen->setTexture(curSong + NUM_TEXTURES);
 }
-
 void Karaoke::selectSong() {
     songChosen = true;
 }
 
-void Karaoke::mouseClick(glm::vec3 direction, glm::vec4 point) {
-    
+// Changes the difficulty setting
+void Karaoke::increaseDifficulty() {
+    if (speed < 3) {
+        speed++;
+        printf("DIFFICULTY SPEED IS %d\n", speed);
+    }
 }
+void Karaoke::decreaseDifficulty() {
+    if (speed > 1) {
+        speed--;
+        printf("DIFFICULTY SPEED IS %d\n", speed);
+    }
+}
+
+void Karaoke::selectCharacter(int target) {
+    // Hit the right arrow
+    if (target == curTarget) {
+        // Check whether a "PERFECT" score was earned
+        if (arrowPos <= -1.85) {
+            sound->playContactSound();
+            score += speed * 2;
+        }
+        // Otherwise, "GOOD" score
+        else {
+            sound->playJumpSound();
+            score += speed;
+        }
+
+        characters[curTarget]->setTexture(TEX_MISC);
+    }
+    // "BAD" score; wrong arrow
+    else {
+        sound->playBuzzerSound();
+        score -= speed;
+    }
+    curTarget = -1;
+    printf("score is: %d\n", score);
+}
+
+/* DO NOTHING -- game does not use the mouse clicks */
+void Karaoke::mouseClick(glm::vec3 direction, glm::vec4 point) {}

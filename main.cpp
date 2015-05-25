@@ -56,16 +56,22 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
       if (camera->speed < MAX_SPEED) {
          camera->speed += DELTA_SPEED;
       }
-      if (session->getMinigame()->karaoke != NULL && !session->getMinigame()->getGameOver()) {
-         session->getMinigame()->karaoke->selectCharacter(1);
+      if (session->getMinigame()->karaoke != NULL) {
+         if (!session->getMinigame()->karaoke->songChosen)
+            session->getMinigame()->karaoke->increaseDifficulty();
+         else if (!session->getMinigame()->getGameOver())
+            session->getMinigame()->karaoke->selectCharacter(1);
       }
       break;
    case GLFW_KEY_DOWN:
       if (camera->speed > MIN_SPEED) {
          camera->speed -= DELTA_SPEED;
       }
-      if (session->getMinigame()->karaoke != NULL && !session->getMinigame()->getGameOver()) {
-         session->getMinigame()->karaoke->selectCharacter(2);
+      if (session->getMinigame()->karaoke != NULL) {
+         if (!session->getMinigame()->karaoke->songChosen)
+            session->getMinigame()->karaoke->decreaseDifficulty();
+         else if (!session->getMinigame()->getGameOver())
+            session->getMinigame()->karaoke->selectCharacter(2);
       }
       break;
    case GLFW_KEY_LEFT:
