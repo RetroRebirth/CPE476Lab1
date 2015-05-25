@@ -20,21 +20,15 @@ Karaoke::Karaoke(GLuint _ShadeProg, Sound* _sound) {
     printf("\t\tUse the LEFT and RIGHT arrow keys to choose a song\n");
     printf("\t\tPress ENTER to select your song\n\n");
     
-    printf("\t\tClick on the colored character to earn points\n");
-    printf("\t\tYou can also press the arrow keys to choose the target\n");
+    printf("\t\tPress the arrow keys to choose the target\n");
     printf("\t\tIf you hit the wrong target you lose points, so be careful!\n");
 }
 
 Karaoke::~Karaoke() {
-    for (int i = 0; i < bullets.size(); ++i) {
-        delete bullets[i];
-    }
     for (int i = 0; i < characters.size(); i++) {
         delete characters[i];
     }
-    for (int i = 0; i < misc_objects.size(); i++) {
-        delete misc_objects[i];
-    }
+    delete arrow;
     sound->playBackgroundMusic();
 }
 
@@ -46,6 +40,14 @@ void Karaoke::setUp() {
     screen->setPos(glm::vec3(0.0, 2.7, 2.0));
     screen->scale(glm::vec3(7.0, 10.0, 7.0));
     screen->setShadows(false);
+    
+    // TEMP: add an arrow
+    arrow = new Object(shapes, materials, ShadeProg);
+    arrow->load("objs/arrow.obj");
+    arrow->setTexture(curTarget + CHARA_TEX);
+    arrow->scale(glm::vec3(1.0, 1.0, 1.0));
+    arrow->setPos(glm::vec3(2.0, 3.5, 1.0));
+    arrow->setShadows(false);
 }
 
 void Karaoke::addCharacter(char *file, int tex, float xPos) {
@@ -57,6 +59,34 @@ void Karaoke::addCharacter(char *file, int tex, float xPos) {
     chara->setShadows(false);
     chara->updateRadius();
     characters.push_back(chara);
+}
+
+void Karaoke::addArrow() {
+    // Choose a target position
+    curTarget = Util::randF() * 4;
+    characters[curTarget]->setTexture(curTarget + CHARA_TEX);
+    
+    // Decide where to place the arrow
+    if (curTarget == MIKU) {
+        arrow->setTexture(curTarget + CHARA_TEX);
+        arrow->setPos(glm::vec3(2.0, 3.5, 1.0));
+        arrow->rotate(90.0f, glm::vec3(0.0, 0.0, 1.0));
+    }
+    else if (curTarget == RIN) {
+        arrow->setTexture(curTarget + CHARA_TEX);
+        arrow->setPos(glm::vec3(0.7, 3.5, 1.0));
+        arrow->rotate(-180.0f, glm::vec3(1.0, 0.0, 0.0));
+    }
+    else if (curTarget == LEN) {
+        arrow->setTexture(curTarget + CHARA_TEX);
+        arrow->setPos(glm::vec3(-0.7, 3.5, 1.0));
+        arrow->rotate(0.0f, glm::vec3(1.0, 0.0, 0.0));
+    }
+    else if (curTarget == KAITO) {
+        arrow->setTexture(curTarget + CHARA_TEX);
+        arrow->setPos(glm::vec3(-2.0, 3.5, 1.0));
+        arrow->rotate(-90.0f, glm::vec3(0.0, 0.0, 1.0));
+    }
 }
 
 void Karaoke::checkTime(Window *window) {
@@ -94,10 +124,9 @@ void Karaoke::checkTime(Window *window) {
                 printf("Time's up! Your score is: %d\n", score);
                 gameOver = true;
             }
-            // Add a new "target"
+            // Add a new arrow
             if (curTarget == -1) {
-                curTarget = Util::randF() * 4;
-                characters[curTarget]->setTexture(curTarget + CHARA_TEX);
+                addArrow();
             }
         }
         
@@ -106,8 +135,6 @@ void Karaoke::checkTime(Window *window) {
 
 void Karaoke::step(Window* window) {
     // Draw the booth
-    //for (int i = 0; i < misc_objects.size(); i++)
-    //    misc_objects[i]->draw();
     screen->draw();
     
     // Check how much time has passed and whether game is playing
@@ -118,32 +145,11 @@ void Karaoke::step(Window* window) {
     // Draw the characters
     for (int i = 0; i < characters.size(); i++)
         characters[i]->draw();
-    
-    // Fire the bullets
-    /*
-    for (int i = 0; i < bullets.size(); i++){
-        if (bullets[i]->getPos().z <= 1.0 && bullets[i]->getPos().z >= -1.0) {
-            if (bullets[i] != NULL) {
-                bullets[i]->setPos(bullets[i]->calculateNewPos(window->dt));
-                
-                // Check collision against the current target
-                if (bullets[i]->collidedWithObj(*characters[curTarget], window->dt)) {
-                    //sound->playContactSound();
-                    characters[curTarget]->setTexture(TEX_MISC);
-                    score++;
-                    curTarget = -1;
-                }
-                else {
-                    score--;
-                }
-                printf("score is: %d\n", score);
-            }
-        }
-        // Remove the bullet if it has gone past the target
-        else
-            bullets.erase(bullets.begin() + i--);
-    }
-     */
+
+    // Draw the arrows
+    if (!gameStart)
+        return;
+    arrow->draw();
 }
 
 void Karaoke::selectCharacter(int target) {
@@ -173,17 +179,5 @@ void Karaoke::selectSong() {
 }
 
 void Karaoke::mouseClick(glm::vec3 direction, glm::vec4 point) {
-    /*
-    // Shoot a "bullet"
-    Object* bullet = new Object(shapes, materials, ShadeProg);
-    bullet->load("sphere.obj");
-    bullet->setPos(glm::vec3(point.x, point.y - 7.5, 0));
-    bullet->setDir(direction);
-    bullet->setSpeed(1.0f);
-    bullet->setTexture(TEX_WOOD_WALL);
-    bullet->setShadows(false);
-    bullet->setSpeed(30.0);
-    bullet->scale(glm::vec3(0.2, 0.2, 0.2));
-    bullets.push_back(bullet);
-     */
+    
 }

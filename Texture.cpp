@@ -45,7 +45,10 @@ void loadKaraokeTextures()
         (char *)"textures/karaoke/shinsekai_yori_ed2.bmp",
         (char *)"textures/karaoke/terror_in_resonance_ed.bmp",
         (char *)"textures/karaoke/tokyo_ghoul_op.bmp",
-        (char *)"textures/karaoke/tokyo_ghoul_ed.bmp"
+        (char *)"textures/karaoke/tokyo_ghoul_ed.bmp",
+        (char *)"textures/karaoke/howls_moving_castle.bmp",
+        (char *)"textures/karaoke/princess_mononoke.bmp",
+        (char *)"textures/karaoke/spirited_away.bmp"
     };
     // load the textures
     for (int i = 0; i < NUM_SONGS; i++)

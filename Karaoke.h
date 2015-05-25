@@ -12,7 +12,6 @@
 #define LEN   2
 #define KAITO 3
 #define CHARA_TEX 14
-#define SONG_TEX 17
 
 class Karaoke {
 public:
@@ -35,17 +34,16 @@ public:
     
 private:
     // Variables
-    vector<Object*> bullets;
-    vector<Object*> misc_objects;
+    vector<Object*> characters;
     vector<tinyobj::shape_t> shapes;
     vector<tinyobj::material_t> materials;
     GLuint ShadeProg;
     Sound* sound;
     Object* screen;
+    Object* arrow;
     
     // Minigame variables
     int score;
-    vector<Object*> characters;
     float timeStart, timeSong;
     int curTarget, curSong;
     
@@ -53,6 +51,7 @@ private:
     void checkTime(Window *window);
     void setUp();
     void addCharacter(char *file, int tex, float xPos);
+    void addArrow();
 };
 
 #endif

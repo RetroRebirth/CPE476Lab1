@@ -14,7 +14,9 @@ Sound::Sound() {
    songs.push_back((char *)"sounds/Terror_in_Resonance_ED.wav");
    songs.push_back((char *)"sounds/Tokyo_Ghoul_OP.wav");
    songs.push_back((char *)"sounds/Tokyo_Ghoul_ED.wav");
-   //songs.push_back((char *)"sounds/");
+   songs.push_back((char *)"sounds/Howls_Moving_Castle.wav");
+   songs.push_back((char *)"sounds/Princess_Mononoke.wav");
+   songs.push_back((char *)"sounds/Spirited_Away.wav");
 }
 
 Sound::~Sound() {

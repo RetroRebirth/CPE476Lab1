@@ -4,7 +4,7 @@
 #include "includes.h"
 using namespace irrklang;
 
-#define NUM_SONGS 10
+#define NUM_SONGS 13
 
 class Sound {
    public:
