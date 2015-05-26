@@ -17,6 +17,7 @@ class ShootingGallery {
       ShootingGallery(GLuint _ShadeProg, Sound* _sound);
       virtual ~ShootingGallery();
       void mouseClick(glm::vec3 direction, glm::vec4 point);
+      void mouseMove(double xpos, double ypos, int width, int height);
       void step(Window* window);
 
       bool gameOver, gameStart;

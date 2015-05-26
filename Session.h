@@ -27,6 +27,7 @@ class Session {
       void enterMinigame();
       void leaveMinigame();
       void mouseClick(glm::vec3 direction, glm::vec4 point);
+      void mouseMove(double xpos, double ypos, int width, int height);
       int getGameState() { return game_state; };
       void toggleDrawWorld();
       bool gameStarted() { return game_start; }

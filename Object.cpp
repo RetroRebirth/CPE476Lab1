@@ -69,7 +69,11 @@ void Object::setDir(glm::vec3 direction) {
 
 // rotate object by flat amount, this will be applied on top of directional rotations
 void Object::rotate(float angle, glm::vec3 axis) {
-   rotateMat = glm::rotate(glm::mat4(1.0f), angle, axis);
+   if (angle == 0.0) {
+      rotateMat = glm::mat4(1.0f);
+   } else {
+      rotateMat *= glm::rotate(glm::mat4(1.0f), angle, axis);
+   }
 }
 
 // translate object by flat amount... this will be applied on top of positional translations

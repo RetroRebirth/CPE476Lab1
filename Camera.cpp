@@ -218,6 +218,7 @@ glm::vec3 Camera::calcNewPos(Window* window) {
       prevPos = newPos;
       player->setPos(newPos);//calculatePlayerPos());
       player->scale(glm::vec3(1.0f, 2.0f, 1.0f));
+      player->rotate(0.0, glm::vec3(0.0f, 0.0f, 0.0f));
       player->rotate(playerYrot, glm::vec3(0.0f, 1.0f, 0.0f));
       
       if (pov) {

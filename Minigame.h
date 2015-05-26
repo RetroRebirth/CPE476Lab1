@@ -21,6 +21,7 @@ class Minigame {
       // Public methods
       void step(Window* window);
       void mouseClick(glm::vec3 direction, glm::vec4 point);
+      void mouseMove(double xpos, double ypos, int width, int height);
       void setGameStart(bool _gameStart);
       bool getGameOver();
       void clearMinigames();

@@ -190,3 +190,19 @@ void ShootingGallery::exit() {
    gameOver = true;
    // TODO record score for buying prizes later?
 }
+
+void ShootingGallery::mouseMove(double xpos, double ypos, int width, int height) {
+   // TODO move gun
+   // Measure mouse x position from center -1.0 to 1.0
+   double x  = (xpos - (width / 2.0)) / (width / 2.0);
+   // Measure mouse y position from near bottom 0.0 to 1.0
+   double y  = 1.0 - (ypos / (0.8 * height));
+
+   // Rotate gun to follow mouse (binded to 45 degrees)
+   gun->rotate(0.0, glm::vec3(0.0, 0.0, 0.0));
+   double rotateY = (-45.0 * x) + 180.0;
+   gun->rotate(rotateY, glm::vec3(0.0, 1.0, 0.0));
+   double rotateX = 30.0 * y;
+   gun->rotate(rotateX, glm::vec3(1.0, 0.0, 0.0));
+}
+

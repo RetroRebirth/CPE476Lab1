@@ -226,3 +226,9 @@ void Session::leaveMinigame() {
    window->hideMouse();
    minigame->clearMinigames();
 }
+
+void Session::mouseMove(double xpos, double ypos, int width, int height) {
+   if (game_state == MINIGAME_STATE) {
+      minigame->mouseMove(xpos, ypos, width, height);
+   }
+}

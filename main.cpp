@@ -23,6 +23,7 @@ void mouse_callback(GLFWwindow* win, double xpos, double ypos) {
    Window* window = session->getWindow();
 
    camera->mouse_callback(win, xpos, ypos, window->width, window->height);
+   session->mouseMove(xpos, ypos, window->width, window->height);
 }
 
 void enter_callback(GLFWwindow* win, int entered) {
