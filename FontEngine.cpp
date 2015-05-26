@@ -1,7 +1,5 @@
 #include "FontEngine.h"
 
-//std::string ostrichHandle = "Fonts/ostrich-regular.ttf";
-
 FontEngine::FontEngine(int width, int height, Program *_prog) {
     initialized = 0;
     curAtlas = 0;
@@ -17,6 +15,9 @@ FontEngine::FontEngine(int width, int height, Program *_prog) {
     windowHeight = height;
     
     ostrichHandle = "Fonts/ostrich-regular.ttf";
+    seasideHandle = "Fonts/SEASRN__.ttf";
+    goodDogHandle = "Fonts/GoodDog.otf";
+    
 }
 
 FontEngine::~FontEngine() {
@@ -60,20 +61,41 @@ bool FontEngine::init(GLuint _ShadeProg) {
         return 0;
     }
 
+    if (!addFont(goodDogHandle, goodDogHandle)) {
+        return 0;
+    }
+
+    if (!addFont(seasideHandle, seasideHandle)) {
+        return 0;
+    }
+
     return 1;
 }
 
-void FontEngine::display(glm::vec4 col, int size, const char* text, float x, float y) {
+void FontEngine::display(glm::vec4 col, int font, int size, const char* text, float x, float y) {
     prog->bind();
 
     setColor(col.x, col.y, col.z, col.w);
-    if (useFont(ostrichHandle, size)) {
-        float textWidth, yPos = 0.1;
-        yPos -= getLineHeight();
-        std::string aligned = text;
-        textWidth = getTextWidth(aligned);
-        renderText(aligned, x, y);
-        //renderText(aligned, 0 - textWidth / 2.0, yPos); //center of the screen
+    
+    switch (font) {
+       case 0:
+          if (useFont(ostrichHandle, size)) {
+             renderText(text, x, y);
+          }
+          break; 
+       case 1:
+          if (useFont(goodDogHandle, size)) {
+             renderText(text, x, y);
+          }
+          break;
+       case 2:
+          if (useFont(seasideHandle, size)) {
+             renderText(text, x, y);
+          }
+          break;
+       default:
+          printf("No suitable font found\n");
+          break;
     }
     
     prog->unbind();

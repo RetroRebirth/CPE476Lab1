@@ -163,7 +163,7 @@ void Session::step() {
    }
    camera->step(window);
    
-   fontEngine->display(glm::vec4(1.0, 0.0, 0.0, 1.0), 48, "Japanese Festival!", -1.0, 0.9);
+   fontEngine->display(glm::vec4(0.99, 0.96, 0.55, 1.0), 1, 48, "Japanese Festival!", -1.0, 0.9);
 }
 
 Camera* Session::getCamera() {

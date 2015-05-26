@@ -17,7 +17,7 @@ WatermelonSmash::WatermelonSmash(GLuint _ShadeProg, Program* _particleProg, Came
     setUp();
     
     // Display the game description and rules
-    printf("\t\t----- Welcome to the WATERMELON SMASH -----\n");
+    /*printf("\t\t----- Welcome to the WATERMELON SMASH -----\n");
     printf("\t\tSmash the watermelons as they appear by clicking them.\n");
     printf("\t\tDestroy bigger watermelons to earn more points!.\n\n");
     printf("\t\tHitting a watermelon = 1 point\n");
@@ -26,7 +26,7 @@ WatermelonSmash::WatermelonSmash(GLuint _ShadeProg, Program* _particleProg, Came
     printf("\t\tLarge watermelon = 30 points, 15 hits\n\n");
     printf("\t\tYou have 30 seconds to smash as many watermelons as you can!\n");
     printf("\t\tPress ENTER to start the game!.\n");
-    printf("\t\tOnce you are done, press SPACE to exit.\n\n");
+    printf("\t\tOnce you are done, press SPACE to exit.\n\n");*/   
 }
 
 WatermelonSmash::~WatermelonSmash() {
@@ -185,12 +185,14 @@ void WatermelonSmash::step(Window* window) {
         // Remove the bullet if it has gone past the target
         else
             bullets.erase(bullets.begin() + i--);
-        
-        // Draw the HUD
-        char scrStr[15];
-        sprintf(scrStr, "score: %d", score);
-        fontEngine->display(glm::vec4(1.0, 0.0, 0.0, 1.0), 48, scrStr, -0.1, 0.0);
     }
+    
+            
+    // Draw the HUD
+    char scrStr[15];
+    sprintf(scrStr, "Score: %d", score);
+    fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), 2, 30, scrStr, 0.55, 0.85);
+
 }
 
 void WatermelonSmash::mouseClick(glm::vec3 direction, glm::vec4 point) {

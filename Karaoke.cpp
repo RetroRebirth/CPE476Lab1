@@ -173,7 +173,7 @@ void Karaoke::step(Window* window) {
         if (speed == 2)         diff = (char *)"MEDIUM";
         else if (speed == 3)    diff = (char *)"HARD";
         sprintf(msg1, "Difficulty: %s", diff);
-        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), 48, msg1, -0.6, -0.5);
+        fontEngine->display(glm::vec4(0.0, 0.0, 0.0, 1.0), 2, 48, msg1, -0.6, -0.5);
         
         // Display the song name
         char msg2[30], lock[6];
@@ -182,7 +182,7 @@ void Karaoke::step(Window* window) {
         else
             sprintf(lock, " ");
         sprintf(msg2, "%s %s", sound->getSongInfo(curSong).song_name, lock);
-        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), 48, msg2, -0.6, 0.55);
+        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 0.0), 2, 48, msg2, -0.6, 0.55);
         
         return;
     }
@@ -203,7 +203,7 @@ void Karaoke::step(Window* window) {
     // Display the score
     char scrStr[15];
     sprintf(scrStr, "score: %d", score);
-    fontEngine->display(glm::vec4(1.0, 0.0, 0.0, 1.0), 48, scrStr, -0.1, 0.0);
+    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), 2, 48, scrStr, 0.6, 0.55);
 }
 
 // Chooses a song on song selection menu
