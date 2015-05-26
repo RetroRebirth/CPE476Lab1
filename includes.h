@@ -70,7 +70,7 @@
 #define SKY_SIZE 300.0
 #define NUM_OBJ_TYPES 1
 #define SPHERE 0
-#define MOUSE_SPEED 0.025
+#define MOUSE_SPEED 0.25
 #define INITIAL_SPEED 5.0
 #define DELTA_SPEED 0.1
 #define MIN_SPEED 0.1
