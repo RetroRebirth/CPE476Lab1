@@ -52,6 +52,7 @@
 #define STALL_FILE_NAME "objs/base_lantern_stall.obj"
 #define PLAYER_FILE_NAME "bunny.obj"
 #define LANTERN_FILE_NAME "objs/standing_lantern.obj"
+#define FOUNTAIN_FILE_NAME "objs/fountain.obj"
 
 // define map file
 #define MAP_FILE_NAME "map.txt"

@@ -604,6 +604,15 @@ void World::parseMapFile(const char* fileName) {
             structure->setTexture(TEX_LANTERN);
             structures.push_back(structure);
          }
+         else if (strcmp(type, "fountain") == 0) {
+            structure->translate(_pos);
+            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
+            structure->scale(_scalar);
+            
+            structure->load(FOUNTAIN_FILE_NAME);
+            structure->setTexture(TEX_LANTERN);
+            structures.push_back(structure);
+         }
       }
       mapFile.close();
    }
