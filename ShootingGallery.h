@@ -28,6 +28,7 @@ class ShootingGallery {
       GLuint ShadeProg;
       Sound* sound;
       Object* wall;
+      Object* gun;
       int score;
       double elapsedTime;
       void newTarget();

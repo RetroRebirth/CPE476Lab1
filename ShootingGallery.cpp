@@ -11,6 +11,12 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Sound* _sound) {
    wall->setTexture(TEX_WOOD_WALL);
    wall->setShadows(false);
 
+   // Create a gun to shoot from
+   gun = new Object(shapes, materials, ShadeProg);
+   gun->load("objs/MadMax_gun.obj");
+   gun->setPos(glm::vec3(0.0, 1.0, 1.0));
+   gun->setShadows(false);
+
    sound = _sound;
    gameStart = gameOver = false;
 
@@ -142,6 +148,7 @@ void ShootingGallery::step(Window* window) {
       }
    }
    wall->draw();
+   gun->draw();
 }
 
 void ShootingGallery::mouseClick(glm::vec3 direction, glm::vec4 point) {
