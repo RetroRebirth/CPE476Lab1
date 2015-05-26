@@ -20,17 +20,17 @@ void main() {
    vec3 viewDir = normalize(uView - (uV * uM * vPos).xyz);
    vec3 lColor = vec3(1.0, 1.0, 1.0);
    vec3 lDirection = vec3(-1.0, 1.0, 0.278);
-//   vec3 lDirection = vec3(0.0, 1.0, 0.0);
    vec3 ambientLight = vec3(0.2, 0.2, 0.2); // hack, add ambient light to simulate more daytime
 
    // Set important material values
+// TODO set values per matrial
    float roughnessValue = 1.0; // 0 : smooth, 1: rough
    float F0 = 1.0; // fresnel reflectance at normal incidence
-   float k = 0.5; // fraction of diffuse reflection (specular reflection = 1 - k)
+   float k = 0.75; // fraction of diffuse reflection (specular reflection = 1 - k)
 
    // Interpolating normals will change the length of the normal, so renormalize the normal.
    vec4 nor = normalize(vNor);
-   vec3 normal = vec3(vNor.x, vNor.y, vNor.z);
+   vec3 normal = normalize(vec3(vNor.x, vNor.y, vNor.z));
 
    // Do the lighting calculation for each fragment.
    float NdotL = max(dot(normal, lDirection), 0.0);
