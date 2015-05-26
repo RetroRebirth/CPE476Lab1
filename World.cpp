@@ -105,6 +105,31 @@ void World::initParticles(Program* prog) {
       
       fireflyParticles[i]->init(prog);
    }
+   // load fireworks
+   fireworkParticles.clear();
+   // put all possible firework positions into a list
+   vector<glm::vec3> fireworkPositions;
+   fireworkPositions.clear();
+   for (float k = -SIZE; k < SIZE; ++k) {
+      fireworkPositions.push_back(glm::vec3(SIZE+10.0f, 30.0f, k));
+      fireworkPositions.push_back(glm::vec3(-SIZE-10.0f, 30.0f, k));
+      fireworkPositions.push_back(glm::vec3(k, 30.0f, SIZE+10.0f));
+      fireworkPositions.push_back(glm::vec3(k, 30.0f, -SIZE-10.0f));
+   }
+   for (int i = 0; i < NUM_FIREWORK_PARTICLES; ++i) {
+      Particle* particle = new Particle();
+      particle->load();
+      particle->setTexture(TEX_PARTICLE);
+      particle->setStartPos(fireworkPositions[(int)(randFloat(0.0f,(float)(fireworkPositions.size()-1))+0.5f)]);
+      //particle->setStartVel(glm::vec3(0.0f, 0.0f, 0.0f));
+      //particle->setStartCol(glm::vec3(0.99f, 0.99f, 0.68f));
+      particle->setStartTTL(50.0f);
+      particle->startTime = randFloat(0.0f, 50.0f);
+      //particle->setStartOpacity(0.8f);
+      //particle->setOpacityTaper(false);
+      //particle->setUpdateFunc(&fireflyFunc);
+      fireworkParticles.push_back(particle);
+   }
 }
 
 void World::particleStep(Program* prog, Window* window) {
@@ -142,6 +167,11 @@ void World::particleStep(Program* prog, Window* window) {
 	for (int i=0; i<fireflyParticles.size(); ++i) {
 	   fireflyParticles[i]->update(t, h, glm::vec3(0.0f, 0.0f, 0.0f));
 	   fireflyParticles[i]->draw(&MV);
+	}
+	
+	for (int i=0; i<fireworkParticles.size(); ++i) {
+	   fireworkParticles[i]->update(t, h, g);
+	   //fireworkParticles[i]->draw(&MV);
 	}
 	// Unbind the program
 	prog->unbind();

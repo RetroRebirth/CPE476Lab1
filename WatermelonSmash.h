@@ -142,10 +142,10 @@ public:
 	
 	   glUniformMatrix4fv(particleProg->getUniform("P"), 1, GL_FALSE, glm::value_ptr(P.topMatrix()));
 	   
-         explosionsStarted.erase(std::remove_if(explosionsStarted.begin(), 
-                              explosionsStarted.end(),
-                              [](vector<Particle*> p){if (p[0]->cycles > 0) {return true;}}),
-               explosionsStarted.end());
+      explosionsStarted.erase(std::remove_if(explosionsStarted.begin(), 
+                     explosionsStarted.end(),
+                     [](vector<Particle*> p){if (p[0]->cycles > 0) {return true;}}),
+                     explosionsStarted.end());
 		      
       
 	   

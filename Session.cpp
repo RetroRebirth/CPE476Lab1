@@ -124,7 +124,7 @@ void Session::initGL() {
     // Unbind the arrays
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     GLSL::checkVersion();
-    assert(glGetError() == GL_NO_ERROR);
+    //assert(glGetError() == GL_NO_ERROR);
 }
 /**
  * This is called on every game loop.
