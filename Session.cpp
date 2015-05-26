@@ -72,6 +72,9 @@ void Session::initGL() {
     // Enable alpha drawing
     glEnable (GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//    TODO multiple point source lights?
+//    reference: http://gamedev.stackexchange.com/questions/19575/is-there-a-way-to-use-an-arbitrary-number-of-lights-in-a-fragment-shader
+//    glBlendFunc(GL_ONE, GL_ONE);
     glEnable (GL_DEPTH_TEST);
     
     printf("done loading shaders\n");

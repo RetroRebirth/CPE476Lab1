@@ -39,8 +39,8 @@
 #define SHADER_BILLBOARD "billboard"
 #define SHADER_TEXT "text"
 // defines the file names for shaders
-#define DEFAULT_VERT_SHADER "shaders/vert.glsl"
-#define DEFAULT_FRAG_SHADER "shaders/frag.glsl"
+#define DEFAULT_VERT_SHADER "shaders/vert_cook.glsl"
+#define DEFAULT_FRAG_SHADER "shaders/frag_cook.glsl"
 #define BILLBOARD_VERT_SHADER "shaders/billboard_vert.glsl"
 #define BILLBOARD_FRAG_SHADER "shaders/billboard_frag.glsl"
 #define TEXT_VERT_SHADER "shaders/text.v.glsl"
