@@ -39,6 +39,7 @@ void ShootingGallery::newTarget(){
    float z = DEPTH;
 //   printf("pos: %lf %lf %lf\n", x, y, z);
    object->setPos(glm::vec3(x, y, z));
+   object->rotate(-90, glm::vec3(0.0, 1.0, 0.0));
    object->setTexture(TEX_TARGET);
    // Have target pop in from bottom of screen
    object->setDir(glm::vec3(0.0, 1.0, 0.0));
@@ -112,7 +113,8 @@ void ShootingGallery::step(Window* window) {
    }
    // Draw the bullets
    for(int i = 0; i< bullets.size(); ++i){
-      if (bullets[i]->getPos().z <= DEPTH){
+      // If the bullet hasn't gone past the targets OR hasn't fallen off screen, do stuff with it
+      if (bullets[i]->getPos().z <= DEPTH && bullets[i]->getPos().y >= -10){
          if (bullets[i] != NULL) {
             bullets[i]->setPos(bullets[i]->calculateNewPos(window->dt));
             bullets[i]->draw();
@@ -125,7 +127,7 @@ void ShootingGallery::step(Window* window) {
                   targets.erase(targets.begin() + j);
                   --j;
                   // Pop bullet up then drop
-                  bullets[i]->setDir(glm::vec3(0.0, 1.0, -0.1));
+                  bullets[i]->setDir(glm::vec3(0.0, 1.0, 0.0));
                   bullets[i]->setSpeed(1.0);
                   bullets[i]->setAccel(-10.0);
                   // Report the score
@@ -134,7 +136,7 @@ void ShootingGallery::step(Window* window) {
             }
          }
       } else {
-         // Remove the bullet if it has gone past the target
+         // Remove the bullet if it has gone past the targets OR fallen off screen
          bullets.erase(bullets.begin() + i);
          --i;
       }
