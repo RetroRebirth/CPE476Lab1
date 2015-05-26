@@ -39,6 +39,8 @@ Particle::Particle() :
 	
 	taperOpacity = true;
 	
+	cycles = 0;
+	
 	time = 0.0f;
 	startTime = 0.0f;
 	drawNow = false;
@@ -230,7 +232,10 @@ void Particle::update(float t, float h, const glm::vec3 &g)
 {
    if (!drawNow) {
       if (time >= startTime) {
-         rebirth(t);
+         if (!oneCycle) {
+            //cycles++;
+            rebirth(t);
+         }
          drawNow = true;
          return;
       }
@@ -240,7 +245,10 @@ void Particle::update(float t, float h, const glm::vec3 &g)
 	//}
 	if (time > lifespan) {
 	   drawNow = false;
-	   rebirth(t);
+	   if (!oneCycle) {
+	      cycles++;
+	      rebirth(t);
+	   }
 	   return;
 	}
 	

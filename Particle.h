@@ -28,6 +28,8 @@ public:
    float startTime;
    bool drawNow;
    
+   int cycles;
+   
    // customization setters
    void setStartPos(glm::vec3 p);
    void setStartVel(glm::vec3 v);
@@ -37,6 +39,7 @@ public:
    void setStartMass(float mass);
    void setStartScale(float s);
    void setOpacityTaper(bool taper) { taperOpacity = taper; };
+   void setOneCycle(bool c) { oneCycle = c; };
    
    // pass in a custom update function
    // argument must be a function pointer with the arguments:
@@ -80,6 +83,7 @@ private:
 	float startScale;
 	bool customScale;
 	bool taperOpacity;
+	bool oneCycle;
 	
 	// custom updatestuff
 	void (*customUpdateFunc)(glm::vec3*,glm::vec3*,glm::vec3*,glm::vec4*,float);

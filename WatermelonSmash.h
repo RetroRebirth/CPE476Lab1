@@ -3,6 +3,7 @@
 
 #include <queue>
 #include <algorithm>
+#include <functional>
 #include "includes.h"
 #include "Clicks.h"
 #include "Texture.h"
@@ -21,7 +22,7 @@
 #define MELON_LEFT -2.5
 #define MELON_RIGHT 2.5
 #define MELON_SWING 0.5
-#define NUM_PARTICLES 100
+#define NUM_PARTICLES 50
 #define EXPLOSION_TIME 50
 
 // Sort particles by their z values in camera space
@@ -122,6 +123,7 @@ public:
     }
     
     void particleStep() {
+      printf("in particle step\n");
       // Display every 60 Hz
       
 	   t += h;
@@ -139,23 +141,49 @@ public:
 	   ParticleSorter sorter;
 	
 	   glUniformMatrix4fv(particleProg->getUniform("P"), 1, GL_FALSE, glm::value_ptr(P.topMatrix()));
-	   for (int j=0; j<explosionsStarted.size(); ++j) {
+	   
+         explosionsStarted.erase(std::remove_if(explosionsStarted.begin(), 
+                              explosionsStarted.end(),
+                              [](vector<Particle*> p){if (p[0]->cycles > 0) {return true;}}),
+               explosionsStarted.end());
+		      
+      
+	   
+	   int j = 0;
+	   for(vector<vector<Particle*> >::iterator it1 = explosionsStarted.begin(); it1 != explosionsStarted.end(); ++it1) {
+	      vector<Particle*> v = *it1;
+	      
 	      // sort the explosions' Particles from back to front
          MatrixStack temp;
          camera->applyViewMatrix(&temp);
          glm::mat4 V = temp.topMatrix();
    
          sorter.C = glm::transpose(glm::inverse(V)); // glm is transposed!
-         std::sort(explosionsStarted[j].begin(), explosionsStarted[j].end(), sorter);
-         
-	      for (int i=0; i<explosionsStarted[i].size(); ++i) {
-	         explosionsStarted[j][i]->update(t, h, g);
-		      explosionsStarted[j][i]->draw(&MV);
+         std::sort(v.begin(), v.end(), sorter);
+               
+	      for (int i=0; i<v.size(); ++i) {
+	         printf("check 1\n");
+	         v[i]->update(t, h, g);
+	         if (v[i] != NULL && v[i]->cycles < 1) {
+		         v[i]->draw(&MV);
+		      }
+		      
+		      
+		      /*else {
+		         printf("check3, j = %d\n", j);
+		         //explosionsStarted.erase(remove(explosionsStarted.begin(), explosionsStarted.end(), 99), v.end());
+		         //delete explosionsStarted[j];
+		         it1 = explosionsStarted.erase(it1);
+		         break;
+		      }*/
+		      printf("check 2\n");
 		   }
+		   j++;
 	   }
 	   
 	   // Unbind the program
 	   particleProg->unbind();
+	   printf("exiting particle step\n");
    }
     
     // getters
@@ -189,6 +217,10 @@ private:
 		      particle->load();
 		      particle->setTexture(TEX_PARTICLE);
 		      particle->setStartPos(glm::vec3(xPos, yPos, MELON_DEPTH));
+		      glm::vec3 vel = glm::vec3(randFloat(-1.0f, 1.0f), randFloat(-1.0f, 1.0f), randFloat(-1.0f, 1.0f));
+		      
+		      particle->setStartVel(glm::normalize(vel)/2.0f);
+		      particle->setStartScale(3.0f);
 		      if (i%2 == 0) {
 		         particle->setStartCol(glm::vec3(0.8f, 0.1f, 0.1f));
 		      }
