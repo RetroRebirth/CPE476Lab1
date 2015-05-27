@@ -366,8 +366,9 @@ bool World::passedTarget(struct Extra* extra) {
 }
 
 bool World::checkStructureCollisions(Object* object) {
+   glm::vec3 colPlane = glm::vec3(0.0f, 0.0f, 0.0f);
    for (int i=0; i<structures.size(); ++i) {
-      if (structures[i]->checkCollision(object)) {
+      if (structures[i]->planarCollisionCheck(object, &colPlane)) {
          return true;
       }
    }
@@ -375,8 +376,9 @@ bool World::checkStructureCollisions(Object* object) {
 }
 
 bool World::checkBoothCollisions(Object* object) {
+   glm::vec3 colPlane = glm::vec3(0.0f, 0.0f, 0.0f);
    for (int i=0; i<booths.size(); ++i) {
-      if (booths[i]->booth[1]->checkCollision(object)) {
+      if (booths[i]->booth[1]->planarCollisionCheck(object, &colPlane)) {
          return true;
       }
    }
@@ -652,13 +654,14 @@ void World::parseMapFile(const char* fileName) {
 }
 
 bool World::detectSpawnCollision(Object* object) {
+   glm::vec3 colPlane = glm::vec3(0.0f, 0.0f, 0.0f);
    for (int i = 0; i < structures.size(); ++i) {
-      if (structures[i]->checkCollision(object)) {
+      if (structures[i]->planarCollisionCheck(object, &colPlane)) {
          return true;
       }
    }
    for (int i = 0; i < booths.size(); ++i) {
-      if (booths[i]->booth[1]->checkCollision(object)) {
+      if (booths[i]->booth[1]->planarCollisionCheck(object, &colPlane)) {
          return true;
       }
    }
@@ -694,12 +697,15 @@ void World::createExtras(const string &meshName) {
       
       extra->object->setDir(glm::vec3(0.0f, 0.0f, 1.0f));
       extra->rest = 10;
+      extra->object->updateRadius();
+      
       calcExtraSpawnPosition(extra);
       
       findNewExtraTarget(extra);
       
       //extra->object->setDir(glm::normalize(glm::vec3(Util::randF()-0.5, 0.0, Util::randF()-0.5)));
       extra->object->setSpeed(OBJ_SPEED);
+      extra->object->draw();
       extras.push_back(extra);
    }
 }

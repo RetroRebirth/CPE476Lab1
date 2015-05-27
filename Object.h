@@ -67,6 +67,7 @@ public:
     // modifiers
     void scale(glm::vec3 scalar);
     void rotate(float angle, glm::vec3 axis);
+    void iterativeRotate(float angle, glm::vec3 axis);
     void translate(glm::vec3 trans);
     
     // Draw Bounding boxes?
