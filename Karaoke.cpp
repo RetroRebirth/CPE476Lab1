@@ -78,25 +78,21 @@ void Karaoke::addArrow() {
     if (curTarget == MIKU) {
         arrow->setTexture(curTarget + CHARA_TEX);
         arrow->setPos(glm::vec3(2.0, 3.5, 1.0));
-        //arrow->rotate(0.0f, glm::vec3(0.0, 0.0, 1.0));
         arrow->rotate(90.0f, glm::vec3(0.0, 0.0, 1.0));
     }
     else if (curTarget == RIN) {
         arrow->setTexture(curTarget + CHARA_TEX);
         arrow->setPos(glm::vec3(0.7, 3.5, 1.0));
-        //arrow->rotate(0.0f, glm::vec3(0.0, 0.0, 1.0));
         arrow->rotate(-180.0f, glm::vec3(1.0, 0.0, 0.0));
     }
     else if (curTarget == LEN) {
         arrow->setTexture(curTarget + CHARA_TEX);
         arrow->setPos(glm::vec3(-0.7, 3.5, 1.0));
-        //arrow->rotate(0.0f, glm::vec3(0.0, 0.0, 1.0));
         arrow->rotate(0.0f, glm::vec3(1.0, 0.0, 0.0));
     }
     else if (curTarget == KAITO) {
         arrow->setTexture(curTarget + CHARA_TEX);
         arrow->setPos(glm::vec3(-2.0, 3.5, 1.0));
-        //arrow->rotate(0.0f, glm::vec3(0.0, 0.0, 1.0));
         arrow->rotate(-90.0f, glm::vec3(0.0, 0.0, 1.0));
     }
 }

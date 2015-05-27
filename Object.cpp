@@ -169,9 +169,7 @@ float Object::getXZRadius() {
       const vector<float> &posBuf = shapes[0].mesh.positions;
       
       float xz_rad;
-      printf("check1\n");
       for (int i = 0; i < (int)posBuf.size(); i += 3) {
-         //printf("check2\n");
          glm::vec4 v;
          v = glm::vec4(posBuf[i], posBuf[i+1], posBuf[i+2], 1.0f) * scalerMat;
          if (i == 0) {
@@ -187,7 +185,6 @@ float Object::getXZRadius() {
             }
          }
       }
-      printf("check3\n");
       xzRadius = xz_rad;
       return xz_rad;
    }
@@ -256,8 +253,7 @@ bool Object::planarCollisionCheck(Object* o, glm::vec3* colPlane) {
       float d = planes[i].a*position.x + planes[i].b*position.y + planes[i].c*position.z + planes[i].d;
       float distance = d / (float)sqrt(planes[i].a*planes[i].a + planes[i].b*planes[i].b + planes[i].c*planes[i].c);
       //printf("distance: %f\n", distance);
-      
-      if (fabs(distance) < o->radius) {//o->getXZRadius()) {
+      if (fabs(distance) < o->getXZRadius()) {
          // which plane? planes = {z1, z2, x1, x2}
          if (i == 0) {
             // collided with minimum z plane
@@ -352,13 +348,6 @@ void Object::getBounds(struct bound_box *_bounds) {
    _bounds->z_min = z_min;
    _bounds->z_max = z_max;
    
-   bounds.x_min = x_min;
-   bounds.x_max = x_max;
-   bounds.y_min = y_min;
-   bounds.y_max = y_max;
-   bounds.z_min = z_min;
-   bounds.z_max = z_max;
-   
    // ok set up the planes just x and z unless we need this for y too...
    struct plane x1, x2, z1, z2;
    planes.clear();
@@ -390,8 +379,7 @@ void Object::getBounds(struct bound_box *_bounds) {
    setupPlane(x2p, x2q, x2r, &x2);
    planes.push_back(x2);
    
-   //memcpy(&bounds, _bounds, sizeof(bounds));
-   //bounds = _bounds;
+   memcpy(&bounds, _bounds, sizeof(bounds));
 }
 
 void Object::setupPlane(glm::vec3 p, glm::vec3 q, glm::vec3 r, struct plane* plane) {
