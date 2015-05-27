@@ -80,8 +80,8 @@ class World {
       glm::vec3 mapGrid[(int)SIZE * 2 - 2][(int)SIZE * 2 - 2];
 
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);
-      void createPlayer(const string &meshName);
-      void createExtras(const string &meshName);
+      void createPlayer(const string &meshName, int texID);
+      void createExtras(const string &meshName, int texID);
       void setupOverWorld();
       void drawOverWorld();
       bool detectSpawnCollision(Object* object);

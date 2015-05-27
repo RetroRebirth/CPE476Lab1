@@ -27,7 +27,7 @@ World::World(GLuint _ShadeProg, Camera* _camera) {
    camera = _camera;
    initGround();
    setupOverWorld();
-   createExtras(EXTRA_FILE_NAME);
+   createExtras(EXTRA_FILE_NAME, TEX_KAITO);
    
    // initialize time and gravity for particles
    t = 0.0f;
@@ -584,7 +584,7 @@ void World::setupOverWorld() {
       booths[i]->calculateBoundingBox();
    }
     
-   createPlayer(PLAYER_FILE_NAME);
+   createPlayer(PLAYER_FILE_NAME, TEX_MIKU);
 }
 
 /* Read in a map file and parse based on defined by-line format */
@@ -684,13 +684,14 @@ void World::calcExtraSpawnPosition(struct Extra* extra) {
    extra->j = rand_j;
 }
 
-void World::createExtras(const string &meshName) {
+void World::createExtras(const string &meshName, int texID) {
    blerch = 0;
    for (int i = 0; i < MAX_OBJS; ++i) {
       struct Extra* extra;
       extra = new struct Extra;
       extra->object = new Object(shapes, materials, ShadeProg);
       extra->object->load(meshName);
+      extra->object->setTexture(texID);
       
       extra->object->setDir(glm::vec3(0.0f, 0.0f, 1.0f));
       extra->rest = 10;
@@ -704,9 +705,10 @@ void World::createExtras(const string &meshName) {
    }
 }
 
-void World::createPlayer(const string &meshName) {
+void World::createPlayer(const string &meshName, int texID) {
    player = new Object(shapes, materials, ShadeProg);
    player->load(meshName);
+   player->setTexture(texID);
    camera->initPlayer(player);
    
    playerXZRad = player->getXZRadius();

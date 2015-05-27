@@ -47,10 +47,10 @@
 #define TEXT_FRAG_SHADER "shaders/text.f.glsl"
 
 // defines file names for various meshes
-#define EXTRA_FILE_NAME "bunny.obj"
+#define EXTRA_FILE_NAME "objs/kaito.obj"
 #define WALL_FILE_NAME "cube.obj"
 #define STALL_FILE_NAME "objs/base_lantern_stall.obj"
-#define PLAYER_FILE_NAME "bunny.obj"
+#define PLAYER_FILE_NAME "objs/miku.obj"
 #define LANTERN_FILE_NAME "objs/standing_lantern.obj"
 #define FOUNTAIN_FILE_NAME "objs/fountain.obj"
 
