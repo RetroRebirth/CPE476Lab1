@@ -9,11 +9,8 @@ CMakeFiles/a.out.dir/Booth.cpp.o: GL/freeglut_std.h
 CMakeFiles/a.out.dir/Booth.cpp.o: GLSL.h
 CMakeFiles/a.out.dir/Booth.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/Booth.cpp.o: Object.h
-CMakeFiles/a.out.dir/Booth.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/Booth.cpp.o: Texture.h
 CMakeFiles/a.out.dir/Booth.cpp.o: Util.h
-CMakeFiles/a.out.dir/Booth.cpp.o: glew.h
-CMakeFiles/a.out.dir/Booth.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/Booth.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/Booth.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/Booth.cpp.o: glm/./core/_swizzle.hpp
@@ -88,7 +85,9 @@ CMakeFiles/a.out.dir/Booth.cpp.o: glm/gtc/type_ptr.hpp
 CMakeFiles/a.out.dir/Booth.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/Booth.cpp.o: includes.h
 CMakeFiles/a.out.dir/Booth.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/Booth.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/Booth.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/Booth.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/Booth.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/Booth.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/Booth.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -122,12 +121,9 @@ CMakeFiles/a.out.dir/Camera.cpp.o: GL/freeglut_std.h
 CMakeFiles/a.out.dir/Camera.cpp.o: GLSL.h
 CMakeFiles/a.out.dir/Camera.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/Camera.cpp.o: Object.h
-CMakeFiles/a.out.dir/Camera.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/Camera.cpp.o: Texture.h
 CMakeFiles/a.out.dir/Camera.cpp.o: Util.h
 CMakeFiles/a.out.dir/Camera.cpp.o: Window.h
-CMakeFiles/a.out.dir/Camera.cpp.o: glew.h
-CMakeFiles/a.out.dir/Camera.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/Camera.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/Camera.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/Camera.cpp.o: glm/./core/_swizzle.hpp
@@ -202,7 +198,9 @@ CMakeFiles/a.out.dir/Camera.cpp.o: glm/gtc/type_ptr.hpp
 CMakeFiles/a.out.dir/Camera.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/Camera.cpp.o: includes.h
 CMakeFiles/a.out.dir/Camera.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/Camera.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/Camera.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/Camera.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/Camera.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/Camera.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/Camera.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -235,10 +233,7 @@ CMakeFiles/a.out.dir/Clicks.cpp.o: GL/freeglut_std.h
 CMakeFiles/a.out.dir/Clicks.cpp.o: GLSL.h
 CMakeFiles/a.out.dir/Clicks.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/Clicks.cpp.o: Object.h
-CMakeFiles/a.out.dir/Clicks.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/Clicks.cpp.o: Util.h
-CMakeFiles/a.out.dir/Clicks.cpp.o: glew.h
-CMakeFiles/a.out.dir/Clicks.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/Clicks.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/Clicks.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/Clicks.cpp.o: glm/./core/_swizzle.hpp
@@ -313,7 +308,9 @@ CMakeFiles/a.out.dir/Clicks.cpp.o: glm/gtc/type_ptr.hpp
 CMakeFiles/a.out.dir/Clicks.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/Clicks.cpp.o: includes.h
 CMakeFiles/a.out.dir/Clicks.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/Clicks.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/Clicks.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/Clicks.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/Clicks.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/Clicks.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/Clicks.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -345,10 +342,7 @@ CMakeFiles/a.out.dir/FontAtlas.cpp.o: GL/freeglut_ext.h
 CMakeFiles/a.out.dir/FontAtlas.cpp.o: GL/freeglut_std.h
 CMakeFiles/a.out.dir/FontAtlas.cpp.o: GLSL.h
 CMakeFiles/a.out.dir/FontAtlas.cpp.o: MatrixStack.h
-CMakeFiles/a.out.dir/FontAtlas.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/FontAtlas.cpp.o: Util.h
-CMakeFiles/a.out.dir/FontAtlas.cpp.o: glew.h
-CMakeFiles/a.out.dir/FontAtlas.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/FontAtlas.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/FontAtlas.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/FontAtlas.cpp.o: glm/./core/_swizzle.hpp
@@ -423,7 +417,9 @@ CMakeFiles/a.out.dir/FontAtlas.cpp.o: glm/gtc/type_ptr.hpp
 CMakeFiles/a.out.dir/FontAtlas.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/FontAtlas.cpp.o: includes.h
 CMakeFiles/a.out.dir/FontAtlas.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/FontAtlas.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/FontAtlas.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/FontAtlas.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/FontAtlas.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/FontAtlas.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/FontAtlas.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -459,8 +455,6 @@ CMakeFiles/a.out.dir/FontEngine.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/FontEngine.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/FontEngine.cpp.o: Program.h
 CMakeFiles/a.out.dir/FontEngine.cpp.o: Util.h
-CMakeFiles/a.out.dir/FontEngine.cpp.o: glew.h
-CMakeFiles/a.out.dir/FontEngine.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/FontEngine.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/FontEngine.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/FontEngine.cpp.o: glm/./core/_swizzle.hpp
@@ -535,7 +529,9 @@ CMakeFiles/a.out.dir/FontEngine.cpp.o: glm/gtc/type_ptr.hpp
 CMakeFiles/a.out.dir/FontEngine.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/FontEngine.cpp.o: includes.h
 CMakeFiles/a.out.dir/FontEngine.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/FontEngine.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/FontEngine.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/FontEngine.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/FontEngine.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/FontEngine.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/FontEngine.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -583,8 +579,6 @@ CMakeFiles/a.out.dir/Karaoke.cpp.o: Sound.h
 CMakeFiles/a.out.dir/Karaoke.cpp.o: Texture.h
 CMakeFiles/a.out.dir/Karaoke.cpp.o: Util.h
 CMakeFiles/a.out.dir/Karaoke.cpp.o: Window.h
-CMakeFiles/a.out.dir/Karaoke.cpp.o: glew.h
-CMakeFiles/a.out.dir/Karaoke.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/Karaoke.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/Karaoke.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/Karaoke.cpp.o: glm/./core/_swizzle.hpp
@@ -659,7 +653,9 @@ CMakeFiles/a.out.dir/Karaoke.cpp.o: glm/gtc/type_ptr.hpp
 CMakeFiles/a.out.dir/Karaoke.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/Karaoke.cpp.o: includes.h
 CMakeFiles/a.out.dir/Karaoke.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/Karaoke.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/Karaoke.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/Karaoke.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/Karaoke.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/Karaoke.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/Karaoke.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -759,6 +755,8 @@ CMakeFiles/a.out.dir/MatrixStack.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/MatrixStack.cpp.o: glm/gtx/transform.hpp
 CMakeFiles/a.out.dir/MatrixStack.cpp.o: glm/gtx/transform.inl
 
+CMakeFiles/a.out.dir/Minigame.cpp.o: Booth.h
+CMakeFiles/a.out.dir/Minigame.cpp.o: Camera.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: Clicks.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: FontAtlas.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: FontEngine.h
@@ -771,6 +769,8 @@ CMakeFiles/a.out.dir/Minigame.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: Minigame.cpp
 CMakeFiles/a.out.dir/Minigame.cpp.o: Minigame.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: Object.h
+CMakeFiles/a.out.dir/Minigame.cpp.o: Particle.h
+CMakeFiles/a.out.dir/Minigame.cpp.o: ParticleSorter.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: Program.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: ShootingGallery.h
@@ -779,8 +779,6 @@ CMakeFiles/a.out.dir/Minigame.cpp.o: Texture.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: Util.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: WatermelonSmash.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: Window.h
-CMakeFiles/a.out.dir/Minigame.cpp.o: glew.h
-CMakeFiles/a.out.dir/Minigame.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/Minigame.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/Minigame.cpp.o: glm/./core/_swizzle.hpp
@@ -855,7 +853,9 @@ CMakeFiles/a.out.dir/Minigame.cpp.o: glm/gtc/type_ptr.hpp
 CMakeFiles/a.out.dir/Minigame.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/Minigame.cpp.o: includes.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/Minigame.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/Minigame.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/Minigame.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -887,10 +887,7 @@ CMakeFiles/a.out.dir/Object.cpp.o: GLSL.h
 CMakeFiles/a.out.dir/Object.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/Object.cpp.o: Object.cpp
 CMakeFiles/a.out.dir/Object.cpp.o: Object.h
-CMakeFiles/a.out.dir/Object.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/Object.cpp.o: Util.h
-CMakeFiles/a.out.dir/Object.cpp.o: glew.h
-CMakeFiles/a.out.dir/Object.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/Object.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/Object.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/Object.cpp.o: glm/./core/_swizzle.hpp
@@ -965,7 +962,9 @@ CMakeFiles/a.out.dir/Object.cpp.o: glm/gtc/type_ptr.hpp
 CMakeFiles/a.out.dir/Object.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/Object.cpp.o: includes.h
 CMakeFiles/a.out.dir/Object.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/Object.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/Object.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/Object.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/Object.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/Object.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/Object.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -1000,8 +999,6 @@ CMakeFiles/a.out.dir/Particle.cpp.o: Particle.h
 CMakeFiles/a.out.dir/Particle.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/Particle.cpp.o: Program.h
 CMakeFiles/a.out.dir/Particle.cpp.o: Util.h
-CMakeFiles/a.out.dir/Particle.cpp.o: glew.h
-CMakeFiles/a.out.dir/Particle.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/Particle.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/Particle.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/Particle.cpp.o: glm/./core/_swizzle.hpp
@@ -1076,7 +1073,9 @@ CMakeFiles/a.out.dir/Particle.cpp.o: glm/gtc/type_ptr.hpp
 CMakeFiles/a.out.dir/Particle.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/Particle.cpp.o: includes.h
 CMakeFiles/a.out.dir/Particle.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/Particle.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/Particle.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/Particle.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/Particle.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/Particle.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/Particle.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -1109,8 +1108,6 @@ CMakeFiles/a.out.dir/ParticleTexture.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/ParticleTexture.cpp.o: ParticleTexture.cpp
 CMakeFiles/a.out.dir/ParticleTexture.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/ParticleTexture.cpp.o: Util.h
-CMakeFiles/a.out.dir/ParticleTexture.cpp.o: glew.h
-CMakeFiles/a.out.dir/ParticleTexture.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/ParticleTexture.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/ParticleTexture.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/ParticleTexture.cpp.o: glm/./core/_swizzle.hpp
@@ -1185,7 +1182,9 @@ CMakeFiles/a.out.dir/ParticleTexture.cpp.o: glm/gtc/type_ptr.hpp
 CMakeFiles/a.out.dir/ParticleTexture.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/ParticleTexture.cpp.o: includes.h
 CMakeFiles/a.out.dir/ParticleTexture.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/ParticleTexture.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/ParticleTexture.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/ParticleTexture.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/ParticleTexture.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/ParticleTexture.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/ParticleTexture.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -1219,8 +1218,6 @@ CMakeFiles/a.out.dir/Program.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/Program.cpp.o: Program.cpp
 CMakeFiles/a.out.dir/Program.cpp.o: Program.h
 CMakeFiles/a.out.dir/Program.cpp.o: Util.h
-CMakeFiles/a.out.dir/Program.cpp.o: glew.h
-CMakeFiles/a.out.dir/Program.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/Program.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/Program.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/Program.cpp.o: glm/./core/_swizzle.hpp
@@ -1295,7 +1292,9 @@ CMakeFiles/a.out.dir/Program.cpp.o: glm/gtc/type_ptr.hpp
 CMakeFiles/a.out.dir/Program.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/Program.cpp.o: includes.h
 CMakeFiles/a.out.dir/Program.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/Program.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/Program.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/Program.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/Program.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/Program.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/Program.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -1334,6 +1333,7 @@ CMakeFiles/a.out.dir/Session.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/Session.cpp.o: Minigame.h
 CMakeFiles/a.out.dir/Session.cpp.o: Object.h
 CMakeFiles/a.out.dir/Session.cpp.o: Particle.h
+CMakeFiles/a.out.dir/Session.cpp.o: ParticleSorter.h
 CMakeFiles/a.out.dir/Session.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/Session.cpp.o: Program.h
 CMakeFiles/a.out.dir/Session.cpp.o: Session.cpp
@@ -1346,8 +1346,6 @@ CMakeFiles/a.out.dir/Session.cpp.o: Util.h
 CMakeFiles/a.out.dir/Session.cpp.o: WatermelonSmash.h
 CMakeFiles/a.out.dir/Session.cpp.o: Window.h
 CMakeFiles/a.out.dir/Session.cpp.o: World.h
-CMakeFiles/a.out.dir/Session.cpp.o: glew.h
-CMakeFiles/a.out.dir/Session.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/Session.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/Session.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/Session.cpp.o: glm/./core/_swizzle.hpp
@@ -1422,7 +1420,9 @@ CMakeFiles/a.out.dir/Session.cpp.o: glm/gtc/type_ptr.hpp
 CMakeFiles/a.out.dir/Session.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/Session.cpp.o: includes.h
 CMakeFiles/a.out.dir/Session.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/Session.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/Session.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/Session.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/Session.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/Session.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/Session.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -1454,15 +1454,12 @@ CMakeFiles/a.out.dir/ShootingGallery.cpp.o: GL/freeglut_std.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: GLSL.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: Object.h
-CMakeFiles/a.out.dir/ShootingGallery.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: ShootingGallery.cpp
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: ShootingGallery.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: Sound.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: Texture.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: Util.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: Window.h
-CMakeFiles/a.out.dir/ShootingGallery.cpp.o: glew.h
-CMakeFiles/a.out.dir/ShootingGallery.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: glm/./core/_swizzle.hpp
@@ -1537,7 +1534,9 @@ CMakeFiles/a.out.dir/ShootingGallery.cpp.o: glm/gtc/type_ptr.hpp
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: includes.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/ShootingGallery.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/ShootingGallery.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -1570,14 +1569,11 @@ CMakeFiles/a.out.dir/SkyBox.cpp.o: GL/freeglut_std.h
 CMakeFiles/a.out.dir/SkyBox.cpp.o: GLSL.h
 CMakeFiles/a.out.dir/SkyBox.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/SkyBox.cpp.o: Object.h
-CMakeFiles/a.out.dir/SkyBox.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/SkyBox.cpp.o: SkyBox.cpp
 CMakeFiles/a.out.dir/SkyBox.cpp.o: SkyBox.h
 CMakeFiles/a.out.dir/SkyBox.cpp.o: Texture.h
 CMakeFiles/a.out.dir/SkyBox.cpp.o: Util.h
 CMakeFiles/a.out.dir/SkyBox.cpp.o: Window.h
-CMakeFiles/a.out.dir/SkyBox.cpp.o: glew.h
-CMakeFiles/a.out.dir/SkyBox.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/SkyBox.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/SkyBox.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/SkyBox.cpp.o: glm/./core/_swizzle.hpp
@@ -1652,7 +1648,9 @@ CMakeFiles/a.out.dir/SkyBox.cpp.o: glm/gtc/type_ptr.hpp
 CMakeFiles/a.out.dir/SkyBox.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/SkyBox.cpp.o: includes.h
 CMakeFiles/a.out.dir/SkyBox.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/SkyBox.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/SkyBox.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/SkyBox.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/SkyBox.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/SkyBox.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/SkyBox.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -1682,13 +1680,10 @@ CMakeFiles/a.out.dir/Sound.cpp.o: GL/freeglut_ext.h
 CMakeFiles/a.out.dir/Sound.cpp.o: GL/freeglut_std.h
 CMakeFiles/a.out.dir/Sound.cpp.o: GLSL.h
 CMakeFiles/a.out.dir/Sound.cpp.o: MatrixStack.h
-CMakeFiles/a.out.dir/Sound.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/Sound.cpp.o: Sound.cpp
 CMakeFiles/a.out.dir/Sound.cpp.o: Sound.h
 CMakeFiles/a.out.dir/Sound.cpp.o: Texture.h
 CMakeFiles/a.out.dir/Sound.cpp.o: Util.h
-CMakeFiles/a.out.dir/Sound.cpp.o: glew.h
-CMakeFiles/a.out.dir/Sound.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/Sound.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/Sound.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/Sound.cpp.o: glm/./core/_swizzle.hpp
@@ -1763,7 +1758,9 @@ CMakeFiles/a.out.dir/Sound.cpp.o: glm/gtc/type_ptr.hpp
 CMakeFiles/a.out.dir/Sound.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/Sound.cpp.o: includes.h
 CMakeFiles/a.out.dir/Sound.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/Sound.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/Sound.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/Sound.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/Sound.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/Sound.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/Sound.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -1793,12 +1790,9 @@ CMakeFiles/a.out.dir/Texture.cpp.o: GL/freeglut_ext.h
 CMakeFiles/a.out.dir/Texture.cpp.o: GL/freeglut_std.h
 CMakeFiles/a.out.dir/Texture.cpp.o: GLSL.h
 CMakeFiles/a.out.dir/Texture.cpp.o: MatrixStack.h
-CMakeFiles/a.out.dir/Texture.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/Texture.cpp.o: Texture.cpp
 CMakeFiles/a.out.dir/Texture.cpp.o: Texture.h
 CMakeFiles/a.out.dir/Texture.cpp.o: Util.h
-CMakeFiles/a.out.dir/Texture.cpp.o: glew.h
-CMakeFiles/a.out.dir/Texture.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/Texture.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/Texture.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/Texture.cpp.o: glm/./core/_swizzle.hpp
@@ -1873,7 +1867,9 @@ CMakeFiles/a.out.dir/Texture.cpp.o: glm/gtc/type_ptr.hpp
 CMakeFiles/a.out.dir/Texture.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/Texture.cpp.o: includes.h
 CMakeFiles/a.out.dir/Texture.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/Texture.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/Texture.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/Texture.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/Texture.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/Texture.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/Texture.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -1898,6 +1894,8 @@ CMakeFiles/a.out.dir/Texture.cpp.o: irrKlang-64bit-1.5.0/include/ik_irrKlangType
 CMakeFiles/a.out.dir/Texture.cpp.o: irrKlang-64bit-1.5.0/include/ik_vec3d.h
 CMakeFiles/a.out.dir/Texture.cpp.o: irrKlang-64bit-1.5.0/include/irrKlang.h
 
+CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: Booth.h
+CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: Camera.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: Clicks.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: FontAtlas.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: FontEngine.h
@@ -1907,6 +1905,8 @@ CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: GL/freeglut_std.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: GLSL.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: Object.h
+CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: Particle.h
+CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: ParticleSorter.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: Program.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: Sound.h
@@ -1915,8 +1915,6 @@ CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: Util.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: WatermelonSmash.cpp
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: WatermelonSmash.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: Window.h
-CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: glew.h
-CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: glm/./core/_swizzle.hpp
@@ -1991,7 +1989,9 @@ CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: glm/gtc/type_ptr.hpp
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: includes.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -2021,12 +2021,9 @@ CMakeFiles/a.out.dir/Window.cpp.o: GL/freeglut_ext.h
 CMakeFiles/a.out.dir/Window.cpp.o: GL/freeglut_std.h
 CMakeFiles/a.out.dir/Window.cpp.o: GLSL.h
 CMakeFiles/a.out.dir/Window.cpp.o: MatrixStack.h
-CMakeFiles/a.out.dir/Window.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/Window.cpp.o: Util.h
 CMakeFiles/a.out.dir/Window.cpp.o: Window.cpp
 CMakeFiles/a.out.dir/Window.cpp.o: Window.h
-CMakeFiles/a.out.dir/Window.cpp.o: glew.h
-CMakeFiles/a.out.dir/Window.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/Window.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/Window.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/Window.cpp.o: glm/./core/_swizzle.hpp
@@ -2101,7 +2098,9 @@ CMakeFiles/a.out.dir/Window.cpp.o: glm/gtc/type_ptr.hpp
 CMakeFiles/a.out.dir/Window.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/Window.cpp.o: includes.h
 CMakeFiles/a.out.dir/Window.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/Window.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/Window.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/Window.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/Window.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/Window.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/Window.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -2135,6 +2134,7 @@ CMakeFiles/a.out.dir/World.cpp.o: GLSL.h
 CMakeFiles/a.out.dir/World.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/World.cpp.o: Object.h
 CMakeFiles/a.out.dir/World.cpp.o: Particle.h
+CMakeFiles/a.out.dir/World.cpp.o: ParticleSorter.h
 CMakeFiles/a.out.dir/World.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/World.cpp.o: Program.h
 CMakeFiles/a.out.dir/World.cpp.o: SkyBox.h
@@ -2143,8 +2143,6 @@ CMakeFiles/a.out.dir/World.cpp.o: Util.h
 CMakeFiles/a.out.dir/World.cpp.o: Window.h
 CMakeFiles/a.out.dir/World.cpp.o: World.cpp
 CMakeFiles/a.out.dir/World.cpp.o: World.h
-CMakeFiles/a.out.dir/World.cpp.o: glew.h
-CMakeFiles/a.out.dir/World.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/World.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/World.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/World.cpp.o: glm/./core/_swizzle.hpp
@@ -2219,7 +2217,9 @@ CMakeFiles/a.out.dir/World.cpp.o: glm/gtc/type_ptr.hpp
 CMakeFiles/a.out.dir/World.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/World.cpp.o: includes.h
 CMakeFiles/a.out.dir/World.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/World.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/World.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/World.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/World.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/World.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/World.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -2258,6 +2258,7 @@ CMakeFiles/a.out.dir/main.cpp.o: MatrixStack.h
 CMakeFiles/a.out.dir/main.cpp.o: Minigame.h
 CMakeFiles/a.out.dir/main.cpp.o: Object.h
 CMakeFiles/a.out.dir/main.cpp.o: Particle.h
+CMakeFiles/a.out.dir/main.cpp.o: ParticleSorter.h
 CMakeFiles/a.out.dir/main.cpp.o: ParticleTexture.h
 CMakeFiles/a.out.dir/main.cpp.o: Program.h
 CMakeFiles/a.out.dir/main.cpp.o: Session.h
@@ -2269,8 +2270,6 @@ CMakeFiles/a.out.dir/main.cpp.o: Util.h
 CMakeFiles/a.out.dir/main.cpp.o: WatermelonSmash.h
 CMakeFiles/a.out.dir/main.cpp.o: Window.h
 CMakeFiles/a.out.dir/main.cpp.o: World.h
-CMakeFiles/a.out.dir/main.cpp.o: glew.h
-CMakeFiles/a.out.dir/main.cpp.o: glfw3_1.h
 CMakeFiles/a.out.dir/main.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/main.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/main.cpp.o: glm/./core/_swizzle.hpp
@@ -2346,7 +2345,9 @@ CMakeFiles/a.out.dir/main.cpp.o: glm/gtc/type_ptr.inl
 CMakeFiles/a.out.dir/main.cpp.o: includes.h
 CMakeFiles/a.out.dir/main.cpp.o: main.cpp
 CMakeFiles/a.out.dir/main.cpp.o: tiny_obj_loader.h
+CMakeFiles/a.out.dir/main.cpp.o: /usr/local/include/GL/glew.h
 CMakeFiles/a.out.dir/main.cpp.o: /usr/local/include/GL/glut.h
+CMakeFiles/a.out.dir/main.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/a.out.dir/main.cpp.o: freetype-2.5.5/include/config/ftheader.h
 CMakeFiles/a.out.dir/main.cpp.o: freetype-2.5.5/include/ft2build.h
 CMakeFiles/a.out.dir/main.cpp.o: irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h

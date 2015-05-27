@@ -37,6 +37,7 @@ if(APPLE)
    find_library(OPENCV_Video OpenCV_video)
    find_library(OPENCV_Videoio OpenCV_videoio)
    find_library(OPENCV_Videostab OpenCV_videostab)
+   find_library(GLUT_LIB glut)
 
    set(GLFW_DEPENDENT_LIBS ${COCOA_LIB} ${IOKIT_LIB} ${COREVIDEO_LIB})
    set(PLATFORM_LIBS ${GLFW_DEPENDENT_LIBS})
@@ -49,4 +50,4 @@ endif()
 
 add_executable(${PROJECT_NAME} Booth.cpp Camera.cpp Clicks.cpp FontAtlas.cpp FontEngine.cpp GLSL.cpp Karaoke.cpp MatrixStack.cpp Minigame.cpp Object.cpp Particle.cpp ParticleTexture.cpp Program.cpp Session.cpp ShootingGallery.cpp SkyBox.cpp Sound.cpp Texture.cpp tiny_obj_loader.cc WatermelonSmash.cpp Window.cpp World.cpp main.cpp)
 
-target_link_libraries(${PROJECT_NAME} ${ASSIMP_LIB} ${OPENGL_gl_LIBRARY} ${GLFW_LIB} ${GLEW_LIBRARY} ${PLATFORM_LIBS} ${IRRKLANG_LIB} ${IRRKLANGMP3_LIB} ${FREETYPE_LIB} ${OPENCV_Calib3d} ${OPENCV_Core} ${OPENCV_Features2d} ${OPENCV_Flann} ${OPENCV_Highgui} ${OPENCV_Imgcodecs} ${OPENCV_Imgproc} ${OPENCV_Ml} ${OPENCV_Objdetect} ${OPENCV_Objdetect} ${OPENCV_Photo} ${OPENCV_Shape} ${OPENCV_Stitching} ${OPENCV_Superres} ${OPENCV_Video} ${OPENCV_Videoio} ${OPENCV_Videostab})
+target_link_libraries(${PROJECT_NAME} ${ASSIMP_LIB} ${OPENGL_gl_LIBRARY} ${GLFW_LIB} ${GLEW_LIBRARY} ${PLATFORM_LIBS} ${IRRKLANG_LIB} ${IRRKLANGMP3_LIB} ${FREETYPE_LIB} ${OPENCV_Calib3d} ${OPENCV_Core} ${OPENCV_Features2d} ${OPENCV_Flann} ${OPENCV_Highgui} ${OPENCV_Imgcodecs} ${OPENCV_Imgproc} ${OPENCV_Ml} ${OPENCV_Objdetect} ${OPENCV_Objdetect} ${OPENCV_Photo} ${OPENCV_Shape} ${OPENCV_Stitching} ${OPENCV_Superres} ${OPENCV_Video} ${OPENCV_Videoio} ${OPENCV_Videostab} ${GLUT_LIB})

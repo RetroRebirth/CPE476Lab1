@@ -1,7 +1,11 @@
 #ifndef __TEXTURE__
 #define __TEXTURE__
 
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui/highgui.hpp>
 #include "includes.h"
+
+using namespace cv;
 
 class Texture {
 public:
@@ -11,6 +15,7 @@ public:
     
     // methods
     void loadTexture(char *filename, int texture_id, bool genMipMaps);
+    void loadTexture(Mat frame, int texture_id);
     void bindTexture();
     void reloadTexture();
     
@@ -61,8 +66,11 @@ private:
 #define TEX_RIN 15
 #define TEX_LEN 16
 #define TEX_KAITO 17
+#define TEX_SQUISH_BLUE 18
+#define TEX_SQUISH_RED 19
+#define TEX_SQUISH_PURPLE 20
 
-#define NUM_TEXTURES 18
+#define NUM_TEXTURES 21
 extern Texture textures[NUM_TEXTURES];
 void loadAllTextures();
 #endif

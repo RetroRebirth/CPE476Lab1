@@ -1,6 +1,9 @@
 #ifndef __KARAOKE__
 #define __KARAOKE__
 
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui/highgui.hpp>
+
 #include "includes.h"
 #include "Clicks.h"
 #include "Texture.h"
@@ -13,6 +16,8 @@
 #define LEN   2
 #define KAITO 3
 #define CHARA_TEX 14
+
+using namespace cv;
 
 class Karaoke {
 public:
@@ -46,20 +51,29 @@ private:
     Sound* sound;
     Object* screen;
     Object* arrow;
-    
+
     // Minigame variables
     int score, curTarget, curSong, speed;
     int numGood, numBad, numPerfect;
     float timeStart, beat, bpm, songDuration;
     
     // Animation variables
-    float timeArrow, timeCur, arrowPos;
+    float timeArrow, arrowPos;
+    
+    // Video variables
+    VideoCapture cap;
+    float fps;
+    float timeFrame;
     
     // Minigame functions
     void checkTime(Window *window);
     void setUp();
     void addCharacter(char *file, int tex, float xPos);
     void addArrow();
+    
+    // Video functions
+    void initVideo();
+    void drawVideo(Window *window);
 };
 
 #endif

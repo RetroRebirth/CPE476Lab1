@@ -23,7 +23,10 @@ void loadAllTextures()
         (char *)"textures/miku.bmp",
         (char *)"textures/rin.bmp",
         (char *)"textures/len.bmp",
-        (char *)"textures/kaito.bmp"
+        (char *)"textures/kaito.bmp",
+        (char *)"textures/bgPerson.bmp",
+        (char *)"textures/girlPerson.bmp",
+        (char *)"textures/sidePerson.bmp"
     };
     // load the textures
     for (int i = 0; i < NUM_TEXTURES; i++)
@@ -60,7 +63,7 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
     bpp = getshort(file);
     if (bpp != 24) {
         printf("Bpp from %s is not 24: %u\n", filename, bpp);
-        //return;
+        return;
     }
     fseek(file, 24, SEEK_CUR);
     
@@ -91,6 +94,26 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     }
     mipmapsGenerated = genMipMaps;
+}
+
+/* Loads a texture from a video frame */
+void Texture::loadTexture(Mat frame, int texture_id)
+{
+    // Generate the image
+    IplImage* img = new IplImage(frame);
+    
+    // Generate an OpenGL texture id
+    glBindTexture(GL_TEXTURE_2D, texture_id);
+    
+    // Generate a 2D image for the image's format
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, img->width, img->height, 0, GL_BGR, GL_UNSIGNED_BYTE, img->imageData);
+    
+    glGenerateMipmap(GL_TEXTURE_2D);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
 }
 
 /* Binds a texture to the texture unit id */

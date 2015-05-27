@@ -9,28 +9,24 @@ Sound::Sound() {
    string line;
    if (songFile.is_open()) {
       while (getline(songFile, line)) {
-         // this line is a comment... skip it
+         // Skip comments
          if (line[0] == '#')
             continue;
-
+         
          // Load the song data
          Song newSong;
-         sscanf(line.c_str(), "%s %s %s %f %d\n", newSong.song_name, newSong.song_file, newSong.img_file, &(newSong.bpm), &(newSong.price));
-         if (newSong.price == 0)
-            newSong.unlocked = true;
-         else
-            newSong.unlocked = false;
+         sscanf(line.c_str(), "%s %s %s %s %f %d\n", newSong.song_name, newSong.song_file, newSong.vid_file, newSong.img_file, &(newSong.bpm), &(newSong.price));
+         newSong.unlocked = (newSong.price == 0);
          
          // Replace all '.' to ' ' in the song name
          for (int i = 0; i < strlen(newSong.song_name); i++) {
             if (newSong.song_name[i] == '.')
                newSong.song_name[i] = ' ';
          }
-         
-         // Add the song data
          karaoke_songs.push_back(newSong);
       }
-      // load the textures
+      
+      // Load the textures
       for (int i = 0; i < karaoke_songs.size(); i++) {
          Texture newTex;
          newTex.loadTexture(karaoke_songs[i].img_file, i + NUM_TEXTURES, true);
@@ -62,7 +58,7 @@ void Sound::playBackgroundMusic() {
    engine->stopAllSounds();
    
    // play some sound stream, looped
-   engine->play2D("sounds/41Moonsetter.wav", true);
+   engine->play2D("sounds/Okami_CherryBlossomStorm.wav", true);
 }
 
 // Sound when a target is hit in Shooting Gallery

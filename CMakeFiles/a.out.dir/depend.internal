@@ -10,11 +10,8 @@ CMakeFiles/a.out.dir/Booth.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -89,7 +86,9 @@ CMakeFiles/a.out.dir/Booth.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -123,12 +122,9 @@ CMakeFiles/a.out.dir/Camera.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -203,7 +199,9 @@ CMakeFiles/a.out.dir/Camera.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -236,10 +234,7 @@ CMakeFiles/a.out.dir/Clicks.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -314,7 +309,9 @@ CMakeFiles/a.out.dir/Clicks.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -346,10 +343,7 @@ CMakeFiles/a.out.dir/FontAtlas.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -424,7 +418,9 @@ CMakeFiles/a.out.dir/FontAtlas.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -460,8 +456,6 @@ CMakeFiles/a.out.dir/FontEngine.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -536,7 +530,9 @@ CMakeFiles/a.out.dir/FontEngine.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -584,8 +580,6 @@ CMakeFiles/a.out.dir/Karaoke.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -660,7 +654,9 @@ CMakeFiles/a.out.dir/Karaoke.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -760,6 +756,8 @@ CMakeFiles/a.out.dir/MatrixStack.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtx/transform.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtx/transform.inl
 CMakeFiles/a.out.dir/Minigame.cpp.o
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Booth.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/FontAtlas.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
@@ -772,6 +770,8 @@ CMakeFiles/a.out.dir/Minigame.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Minigame.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Minigame.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Particle.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleSorter.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.h
@@ -780,8 +780,6 @@ CMakeFiles/a.out.dir/Minigame.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/WatermelonSmash.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -856,7 +854,9 @@ CMakeFiles/a.out.dir/Minigame.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -888,10 +888,7 @@ CMakeFiles/a.out.dir/Object.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -966,7 +963,9 @@ CMakeFiles/a.out.dir/Object.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -1001,8 +1000,6 @@ CMakeFiles/a.out.dir/Particle.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -1077,7 +1074,9 @@ CMakeFiles/a.out.dir/Particle.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -1110,8 +1109,6 @@ CMakeFiles/a.out.dir/ParticleTexture.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -1186,7 +1183,9 @@ CMakeFiles/a.out.dir/ParticleTexture.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -1220,8 +1219,6 @@ CMakeFiles/a.out.dir/Program.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Program.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -1296,7 +1293,9 @@ CMakeFiles/a.out.dir/Program.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -1335,6 +1334,7 @@ CMakeFiles/a.out.dir/Session.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Minigame.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Particle.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleSorter.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Session.cpp
@@ -1347,8 +1347,6 @@ CMakeFiles/a.out.dir/Session.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/WatermelonSmash.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/World.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -1423,7 +1421,9 @@ CMakeFiles/a.out.dir/Session.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -1455,15 +1455,12 @@ CMakeFiles/a.out.dir/ShootingGallery.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -1538,7 +1535,9 @@ CMakeFiles/a.out.dir/ShootingGallery.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -1571,14 +1570,11 @@ CMakeFiles/a.out.dir/SkyBox.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -1653,7 +1649,9 @@ CMakeFiles/a.out.dir/SkyBox.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -1683,13 +1681,10 @@ CMakeFiles/a.out.dir/Sound.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -1764,7 +1759,9 @@ CMakeFiles/a.out.dir/Sound.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -1794,12 +1791,9 @@ CMakeFiles/a.out.dir/Texture.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -1874,7 +1868,9 @@ CMakeFiles/a.out.dir/Texture.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -1899,6 +1895,8 @@ CMakeFiles/a.out.dir/Texture.cpp.o
  irrKlang-64bit-1.5.0/include/ik_vec3d.h
  irrKlang-64bit-1.5.0/include/irrKlang.h
 CMakeFiles/a.out.dir/WatermelonSmash.cpp.o
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Booth.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/FontAtlas.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
@@ -1908,6 +1906,8 @@ CMakeFiles/a.out.dir/WatermelonSmash.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Particle.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleSorter.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
@@ -1916,8 +1916,6 @@ CMakeFiles/a.out.dir/WatermelonSmash.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/WatermelonSmash.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/WatermelonSmash.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -1992,7 +1990,9 @@ CMakeFiles/a.out.dir/WatermelonSmash.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -2022,12 +2022,9 @@ CMakeFiles/a.out.dir/Window.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -2102,7 +2099,9 @@ CMakeFiles/a.out.dir/Window.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -2136,6 +2135,7 @@ CMakeFiles/a.out.dir/World.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Particle.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleSorter.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.h
@@ -2144,8 +2144,6 @@ CMakeFiles/a.out.dir/World.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/World.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/World.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -2220,7 +2218,9 @@ CMakeFiles/a.out.dir/World.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/gtc/type_ptr.inl
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h
@@ -2259,6 +2259,7 @@ CMakeFiles/a.out.dir/main.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/Minigame.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Particle.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleSorter.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Session.h
@@ -2270,8 +2271,6 @@ CMakeFiles/a.out.dir/main.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/WatermelonSmash.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/World.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
- /Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp
@@ -2347,7 +2346,9 @@ CMakeFiles/a.out.dir/main.cpp.o
  /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/main.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/tiny_obj_loader.h
+ /usr/local/include/GL/glew.h
  /usr/local/include/GL/glut.h
+ /usr/local/include/GLFW/glfw3.h
  freetype-2.5.5/include/config/ftheader.h
  freetype-2.5.5/include/ft2build.h
  irrKlang-64bit-1.5.0/include/ik_ESoundEngineOptions.h

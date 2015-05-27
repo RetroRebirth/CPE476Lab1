@@ -1,99 +1,97 @@
-newmtl LenFigure:kage
+newmtl character_bg:lambert2SG
 illum 4
 Kd 0.00 0.00 0.00
-Ka 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
-map_Kd roomitem_s_kage.png
+map_Kd bgPerson.png
 Ni 1.00
-Ks 1.00 1.00 1.00
-Ns 0.06
-newmtl LenFigure:ren_s004
+newmtl character_bg:myBook_closed:lambert4SG
 illum 4
-Kd 0.00 0.00 0.00
-Ka 1.00 1.00 1.00
+Kd 0.70 0.70 0.47
+Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
-map_Kd roomitems_004_color.png
 Ni 1.00
-Ks 1.00 1.00 1.00
-Ns 0.06
-newmtl LenFigure:ren_s004_algha
+newmtl character_side:lambert5SG
 illum 4
 Kd 0.00 0.00 0.00
-Ka 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
-map_Kd roomitems_004_alpha.png
+map_Kd sidePerson.png
 Ni 1.00
-Ks 1.00 1.00 1.00
-Ns 0.06
-newmtl MikuFigure:test_kage
+newmtl character_side:lambert6SG
 illum 4
 Kd 0.00 0.00 0.00
-Ka 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
-map_Kd roomitem_s_kage.png
 Ni 1.00
-Ks 1.00 1.00 1.00
-Ns 0.06
-newmtl MikuFigure:test_test_alpha
+newmtl character_side:lambert9SG
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl character_side:lavaLamp1:lambert5SG
 illum 4
 Kd 0.00 0.00 0.00
-Ka 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
-map_Kd roomitems_002_alfa.png
 Ni 1.00
 Ks 0.50 0.50 0.50
-Ns 0.06
-newmtl MikuFigure:test_test_te_000_r1
+newmtl character_side:myBook_closed:lambert4SG
 illum 4
-Kd 0.00 0.00 0.00
-Ka 1.00 1.00 1.00
+Kd 0.70 0.70 0.47
+Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
-map_Kd roomitems_002_body.png
 Ni 1.00
-Ks 0.00 0.00 0.00
-Ns 0.06
-newmtl RinFigure:rin_S003_Alpha
+newmtl initialShadingGroup
 illum 4
-Kd 0.00 0.00 0.00
-Ka 1.00 1.00 1.00
+Kd 0.50 0.50 0.50
+Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
-map_Kd roomitems_003_alpha.png
 Ni 1.00
-Ks 1.00 1.00 1.00
-Ns 0.06
-newmtl RinFigure:rin_S003_Diffuse
+newmtl lambert2SG
 illum 4
 Kd 0.00 0.00 0.00
-Ka 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
-map_Kd roomitems_003_color.png
+map_Kd bgPerson.png
 Ni 1.00
-Ks 1.00 1.00 1.00
-Ns 0.06
-newmtl RinFigure:test_lambert302
+newmtl lambert3SG
 illum 4
 Kd 0.00 0.00 0.00
-Ka 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
-map_Kd roomitem_s_kage.png
+map_Kd girlPerson.png
 Ni 1.00
-Ks 1.00 1.00 1.00
-Ns 0.06
-newmtl miku:test_test_alpha
+newmtl lambert5SG
 illum 4
 Kd 0.00 0.00 0.00
-Ka 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
-map_Kd roomitems_002_alfa.png
+map_Kd sidePerson.png
+Ni 1.00
+newmtl lambert7SG
+illum 4
+Kd 1.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl lambert9SG
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl lavaLamp1:lambert5SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
 Ni 1.00
 Ks 0.50 0.50 0.50
-Ns 0.06
-newmtl miku:test_test_te_000_r1
+newmtl myBook_closed:lambert4SG
 illum 4
-Kd 0.00 0.00 0.00
-Ka 1.00 1.00 1.00
+Kd 0.70 0.70 0.47
+Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
-map_Kd roomitems_002_body.png
 Ni 1.00
-Ks 0.00 0.00 0.00
-Ns 0.06

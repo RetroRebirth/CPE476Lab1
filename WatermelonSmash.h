@@ -123,7 +123,7 @@ public:
         return pEarned;
     }
     
-    vector<vector<Particle*>> explosionsStarted;
+    vector<vector<Particle*> > explosionsStarted;
     
     void particleStep() {
       printf("in particle step\n");
@@ -195,7 +195,7 @@ private:
     
     vector<tinyobj::shape_t> shapes;
     vector<tinyobj::material_t> materials;
-    queue<vector<Particle*>> explosions;
+    queue<vector<Particle*> > explosions;
     int hits, maxHits, points;
     float scale, yScale;
     

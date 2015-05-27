@@ -177,6 +177,9 @@ GLEW_LIBRARY:FILEPATH=/usr/local/lib/libGLEW.dylib
 GLFW_LIB:FILEPATH=/usr/local/lib/libglfw3.dylib
 
 //Path to a library.
+GLUT_LIB:FILEPATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/glut.framework
+
+//Path to a library.
 IOKIT_LIB:FILEPATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/IOKit.framework
 
 //Path to a library.

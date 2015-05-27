@@ -1,21 +1,24 @@
 #ifndef __Sound__
 #define __Sound__
 
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui/highgui.hpp>
+
 #include "includes.h"
 #include "Texture.h"
+
+using namespace cv;
 using namespace irrklang;
 
 class Song {
 public:
-    char song_name[50];
-    char song_file[50];
-    char img_file[50];
-    float bpm;
-    int price;
-    bool unlocked;
-    
-private:
-    
+    char song_name[50]; // name of the song
+    char song_file[50]; // name of the .wav sound file
+    char img_file[50];  // name of the .bmp thumbnail image file
+    char vid_file[50];  // name of the .avi video file
+    float bpm;          // # of beats per minute
+    int price;          // price of the song in the shop
+    bool unlocked;      // whether or not the song can be played
 };
 
 class Sound {

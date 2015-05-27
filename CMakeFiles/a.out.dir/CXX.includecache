@@ -186,6 +186,10 @@ includes.h
 Program.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
 
+/Users/kayla/Projects/Graphics/CPE476Lab1/ParticleSorter.h
+Particle.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Particle.h
+
 /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.cpp
 ParticleTexture.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
@@ -201,6 +205,8 @@ Program.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
 includes.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+ParticleTexture.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Session.cpp
 Session.h
@@ -279,14 +285,18 @@ includes.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
 cmath
 -
-includes.h
-/Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/WatermelonSmash.cpp
 WatermelonSmash.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/WatermelonSmash.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/WatermelonSmash.h
+queue
+-
+algorithm
+-
+functional
+-
 includes.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
 Clicks.h
@@ -301,6 +311,12 @@ Program.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
 FontEngine.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
+Particle.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Particle.h
+ParticleSorter.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/ParticleSorter.h
+Camera.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Window.cpp
 Window.h
@@ -313,6 +329,8 @@ includes.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/World.cpp
 World.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/World.h
+ParticleSorter.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/ParticleSorter.h
 algorithm
 -
 
@@ -344,42 +362,6 @@ inttypes.h
 Availability.h
 -
 OpenGL/glu.h
--
-GL/glu.h
--
-
-/Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
-stddef.h
--
-OpenGL/gl3.h
--
-OpenGL/gl3ext.h
--
-OpenGL/gl.h
--
-OpenGL/glu.h
--
-GL/glcorearb.h
--
-GLES/gl.h
--
-GLES/glext.h
--
-GLES2/gl2.h
--
-GLES2/gl2ext.h
--
-GLES3/gl3.h
--
-GLES3/gl2ext.h
--
-GLES3/gl31.h
--
-GLES3/gl2ext.h
--
-GL/gl.h
--
-GL/glext.h
 -
 GL/glu.h
 -
@@ -833,10 +815,10 @@ string
 -
 ft2build.h
 -
-glew.h
-/Users/kayla/Projects/Graphics/CPE476Lab1/glew.h
-glfw3_1.h
-/Users/kayla/Projects/Graphics/CPE476Lab1/glfw3_1.h
+GL/glew.h
+-
+GLFW/glfw3.h
+-
 GL/freeglut.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
 GLSL.h
@@ -857,8 +839,6 @@ Util.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
 MatrixStack.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
-ParticleTexture.h
-/Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
 irrKlang.h
 -
 
@@ -928,9 +908,47 @@ GL/glu.h
 stdlib.h
 -
 
+/usr/local/include/GL/glew.h
+stddef.h
+-
+inttypes.h
+-
+stdint.h
+-
+inttypes.h
+-
+Availability.h
+-
+OpenGL/glu.h
+-
+GL/glu.h
+-
+
 /usr/local/include/GL/glut.h
 freeglut_std.h
 /usr/local/include/GL/freeglut_std.h
+
+/usr/local/include/GLFW/glfw3.h
+stddef.h
+-
+OpenGL/gl3.h
+-
+OpenGL/gl.h
+-
+OpenGL/glu.h
+-
+GL/glcorearb.h
+-
+GLES/gl.h
+-
+GLES2/gl2.h
+-
+GLES3/gl3.h
+-
+GL/gl.h
+-
+GL/glu.h
+-
 
 freetype-2.5.5/include/config/ftheader.h
 

@@ -6,26 +6,24 @@ Karaoke::Karaoke(GLuint _ShadeProg, Sound* _sound) {
     ShadeProg = _ShadeProg;
     sound = _sound;
     gameOver = gameStart = songChosen = false;
-    timeStart = timeArrow = timeCur = 0.0;
-    curTarget = -1;
+    timeStart = timeArrow = 0.0;
     score = curSong = numGood = numBad = numPerfect = 0;
+    curTarget = -1;
     speed = 1;
     
     // Set up the booth
     setUp();
     
     // Display the game description and rules
-    printf("\t\t----- Welcome to the KARAOKE MACHINE-----\n\n");
+    printf("\t\t----- Welcome to the KARAOKE MACHINE-----\n");
     printf("\t\tHere you can relax and listen to your favorite anime songs\n");
     printf("\t\tUse the LEFT and RIGHT arrow keys to choose a song\n");
     printf("\t\tUse the UP and DOWN arrow keys to choose a difficulty\n");
     printf("\t\tPress ENTER to start playing the song\n\n");
-    
     printf("\t\tPress the arrow keys as they appear to earn points\n");
     printf("\t\tEarn more points for hitting the arrows at the bottom\n");
     printf("\t\tIf you hit the wrong arrow or miss an arrow you lose points\n");
     printf("\t\tIf you miss too many arrows, it's GAME OVER!\n\n");
-    
     printf("\t\tYou can purchase additional songs at the SHOP BOOTH\n");
 }
 
@@ -63,6 +61,7 @@ void Karaoke::addCharacter(char *file, int tex, float xPos) {
     chara->setTexture(tex);
     chara->setPos(glm::vec3(xPos, 1.5, 1.0));
     chara->scale(glm::vec3(1.0, 1.0, 1.0));
+    chara->rotate(180.0f, glm::vec3(0.0, 1.0, 0.0));
     chara->setShadows(false);
     chara->updateRadius();
     characters.push_back(chara);
@@ -97,6 +96,32 @@ void Karaoke::addArrow() {
     }
 }
 
+void Karaoke::initVideo() {
+    // Create frames for the video
+    cap = VideoCapture(sound->getSongInfo(curSong).vid_file);
+    if (cap.isOpened()) {
+        // Get the fps
+        fps = cap.get(CV_CAP_PROP_FPS);
+    }
+}
+
+void Karaoke::drawVideo(Window* window) {
+    // Set the latest frame based off the time
+    double curFrame = (window->time - timeStart) * fps;
+    cap.set(CV_CAP_PROP_POS_FRAMES, curFrame);
+    
+    // Read a new frame
+    Mat frame;
+    bool success = cap.read(frame);
+    
+    // Make a new texture for the frame and draw it on the screen
+    if (success) {
+        Texture newTex;
+        newTex.loadTexture(frame, 100);
+        screen->setTexture(100);
+    }
+}
+
 void Karaoke::checkTime(Window *window) {
     // Initialize the time if not done so already
     if (timeStart == 0.0) {
@@ -111,12 +136,14 @@ void Karaoke::checkTime(Window *window) {
                 songDuration = sound->getSongDuration() / 1000.0;
                 beat = songDuration / ((songDuration / 60.0) * bpm);
                 beat *= (3 - speed) + 1;
-                timeStart = window->time;
                 for (int i = 0; i < characters.size(); i++)
                     characters[i]->setTexture(TEX_MISC);
+                screen->scale(glm::vec3(8.0, 11.0, 8.0));
+                screen->rotate(180.0f, glm::vec3(1.0, 0.0, 0.0));
                 gameStart = true;
+                timeStart = timeFrame = window->time;
             }
-            if (window->time - timeStart >= 3.0 && characters.size() < 4)
+            else if (window->time - timeStart >= 3.0 && characters.size() < 4)
                 addCharacter((char *)"objs/kaito.obj", TEX_KAITO, -2.0);
             else if (window->time - timeStart >= 2.0 && characters.size() < 3)
                 addCharacter((char *)"objs/len.obj", TEX_LEN, -0.7);
@@ -126,7 +153,6 @@ void Karaoke::checkTime(Window *window) {
                 addCharacter((char *)"objs/miku.obj", TEX_MIKU, 2.0);
         }
         else {
-            timeCur = window->time;
             // Check whether the game has ended
             if (window->time - timeStart >= songDuration) {
                 printf("Time's up! Your score is: %d\n", score);
@@ -135,16 +161,13 @@ void Karaoke::checkTime(Window *window) {
                 gameOver = true;
             }
             // Add a new arrow
-            if (curTarget == -1) {
+            else if (curTarget == -1) {
                 addArrow();
                 timeArrow = window->time;
             }
             // Arrow time is up; remove the arrow
             else if (window->time - timeArrow >= beat) {
                 sound->playBuzzerSound();
-                /* There seems to be a bug where if the arrow disappears at the
-                 * Same time you hit it, it segfaults because curTarget = -1
-                 */
                 if (curTarget != -1)
                     characters[curTarget]->setTexture(TEX_MISC);
                 score -= speed;
@@ -166,7 +189,6 @@ void Karaoke::step(Window* window) {
 
     // Player is still choosing a song; display song info
     if (!songChosen) {
-        
         // Display the difficulty
         char msg1[30];
         char* diff = (char *)"EASY";
@@ -184,19 +206,27 @@ void Karaoke::step(Window* window) {
         sprintf(msg2, "%s %s", sound->getSongInfo(curSong).song_name, lock);
         fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 0.0), 2, 48, msg2, -0.6, 0.55);
         
+        // Don't do anything; wait for the song to start
         return;
     }
     checkTime(window);
     
-    // Draw the characters and arrows
+    // Draw the video
+    if (window->time - timeFrame >= (1 / fps) * speed) {
+        drawVideo(window);
+        timeFrame = window->time;
+    }
+    
+    // Draw the scene
     for (int i = 0; i < characters.size(); i++)
         characters[i]->draw();
     if (!gameStart)
         return;
-    arrow->draw();
+    if (curTarget != -1)
+        arrow->draw();
     
     // Check for game over
-    if (score < -10) {
+    if (score < -10 * speed) {
         gameOver = true;
     }
     
@@ -223,6 +253,7 @@ void Karaoke::selectSong() {
         return;
     }
     songChosen = true;
+    initVideo();
 }
 
 // Changes the difficulty setting
@@ -240,13 +271,13 @@ void Karaoke::selectCharacter(int target) {
     if (target == curTarget) {
         // Check whether a "PERFECT" score was earned
         if (arrowPos <= -1.80) {
-            sound->playContactSound();
+            //sound->playContactSound();
             score += speed * 2;
             numPerfect++;
         }
         // Otherwise, "GOOD" score
         else {
-            sound->playJumpSound();
+            //sound->playJumpSound();
             score += speed;
             numGood++;
         }
@@ -257,9 +288,8 @@ void Karaoke::selectCharacter(int target) {
         score -= speed;
         numBad++;
     }
-    /* There seems to be a bug where if the arrow disappears at the
-     * Same time you hit it, it segfaults because curTarget = -1
-     */
+    
+    // Make the next arrow
     if (curTarget != -1)
         characters[curTarget]->setTexture(TEX_MISC);
     curTarget = -1;
