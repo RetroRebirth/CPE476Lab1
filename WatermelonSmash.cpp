@@ -1,6 +1,5 @@
 #include "WatermelonSmash.h"
 
-
 bool removeExplosions(vector<Particle*> p) {
    if (p[0]->cycles > 0) {
       return true;
@@ -9,12 +8,11 @@ bool removeExplosions(vector<Particle*> p) {
 }
 
 WatermelonSmash::WatermelonSmash(GLuint _ShadeProg, Program* _particleProg, Camera* _camera, Sound* _sound) {
-    
+
     // Inititalize the game
     ShadeProg = _ShadeProg;
     particleProg = _particleProg;
     camera = _camera;
-    
     sound = _sound;
     score = numMelons = 0;
     timeStart = timer = timeLeft = timeRight = timeSwing = 0.0;
@@ -25,7 +23,7 @@ WatermelonSmash::WatermelonSmash(GLuint _ShadeProg, Program* _particleProg, Came
     setUp();
     
     // Display the game description and rules
-    /*printf("\t\t----- Welcome to the WATERMELON SMASH -----\n");
+    printf("\t\t----- Welcome to the WATERMELON SMASH -----\n");
     printf("\t\tSmash the watermelons as they appear by clicking them.\n");
     printf("\t\tDestroy bigger watermelons to earn more points!.\n\n");
     printf("\t\tHitting a watermelon = 1 point\n");
@@ -34,7 +32,7 @@ WatermelonSmash::WatermelonSmash(GLuint _ShadeProg, Program* _particleProg, Came
     printf("\t\tLarge watermelon = 30 points, 15 hits\n\n");
     printf("\t\tYou have 30 seconds to smash as many watermelons as you can!\n");
     printf("\t\tPress ENTER to start the game!.\n");
-    printf("\t\tOnce you are done, press SPACE to exit.\n\n");*/   
+    printf("\t\tOnce you are done, press SPACE to exit.\n\n");
 }
 
 WatermelonSmash::~WatermelonSmash() {
@@ -47,6 +45,7 @@ WatermelonSmash::~WatermelonSmash() {
     for (int i = 0; i < misc_objects.size(); i++) {
         delete misc_objects[i];
     }
+    delete hammer;
 }
 
 void WatermelonSmash::setUp() {
@@ -67,15 +66,6 @@ void WatermelonSmash::setUp() {
     table->setTexture(TEX_WOOD_DARK);
     table->setShadows(false);
     misc_objects.push_back(table);
-    
-    // Create booth player
-    Object *npc = new Object(shapes, materials, ShadeProg);
-    npc->load("bunny.obj");
-    npc->setPos(glm::vec3(0.0, 0.0, MELON_DEPTH + 2));
-    npc->scale(glm::vec3(2.0, 3.0, 2.0));
-    npc->setTexture(TEX_LANTERN);
-    npc->setShadows(false);
-    misc_objects.push_back(npc);
     
     // Create the hammer
     hammer = new Object(shapes, materials, ShadeProg);
@@ -125,10 +115,12 @@ void WatermelonSmash::checkTime(Window *window) {
         // Spawn a watermelon
         if (window->time - timeLeft >= MELON_SPAWN && spawnLeft) {
             newMelon(MELON_LEFT);
+            ageLeft = window->time;
             spawnLeft = false;
         }
-        if (window->time - timeRight >= MELON_SPAWN && spawnRight) {
+        else if (window->time - timeRight >= MELON_SPAWN && spawnRight) {
             newMelon(MELON_RIGHT);
+            ageRight = window->time;
             spawnRight = false;
         }
         // Swing the hammer
@@ -143,16 +135,36 @@ void WatermelonSmash::step(Window* window) {
     // Draw the booth
     for (int i = 0; i < misc_objects.size(); i++) 
         misc_objects[i]->draw();
+    
     // Check how much time has passed and whether game is playing
-    if (gameOver || !gameStart)
+    if (gameOver || !gameStart) {
+        ageRight = ageLeft = window->time;
         return;
+    }
     checkTime(window);
     
     // Draw the watermelons and hammer
-    for (int i = 0; i < melons.size(); i++) {
+    for (int i = 0; i < melons.size(); i++)
         melons[i]->object->draw();
-    }
     hammer->draw();
+    
+    // Check if the watermelons wilted
+    for (int i = 0; i < melons.size(); i++) {
+        if (melons[i]->xPos == MELON_LEFT) {
+            if (window->time - ageLeft >= melons[i]->lifeSpan) {
+                spawnLeft = true;
+                timeLeft = window->time;
+                melons.erase(melons.begin() + i--);
+            }
+        }
+        else if (melons[i]->xPos == MELON_RIGHT) {
+            if (window->time - ageRight >= melons[i]->lifeSpan) {
+                spawnRight = true;
+                timeRight = window->time;
+                melons.erase(melons.begin() + i--);
+            }
+        }
+    }
     
     // Fire the bullets
     for (int i = 0; i < bullets.size(); i++){
@@ -160,8 +172,8 @@ void WatermelonSmash::step(Window* window) {
             if (bullets[i] != NULL) {
                 bullets[i]->setPos(bullets[i]->calculateNewPos(window->dt));
                 
-                // Check collision against watermelons
                 for (int j = 0; j < melons.size(); ++j) {
+                    // Player hit a watermelon
                     if (bullets[i]->collidedWithObj(*melons[j]->object, window->dt)) {
                         // Hit the melon
                         timeSwing = window->time + MELON_SWING;
@@ -194,18 +206,16 @@ void WatermelonSmash::step(Window* window) {
             bullets.erase(bullets.begin() + i--);
     }
     
-            
     // Draw the HUD
     char scrStr[15];
     sprintf(scrStr, "Score: %d", score);
     
-    
-		      
+    // Draw the watermelons exploding
     for (int i = 0; i < melons.size(); i++) {
-        melons[i]->explosionsStarted.erase(std::remove_if(melons[i]->explosionsStarted.begin(), 
-                     melons[i]->explosionsStarted.end(),
-                     &removeExplosions),
-                     melons[i]->explosionsStarted.end());
+        melons[i]->explosionsStarted.erase(std::remove_if(melons[i]->explosionsStarted.begin(),
+                                           melons[i]->explosionsStarted.end(),
+                                           &removeExplosions),
+                                           melons[i]->explosionsStarted.end());
         melons[i]->particleStep();
     }
     fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), 2, 30, scrStr, 0.55, 0.85);
