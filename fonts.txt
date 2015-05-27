@@ -1,0 +1,5 @@
+ostrich Fonts/ostrich-regular.ttf
+goodDog Fonts/GoodDog.otf
+seaside Fonts/SEASRN__.ttf
+amatic Fonts/Amatic-Bold.ttf
+capture Fonts/Capture_it.ttf

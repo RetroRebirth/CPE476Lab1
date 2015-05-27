@@ -8,11 +8,11 @@ export IRRKLANG_MP3_U_x64 := irrKlang-64bit-1.5.0/bin/linux-gcc-64/ikpMP3.so
 
 CC=g++
 ROOT_DIR= $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-CFLAGS=  -I $(ROOT_DIR) -I$(FREETYPE_DIR) -I $(IRRKLANG_INC) -L $(ROOT_DIR) -g -std=c++0x
+CFLAGS=  -I $(ROOT_DIR) -I$(FREETYPE_DIR) -I $(IRRKLANG_INC) -L $(ROOT_DIR) -g -std=c++0x `pkg-config --cflags opencv`
 CSL_CFLAGS=  -I $(ROOT_DIR) -L $(ROOT_DIR) -g
 SOURCES= main.o GLSL.o tiny_obj_loader.cc Camera.o Object.o Window.o World.o MatrixStack.o Booth.o SkyBox.o Session.o Texture.o Clicks.o ShootingGallery.o Sound.o WatermelonSmash.o Minigame.o Particle.o ParticleTexture.o Program.o FontEngine.o FontAtlas.o Karaoke.o
 CSL_SOURCES= main.cpp GLSL.cpp tiny_obj_loader.cc Camera.cpp Object.cpp Window.cpp World.cpp MatrixStack.cpp Booth.cpp SkyBox.cpp Session.cpp Texture.cpp Clicks.cpp ShootingGallery.cpp WatermelonSmash.cpp Minigame.cpp Particle.cpp ParticleTexture.cpp Program.cpp Karaoke.cpp
-LIBFLAGS= -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -lfreetype $(IRRKLANG_LIB_U_x64) $(IRRKLANG_MP3_U_x64)  libGLEW.a libglfw3.a
+LIBFLAGS= -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -lfreetype `pkg-config --libs opencv` $(IRRKLANG_LIB_U_x64) $(IRRKLANG_MP3_U_x64)  libGLEW.a libglfw3.a
 CSL_LIBFLAGS= -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -lglut libglfw3.a libGLEW.a
  
 ubuntu: $(SOURCES)
