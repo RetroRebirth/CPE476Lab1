@@ -13,11 +13,6 @@ FontEngine::FontEngine(int width, int height, Program *_prog) {
     
     windowWidth = width;
     windowHeight = height;
-    
-    ostrichHandle = "Fonts/ostrich-regular.ttf";
-    seasideHandle = "Fonts/SEASRN__.ttf";
-    goodDogHandle = "Fonts/GoodDog.otf";
-    
 }
 
 FontEngine::~FontEngine() {
@@ -57,46 +52,35 @@ bool FontEngine::init(GLuint _ShadeProg) {
 
     initialized = 1;
 
-    if (!addFont(ostrichHandle, ostrichHandle)) {
-        return 0;
-    }
-
-    if (!addFont(goodDogHandle, goodDogHandle)) {
-        return 0;
-    }
-
-    if (!addFont(seasideHandle, seasideHandle)) {
-        return 0;
-    }
+   // Load the fonts from the file
+   ifstream fontFile;
+   fontFile.open("fonts.txt");
+   string line;
+   if (fontFile.is_open()) {
+      while (getline(fontFile, line)) {
+         // Load the font data
+         char handle[20], file[40];
+         sscanf(line.c_str(), "%s %s\n", handle, file);
+         
+         if(!addFont(handle, file)){
+            printf("font could not be loaded\n");
+            return 0;
+         }
+      }
+   }
+   else {
+      printf("file 'fonts.txt' was not available or could not be opened\n");
+   }
 
     return 1;
 }
 
-void FontEngine::display(glm::vec4 col, int font, int size, const char* text, float x, float y) {
+void FontEngine::display(glm::vec4 col, const char* text, float x, float y) {
     prog->bind();
 
     setColor(col.x, col.y, col.z, col.w);
     
-    switch (font) {
-       case 0:
-          if (useFont(ostrichHandle, size)) {
-             renderText(text, x, y);
-          }
-          break; 
-       case 1:
-          if (useFont(goodDogHandle, size)) {
-             renderText(text, x, y);
-          }
-          break;
-       case 2:
-          if (useFont(seasideHandle, size)) {
-             renderText(text, x, y);
-          }
-          break;
-       default:
-          printf("No suitable font found\n");
-          break;
-    }
+    renderText(text, x, y);
     
     prog->unbind();
 }

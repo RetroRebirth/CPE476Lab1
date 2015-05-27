@@ -218,7 +218,8 @@ void WatermelonSmash::step(Window* window) {
                                            melons[i]->explosionsStarted.end());
         melons[i]->particleStep();
     }
-    fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), 2, 30, scrStr, 0.55, 0.85);
+    fontEngine->useFont("seaside", 30);
+    fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), scrStr, 0.55, 0.85);
 
 }
 

@@ -52,7 +52,7 @@ class FontEngine {
 
         void updateWindowSize(int width, int height);
         
-        void display(glm::vec4 col, int font, int size, const char* text, float x, float y);
+        void display(glm::vec4 col, const char* text, float x, float y);
     private:
         // was the engine intialized successfully?
         bool initialized;
