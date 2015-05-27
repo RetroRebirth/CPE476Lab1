@@ -240,9 +240,7 @@ void Particle::update(float t, float h, const glm::vec3 &g)
          return;
       }
    }
-	//if (t > tEnd) {
-		//rebirth(t);
-	//}
+   
 	if (time > lifespan) {
 	   drawNow = false;
 	   if (!oneCycle) {

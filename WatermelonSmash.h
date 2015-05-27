@@ -43,6 +43,7 @@ public:
 	glm::mat4 C; // current camera matrix
 };
 ParticleSorter sorter;*/
+//bool removeExplosions(vector<Particle*> p);
 
 class Watermelon {
 public:
@@ -122,6 +123,8 @@ public:
         return pEarned;
     }
     
+    vector<vector<Particle*>> explosionsStarted;
+    
     void particleStep() {
       printf("in particle step\n");
       // Display every 60 Hz
@@ -142,11 +145,7 @@ public:
 	
 	   glUniformMatrix4fv(particleProg->getUniform("P"), 1, GL_FALSE, glm::value_ptr(P.topMatrix()));
 	   
-      explosionsStarted.erase(std::remove_if(explosionsStarted.begin(), 
-                     explosionsStarted.end(),
-                     [](vector<Particle*> p){if (p[0]->cycles > 0) {return true;}}),
-                     explosionsStarted.end());
-		      
+      
       
 	   
 	   int j = 0;
@@ -197,7 +196,6 @@ private:
     vector<tinyobj::shape_t> shapes;
     vector<tinyobj::material_t> materials;
     queue<vector<Particle*>> explosions;
-    vector<vector<Particle*>> explosionsStarted;
     int hits, maxHits, points;
     float scale, yScale;
     

@@ -1,5 +1,13 @@
 #include "WatermelonSmash.h"
 
+
+bool removeExplosions(vector<Particle*> p) {
+   if (p[0]->cycles > 0) {
+      return true;
+   }
+   return false;
+}
+
 WatermelonSmash::WatermelonSmash(GLuint _ShadeProg, Program* _particleProg, Camera* _camera, Sound* _sound) {
     
     // Inititalize the game
@@ -143,7 +151,6 @@ void WatermelonSmash::step(Window* window) {
     // Draw the watermelons and hammer
     for (int i = 0; i < melons.size(); i++) {
         melons[i]->object->draw();
-        melons[i]->particleStep();
     }
     hammer->draw();
     
@@ -191,6 +198,16 @@ void WatermelonSmash::step(Window* window) {
     // Draw the HUD
     char scrStr[15];
     sprintf(scrStr, "Score: %d", score);
+    
+    
+		      
+    for (int i = 0; i < melons.size(); i++) {
+        melons[i]->explosionsStarted.erase(std::remove_if(melons[i]->explosionsStarted.begin(), 
+                     melons[i]->explosionsStarted.end(),
+                     &removeExplosions),
+                     melons[i]->explosionsStarted.end());
+        melons[i]->particleStep();
+    }
     fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), 2, 30, scrStr, 0.55, 0.85);
 
 }

@@ -97,4 +97,3 @@ FontAtlas.o : FontAtlas.cpp
 
 Karaoke.o : Karaoke.cpp
 	g++ $(CFLAGS) -c Karaoke.cpp
-
