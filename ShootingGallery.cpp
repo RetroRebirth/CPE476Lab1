@@ -163,7 +163,7 @@ void ShootingGallery::step(Window* window) {
 
 void ShootingGallery::mouseClick(glm::vec3 direction, glm::vec4 point) {
    // Only shoot a bullet if we have the ammo
-   if (ammo <= 0) {
+   if (ammo <= 0 || !gameStart) {
       return;
    }
    // Shoot a bullet

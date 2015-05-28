@@ -148,8 +148,7 @@ void WatermelonSmash::step(Window* window) {
     
     // Check whether game is playing
     if (!gameStart) {
-        // PRINT INSTRUCTIONS HERE //
-        printInstructions();        
+        printInstructions();
         ageRight = ageLeft = window->time;
         return;
     }
