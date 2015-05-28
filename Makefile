@@ -23,7 +23,7 @@ ubuntu: $(SOURCES)
 chris: $(SOURCES)
 	cp libglfw3_x32.a libglfw3.a
 	cp libGLEW_x32.a libGLEW.a
-	$(CC) $(CFLAGS) -std=c++0x `pkg-config --cflags glfw3` -o myprog $(SOURCES) -lfreetype $(IRRKLANG_LIB_U) $(IRRKLANG_MP3_U) `pkg-config --static --libs glfw3` -lGLEW
+	$(CC) $(CFLAGS) -std=c++0x `pkg-config --cflags glfw3` -o myprog $(SOURCES) -lfreetype $(IRRKLANG_LIB_U) $(IRRKLANG_MP3_U) `pkg-config --static --libs glfw3 opencv` -lGLEW
 
 rebase:
 	git add . 
