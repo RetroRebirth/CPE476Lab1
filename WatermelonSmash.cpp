@@ -117,13 +117,13 @@ void WatermelonSmash::checkTime(Window *window) {
 }
 
 void WatermelonSmash::printInstructions() {
-   ifstream instrFile;
+   /*ifstream instrFile;
    instrFile.open("wminstr.txt");
    string line;
    float yPos = .8;
    float yInc;
    
-   fontEngine->useFont("amatic", 48);
+   fontEngine->useFont("caviar", 30);
    yInc = fontEngine->getTextHeight("blank") * 1.3;
    
    if (instrFile.is_open()) {
@@ -138,7 +138,7 @@ void WatermelonSmash::printInstructions() {
    }
    else {
       printf("file 'wminstr.txt' was not available or could not be opened\n");
-   }
+   }*/
 }
 
 void WatermelonSmash::step(Window* window) {
@@ -154,22 +154,40 @@ void WatermelonSmash::step(Window* window) {
         return;
     }
     if (gameOver) {
-        // TIME'S UP //
-        // Score = x //
-        // Watermelons Destroyed: x //
+        float yPos = .5;
+        float yInc;
+ 
+        /*char ln1[40];
+        sprintf(ln1, "Time's up! Your score is: %d\n", score);
+        fontEngine->useFont("caviar", 30);
+        fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), ln1, 0-fontEngine->getTextWidth(ln1)/2.0, yPos);
+        yInc = fontEngine->getTextHeight(ln1) * 1.3;
+        yPos -= yInc;
+
+        char ln2[40];
+        sprintf(ln2, "You smashed %d watermelons!\n", numMelons);
+        fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), ln2, 0-fontEngine->getTextWidth(ln2)/2.0, yPos);
+        
+        yPos -= (2 * yInc);        
+        
+        char ln3[40];
+        sprintf(ln3, "Press ENTER to exit.");
+        fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), ln3, 0-fontEngine->getTextWidth(ln3)/2.0, yPos);        */
+
         return;
     }
     
     checkTime(window);
-    
+   
     // Draw the watermelons and hammer
     for (int i = 0; i < melons.size(); i++)
         melons[i]->object->draw();
     hammer->draw();
-    
+        
     // Check if the watermelons wilted
     for (int i = 0; i < melons.size(); i++) {
         if (melons[i]->xPos == MELON_LEFT) {
+            timeLMelon = (int)(melons[i]->lifeSpan + (ageLeft - window->time));
             if (window->time - ageLeft >= melons[i]->lifeSpan) {
                 spawnLeft = true;
                 timeLeft = window->time;
@@ -178,6 +196,7 @@ void WatermelonSmash::step(Window* window) {
             }
         }
         else if (melons[i]->xPos == MELON_RIGHT) {
+            timeRMelon = (int)(melons[i]->lifeSpan + (ageRight - window->time));
             if (window->time - ageRight >= melons[i]->lifeSpan) {
                 spawnRight = true;
                 timeRight = window->time;
@@ -227,9 +246,6 @@ void WatermelonSmash::step(Window* window) {
             bullets.erase(bullets.begin() + i--);
     }
     
-    // Draw the HUD
-    char scrStr[15];
-    sprintf(scrStr, "Score: %d", score);
     
     // Draw the watermelons exploding
     for (int i = 0; i < melons.size(); i++) {
@@ -239,9 +255,37 @@ void WatermelonSmash::step(Window* window) {
                                            melons[i]->explosionsStarted.end());
         melons[i]->particleStep();
     }
-    fontEngine->useFont("seaside", 30);
-    fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), scrStr, 0.55, 0.85);
 
+    textStep(window);    
+}
+
+void WatermelonSmash::textStep(Window* window) {
+/*    float yPos = .9;
+    float yInc;
+
+    char time[20];
+    sprintf(time, "Time remaining: 0:%d / 0:30", (int)(window->time - timeStart));
+    fontEngine->useFont("caviar", 30);
+    fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), time, 0-fontEngine->getTextWidth(time)/2.0, yPos);
+    yInc = fontEngine->getTextHeight(time) * 1.3;
+
+    char scrStr[15];
+    sprintf(scrStr, "Score: %d", score);
+    fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), scrStr, 1-fontEngine->getTextWidth(scrStr)-.07, yPos);
+
+    char melons[30];
+    sprintf(melons, "Melons Smashed: %d", numMelons);
+    fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), melons, 0-fontEngine->getTextWidth(melons)/2.0, yPos-yInc);
+    
+    char left[10];
+    sprintf(left, "0:%d", timeLMelon);
+    if (!spawnLeft)
+       fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), left, .5-fontEngine->getTextWidth(left)/2.0, -0.4);    
+    
+    char right[10];
+    sprintf(right, "0:%d", timeRMelon);
+    if (!spawnRight)
+       fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), right, -.5-fontEngine->getTextWidth(right)/2.0, -0.4);*/
 }
 
 void WatermelonSmash::mouseClick(glm::vec3 direction, glm::vec4 point) {

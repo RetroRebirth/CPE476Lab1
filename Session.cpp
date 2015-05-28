@@ -11,7 +11,7 @@ Session::Session() {
    camera = new Camera(h_uP, h_uV, h_uView);
    world = new World(shaders[SHADER_DEFAULT]->getPID(), camera);
    clicks = new Clicks();
-   fontEngine = new FontEngine(WINDOW_WIDTH, WINDOW_HEIGHT, shaders[SHADER_TEXT]);
+   fontEngine = new FontEngine(WINDOW_WIDTH, WINDOW_HEIGHT, shaders[SHADER_TEXT], shaders[SHADER_DEFAULT]);
 
    sound = new Sound();
    sound->initSound();
@@ -164,7 +164,7 @@ void Session::step() {
    camera->step(window);
    
    fontEngine->useFont("goodDog", 48);
-   fontEngine->display(glm::vec4(0.99, 0.96, 0.55, 1.0), "Japanese Festival!", -1.0, 0.9);
+   //fontEngine->display(glm::vec4(0.99, 0.96, 0.55, 1.0), "Japanese Festival!", -1.0, 0.9);
 }
 
 Camera* Session::getCamera() {

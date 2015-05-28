@@ -229,7 +229,7 @@ private:
     
     // Minigame variables
     vector<Watermelon*> melons;
-    int score, numMelons;
+    int score, numMelons, timeLMelon, timeRMelon;
     double timeStart, timer, timeLeft, timeRight, timeSwing;
     double ageRight, ageLeft;
     bool spawnLeft, spawnRight;
@@ -238,6 +238,9 @@ private:
     void newMelon(float xPos);
     void checkTime(Window *window);
     void setUp();
+    
+    // Text functions
+    void textStep(Window* window);
     void printInstructions();
 };
 

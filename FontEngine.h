@@ -12,7 +12,7 @@ using namespace std;
 
 class FontEngine {
     public:
-        FontEngine(int width, int height, Program *_prog);
+        FontEngine(int width, int height, Program *_prog, Program* _default);
         ~FontEngine();
 
         bool init(GLuint _ShadeProg);
@@ -63,6 +63,7 @@ class FontEngine {
 
         FT_Library library;
         Program* prog;
+        Program* dflt;
     
         typedef struct Font {
             FT_Face face;

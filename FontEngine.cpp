@@ -1,6 +1,6 @@
 #include "FontEngine.h"
 
-FontEngine::FontEngine(int width, int height, Program *_prog) {
+FontEngine::FontEngine(int width, int height, Program *_prog, Program* _default) {
     initialized = 0;
     curAtlas = 0;
     currentHandle = "";
@@ -10,6 +10,7 @@ FontEngine::FontEngine(int width, int height, Program *_prog) {
     color[3] = 1.0;
     zPos = 0.0;
     prog = _prog;
+    dflt = _default;
     
     windowWidth = width;
     windowHeight = height;
@@ -83,6 +84,7 @@ void FontEngine::display(glm::vec4 col, const char* text, float x, float y) {
     renderText(text, x, y);
     
     prog->unbind();
+    dflt->bind();
 }
 
 bool FontEngine::addFont(std::string handle, std::string fontFile) {
