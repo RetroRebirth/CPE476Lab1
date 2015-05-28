@@ -91,6 +91,14 @@ bool Camera::checkStaticObjectCollisions(Object* o, glm::vec3* colPlane) {
          return true;
       }
       booths[i]->checkInteract(player->pos);
+      
+      if (booths[i]->isActive()) {
+         char ln[50];
+         string minigame = booths[i]->getMinigameDisplayName();
+         fontEngine->useFont("goodDog", 48);
+         sprintf(ln, "Press ENTER to play %s!\n", minigame.c_str());
+         fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), ln, 0-fontEngine->getTextWidth(ln)/2.0, 0.3);
+      }
    }
    return false;
 }

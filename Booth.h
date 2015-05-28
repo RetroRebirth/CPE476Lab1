@@ -4,6 +4,7 @@
 #include "includes.h"
 #include "Object.h"
 #include "Texture.h"
+#include "FontEngine.h"
 
 class Booth {
    public:
@@ -41,6 +42,7 @@ class Booth {
     Object **getBooths() { return booth; }
     
     void getCollisionAxis(glm::vec3 pos, glm::vec3* colPlane);
+    const string getMinigameDisplayName();
 
   private:
     // Object information
@@ -56,7 +58,6 @@ class Booth {
     void showMessage();     // displays message to screen
     void startMinigame();   // starts the minigame
     void initBooth(glm::vec3 _pos, glm::vec3 _scalar, float _angle, char* _minigame);
-    const string getMinigameDisplayName();
 };
 
 #endif

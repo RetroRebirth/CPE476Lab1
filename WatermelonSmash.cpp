@@ -187,7 +187,7 @@ void WatermelonSmash::step(Window* window) {
     // Check if the watermelons wilted
     for (int i = 0; i < melons.size(); i++) {
         if (melons[i]->xPos == MELON_LEFT) {
-            timeLMelon = (int)(melons[i]->lifeSpan + (ageLeft - window->time));
+            timeLMelon = (int)(melons[i]->lifeSpan + (ageLeft - window->time) + 1);
             if (window->time - ageLeft >= melons[i]->lifeSpan) {
                 spawnLeft = true;
                 timeLeft = window->time;
@@ -196,7 +196,7 @@ void WatermelonSmash::step(Window* window) {
             }
         }
         else if (melons[i]->xPos == MELON_RIGHT) {
-            timeRMelon = (int)(melons[i]->lifeSpan + (ageRight - window->time));
+            timeRMelon = (int)(melons[i]->lifeSpan + (ageRight - window->time) + 1);
             if (window->time - ageRight >= melons[i]->lifeSpan) {
                 spawnRight = true;
                 timeRight = window->time;
@@ -263,7 +263,7 @@ void WatermelonSmash::textStep(Window* window) {
     float yPos = .9;
     float yInc;
 
-    char time[20];
+    char time[30];
     sprintf(time, "Time remaining: 0:%d / 0:30", (int)(window->time - timeStart));
     fontEngine->useFont("caviar", 30);
     fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), time, 0-fontEngine->getTextWidth(time)/2.0, yPos);

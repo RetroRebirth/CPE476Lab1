@@ -110,12 +110,6 @@ bool Booth::checkInteract(glm::vec3 player_pos){
    //if it gets here, player exists in bounds
    if (!active) { // anything you only want done once, put here.
       active = true;
-      // Print out which booth this is
-      if (strcmp(minigame, NO_GAME) == 0) {
-         printf("-- BOOTH UNDER CONSTRUCTION --\n");
-      } else {
-         printf("Press ENTER to play %s!\n", getMinigameDisplayName().c_str());
-      }
    }
    return false;
   //while(true /*The actual interact check would go here*/ ){
