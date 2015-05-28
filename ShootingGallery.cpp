@@ -104,16 +104,22 @@ void ShootingGallery::step(Window* window) {
         float yPos = .3;
         float yInc;
 
-        char ln1[40];
+        char ln1[20];
         sprintf(ln1, "You're out of ammo!");
         fontEngine->useFont("chunk5", 40);
         fontEngine->display(glm::vec4(0.0, 0.0, 0.0, 1.0), ln1, 0-fontEngine->getTextWidth(ln1)/2.0, yPos);
         yInc = fontEngine->getTextHeight(ln1);
         yPos -= (yInc * 2);        
 
-        char scrStr[15];
-        sprintf(scrStr, "Score: %d", score);
-        fontEngine->display(glm::vec4(0.0, 0.0, 0.0, 1.0), scrStr, 0-fontEngine->getTextWidth(scrStr)/2.0, yPos);
+        char ln2[15];
+        sprintf(ln2, "Score: %d", score);
+        fontEngine->display(glm::vec4(0.0, 0.0, 0.0, 1.0), ln2, 0-fontEngine->getTextWidth(ln2)/2.0, yPos);
+
+        yPos -= (2 * yInc);        
+        
+        char ln3[20];
+        sprintf(ln3, "Press ENTER to exit.");
+        fontEngine->display(glm::vec4(0.0, 0.0, 0.0, 1.0), ln3, 0-fontEngine->getTextWidth(ln3)/2.0, yPos);
 
         return;
     }
@@ -207,7 +213,7 @@ void ShootingGallery::textStep(Window* window) {
    float yPos = .9;
    float yInc;
 
-   char time[30];
+   char time[40];
    sprintf(time, "Time remaining: 0:%d / 0:30", 10000);
    fontEngine->useFont("chunk5", 25);
    fontEngine->display(glm::vec4(0.0, 0.0, 0.0, 1.0), time, 0-fontEngine->getTextWidth(time)/2.0, yPos);

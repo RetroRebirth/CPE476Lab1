@@ -93,7 +93,7 @@ bool Camera::checkStaticObjectCollisions(Object* o, glm::vec3* colPlane) {
       booths[i]->checkInteract(player->pos);
       
       if (booths[i]->isActive()) {
-         char ln[50];
+         char ln[60];
          string minigame = booths[i]->getMinigameDisplayName();
          fontEngine->useFont("goodDog", 48);
          sprintf(ln, "Press ENTER to play %s!\n", minigame.c_str());
