@@ -39,13 +39,13 @@ public:
         int num = Util::randF() * 10 + 1;
         if (num <= 5) {         // small = 50% chance, 2 hit break
             maxHits = 2;
-            points = 10;
+            points = 5;
             size = 2.0;
             yPos = 1.3;
             lifeSpan = 3;
         }
         else if (num <= 9) {    // medium = 40% chance, 7 hit break
-            maxHits = 7;
+            maxHits = 6;
             points = 20;
             size = 2.5;
             yPos = 1.5;
@@ -53,7 +53,7 @@ public:
         }
         else if (num <= 10) {   // large = 10% chance, 15 hit break
             maxHits = 15;
-            points = 30;
+            points = 50;
             size = 3.0;
             yPos = 2.0;
             lifeSpan = 5;

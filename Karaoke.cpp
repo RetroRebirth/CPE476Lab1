@@ -13,18 +13,6 @@ Karaoke::Karaoke(GLuint _ShadeProg, Sound* _sound) {
     
     // Set up the booth
     setUp();
-    
-    // Display the game description and rules
-    printf("\t\t----- Welcome to the KARAOKE MACHINE-----\n");
-    printf("\t\tHere you can relax and listen to your favorite anime songs\n");
-    printf("\t\tUse the LEFT and RIGHT arrow keys to choose a song\n");
-    printf("\t\tUse the UP and DOWN arrow keys to choose a difficulty\n");
-    printf("\t\tPress ENTER to start playing the song\n\n");
-    printf("\t\tPress the arrow keys as they appear to earn points\n");
-    printf("\t\tEarn more points for hitting the arrows at the bottom\n");
-    printf("\t\tIf you hit the wrong arrow or miss an arrow you lose points\n");
-    printf("\t\tIf you miss too many arrows, it's GAME OVER!\n\n");
-    printf("\t\tYou can purchase additional songs at the SHOP BOOTH\n");
 }
 
 Karaoke::~Karaoke() {

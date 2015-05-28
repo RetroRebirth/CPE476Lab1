@@ -21,18 +21,6 @@ WatermelonSmash::WatermelonSmash(GLuint _ShadeProg, Program* _particleProg, Came
 
     // Set up the booth
     setUp();
-    
-    // Display the game description and rules
-    printf("\t\t----- Welcome to the WATERMELON SMASH -----\n");
-    printf("\t\tSmash the watermelons as they appear by clicking them.\n");
-    printf("\t\tDestroy bigger watermelons to earn more points!.\n\n");
-    printf("\t\tHitting a watermelon = 1 point\n");
-    printf("\t\tSmall watermelon = 10 points, 2 hits\n");
-    printf("\t\tMedium watermelon = 20 points, 8 hits\n");
-    printf("\t\tLarge watermelon = 30 points, 15 hits\n\n");
-    printf("\t\tYou have 30 seconds to smash as many watermelons as you can!\n");
-    printf("\t\tPress ENTER to start the game!.\n");
-    printf("\t\tOnce you are done, press SPACE to exit.\n\n");
 }
 
 WatermelonSmash::~WatermelonSmash() {
@@ -103,13 +91,10 @@ void WatermelonSmash::checkTime(Window *window) {
     else {
         // Increment the timer every second
         if (window->time - timer >= 1.0) {
-            printf("Time remaining: %d\n", (int)(window->time - timeStart));
             timer = window->time;
         }
         // Check whether the game has ended
         if (window->time - timeStart >= MELON_TIME) {
-            printf("Time's up! Your score is: %d\n", score);
-            printf("You smashed %d watermelons!\n", numMelons);
             gameOver = true;
         }
         // Spawn a watermelon
@@ -218,7 +203,7 @@ void WatermelonSmash::step(Window* window) {
                         score += pointsEarned;
                         
                         // Remove the melon if it was destroyed
-                        if (pointsEarned >= 10) {
+                        if (pointsEarned >= 5) {
                             if (melons[j]->xPos == MELON_LEFT) {
                                 spawnLeft = true;
                                 timeLeft = window->time;

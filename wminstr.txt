@@ -1,13 +1,14 @@
 ----- Welcome to the WATERMELON SMASH -----
 Smash the watermelons as they appear by clicking them.
-Destroy bigger watermelons to earn more points!
+Destroy bigger watermelons to earn more points.
+Watermelons wilt over time, so work quickly!
 
 Hitting a watermelon = 1 point
-Small watermelon = 10 points, 2 hits
-Medium watermelon = 20 points, 8 hits
-Large watermelon = 30 points, 15 hits
+Small watermelon = 5 points, 2 hits
+Medium watermelon = 20 points, 6 hits
+Large watermelon = 50 points, 15 hits
 You have 30 seconds to smash as many watermelons as you can!
 
 Press ENTER to start the game!
-Once you are done, press SPACE to exit.
+Press SPACE to quit at any time.
 
