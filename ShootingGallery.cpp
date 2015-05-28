@@ -17,6 +17,11 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Sound* _sound) {
    gun->setPos(glm::vec3(0.0, 1.0, 1.0));
    gun->setShadows(false);
 
+   tempFix = new Object(shapes, materials, ShadeProg);
+   tempFix->load("objs/target.obj");
+   tempFix->setShadows(false);
+   tempFix->setPos(glm::vec3(0.0, 0.0, -1.0));
+
    sound = _sound;
    gameStart = gameOver = false;
 
@@ -91,6 +96,7 @@ void ShootingGallery::printInstructions() {
 }
 
 void ShootingGallery::step(Window* window) {
+    tempFix->draw();
     wall->draw();
     gun->draw();
     

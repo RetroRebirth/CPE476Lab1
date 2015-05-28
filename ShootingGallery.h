@@ -42,6 +42,7 @@ class ShootingGallery {
       void exit();
       void printInstructions();
       void textStep(Window* window);
+      Object* tempFix; // Permament target that is off screen so background doesn't flicker
 };
 
 #endif
