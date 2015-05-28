@@ -257,10 +257,10 @@ void Karaoke::step(Window* window) {
     }
     
     // Display the score
-    char scrStr[15];
-    sprintf(scrStr, "score: %d", score);
-    fontEngine->useFont("amatic", 48);
-    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), scrStr, 0-fontEngine->getTextWidth(scrStr)/2.0, 0.55);
+    char scrStr[20];
+    sprintf(scrStr, "Score: %d", score);
+    fontEngine->useFont("amatic", 40);
+    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), scrStr, 1-fontEngine->getTextWidth(scrStr)-.07, .9);
 }
 
 // Chooses a song on song selection menu
