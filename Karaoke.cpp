@@ -208,7 +208,7 @@ void Karaoke::step(Window* window) {
         fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), msg1, 0-fontEngine->getTextWidth(msg1)/2.0, -0.48);
         
         // Display the song name
-        char msg2[30], lock[6];
+        char msg2[40], lock[10];
         if (!sound->getSongInfo(curSong).unlocked)
             sprintf(lock, "(%d)", sound->getSongInfo(curSong).price);
         else
@@ -223,16 +223,42 @@ void Karaoke::step(Window* window) {
     }
     // Game has ended; display the score
     if (gameOver) {
+        float yPos = .5;
+        float yInc;
+        float percent;
+        
         /* DISPLAY GAME OVER INFO HERE: */
         // FINISH!
-        // ------------
+        char ln1[15];
+        sprintf(ln1, "FINISH!");
+        fontEngine->useFont("amatic", 52);
+        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln1, 0-fontEngine->getTextWidth(ln1)/2.0, yPos);
+        yInc = fontEngine->getTextHeight(ln1) * 1.3;
+        yPos -= (yInc * 2);
+        
         // [Song Name]
+        char ln2[40];
+        sprintf(ln2, "%s", sound->getSongInfo(curSong).song_name);
+        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln2, 0-fontEngine->getTextWidth(ln2)/2.0, yPos);
+        yPos -= yInc;
         // Your score is: score
-        //
-        // PERFECTS = numPerfect
-        // GOODS = numGood
-        // BADS = numBad
+        char ln3[30];
+        sprintf(ln3, "Your score is: %d", score);
+        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln3, 0-fontEngine->getTextWidth(ln3)/2.0, yPos);
+        yPos -= (yInc * 2);
+
+        // PERFECTS = numPerfect GOODS = numGood BADS = numBad
+        char ln4[50];
+        sprintf(ln4, "PERFECTS: %d     GOODS: %d     BADS: %d", numPerfect, numGood, numBad);
+        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln4, 0-fontEngine->getTextWidth(ln4)/2.0, yPos);
+        yPos -= (yInc * 2);
+        
         // Percent = 100 * ((numGood + numPerfect) / (numGood + numPerfect + numBad))
+        percent = 100 * (((numGood + numPerfect) * 1.0) / ((numGood + numPerfect + numBad) * 1.0));
+        char ln5[20];
+        sprintf(ln5, "FINAL GRADE: %d", (int)percent);
+        fontEngine->useFont("capture", 70);
+        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln5, 0-fontEngine->getTextWidth(ln5)/2.0, yPos);
         return;
     }
     checkTime(window);
@@ -256,17 +282,23 @@ void Karaoke::step(Window* window) {
         gameOver = true;
     }
     
-    // Display the score
-    
+    textStep();
+}
+
+void Karaoke::textStep() {
+    float yPos = .9;
+    float yInc;
+   
+    // Display the score  
     char scrStr[20];
     sprintf(scrStr, "Score: %d", score);
     fontEngine->useFont("amatic", 40);
-    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), scrStr, 1-fontEngine->getTextWidth(scrStr)-.07, .9);
-    float yInc = fontEngine->getTextHeight(scrStr) * 1.3;
+    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), scrStr, 1-fontEngine->getTextWidth(scrStr)-.07, yPos);
+    yInc = fontEngine->getTextHeight(scrStr) * 1.3;
     
     char bpmStr[20];
     sprintf(bpmStr, "BPM: %.2lf", bpm);
-    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), bpmStr, 1-fontEngine->getTextWidth(bpmStr)-.07, .9-yInc);
+    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), bpmStr, 1-fontEngine->getTextWidth(bpmStr)-.07, yPos-yInc);
 }
 
 // Chooses a song on song selection menu

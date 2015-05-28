@@ -77,6 +77,7 @@ private:
     
     // Text functions
     void printInstructions();
+    void textStep();
 };
 
 #endif
