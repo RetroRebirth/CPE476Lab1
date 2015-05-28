@@ -97,10 +97,13 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
       if (session->getGameState() == WORLD_STATE) {
          session->enterMinigame();
       }
-      // Start the minigame if in the minigame
+      // Start or exit the minigame if in the minigame
       else if (session->getGameState() == MINIGAME_STATE) {
          if (!session->gameStarted()) {
             session->startMinigame();
+         }
+         if (session->gameEnded()) {
+            session->leaveMinigame();
          }
       }
       break;

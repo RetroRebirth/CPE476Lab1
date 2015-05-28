@@ -72,4 +72,3 @@ void Minigame::mouseMove(double xpos, double ypos, int width, int height) {
    if (shootingGallery != NULL)
       shootingGallery->mouseMove(xpos, ypos, width, height);
 }
-

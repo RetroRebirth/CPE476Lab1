@@ -27,7 +27,7 @@ World::World(GLuint _ShadeProg, Camera* _camera) {
    camera = _camera;
    initGround();
    setupOverWorld();
-   createExtras(EXTRA_FILE_NAME, TEX_KAITO);
+   createExtras((char *)"objs/squish_blue.obj", TEX_SQUISH_BLUE);
    
    // initialize time and gravity for particles
    t = 0.0f;
@@ -584,7 +584,7 @@ void World::setupOverWorld() {
       booths[i]->calculateBoundingBox();
    }
     
-   createPlayer(PLAYER_FILE_NAME, TEX_MIKU);
+   createPlayer((char *)"objs/squish_red.obj", TEX_SQUISH_RED);
 }
 
 /* Read in a map file and parse based on defined by-line format */
@@ -692,6 +692,8 @@ void World::createExtras(const string &meshName, int texID) {
       extra->object = new Object(shapes, materials, ShadeProg);
       extra->object->load(meshName);
       extra->object->setTexture(texID);
+      extra->object->scale(glm::vec3(2.0f, 2.0f, 2.0f));
+      extra->object->translate(glm::vec3(0.0f, 0.4f, 0.0f));
       
       extra->object->setDir(glm::vec3(0.0f, 0.0f, 1.0f));
       extra->rest = 10;
@@ -709,6 +711,8 @@ void World::createPlayer(const string &meshName, int texID) {
    player = new Object(shapes, materials, ShadeProg);
    player->load(meshName);
    player->setTexture(texID);
+   //player->scale(glm::vec3(2.0f, 2.0f, 2.0f));
+   //player->translate(glm::vec3(0.0f, 0.4f, 0.0f));
    camera->initPlayer(player);
    
    playerXZRad = player->getXZRadius();

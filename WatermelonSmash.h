@@ -107,7 +107,6 @@ public:
     vector<vector<Particle*> > explosionsStarted;
     
     void particleStep() {
-       printf("in particle step\n");
        // Display every 60 Hz
 	   t += h;
       
@@ -138,19 +137,16 @@ public:
          std::sort(v.begin(), v.end(), sorter);
                
 	      for (int i=0; i<v.size(); ++i) {
-	         printf("check 1\n");
 	         v[i]->update(t, h, g);
 	         if (v[i] != NULL && v[i]->cycles < 1) {
 		         v[i]->draw(&MV);
 		      }
-		      printf("check 2\n");
 		   }
 		   j++;
 	   }
 	   
 	   // Unbind the program
 	   particleProg->unbind();
-	   printf("exiting particle step\n");
    }
     
     // getters

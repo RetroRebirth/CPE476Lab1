@@ -66,12 +66,24 @@ ShootingGallery::~ShootingGallery() {
 }
 
 void ShootingGallery::step(Window* window) {
+    wall->draw();
+    gun->draw();
+    
+    if (!gameStart) {
+        // DISPLAY INSTRUCTIONS
+        return;
+    }
+    if (gameOver) {
+        // DISPLAY SCORE
+        return;
+    }
+    
    // Decrement the done timer if it has been set
    if (doneTimer > 0) {
       doneTimer -= window->dt;
       // If our finished game timer is done, exit the minigame
       if (doneTimer <= 0) {
-         exit();
+          gameOver = true;
       }
    }
 
@@ -147,8 +159,6 @@ void ShootingGallery::step(Window* window) {
          --i;
       }
    }
-   wall->draw();
-   gun->draw();
 }
 
 void ShootingGallery::mouseClick(glm::vec3 direction, glm::vec4 point) {

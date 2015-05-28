@@ -31,6 +31,7 @@ class Session {
       int getGameState() { return game_state; };
       void toggleDrawWorld();
       bool gameStarted() { return game_start; }
+      bool gameEnded() { return minigame->getGameOver(); }
       void startMinigame();
    
    private:

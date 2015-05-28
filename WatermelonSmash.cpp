@@ -136,11 +136,20 @@ void WatermelonSmash::step(Window* window) {
     for (int i = 0; i < misc_objects.size(); i++) 
         misc_objects[i]->draw();
     
-    // Check how much time has passed and whether game is playing
-    if (gameOver || !gameStart) {
+    // Check whether game is playing
+    if (!gameStart) {
+        // PRINT INSTRUCTIONS HERE //
+        
         ageRight = ageLeft = window->time;
         return;
     }
+    if (gameOver) {
+        // TIME'S UP //
+        // Score = x //
+        // Watermelons Destroyed: x //
+        return;
+    }
+    
     checkTime(window);
     
     // Draw the watermelons and hammer
@@ -154,6 +163,7 @@ void WatermelonSmash::step(Window* window) {
             if (window->time - ageLeft >= melons[i]->lifeSpan) {
                 spawnLeft = true;
                 timeLeft = window->time;
+                sound->playBuzzerSound();
                 melons.erase(melons.begin() + i--);
             }
         }
@@ -161,6 +171,7 @@ void WatermelonSmash::step(Window* window) {
             if (window->time - ageRight >= melons[i]->lifeSpan) {
                 spawnRight = true;
                 timeRight = window->time;
+                sound->playBuzzerSound();
                 melons.erase(melons.begin() + i--);
             }
         }

@@ -154,12 +154,8 @@ void Karaoke::checkTime(Window *window) {
         }
         else {
             // Check whether the game has ended
-            if (window->time - timeStart >= songDuration) {
-                printf("Time's up! Your score is: %d\n", score);
-                printf("BAD: %d\nGOOD: %d\nPERFECT: %d\n", numBad, numGood, numPerfect);
-                printf("Percentage: %.2f\n", (double)(numGood + numPerfect) / (numGood + numPerfect + numBad) * 100.0);
+            if (window->time - timeStart >= songDuration)
                 gameOver = true;
-            }
             // Add a new arrow
             else if (curTarget == -1) {
                 addArrow();
@@ -208,6 +204,20 @@ void Karaoke::step(Window* window) {
         fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), msg2, 0-fontEngine->getTextWidth(msg2)/2.0, 0.53);
         
         // Don't do anything; wait for the song to start
+        return;
+    }
+    // Game has ended; display the score
+    if (gameOver) {
+        /* DISPLAY GAME OVER INFO HERE: */
+        // FINISH!
+        // ------------
+        // [Song Name]
+        // Your score is: score
+        //
+        // PERFECTS = numPerfect
+        // GOODS = numGood
+        // BADS = numBad
+        // Percent = 100 * ((numGood + numPerfect) / (numGood + numPerfect + numBad))
         return;
     }
     checkTime(window);

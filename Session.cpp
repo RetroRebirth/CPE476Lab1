@@ -150,7 +150,7 @@ void Session::step() {
    }
 
    if (minigame->getGameOver()) {
-      leaveMinigame();
+      //leaveMinigame();
    }
 
    // Disable and unbind
