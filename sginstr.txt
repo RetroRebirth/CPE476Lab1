@@ -1,8 +1,8 @@
 ----- Welcome to the SHOOTING GALLERY -----
 Test your skills by shooting your targets as they appear!
 
-Ammo: 10 
-Time: 30 seconds
+Ammo: 20 
+Time: unlimited
 
 Press ENTER to start the game!
 Press SPACE to quit at any time.

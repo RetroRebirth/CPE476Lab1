@@ -147,6 +147,8 @@ const string Booth::getMinigameDisplayName() {
       return "SHOOTING GALLERY";
    } else if (strcmp(minigame, WATERMELON_SMASH) == 0) {
       return "WATERMELON SMASH";
+   } else if (strcmp(minigame, KARAOKE) == 0) {
+      return "KARAOKE";
    } else {
       // Booth doesn't have a minigame OR we haven't created a display name for it
       return "-- BOOTH UNDER CONSTRUCTION --";
