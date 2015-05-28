@@ -34,11 +34,6 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Sound* _sound) {
    ammo = 20;
    timeLimit = -1; // Unlimited
 
-   printf("\t\t----- Welcome to the SHOOTING GALLERY -----\n");
-   printf("\t\tTest your skills by shooting your targets as they appear!\n");
-   printf("\n");
-   printf("\t\tAmmo: %d\tTime: Unlimited\n", ammo);
-   printf("\t\tIf you would like to leave early, press SPACE to exit.\n\n");
 }
 
 void ShootingGallery::newTarget(){
@@ -118,19 +113,19 @@ void ShootingGallery::step(Window* window) {
         char ln1[20];
         sprintf(ln1, "You're out of ammo!");
         fontEngine->useFont("chunk5", 40);
-        fontEngine->display(glm::vec4(0.0, 0.0, 0.0, 1.0), ln1, 0-fontEngine->getTextWidth(ln1)/2.0, yPos);
+        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln1, 0-fontEngine->getTextWidth(ln1)/2.0, yPos);
         yInc = fontEngine->getTextHeight(ln1);
         yPos -= (yInc * 2);        
 
         char ln2[15];
         sprintf(ln2, "Score: %d", score);
-        fontEngine->display(glm::vec4(0.0, 0.0, 0.0, 1.0), ln2, 0-fontEngine->getTextWidth(ln2)/2.0, yPos);
+        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln2, 0-fontEngine->getTextWidth(ln2)/2.0, yPos);
 
         yPos -= (2 * yInc);        
         
         char ln3[20];
         sprintf(ln3, "Press ENTER to exit.");
-        fontEngine->display(glm::vec4(0.0, 0.0, 0.0, 1.0), ln3, 0-fontEngine->getTextWidth(ln3)/2.0, yPos);
+        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln3, 0-fontEngine->getTextWidth(ln3)/2.0, yPos);
 
         return;
     }
@@ -205,8 +200,7 @@ void ShootingGallery::step(Window* window) {
                   bullets[i]->setDir(glm::vec3(0.0, 1.0, 0.0));
                   bullets[i]->setSpeed(1.0);
                   bullets[i]->setAccel(-10.0);
-                  // Report the score
-                  printf("\t\tHit a target! Score: %d\n", ++score);
+                  score++;
                }
             }
          }
@@ -227,16 +221,16 @@ void ShootingGallery::textStep(Window* window) {
    char time[40];
    sprintf(time, "Time remaining: 0:%d / 0:30", 10000);
    fontEngine->useFont("chunk5", 25);
-   fontEngine->display(glm::vec4(0.0, 0.0, 0.0, 1.0), time, 0-fontEngine->getTextWidth(time)/2.0, yPos);
+   fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), time, 0-fontEngine->getTextWidth(time)/2.0, yPos);
    yInc = fontEngine->getTextHeight(time) * 1.3;
 
    char scrStr[15];
    sprintf(scrStr, "Score: %d", score);
-   fontEngine->display(glm::vec4(0.0, 0.0, 0.0, 1.0), scrStr, 1-fontEngine->getTextWidth(scrStr)-.07, yPos);
+   fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), scrStr, 1-fontEngine->getTextWidth(scrStr)-.07, yPos);
 
    char ammoStr[15];
    sprintf(ammoStr, "Ammo: %d", ammo);
-   fontEngine->display(glm::vec4(0.0, 0.0, 0.0, 1.0), ammoStr, 1-fontEngine->getTextWidth(ammoStr)-.07, yPos - yInc);
+   fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ammoStr, 1-fontEngine->getTextWidth(ammoStr)-.07, yPos - yInc);
 }
 
 void ShootingGallery::mouseClick(glm::vec3 direction, glm::vec4 point) {
@@ -257,7 +251,6 @@ void ShootingGallery::mouseClick(glm::vec3 direction, glm::vec4 point) {
    bullets.push_back(bullet);
    // Decrement and print ammo
    ammo--;
-   printf("\t\tAmmo: %d\n", ammo);
    // If run out of ammo, set a timer for the game to finish
    if (ammo <= 0) {
       finished();
@@ -270,8 +263,6 @@ void ShootingGallery::mouseClick(glm::vec3 direction, glm::vec4 point) {
 void ShootingGallery::finished() {
    doneTimer = 2.0f; // 2 seconds
    // Tell the user the game is done and we will be exiting
-   printf("\t\tFINISHED! Final score: %d\n", score);
-   printf("\t\tGame will exit in %lf seconds OR press SPACE to exit.\n", doneTimer);
 }
 
 void ShootingGallery::exit() {

@@ -9,7 +9,7 @@ Baccano.OP		sounds/Baccano_OP.wav		videos/Baccano_OP.mp4		textures/karaoke/bacca
 Code.Geass.ED1		sounds/Code_Geass_ED1.wav	videos/Code_Geass_ED1.mp4	textures/karaoke/code_geass_ed1.bmp		126.06	0
 Death.Note.OP1		sounds/Death_Note_OP1.wav	videos/Death_Note_OP1.mp4	textures/karaoke/death_note_op1.bmp		134.94	0
 Death.Note.OP2		sounds/Death_Note_OP2.wav	videos/Death_Note_OP2.mp4	textures/karaoke/death_note_op2.bmp		135.16	0
-Samurai.Flamenco.OP2	sounds/Samurai_Flamenco_OP2.wav	videos/Samurai_Flamenco_OP2.mp4	textures/karaoke/samurai_flamenco_op2.bmp	160.99	0
+Samurai.Flamenco.OP2	sounds/Samurai_Flamenco_OP2.wav	videos/Samurai_Flamenco_OP2.mp4	textures/karaoke/samurai_flamenco_op2.bmp	159.99	0
 Shinsekai.Yori.ED1	sounds/Shinsekai_Yori_ED1.wav	videos/Shinsekai_Yori_ED1.mp4	textures/karaoke/shinsekai_yori_ed1.bmp		120.01	0
 Shinsekai.Yori.ED2	sounds/Shinsekai_Yori_ED2.wav	videos/Shinsekai_Yori_ED2.mp4	textures/karaoke/shinsekai_yori_ed2.bmp		139.95	0
 Terror.In.Resonance.ED	sounds/TerrorInResonance_ED.wav videos/TerrorInResonance_ED.mp4	textures/karaoke/terror_in_resonance_ed.bmp	131.46	0
@@ -18,10 +18,9 @@ Tokyo.Ghoul.ED		sounds/Tokyo_Ghoul_ED.wav	videos/Tokyo_Ghoul_ED.mp4	textures/kar
 # - MOVIE MUSIC———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 Spirited.Away		sounds/Spirited_Away.wav	videos/Spirited_Away.mp4	textures/karaoke/spirited_away.bmp		98.84	3000
 Castle.In.The.Sky	sounds/Castle_In_The_Sky.wav	videos/Castle_In_The_Sky.mp4	textures/karaoke/castle_in_the_sky.bmp		123.91	3000
-#Howls.Moving.Castle	sounds/Howls_Moving_Castle.wav	videos/Howls_Moving_Castle.mp4	textures/karaoke/howls_moving_castle.bmp	114.80	3000
+Howls.Moving.Castle	sounds/Howls_Moving_Castle.wav	videos/Howls_Moving_Castle.mp4	textures/karaoke/howls_moving_castle.bmp	114.80	3000
 #Princess.Mononoke	sounds/Princess_Mononoke.wav	videos/Princess_Mononoke.mp4	textures/karaoke/princess_mononoke.bmp		103.31	3000
 # - VIDEO GAME MUSIC —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 One.Winged.Angel	sounds/FF7_Sephiroth.wav	videos/FF7_Sephiroth.mp4	textures/karaoke/final_fantasy_7.bmp		123.02	5000
-Eternal.Love		sounds/FF13_EternalLove.wav	videos/FF13_EternalLove.mp4	textures/karaoke/final_fantasy_13.bmp		88.0	3000
-#He.Of.The.Name		sounds/BD_Name.wav		videos/				textures/karaoke/bravely_default.bmp		157.60	3000
-#The.Snake.that.Devours.the.Horizon sounds/BD_Serpent.wav videos/			textures/karaoke/bravely_default.bmp		125.84	5000
+Melodies.Of.Life	sounds/FF9_Melodies.wav		videos/FF9_Melodies.mp4		textures/karaoke/final_fantasy_9.bmp		136.06	5000
+Eternal.Love		sounds/FF13_EternalLove.wav	videos/FF13_EternalLove.mp4	textures/karaoke/final_fantasy_13.bmp		88.0	5000

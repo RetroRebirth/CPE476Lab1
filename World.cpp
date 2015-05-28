@@ -711,8 +711,8 @@ void World::createPlayer(const string &meshName, int texID) {
    player = new Object(shapes, materials, ShadeProg);
    player->load(meshName);
    player->setTexture(texID);
-   player->scale(glm::vec3(3.0f, 3.0f, 3.0f));
-   //player->translate(glm::vec3(0.0f, 0.4f, 0.0f));
+   player->scale(glm::vec3(2.5f, 2.5f, 2.5));
+   player->translate(glm::vec3(0.0f, -0.4f, 0.0f));
    camera->initPlayer(player);
    
    playerXZRad = player->getXZRadius();
