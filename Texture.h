@@ -69,8 +69,9 @@ private:
 #define TEX_SQUISH_BLUE 18
 #define TEX_SQUISH_RED 19
 #define TEX_SQUISH_PURPLE 20
+#define TEX_STEEL 21
 
-#define NUM_TEXTURES 21
+#define NUM_TEXTURES 22
 extern Texture textures[NUM_TEXTURES];
 void loadAllTextures();
 #endif

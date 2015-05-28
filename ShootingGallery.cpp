@@ -13,9 +13,11 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Sound* _sound) {
 
    // Create a gun to shoot from
    gun = new Object(shapes, materials, ShadeProg);
-   gun->load("objs/MadMax_gun.obj");
+   gun->load("objs/rifle.obj");
    gun->setPos(glm::vec3(0.0, 1.0, 1.0));
    gun->setShadows(false);
+   gun->scale(glm::vec3(4.0f, 4.0f, 1.0f));
+   gun->setTexture(TEX_STEEL);
 
    tempFix = new Object(shapes, materials, ShadeProg);
    tempFix->load("objs/target.obj");
@@ -68,6 +70,9 @@ ShootingGallery::~ShootingGallery() {
    for(int i = 0; i < bullets.size(); ++i){
       delete bullets[i];
    }
+   delete wall;
+   delete gun;
+   delete tempFix;
 }
 
 void ShootingGallery::printInstructions() {
@@ -283,9 +288,9 @@ void ShootingGallery::mouseMove(double xpos, double ypos, int width, int height)
 
    // Rotate gun to follow mouse (binded to 45 degrees)
    gun->iterativeRotate(0.0f, glm::vec3(0.0, 0.0, 0.0));
-   double rotateY = (-45.0 * x) + 180.0;
+   double rotateY = (-45.0 * x);
    gun->iterativeRotate(rotateY, glm::vec3(0.0, 1.0, 0.0));
-   double rotateX = 30.0 * y;
+   double rotateX = -30.0 * y;
    gun->iterativeRotate(rotateX, glm::vec3(1.0, 0.0, 0.0));
 }
 

@@ -26,7 +26,8 @@ void loadAllTextures()
         (char *)"textures/kaito.bmp",
         (char *)"textures/bgPerson.bmp",
         (char *)"textures/girlPerson.bmp",
-        (char *)"textures/sidePerson.bmp"
+        (char *)"textures/sidePerson.bmp",
+        (char *)"textures/steel.bmp"
     };
     // load the textures
     for (int i = 0; i < NUM_TEXTURES; i++)
