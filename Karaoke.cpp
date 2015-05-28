@@ -41,6 +41,13 @@ void Karaoke::setUp() {
     arrow->scale(glm::vec3(1.0, 1.0, 1.0));
     arrow->setPos(glm::vec3(2.0, 3.5, 1.0));
     arrow->setShadows(false);
+    
+    // Load countdown textures beforehand for performance
+    Texture countdownTex;
+    countdownTex.loadTexture((char *)"textures/countdown4.bmp", 104, true);
+    countdownTex.loadTexture((char *)"textures/countdown3.bmp", 103, true);
+    countdownTex.loadTexture((char *)"textures/countdown2.bmp", 102, true);
+    countdownTex.loadTexture((char *)"textures/countdown1.bmp", 101, true);
 }
 
 void Karaoke::addCharacter(char *file, int tex, float xPos) {
@@ -106,7 +113,7 @@ void Karaoke::drawVideo(Window* window) {
     if (success) {
         Texture newTex;
         newTex.loadTexture(frame, 100);
-        screen->setTexture(100);
+        screen->setTexture(texture_id);
     }
 }
 
@@ -130,20 +137,31 @@ void Karaoke::checkTime(Window *window) {
                 screen->rotate(180.0f, glm::vec3(1.0, 0.0, 0.0));
                 gameStart = true;
                 timeStart = timeFrame = window->time;
+                texture_id = 100;
             }
-            else if (window->time - timeStart >= 3.0 && characters.size() < 4)
+            else if (window->time - timeStart >= 3.0 && characters.size() < 4) {
                 addCharacter((char *)"objs/kaito.obj", TEX_KAITO, -2.0);
-            else if (window->time - timeStart >= 2.0 && characters.size() < 3)
+                texture_id = 101;
+            }
+            else if (window->time - timeStart >= 2.0 && characters.size() < 3) {
                 addCharacter((char *)"objs/len.obj", TEX_LEN, -0.7);
-            else if (window->time - timeStart >= 1.0 && characters.size() < 2)
+                texture_id = 102;
+            }
+            else if (window->time - timeStart >= 1.0 && characters.size() < 2) {
                 addCharacter((char *)"objs/rin.obj", TEX_RIN, 0.7);
-            else if (window->time - timeStart >= 0.0 && characters.size() < 1)
+                texture_id = 103;
+            }
+            else if (window->time - timeStart >= 0.0 && characters.size() < 1) {
                 addCharacter((char *)"objs/miku.obj", TEX_MIKU, 2.0);
+                texture_id = 104;
+            }
         }
         else {
             // Check whether the game has ended
-            if (window->time - timeStart >= songDuration)
+            if (window->time - timeStart >= songDuration) {
                 gameOver = true;
+                sound->pauseSong();
+            }
             // Add a new arrow
             else if (curTarget == -1) {
                 addArrow();
@@ -280,6 +298,7 @@ void Karaoke::step(Window* window) {
     // Check for game over
     if (score < -10 * speed) {
         gameOver = true;
+        sound->pauseSong();
     }
     
     textStep();
@@ -335,7 +354,8 @@ void Karaoke::selectCharacter(int target) {
     // Hit the right arrow
     if (target == curTarget) {
         // Check whether a "PERFECT" score was earned
-        if (arrowPos <= -1.80) {
+        if (arrowPos <= -1.70) {
+            sound->playJumpSound();
             //sound->playContactSound();
             score += speed * 2;
             numPerfect++;

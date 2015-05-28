@@ -64,6 +64,7 @@ private:
     VideoCapture cap;
     float fps;
     float timeFrame;
+    int texture_id;
     
     // Minigame functions
     void checkTime(Window *window);

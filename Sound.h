@@ -31,6 +31,7 @@ public:
     void initSound();
     void playBackgroundMusic();
     float playKaraokeMusic(int song);
+    void pauseSong();
     
     int getSongDuration();
     Song getSongInfo(int song) { return karaoke_songs[song]; }

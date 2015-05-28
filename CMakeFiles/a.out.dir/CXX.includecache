@@ -17,6 +17,8 @@ Object.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
 Texture.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
+FontEngine.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Camera.cpp
 Camera.h
@@ -273,6 +275,10 @@ Sound.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
+opencv2/opencv.hpp
+-
+opencv2/highgui/highgui.hpp
+-
 includes.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
 Texture.h
@@ -283,6 +289,10 @@ Texture.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
+opencv2/opencv.hpp
+-
+opencv2/highgui/highgui.hpp
+-
 includes.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
 
