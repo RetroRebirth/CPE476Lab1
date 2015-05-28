@@ -131,6 +131,31 @@ void WatermelonSmash::checkTime(Window *window) {
     }
 }
 
+void WatermelonSmash::printInstructions() {
+   ifstream instrFile;
+   instrFile.open("wminstr.txt");
+   string line;
+   float yPos = .8;
+   float yInc;
+   
+   fontEngine->useFont("amatic", 48);
+   yInc = fontEngine->getTextHeight("blank") * 1.3;
+   
+   if (instrFile.is_open()) {
+      while (getline(instrFile, line)) {
+         if (line[0] == '\n') {
+            yPos -= yInc;
+         }
+         
+         yPos -= yInc;
+         fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), line.c_str(), 0-fontEngine->getTextWidth(line.c_str())/2.0, yPos);
+      }
+   }
+   else {
+      printf("file 'wminstr.txt' was not available or could not be opened\n");
+   }
+}
+
 void WatermelonSmash::step(Window* window) {
     // Draw the booth
     for (int i = 0; i < misc_objects.size(); i++) 
@@ -139,7 +164,7 @@ void WatermelonSmash::step(Window* window) {
     // Check whether game is playing
     if (!gameStart) {
         // PRINT INSTRUCTIONS HERE //
-        
+        printInstructions();        
         ageRight = ageLeft = window->time;
         return;
     }

@@ -179,6 +179,31 @@ void Karaoke::checkTime(Window *window) {
     }
 }
 
+void Karaoke::printInstructions() {
+   ifstream instrFile;
+   instrFile.open("krkinstr.txt");
+   string line;
+   float yPos = .5;
+   float yInc;
+   
+   fontEngine->useFont("amatic", 30);
+   yInc = fontEngine->getTextHeight("blank") * 1.3;
+   
+   if (instrFile.is_open()) {
+      while (getline(instrFile, line)) {
+         if (line[0] == '\n') {
+            yPos -= yInc;
+         }
+         
+         yPos -= yInc;
+         fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), line.c_str(), 0-fontEngine->getTextWidth(line.c_str())/2.0, yPos);
+      }
+   }
+   else {
+      printf("file 'wminstr.txt' was not available or could not be opened\n");
+   }
+}
+
 void Karaoke::step(Window* window) {
     // Draw the booth
     screen->draw();
@@ -202,6 +227,8 @@ void Karaoke::step(Window* window) {
             sprintf(lock, " ");
         sprintf(msg2, "%s %s", sound->getSongInfo(curSong).song_name, lock);
         fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), msg2, 0-fontEngine->getTextWidth(msg2)/2.0, 0.53);
+        
+        printInstructions();
         
         // Don't do anything; wait for the song to start
         return;

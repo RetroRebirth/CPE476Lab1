@@ -238,6 +238,7 @@ private:
     void newMelon(float xPos);
     void checkTime(Window *window);
     void setUp();
+    void printInstructions();
 };
 
 #endif

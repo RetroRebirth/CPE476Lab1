@@ -74,6 +74,9 @@ private:
     // Video functions
     void initVideo();
     void drawVideo(Window *window);
+    
+    // Text functions
+    void printInstructions();
 };
 
 #endif
