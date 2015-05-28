@@ -6,6 +6,7 @@
 #include "Texture.h"
 #include "Window.h"
 #include "Sound.h"
+#include "FontEngine.h"
 
 #define DEPTH 3.0
 #define BULLET_SPD 20.0
@@ -39,6 +40,8 @@ class ShootingGallery {
       float timeLimit;
       void finished();
       void exit();
+      void printInstructions();
+      void textStep(Window* window);
 };
 
 #endif

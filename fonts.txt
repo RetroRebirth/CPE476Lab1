@@ -4,3 +4,4 @@ seaside Fonts/SEASRN__.ttf
 amatic Fonts/Amatic-Bold.ttf
 capture Fonts/Capture_it.ttf
 caviar Fonts/Caviar_Dreams_Bold.ttf
+chunk5 Fonts/Chunkfive.otf

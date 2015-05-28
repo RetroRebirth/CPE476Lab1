@@ -65,16 +65,56 @@ ShootingGallery::~ShootingGallery() {
    }
 }
 
+void ShootingGallery::printInstructions() {
+   ifstream instrFile;
+   instrFile.open("sginstr.txt");
+   string line;
+   float yPos = .45;
+   float yInc;
+   
+   fontEngine->useFont("chunk5", 35);
+   yInc = fontEngine->getTextHeight("blank") * 1.3;
+   
+   if (instrFile.is_open()) {
+      while (getline(instrFile, line)) {
+         if (line[0] == '\n') {
+            yPos -= yInc;
+         }
+         
+         yPos -= yInc;
+         fontEngine->display(glm::vec4(0.0, 0.0, 0.0, 1.0), line.c_str(), 0-fontEngine->getTextWidth(line.c_str())/2.0, yPos);
+      }
+   }
+   else {
+      printf("file 'sginstr.txt' was not available or could not be opened\n");
+   }
+}
+
 void ShootingGallery::step(Window* window) {
     wall->draw();
     gun->draw();
     
     if (!gameStart) {
         // DISPLAY INSTRUCTIONS
+        printInstructions();
+        
         return;
     }
     if (gameOver) {
-        // DISPLAY SCORE
+        float yPos = .3;
+        float yInc;
+
+        char ln1[40];
+        sprintf(ln1, "You're out of ammo!");
+        fontEngine->useFont("chunk5", 40);
+        fontEngine->display(glm::vec4(0.0, 0.0, 0.0, 1.0), ln1, 0-fontEngine->getTextWidth(ln1)/2.0, yPos);
+        yInc = fontEngine->getTextHeight(ln1);
+        yPos -= (yInc * 2);        
+
+        char scrStr[15];
+        sprintf(scrStr, "Score: %d", score);
+        fontEngine->display(glm::vec4(0.0, 0.0, 0.0, 1.0), scrStr, 0-fontEngine->getTextWidth(scrStr)/2.0, yPos);
+
         return;
     }
     
@@ -159,6 +199,27 @@ void ShootingGallery::step(Window* window) {
          --i;
       }
    }
+   
+   textStep(window);
+}
+
+void ShootingGallery::textStep(Window* window) {
+   float yPos = .9;
+   float yInc;
+
+   char time[30];
+   sprintf(time, "Time remaining: 0:%d / 0:30", 10000);
+   fontEngine->useFont("chunk5", 25);
+   fontEngine->display(glm::vec4(0.0, 0.0, 0.0, 1.0), time, 0-fontEngine->getTextWidth(time)/2.0, yPos);
+   yInc = fontEngine->getTextHeight(time) * 1.3;
+
+   char scrStr[15];
+   sprintf(scrStr, "Score: %d", score);
+   fontEngine->display(glm::vec4(0.0, 0.0, 0.0, 1.0), scrStr, 1-fontEngine->getTextWidth(scrStr)-.07, yPos);
+
+   char ammoStr[15];
+   sprintf(ammoStr, "Ammo: %d", ammo);
+   fontEngine->display(glm::vec4(0.0, 0.0, 0.0, 1.0), ammoStr, 1-fontEngine->getTextWidth(ammoStr)-.07, yPos - yInc);
 }
 
 void ShootingGallery::mouseClick(glm::vec3 direction, glm::vec4 point) {
