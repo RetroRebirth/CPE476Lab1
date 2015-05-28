@@ -163,8 +163,10 @@ void Session::step() {
    }
    camera->step(window);
    
+   char txt[30];
+   sprintf(txt, "Japanese Festival!");
    fontEngine->useFont("goodDog", 48);
-   //fontEngine->display(glm::vec4(0.99, 0.96, 0.55, 1.0), "Japanese Festival!", -1.0, 0.9);
+   fontEngine->display(glm::vec4(0.99, 0.96, 0.55, 1.0), txt, -1.0, 0.9);
 }
 
 Camera* Session::getCamera() {

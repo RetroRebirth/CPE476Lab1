@@ -117,7 +117,7 @@ void WatermelonSmash::checkTime(Window *window) {
 }
 
 void WatermelonSmash::printInstructions() {
-   /*ifstream instrFile;
+   ifstream instrFile;
    instrFile.open("wminstr.txt");
    string line;
    float yPos = .8;
@@ -138,7 +138,7 @@ void WatermelonSmash::printInstructions() {
    }
    else {
       printf("file 'wminstr.txt' was not available or could not be opened\n");
-   }*/
+   }
 }
 
 void WatermelonSmash::step(Window* window) {
@@ -157,7 +157,7 @@ void WatermelonSmash::step(Window* window) {
         float yPos = .5;
         float yInc;
  
-        /*char ln1[40];
+        char ln1[40];
         sprintf(ln1, "Time's up! Your score is: %d\n", score);
         fontEngine->useFont("caviar", 30);
         fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), ln1, 0-fontEngine->getTextWidth(ln1)/2.0, yPos);
@@ -172,7 +172,7 @@ void WatermelonSmash::step(Window* window) {
         
         char ln3[40];
         sprintf(ln3, "Press ENTER to exit.");
-        fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), ln3, 0-fontEngine->getTextWidth(ln3)/2.0, yPos);        */
+        fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), ln3, 0-fontEngine->getTextWidth(ln3)/2.0, yPos);
 
         return;
     }
@@ -260,7 +260,7 @@ void WatermelonSmash::step(Window* window) {
 }
 
 void WatermelonSmash::textStep(Window* window) {
-/*    float yPos = .9;
+    float yPos = .9;
     float yInc;
 
     char time[20];
@@ -285,7 +285,7 @@ void WatermelonSmash::textStep(Window* window) {
     char right[10];
     sprintf(right, "0:%d", timeRMelon);
     if (!spawnRight)
-       fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), right, -.5-fontEngine->getTextWidth(right)/2.0, -0.4);*/
+       fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), right, -.5-fontEngine->getTextWidth(right)/2.0, -0.4);
 }
 
 void WatermelonSmash::mouseClick(glm::vec3 direction, glm::vec4 point) {
