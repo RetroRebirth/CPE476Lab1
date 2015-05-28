@@ -41,7 +41,13 @@ float Camera::getXRot() {
 }
 
 glm::vec3 Camera::lookAtPt() {
-   glm::vec3 lookAtPt = glm::vec3(cos(phi)*cos(theta)*radius, sin(phi)*radius, cos(phi)*cos((M_PI/2.0f)-theta)*radius);
+   glm::vec3 lookAtPt;
+   if (playingMinigame) {
+      lookAtPt = glm::vec3(cos(phi)*cos(theta), sin(phi), cos(phi)*cos((M_PI/2.0f)-theta));   
+   }
+   else {
+      lookAtPt = glm::vec3(cos(phi)*cos(theta)*radius, sin(phi)*radius, cos(phi)*cos((M_PI/2.0f)-theta)*radius);
+   }
    lookAtPt += debug ? debug_pos : player->pos;
    return lookAtPt;
 }
