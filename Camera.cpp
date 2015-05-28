@@ -15,7 +15,7 @@ Camera::Camera(
    blocked = false;
    pov = true;
    playingMinigame = false;
-   radius = 1.0f;
+   radius = 3.0f;
    playerYrot = 0.0f;
 
    // Defined attribute values
@@ -41,7 +41,7 @@ float Camera::getXRot() {
 }
 
 glm::vec3 Camera::lookAtPt() {
-   glm::vec3 lookAtPt = glm::vec3(cos(phi)*cos(theta), sin(phi), cos(phi)*cos((M_PI/2.0f)-theta));
+   glm::vec3 lookAtPt = glm::vec3(cos(phi)*cos(theta)*radius, sin(phi)*radius, cos(phi)*cos((M_PI/2.0f)-theta)*radius);
    lookAtPt += debug ? debug_pos : player->pos;
    return lookAtPt;
 }
@@ -54,6 +54,9 @@ void Camera::setProjectionMatrix(int g_width, int g_height) {
 void Camera::setView() {
    glm::vec3 curPos = debug ? debug_pos : player->pos;
    glm::mat4 lookAtMat = glm::lookAt(lookAtPt(), curPos, glm::vec3(0.0f, 1.0f, 0.0f));
+   glm::vec3 lookat = lookAtPt();
+   
+   //printf("lookAt: %lf %lf %lf\nlookAt - .2: %lf %lf %lf\n", lookat.x, lookat.y, lookat.z, lookat.x - cos(.2) * .2, lookat.y, lookat.z - cos(M_PI + .2) * .2);
 
    //mult view by phi rotation matrix
    glm::mat4 view_mat = glm::rotate(glm::mat4(1.0f), -1.0f*phi, glm::vec3(4.0f, 0.0f, 0.0f)) * lookAtMat;
@@ -184,7 +187,7 @@ glm::vec3 Camera::calcNewPos(Window* window) {
      if (newPos.z > s)
         newPos.z = s;
 
-     newPos.y = 1.0f;
+     newPos.y = radius/2.0f;
   }
 
    if (player != NULL) {
@@ -255,7 +258,7 @@ void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos, int g_
    // Bound phi to 80 degrees
    float newPhi = phi + MOUSE_SPEED*M_PI*yMag/2.0;
    //bounded between 80 and -40 to keep from going into the char
-   if (glm::degrees(newPhi) < 80 && glm::degrees(newPhi) > -40) {
+   if (glm::degrees(newPhi) < 80 && glm::degrees(newPhi) > -30) {
       phi = newPhi;
    }
 
