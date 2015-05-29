@@ -255,6 +255,26 @@ Window.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
 Sound.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
+FontEngine.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/Shop.cpp
+Shop.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Shop.h
+
+/Users/kayla/Projects/Graphics/CPE476Lab1/Shop.h
+includes.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+Clicks.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
+Texture.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
+Window.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
+Sound.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
+FontEngine.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.cpp
 SkyBox.h

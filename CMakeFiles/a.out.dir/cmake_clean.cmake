@@ -14,6 +14,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/a.out.dir/Program.cpp.o"
   "CMakeFiles/a.out.dir/Session.cpp.o"
   "CMakeFiles/a.out.dir/ShootingGallery.cpp.o"
+  "CMakeFiles/a.out.dir/Shop.cpp.o"
   "CMakeFiles/a.out.dir/SkyBox.cpp.o"
   "CMakeFiles/a.out.dir/Sound.cpp.o"
   "CMakeFiles/a.out.dir/Texture.cpp.o"

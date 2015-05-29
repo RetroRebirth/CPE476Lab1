@@ -118,4 +118,7 @@ struct plane {
    float a, b, c, d;
 };
 
+// number of points the player currently has
+extern int global_points;
+
 #endif

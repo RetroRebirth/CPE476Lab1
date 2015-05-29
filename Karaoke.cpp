@@ -117,6 +117,75 @@ void Karaoke::drawVideo(Window* window) {
     }
 }
 
+void Karaoke::printInstructions() {
+    ifstream instrFile;
+    instrFile.open("krkinstr.txt");
+    string line;
+    float yPos = .5;
+    float yInc;
+    
+    fontEngine->useFont("amatic", 30);
+    yInc = fontEngine->getTextHeight("blank") * 1.3;
+    
+    if (instrFile.is_open()) {
+        while (getline(instrFile, line)) {
+            if (line[0] == '\n') {
+                yPos -= yInc;
+            }
+            yPos -= yInc;
+            fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), line.c_str(), 0-fontEngine->getTextWidth(line.c_str())/2.0, yPos);
+        }
+    }
+    else {
+        printf("file 'wminstr.txt' was not available or could not be opened\n");
+    }
+}
+
+void Karaoke::printScore() {
+    float yPos = .5;
+    float yInc;
+    float percent;
+    
+    // Display game over message
+    char ln1[15];
+    if (score <= -10 * speed)
+        sprintf(ln1, "LOSE...");
+    else if (numGood == 0 && numBad == 0)
+        sprintf(ln1, "PERFECT!!!");
+    else if (numBad == 0)
+        sprintf(ln1, "GREAT!!");
+    else
+        sprintf(ln1, "FINISH!");
+    fontEngine->useFont("amatic", 52);
+    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln1, 0-fontEngine->getTextWidth(ln1)/2.0, yPos);
+    yInc = fontEngine->getTextHeight(ln1) * 1.3;
+    yPos -= (yInc * 2);
+    
+    // [Song Name]
+    char ln2[40];
+    sprintf(ln2, "%s", sound->getSongInfo(curSong).song_name);
+    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln2, 0-fontEngine->getTextWidth(ln2)/2.0, yPos);
+    yPos -= yInc;
+    // Your score is: score
+    char ln3[30];
+    sprintf(ln3, "Your score is: %d", score);
+    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln3, 0-fontEngine->getTextWidth(ln3)/2.0, yPos);
+    yPos -= (yInc * 2);
+    
+    // PERFECTS = numPerfect GOODS = numGood BADS = numBad
+    char ln4[50];
+    sprintf(ln4, "PERFECTS: %d     GOODS: %d     BADS: %d", numPerfect, numGood, numBad);
+    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln4, 0-fontEngine->getTextWidth(ln4)/2.0, yPos);
+    yPos -= (yInc * 2);
+    
+    // Percent = 100 * ((numGood + numPerfect) / (numGood + numPerfect + numBad))
+    percent = 100 * (((numGood + numPerfect) * 1.0) / ((numGood + numPerfect + numBad) * 1.0));
+    char ln5[20];
+    sprintf(ln5, "FINAL GRADE: %d", (int)percent);
+    fontEngine->useFont("capture", 70);
+    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln5, 0-fontEngine->getTextWidth(ln5)/2.0, yPos);
+}
+
 void Karaoke::checkTime(Window *window) {
     // Initialize the time if not done so already
     if (timeStart == 0.0) {
@@ -159,7 +228,14 @@ void Karaoke::checkTime(Window *window) {
         else {
             // Check whether the game has ended
             if (window->time - timeStart >= songDuration) {
+                // Bonus points for all perfects
+                if (numGood == 0 && numBad == 0)
+                    score += 250 * (speed - 1);
+                // Bonus points for no missed arrows
+                if (numBad == 0)
+                    score += 100 * (speed - 1);
                 gameOver = true;
+                global_points += score;
                 sound->pauseSong();
             }
             // Add a new arrow
@@ -183,31 +259,6 @@ void Karaoke::checkTime(Window *window) {
             }
         }
     }
-}
-
-void Karaoke::printInstructions() {
-   ifstream instrFile;
-   instrFile.open("krkinstr.txt");
-   string line;
-   float yPos = .5;
-   float yInc;
-   
-   fontEngine->useFont("amatic", 30);
-   yInc = fontEngine->getTextHeight("blank") * 1.3;
-   
-   if (instrFile.is_open()) {
-      while (getline(instrFile, line)) {
-         if (line[0] == '\n') {
-            yPos -= yInc;
-         }
-         
-         yPos -= yInc;
-         fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), line.c_str(), 0-fontEngine->getTextWidth(line.c_str())/2.0, yPos);
-      }
-   }
-   else {
-      printf("file 'wminstr.txt' was not available or could not be opened\n");
-   }
 }
 
 void Karaoke::step(Window* window) {
@@ -235,48 +286,11 @@ void Karaoke::step(Window* window) {
         fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), msg2, 0-fontEngine->getTextWidth(msg2)/2.0, 0.53);
         
         printInstructions();
-        
-        // Don't do anything; wait for the song to start
         return;
     }
     // Game has ended; display the score
     if (gameOver) {
-        float yPos = .5;
-        float yInc;
-        float percent;
-        
-        /* DISPLAY GAME OVER INFO HERE: */
-        // FINISH!
-        char ln1[15];
-        sprintf(ln1, "FINISH!");
-        fontEngine->useFont("amatic", 52);
-        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln1, 0-fontEngine->getTextWidth(ln1)/2.0, yPos);
-        yInc = fontEngine->getTextHeight(ln1) * 1.3;
-        yPos -= (yInc * 2);
-        
-        // [Song Name]
-        char ln2[40];
-        sprintf(ln2, "%s", sound->getSongInfo(curSong).song_name);
-        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln2, 0-fontEngine->getTextWidth(ln2)/2.0, yPos);
-        yPos -= yInc;
-        // Your score is: score
-        char ln3[30];
-        sprintf(ln3, "Your score is: %d", score);
-        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln3, 0-fontEngine->getTextWidth(ln3)/2.0, yPos);
-        yPos -= (yInc * 2);
-
-        // PERFECTS = numPerfect GOODS = numGood BADS = numBad
-        char ln4[50];
-        sprintf(ln4, "PERFECTS: %d     GOODS: %d     BADS: %d", numPerfect, numGood, numBad);
-        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln4, 0-fontEngine->getTextWidth(ln4)/2.0, yPos);
-        yPos -= (yInc * 2);
-        
-        // Percent = 100 * ((numGood + numPerfect) / (numGood + numPerfect + numBad))
-        percent = 100 * (((numGood + numPerfect) * 1.0) / ((numGood + numPerfect + numBad) * 1.0));
-        char ln5[20];
-        sprintf(ln5, "FINAL GRADE: %d", (int)percent);
-        fontEngine->useFont("capture", 70);
-        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln5, 0-fontEngine->getTextWidth(ln5)/2.0, yPos);
+        printScore();
         return;
     }
     checkTime(window);
@@ -324,12 +338,14 @@ void Karaoke::textStep() {
 void Karaoke::nextSong() {
     curSong = (curSong + 1) % sound->getSongs().size();
     screen->setTexture(curSong + NUM_TEXTURES);
+    sound->playJumpSound();
 }
 void Karaoke::prevSong() {
     curSong = curSong - 1;
     if (curSong == -1)
         curSong = sound->getSongs().size() - 1;
     screen->setTexture(curSong + NUM_TEXTURES);
+    sound->playJumpSound();
 }
 void Karaoke::selectSong() {
     if (!sound->getSongInfo(curSong).unlocked) {
@@ -337,32 +353,35 @@ void Karaoke::selectSong() {
         return;
     }
     songChosen = true;
+    sound->playContactSound();
     initVideo();
 }
 
 // Changes the difficulty setting
 void Karaoke::increaseDifficulty() {
-    if (speed < 3)
+    if (speed < 3) {
         speed++;
+        sound->playThwackSound();
+    }
 }
 void Karaoke::decreaseDifficulty() {
-    if (speed > 1)
+    if (speed > 1) {
         speed--;
+        sound->playThwackSound();
+    }
 }
 
 void Karaoke::selectCharacter(int target) {
     // Hit the right arrow
     if (target == curTarget) {
         // Check whether a "PERFECT" score was earned
-        if (arrowPos <= -1.70) {
+        if (arrowPos <= -1.7) {
             sound->playJumpSound();
-            //sound->playContactSound();
             score += speed * 2;
             numPerfect++;
         }
         // Otherwise, "GOOD" score
         else {
-            //sound->playJumpSound();
             score += speed;
             numGood++;
         }

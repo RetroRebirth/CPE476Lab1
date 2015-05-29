@@ -2,9 +2,6 @@
 #include "ParticleSorter.h"
 #include <algorithm>
 
-static string objectFiles[] = {"bunny.obj"};
-
-
 // custom particle functions
 void fireflyFunc(glm::vec3* pos, glm::vec3* vel, glm::vec3* grav, glm::vec4* color, float time);
 

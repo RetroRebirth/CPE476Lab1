@@ -2,6 +2,7 @@
 
 FontEngine* fontEngine;
 map<string, Program*> shaders;
+int global_points;
 
 Session::Session() {
    window = new Window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
@@ -21,6 +22,7 @@ Session::Session() {
    minigame = new Minigame();
    game_state = WORLD_STATE;
    game_start = false;
+   global_points = 0;
    
    world->initParticles(shaders[SHADER_BILLBOARD]);
    fontEngine->init(shaders[SHADER_TEXT]->getPID());
@@ -164,7 +166,7 @@ void Session::step() {
    camera->step(window);
    
    char txt[30];
-   sprintf(txt, "Japanese Festival!");
+   sprintf(txt, "Japanese Festival! %d", global_points);
    fontEngine->useFont("goodDog", 48);
    fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), txt, -1.0, 0.9);
 }

@@ -81,41 +81,6 @@ void WatermelonSmash::newMelon(float xPos) {
     melons.push_back(newMelon);
 }
 
-void WatermelonSmash::checkTime(Window *window) {
-    // Initialize the time if not done so already
-    if (timeStart == 0.0) {
-        timeStart = window->time;
-        timer = window->time;
-        srand(timeStart);
-    }
-    else {
-        // Increment the timer every second
-        if (window->time - timer >= 1.0) {
-            timer = window->time;
-        }
-        // Check whether the game has ended
-        if (window->time - timeStart >= MELON_TIME) {
-            gameOver = true;
-        }
-        // Spawn a watermelon
-        if (window->time - timeLeft >= MELON_SPAWN && spawnLeft) {
-            newMelon(MELON_LEFT);
-            ageLeft = window->time;
-            spawnLeft = false;
-        }
-        else if (window->time - timeRight >= MELON_SPAWN && spawnRight) {
-            newMelon(MELON_RIGHT);
-            ageRight = window->time;
-            spawnRight = false;
-        }
-        // Swing the hammer
-        if (timeSwing - window->time > 0) {
-            float angle = -360 * (timeSwing - window->time);
-            hammer->rotate(angle, glm::vec3(1.0, 0.0, 0.0));
-        }
-    }
-}
-
 void WatermelonSmash::printInstructions() {
    ifstream instrFile;
    instrFile.open("wminstr.txt");
@@ -139,6 +104,42 @@ void WatermelonSmash::printInstructions() {
    else {
       printf("file 'wminstr.txt' was not available or could not be opened\n");
    }
+}
+
+void WatermelonSmash::checkTime(Window *window) {
+    // Initialize the time if not done so already
+    if (timeStart == 0.0) {
+        timeStart = window->time;
+        timer = window->time;
+        srand(timeStart);
+    }
+    else {
+        // Increment the timer every second
+        if (window->time - timer >= 1.0) {
+            timer = window->time;
+        }
+        // Check whether the game has ended
+        if (window->time - timeStart >= MELON_TIME) {
+            global_points += score;
+            gameOver = true;
+        }
+        // Spawn a watermelon
+        if (window->time - timeLeft >= MELON_SPAWN && spawnLeft) {
+            newMelon(MELON_LEFT);
+            ageLeft = window->time;
+            spawnLeft = false;
+        }
+        else if (window->time - timeRight >= MELON_SPAWN && spawnRight) {
+            newMelon(MELON_RIGHT);
+            ageRight = window->time;
+            spawnRight = false;
+        }
+        // Swing the hammer
+        if (timeSwing - window->time > 0) {
+            float angle = -360 * (timeSwing - window->time);
+            hammer->rotate(angle, glm::vec3(1.0, 0.0, 0.0));
+        }
+    }
 }
 
 void WatermelonSmash::step(Window* window) {
@@ -175,7 +176,6 @@ void WatermelonSmash::step(Window* window) {
 
         return;
     }
-    
     checkTime(window);
    
     // Draw the watermelons and hammer

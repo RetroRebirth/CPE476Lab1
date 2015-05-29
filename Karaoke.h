@@ -78,6 +78,7 @@ private:
     
     // Text functions
     void printInstructions();
+    void printScore();
     void textStep();
 };
 

@@ -594,7 +594,7 @@ void Object::draw()
     // Draw the shadow
     if (castShadows) {
         glEnable(GL_CULL_FACE);
-        glUniform1f(h_uTrans, 0.5);
+        glUniform1f(h_uTrans, 0.6);
         glBindTexture(GL_TEXTURE_2D, 0);
         glm::mat4 sT = glm::translate(glm::mat4(1.0f), glm::vec3(0, -.45, 0));
         Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(sT*ShadowMatrix()*T*R*scalerMat));
