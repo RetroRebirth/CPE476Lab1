@@ -143,13 +143,15 @@ char* Booth::getMinigame() {
 }
 
 const string Booth::getMinigameDisplayName() {
-   if (strcmp(minigame, SHOOTING_GALLERY) == 0) {
+   if (strcmp(minigame, SHOOTING_GALLERY) == 0)
       return "SHOOTING GALLERY";
-   } else if (strcmp(minigame, WATERMELON_SMASH) == 0) {
+   else if (strcmp(minigame, WATERMELON_SMASH) == 0)
       return "WATERMELON SMASH";
-   } else if (strcmp(minigame, KARAOKE) == 0) {
+   else if (strcmp(minigame, KARAOKE) == 0)
       return "KARAOKE";
-   } else {
+   else if (strcmp(minigame, SHOP) == 0)
+      return "SHOP";
+   else {
       // Booth doesn't have a minigame OR we haven't created a display name for it
       return "-- BOOTH UNDER CONSTRUCTION --";
    }

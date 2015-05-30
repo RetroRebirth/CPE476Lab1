@@ -1,0 +1,7 @@
+#TYPE	#NAME			#PRICE	#OBJECt INFO (name, tex, <scale> <pos>)
+# character models
+model	Kaito			5000	objs/kaito.obj 17 (1.0,1.0,1.0) (0.0,1.5,1.0)
+model	Kagamine.Rin		5000	objs/len.obj 15 (1.0,1.0,1.0) (0.0,1.5,1.0)
+model	Kagamine.Len		5000	objs/rin.obj 16 (1.0,1.0,1.0) (0.0,1.5,1.0)
+model	Hatsune.Miku		10000	objs/miku.obj 14 (1.0,1.0,1.0) (0.0,1.5,1.0)
+# girl outfits

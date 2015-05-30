@@ -71,7 +71,7 @@ private:
 #define TEX_SQUISH_PURPLE 20
 #define TEX_STEEL 21
 
-#define NUM_TEXTURES 22
-extern Texture textures[NUM_TEXTURES];
+#define TEX_SONGS 50
+
 void loadAllTextures();
 #endif

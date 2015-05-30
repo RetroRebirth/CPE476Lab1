@@ -612,12 +612,10 @@ void World::parseMapFile(const char* fileName) {
             Booth* booth = new Booth(_pos, _scalar, angle, minigame, shapes, materials, ShadeProg);
             booths.push_back(booth);
          }
-         else if (strcmp(type, "wall") == 0) {  
-         
+         else if (strcmp(type, "wall") == 0) {
             structure->translate(_pos);
             structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
             structure->scale(_scalar);
-         
             structure->load(WALL_FILE_NAME);
             structure->setTexture(TEX_WOOD_RED);
             structures.push_back(structure);

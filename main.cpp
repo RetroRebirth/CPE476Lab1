@@ -55,62 +55,40 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
       camera->pov = !camera->pov;
       break;
    case GLFW_KEY_UP:
-      if (camera->speed < MAX_SPEED) {
+      if (camera->speed < MAX_SPEED)
          camera->speed += DELTA_SPEED;
-      }
-      if (session->getMinigame()->karaoke != NULL) {
-         if (!session->getMinigame()->karaoke->songChosen)
-            session->getMinigame()->karaoke->increaseDifficulty();
-         else if (!session->getMinigame()->getGameOver())
-            session->getMinigame()->karaoke->selectCharacter(1);
-      }
+      if (session->getGameState() == MINIGAME_STATE)
+         session->getMinigame()->arrowPress(key);
       break;
    case GLFW_KEY_DOWN:
-      if (camera->speed > MIN_SPEED) {
+      if (camera->speed > MIN_SPEED)
          camera->speed -= DELTA_SPEED;
-      }
-      if (session->getMinigame()->karaoke != NULL) {
-         if (!session->getMinigame()->karaoke->songChosen)
-            session->getMinigame()->karaoke->decreaseDifficulty();
-         else if (!session->getMinigame()->getGameOver())
-            session->getMinigame()->karaoke->selectCharacter(2);
-      }
+      if (session->getGameState() == MINIGAME_STATE)
+         session->getMinigame()->arrowPress(key);
       break;
    case GLFW_KEY_LEFT:
-      if (session->getMinigame()->karaoke != NULL) {
-         if (!session->getMinigame()->karaoke->songChosen)
-            session->getMinigame()->karaoke->prevSong();
-         else if (!session->getMinigame()->getGameOver())
-            session->getMinigame()->karaoke->selectCharacter(0);
-      }
+      if (session->getGameState() == MINIGAME_STATE)
+         session->getMinigame()->arrowPress(key);
       break;
    case GLFW_KEY_RIGHT:
-      if (session->getMinigame()->karaoke != NULL) {
-         if (!session->getMinigame()->karaoke->songChosen)
-            session->getMinigame()->karaoke->nextSong();
-         else if (!session->getMinigame()->getGameOver())
-            session->getMinigame()->karaoke->selectCharacter(3);
-      }
+      if (session->getGameState() == MINIGAME_STATE)
+         session->getMinigame()->arrowPress(key);
       break;
    case GLFW_KEY_ENTER:
       // Enter the minigame if in the world
-      if (session->getGameState() == WORLD_STATE) {
+      if (session->getGameState() == WORLD_STATE)
          session->enterMinigame();
-      }
       // Start or exit the minigame if in the minigame
       else if (session->getGameState() == MINIGAME_STATE) {
-         if (!session->gameStarted()) {
+         if (!session->gameStarted())
             session->startMinigame();
-         }
-         if (session->gameEnded()) {
+         if (session->gameEnded())
             session->leaveMinigame();
-         }
       }
       break;
    case GLFW_KEY_SPACE:
-      if (session->getGameState() == MINIGAME_STATE) {
+      if (session->getGameState() == MINIGAME_STATE)
          session->leaveMinigame();
-      }
       break;
    }
 }

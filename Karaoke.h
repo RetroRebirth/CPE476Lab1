@@ -26,7 +26,6 @@ public:
     virtual ~Karaoke();
     
     // called by session
-    void mouseClick(glm::vec3 direction, glm::vec4 point);
     void step(Window* window);
     
     // called by main (uses keyboard input)

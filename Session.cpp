@@ -138,7 +138,6 @@ void Session::step() {
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    // Use "frag.glsl" and "vert.glsl"
    shaders[SHADER_DEFAULT]->bind();
-   //glUseProgram(ShadeProg);
    // Send position info to the attribute "aPos"
    GLSL::enableVertexAttribArray(h_aPos);
    // Send normal info to the attribute "aNor"
@@ -209,6 +208,8 @@ void Session::createMinigame(char* type) {
       minigame->watermelonSmash = new WatermelonSmash(shaders[SHADER_DEFAULT]->getPID(), shaders[SHADER_BILLBOARD], camera, sound);
    } else if (strcmp(type, KARAOKE) == 0) {
       minigame->karaoke = new Karaoke(shaders[SHADER_DEFAULT]->getPID(), sound);
+   } else if (strcmp(type, SHOP) == 0) {
+       minigame->shop = new Shop(shaders[SHADER_DEFAULT]->getPID(), sound);
    }
 }
 

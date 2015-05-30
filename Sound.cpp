@@ -15,7 +15,7 @@ Sound::Sound() {
          
          // Load the song data
          Song newSong;
-         sscanf(line.c_str(), "%s %s %s %s %f %d\n", newSong.song_name, newSong.song_file, newSong.vid_file, newSong.img_file, &(newSong.bpm), &(newSong.price));
+         sscanf(line.c_str(), "%s %s %s %f %d\n", newSong.song_name, newSong.song_file, newSong.vid_file, &(newSong.bpm), &(newSong.price));
          newSong.unlocked = (newSong.price == 0);
          
          // Replace all '.' to ' ' in the song name
@@ -24,12 +24,6 @@ Sound::Sound() {
                newSong.song_name[i] = ' ';
          }
          karaoke_songs.push_back(newSong);
-      }
-      
-      // Load the textures
-      for (int i = 0; i < karaoke_songs.size(); i++) {
-         Texture newTex;
-         newTex.loadTexture(karaoke_songs[i].img_file, i + NUM_TEXTURES, true);
       }
       songFile.close();
    }

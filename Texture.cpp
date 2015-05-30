@@ -1,38 +1,26 @@
 #include "Texture.h"
 
-Texture textures[NUM_TEXTURES];
-
 /* Initially loads all textures used in this program */
 void loadAllTextures()
 {
-    char *textureNames[] = {
-        (char *)"textures/shadow.bmp",
-        (char *)"textures/skydome.bmp",
-        (char *)"textures/ground_sakura.bmp",
-        (char *)"textures/ground_grass.bmp",
-        (char *)"textures/wood_light.bmp",
-        (char *)"textures/wood_dark.bmp",
-        (char *)"textures/wood_red.bmp",
-        (char *)"textures/wood_wall.bmp",
-        (char *)"textures/greyConcrete.bmp",
-        (char *)"textures/watermelon_outside.bmp",
-        (char *)"textures/watermelon_inside.bmp",
-        (char *)"textures/target.bmp",
-        (char *)"textures/alpha.bmp",
-        (char *)"textures/hammer.bmp",
-        (char *)"textures/miku.bmp",
-        (char *)"textures/rin.bmp",
-        (char *)"textures/len.bmp",
-        (char *)"textures/kaito.bmp",
-        (char *)"textures/bgPerson.bmp",
-        (char *)"textures/girlPerson.bmp",
-        (char *)"textures/sidePerson.bmp",
-        (char *)"textures/steel.bmp"
-    };
-    // load the textures
-    for (int i = 0; i < NUM_TEXTURES; i++)
-    {
-        textures[i].loadTexture(textureNames[i], i, true);
+    ifstream textureFile;
+    textureFile.open("textures.txt");
+    string line;
+    if (textureFile.is_open()) {
+        while (getline(textureFile, line)) {
+            if (line[0] == '#')
+                continue;
+            
+            int texID;
+            char texName[100];
+            sscanf(line.c_str(), "%d %s\n", &texID, texName);
+            
+            Texture newTex;
+            newTex.loadTexture(texName, texID, true);
+        }
+    }
+    else {
+        printf("file 'textures.txt' was not available or could not be opened\n");
     }
 }
 

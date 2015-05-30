@@ -9,38 +9,19 @@
 #include "FontEngine.h"
 
 #define OUTFIT_TYPE "outfit"
-#define CHARACTER_TYPE "character"
+#define CHARACTER_TYPE "model"
 #define SONG_TYPE "song"
 
 /* Represents a shop item */
 class Item {
-
-    // global shader programs
-    map<string, Program*> shaders;
-
 public:
-    // constructor & destructor
-    Item(char* _name, int _price, char* model, int texID, char* _type) {
-        // Initialize the item
-        name = _name;
-        price = _price;
-        type = _type;
-        
-        // Make the object
-        object = new Object(shapes, materials, shaders[SHADER_DEFAULT]->getPID());
-        object->setPos(glm::vec3(0.0, 1.0, 3.0));
-        object->setTexture(texID);
-        object->setShadows(false);
-    }
-    
-    // getters and setters
     Object *object;
     char *name, *type;
-    int price;
-
-private:
-    vector<tinyobj::shape_t> shapes;
-    vector<tinyobj::material_t> materials;
+    int price, index;
+    
+    void draw() {
+        object->draw();
+    }
 };
 
 class Shop {
@@ -59,10 +40,10 @@ public:
     void prevItem();
     void nextCategory();
     void prevCategory();
-
-    // getters and setters
-    bool gameOver, gameStart;
     
+    // getters and setters
+    bool gameStart;
+
 private:
     // Variables
     vector<Item> items;

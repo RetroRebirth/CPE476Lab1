@@ -1,7 +1,6 @@
 #include "Karaoke.h"
 
 Karaoke::Karaoke(GLuint _ShadeProg, Sound* _sound) {
-    
     // Inititalize the game
     ShadeProg = _ShadeProg;
     sound = _sound;
@@ -16,9 +15,8 @@ Karaoke::Karaoke(GLuint _ShadeProg, Sound* _sound) {
 }
 
 Karaoke::~Karaoke() {
-    for (int i = 0; i < characters.size(); i++) {
+    for (int i = 0; i < characters.size(); i++)
         delete characters[i];
-    }
     delete arrow;
     delete screen;
     
@@ -29,7 +27,7 @@ void Karaoke::setUp() {
     // Create a "screen" in the back for projecting the video
     screen = new Object(shapes, materials, ShadeProg);
     screen->load((char *)"objs/screen.obj");
-    screen->setTexture(curSong + NUM_TEXTURES);
+    screen->setTexture(curSong + TEX_SONGS);
     screen->setPos(glm::vec3(0.0, 2.7, 2.0));
     screen->scale(glm::vec3(5.0, 7.0, 5.0));
     screen->setShadows(false);
@@ -204,6 +202,7 @@ void Karaoke::checkTime(Window *window) {
                     characters[i]->setTexture(TEX_MISC);
                 screen->scale(glm::vec3(8.0, 11.0, 8.0));
                 screen->rotate(180.0f, glm::vec3(1.0, 0.0, 0.0));
+                screen->setTexture(0);
                 gameStart = true;
                 timeStart = timeFrame = window->time;
                 texture_id = 100;
@@ -337,23 +336,24 @@ void Karaoke::textStep() {
 // Chooses a song on song selection menu
 void Karaoke::nextSong() {
     curSong = (curSong + 1) % sound->getSongs().size();
-    screen->setTexture(curSong + NUM_TEXTURES);
+    screen->setTexture(curSong + TEX_SONGS);
     sound->playJumpSound();
 }
 void Karaoke::prevSong() {
     curSong = curSong - 1;
     if (curSong == -1)
         curSong = sound->getSongs().size() - 1;
-    screen->setTexture(curSong + NUM_TEXTURES);
+    screen->setTexture(curSong + TEX_SONGS);
     sound->playJumpSound();
 }
 void Karaoke::selectSong() {
     if (!sound->getSongInfo(curSong).unlocked) {
-        sound->unlockSong(curSong);
+        sound->playBuzzerSound();
         return;
     }
     songChosen = true;
-    sound->playContactSound();
+    if (!gameOver)
+        sound->playContactSound();
     initVideo();
 }
 
@@ -398,6 +398,3 @@ void Karaoke::selectCharacter(int target) {
         characters[curTarget]->setTexture(TEX_MISC);
     curTarget = -1;
 }
-
-/* DO NOTHING -- game does not use the mouse clicks */
-void Karaoke::mouseClick(glm::vec3 direction, glm::vec4 point) {}

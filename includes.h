@@ -99,6 +99,7 @@
 #define SHOOTING_GALLERY "shooting_gallery"
 #define WATERMELON_SMASH "watermelon_smash"
 #define KARAOKE "karaoke"
+#define SHOP "shop"
 
 using namespace std;
 

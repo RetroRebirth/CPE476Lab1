@@ -14,7 +14,6 @@ class Song {
 public:
     char song_name[50]; // name of the song
     char song_file[50]; // name of the .wav sound file
-    char img_file[50];  // name of the .bmp thumbnail image file
     char vid_file[50];  // name of the .avi video file
     float bpm;          // # of beats per minute
     int price;          // price of the song in the shop
