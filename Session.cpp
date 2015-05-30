@@ -165,9 +165,14 @@ void Session::step() {
    camera->step(window);
    
    char txt[30];
-   sprintf(txt, "Japanese Festival! %d", global_points);
+   sprintf(txt, "Japanese Festival!");
    fontEngine->useFont("goodDog", 48);
    fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), txt, -1.0, 0.9);
+   
+   char pts[15];
+   sprintf(pts, "Points: %d", global_points);
+   fontEngine->useFont("goodDog", 36);   
+   fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), pts, -.98, 0.9-(fontEngine->getTextHeight(txt)*1.1));
 }
 
 Camera* Session::getCamera() {
