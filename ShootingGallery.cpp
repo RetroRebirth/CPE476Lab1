@@ -135,6 +135,8 @@ void ShootingGallery::step(Window* window) {
       doneTimer -= window->dt;
       // If our finished game timer is done, exit the minigame
       if (doneTimer <= 0) {
+          if (!gameOver)
+              global_points += score;
           gameOver = true;
       }
    }
