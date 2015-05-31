@@ -198,6 +198,11 @@ void Karaoke::checkTime(Window *window) {
                 songDuration = sound->getSongDuration() / 1000.0;
                 beat = songDuration / ((songDuration / 60.0) * bpm);
                 beat *= (3 - speed) + 1;
+                
+                /*totsec = ((sound->getSongDuration() + 500) / 1000);
+                mins = totsec / 60;
+                secs = totsec % 60;*/
+                
                 for (int i = 0; i < characters.size(); i++)
                     characters[i]->setTexture(TEX_MISC);
                 screen->scale(glm::vec3(8.0, 11.0, 8.0));
@@ -226,6 +231,11 @@ void Karaoke::checkTime(Window *window) {
         }
         else {
             // Check whether the game has ended
+            /*etotsec = window->time - timeStart;
+            emins = etotsec / 60;
+            esecs = etotsec % 60; 
+            
+            if (etotsec >= songDuration) {               */
             if (window->time - timeStart >= songDuration) {
                 // Bonus points for all perfects
                 if (numGood == 0 && numBad == 0)
@@ -319,14 +329,18 @@ void Karaoke::step(Window* window) {
 
 void Karaoke::textStep() {
     float yPos = .9;
-    float yInc;
+    float yInc = .1;
    
-    // Display the score  
+    // Display the score 
+    //char time[60];
+    //sprintf(time, "Time remaining: %d:%02d / %d:%02d", emins, esecs, mins, secs);
+    fontEngine->useFont("amatic", 40);
+    //fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), time, 0-fontEngine->getTextWidth(time)/2.0, yPos);
+    //yInc = fontEngine->getTextHeight(time) * 1.3;
+     
     char scrStr[20];
     sprintf(scrStr, "Score: %d", score);
-    fontEngine->useFont("amatic", 40);
     fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), scrStr, 1-fontEngine->getTextWidth(scrStr)-.07, yPos);
-    yInc = fontEngine->getTextHeight(scrStr) * 1.3;
     
     char bpmStr[20];
     sprintf(bpmStr, "BPM: %.2lf", bpm);

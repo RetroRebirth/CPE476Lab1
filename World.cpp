@@ -18,7 +18,13 @@ World::World(GLuint _ShadeProg, Camera* _camera) {
    h_uM = GLSL::getUniformLocation(ShadeProg, "uM");
    h_uTexUnit = GLSL::getUniformLocation(ShadeProg, "uTexUnit");
 
+   // Reserve space in vectors to avoid reallocation
+   booths.reserve(6);
+   structures.reserve(16);
+   extras.reserve(MAX_OBJS);
+
    inGame = false;
+   drawWorld = true;
     
    skybox = new SkyBox(ShadeProg);
    camera = _camera;
@@ -32,8 +38,6 @@ World::World(GLuint _ShadeProg, Camera* _camera) {
    t_disp = 0.0f;
 	h = 1.0f;
 	g = glm::vec3(0.0f, -0.01f, 0.0f);
-   
-   drawWorld = true;
 }
 
 World::~World() {

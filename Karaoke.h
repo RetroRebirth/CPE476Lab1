@@ -53,6 +53,7 @@ private:
 
     // Minigame variables
     int score, curTarget, curSong, speed;
+    int totsec, mins, secs, etotsec, emins, esecs;
     int numGood, numBad, numPerfect;
     float timeStart, beat, bpm, songDuration;
     
