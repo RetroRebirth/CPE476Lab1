@@ -87,6 +87,7 @@ void Karaoke::addArrow() {
         arrow->setPos(glm::vec3(-2.0, 3.5, 1.0));
         arrow->rotate(-90.0f, glm::vec3(0.0, 0.0, 1.0));
     }
+    arrowPos = 0.0;
 }
 
 void Karaoke::initVideo() {
@@ -113,6 +114,16 @@ void Karaoke::drawVideo(Window* window) {
         newTex.loadTexture(frame, 100);
         screen->setTexture(texture_id);
     }
+}
+
+void Karaoke::drawArrow() {
+    // Draw arrow with bloom
+    glUniform1f(GLSL::getUniformLocation(ShadeProg, "BloomAmount"), arrowPos * -1);
+    glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 1);
+    arrow->draw();
+    
+    // Turn bloom off
+    glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 0);
 }
 
 void Karaoke::printInstructions() {
@@ -199,9 +210,9 @@ void Karaoke::checkTime(Window *window) {
                 beat = songDuration / ((songDuration / 60.0) * bpm);
                 beat *= (3 - speed) + 1;
                 
-                /*totsec = ((sound->getSongDuration() + 500) / 1000);
+                totsec = ((sound->getSongDuration() + 500) / 1000);
                 mins = totsec / 60;
-                secs = totsec % 60;*/
+                secs = totsec % 60;
                 
                 for (int i = 0; i < characters.size(); i++)
                     characters[i]->setTexture(TEX_MISC);
@@ -231,12 +242,11 @@ void Karaoke::checkTime(Window *window) {
         }
         else {
             // Check whether the game has ended
-            /*etotsec = window->time - timeStart;
+            etotsec = window->time - timeStart;
             emins = etotsec / 60;
             esecs = etotsec % 60; 
             
-            if (etotsec >= songDuration) {               */
-            if (window->time - timeStart >= songDuration) {
+            if (etotsec >= songDuration) {               
                 // Bonus points for all perfects
                 if (numGood == 0 && numBad == 0)
                     score += 250 * (speed - 1);
@@ -309,14 +319,13 @@ void Karaoke::step(Window* window) {
         drawVideo(window);
         timeFrame = window->time;
     }
-    
     // Draw the scene
     for (int i = 0; i < characters.size(); i++)
         characters[i]->draw();
     if (!gameStart)
         return;
     if (curTarget != -1)
-        arrow->draw();
+        drawArrow();
     
     // Check for game over
     if (score < -10 * speed) {
@@ -332,11 +341,11 @@ void Karaoke::textStep() {
     float yInc = .1;
    
     // Display the score 
-    //char time[60];
-    //sprintf(time, "Time remaining: %d:%02d / %d:%02d", emins, esecs, mins, secs);
+    char time[60];
+    sprintf(time, "Time remaining: %d:%02d / %d:%02d", emins, esecs, mins, secs);
     fontEngine->useFont("amatic", 40);
-    //fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), time, 0-fontEngine->getTextWidth(time)/2.0, yPos);
-    //yInc = fontEngine->getTextHeight(time) * 1.3;
+    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), time, 0-fontEngine->getTextWidth(time)/2.0, yPos);
+    yInc = fontEngine->getTextHeight(time) * 1.3;
      
     char scrStr[20];
     sprintf(scrStr, "Score: %d", score);

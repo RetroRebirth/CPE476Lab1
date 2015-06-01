@@ -10,6 +10,7 @@
 #include "Window.h"
 #include "Sound.h"
 #include "FontEngine.h"
+#include "Program.h"
 
 #define MIKU  0
 #define RIN   1
@@ -47,9 +48,8 @@ private:
     vector<tinyobj::shape_t> shapes;
     vector<tinyobj::material_t> materials;
     GLuint ShadeProg;
+    Object *screen, *arrow;
     Sound* sound;
-    Object* screen;
-    Object* arrow;
 
     // Minigame variables
     int score, curTarget, curSong, speed;
@@ -71,6 +71,7 @@ private:
     void setUp();
     void addCharacter(char *file, int tex, float xPos);
     void addArrow();
+    void drawArrow();
     
     // Video functions
     void initVideo();

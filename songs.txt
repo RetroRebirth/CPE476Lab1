@@ -16,10 +16,10 @@ Terror.In.Resonance.ED	sounds/TerrorInResonance_ED.wav videos/TerrorInResonance_
 Tokyo.Ghoul.OP		sounds/Tokyo_Ghoul_OP.wav	videos/Tokyo_Ghoul_OP.mp4	121.59	0
 Tokyo.Ghoul.ED		sounds/Tokyo_Ghoul_ED.wav	videos/Tokyo_Ghoul_ED.mp4	100.11	0
 # - MOVIE MUSIC———————————————————————————————————————————————————————————————————————————————————————
-Spirited.Away		sounds/Spirited_Away.wav	videos/Spirited_Away.mp4	98.84	3000
-Castle.In.The.Sky	sounds/Castle_In_The_Sky.wav	videos/Castle_In_The_Sky.mp4	123.91	3000
-Howls.Moving.Castle	sounds/Howls_Moving_Castle.wav	videos/Howls_Moving_Castle.mp4	114.80	3000
+Spirited.Away		sounds/Spirited_Away.wav	videos/Spirited_Away.mp4	98.84	1500
+Castle.In.The.Sky	sounds/Castle_In_The_Sky.wav	videos/Castle_In_The_Sky.mp4	123.91	1500
+Howls.Moving.Castle	sounds/Howls_Moving_Castle.wav	videos/Howls_Moving_Castle.mp4	114.80	1500
 # - VIDEO GAME MUSIC —————————————————————————————————————————————————————————————————————————————————
-One.Winged.Angel	sounds/FF7_Sephiroth.wav	videos/FF7_Sephiroth.mp4	123.02	5000
-Melodies.Of.Life	sounds/FF9_Melodies.wav		videos/FF9_Melodies.mp4		136.06	5000
-Eternal.Love		sounds/FF13_EternalLove.wav	videos/FF13_EternalLove.mp4	88.0	5000
+One.Winged.Angel	sounds/FF7_Sephiroth.wav	videos/FF7_Sephiroth.mp4	123.02	3000
+Melodies.Of.Life	sounds/FF9_Melodies.wav		videos/FF9_Melodies.mp4		136.06	3000
+Eternal.Love		sounds/FF13_EternalLove.wav	videos/FF13_EternalLove.mp4	88.0	3000

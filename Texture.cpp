@@ -102,42 +102,4 @@ void Texture::loadTexture(Mat frame, int texture_id)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-
-}
-
-/* Binds a texture to the texture unit id */
-void Texture::bindTexture()
-{
-    glBindTexture(GL_TEXTURE_2D, texture);
-}
-
-void Texture::reloadTexture()
-{
-    FILE *file;
-    // Load the texture from the image
-    if ((file = fopen(filename, "rb")) == NULL) {
-        printf("File not found: %s\n", filename);
-    }
-    fseek(file, 18, SEEK_CUR);
-    width = getint (file);
-    height = getint (file);
-    unsigned long size = width * height * 3;
-    bpp = getshort(file);
-    fseek(file, 24, SEEK_CUR);
-    
-    // read the data and reverse all of the colors. (bgr -> rgb)
-    char temp;
-    data = (char *) malloc(size);
-    for (int i = 0; i < size; i += 3) {
-        temp = data[i];
-        data[i] = data[i+2];
-        data[i+2] = temp;
-    }
-    fclose(file);
-    
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_BGR, GL_UNSIGNED_BYTE, data);
-    if (mipmapsGenerated) {
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
 }

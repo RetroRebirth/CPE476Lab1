@@ -2,6 +2,9 @@
 #include "ParticleSorter.h"
 #include <algorithm>
 
+static string objectFiles[] = {"bunny.obj"};
+
+
 // custom particle functions
 void fireflyFunc(glm::vec3* pos, glm::vec3* vel, glm::vec3* grav, glm::vec4* color, float time);
 
@@ -616,10 +619,12 @@ void World::parseMapFile(const char* fileName) {
             Booth* booth = new Booth(_pos, _scalar, angle, minigame, shapes, materials, ShadeProg);
             booths.push_back(booth);
          }
-         else if (strcmp(type, "wall") == 0) {
+         else if (strcmp(type, "wall") == 0) {  
+         
             structure->translate(_pos);
             structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
             structure->scale(_scalar);
+         
             structure->load(WALL_FILE_NAME);
             structure->setTexture(TEX_WOOD_RED);
             structures.push_back(structure);
@@ -710,8 +715,8 @@ void World::createPlayer(const string &meshName, int texID) {
    player = new Object(shapes, materials, ShadeProg);
    player->load(meshName);
    player->setTexture(texID);
-   player->scale(glm::vec3(2.5f, 2.5f, 2.5));
-   player->translate(glm::vec3(0.0f, -0.4f, 0.0f));
+   player->scale(glm::vec3(3.0f, 3.0f, 3.0f));
+   //player->translate(glm::vec3(0.0f, 0.4f, 0.0f));
    camera->initPlayer(player);
    
    playerXZRad = player->getXZRadius();

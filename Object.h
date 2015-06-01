@@ -101,6 +101,7 @@ private:
     // Shader information
     GLuint ShadeProg;
     GLuint posBufID, indBufID, norBufID, texBufID;
+    GLuint FrameBuffer, RenderedTexture, DepthBuffer;
     GLint h_aPos, h_aNor, h_uM, h_uTrans;
     
     // Texture information

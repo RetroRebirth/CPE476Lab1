@@ -14,15 +14,12 @@ Object::Object(
    radius = OBJ_SIZE/2.0f;
    
    // initialize transform matrices
-   //printf("modelMat initialized\n");
    modelMat = glm::mat4(1.0f);
    scalerMat = glm::mat4(1.0f);
    rotateMat = glm::mat4(1.0f);
    directionalMat = glm::mat4(1.0f);
    transMat = glm::mat4(1.0f);
-   
    dir_angle = 0.0f;
-   
    boundBoxScalerMat = glm::scale(glm::mat4(1.0f), glm::vec3(1.1f,1.1f,1.1f));
 
    // Defined attribute values
@@ -46,6 +43,22 @@ Object::Object(
    setTexture(MISC_TYPE);
    xzRadius = -1.0f;
    drawBounds = false;
+
+    /*
+   glGenFramebuffers(1, &FrameBuffer);
+   glBindFramebuffer(GL_FRAMEBUFFER, FrameBuffer);
+   glGenTextures(1, &RenderedTexture);
+   glBindTexture(GL_TEXTURE_2D, RenderedTexture);
+   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 768, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+   glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, RenderedTexture, 0);
+   
+   GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
+   glDrawBuffers(1, DrawBuffers);
+     */
 }
 
 Object::~Object() {}
@@ -379,7 +392,7 @@ void Object::getBounds(struct bound_box *_bounds) {
    setupPlane(x2p, x2q, x2r, &x2);
    planes.push_back(x2);
    
-   memcpy(&bounds, _bounds, sizeof(bounds));
+   memcpy(&bounds, _bounds, sizeof(*_bounds));
 }
 
 void Object::setupPlane(glm::vec3 p, glm::vec3 q, glm::vec3 r, struct plane* plane) {
@@ -397,10 +410,7 @@ void Object::setupPlane(glm::vec3 p, glm::vec3 q, glm::vec3 r, struct plane* pla
    plane->d = n.x*(-p.x) + n.y*(-p.y) + n.z*(-p.z);
 }
 
-void Object::step(float dt) {
-   
-   //draw();
-}
+void Object::step(float dt) {}
 
 /**
  * @return Rotation angle to face in degrees (0-360) along Y-axis.
@@ -540,6 +550,9 @@ void Object::init()
 
 void Object::draw()
 {
+   //glBindFramebuffer(GL_FRAMEBUFFER, FrameBuffer);
+   //glViewport(0, 0, 1024, 768);
+   
    // Bind the texture
    glEnable(GL_TEXTURE_2D);
    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
@@ -578,29 +591,32 @@ void Object::draw()
       R *= RX*RY*RZ;
    }
    modelMat = T*R*scalerMat;//S;
-    
-    // Send the rotation matrix
-    GLint h_rot = GLSL::getUniformLocation(ShadeProg, "uRot");
-    Util::safe_glUniformMatrix4fv(h_rot, glm::value_ptr(R));
    
-    // Draw the object
-    glUniform1f(h_uTrans, 1.0);
-    Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T*R*scalerMat));
-    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-    
-    if (drawBounds) {
-      drawBox();
-    }
-    // Draw the shadow
-    if (castShadows) {
-        glEnable(GL_CULL_FACE);
-        glUniform1f(h_uTrans, 0.6);
-        glBindTexture(GL_TEXTURE_2D, 0);
-        glm::mat4 sT = glm::translate(glm::mat4(1.0f), glm::vec3(0, -.45, 0));
-        Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(sT*ShadowMatrix()*T*R*scalerMat));
-        glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-        glDisable(GL_CULL_FACE);
-    }
+   //glBindFramebuffer(GL_FRAMEBUFFER, 0);
+   //glViewport(0, 0, 1024, 768);
+   //glBindTexture(GL_TEXTURE_2D, RenderedTexture);
+   //glUniform1i(GLSL::getUniformLocation(ShadeProg, "uSampler1"), 0);
+   
+   // Send the rotation matrix
+   GLint h_rot = GLSL::getUniformLocation(ShadeProg, "uRot");
+   Util::safe_glUniformMatrix4fv(h_rot, glm::value_ptr(R));
+
+   // Draw the object
+   glUniform1f(h_uTrans, 1.0);
+   Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T*R*scalerMat));
+   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+
+   // Draw the shadow
+   if (castShadows) {
+      glEnable(GL_CULL_FACE);
+      glCullFace(GL_BACK);
+      glUniform1f(h_uTrans, 0.6);
+      glBindTexture(GL_TEXTURE_2D, 0);
+      glm::mat4 sT = glm::translate(glm::mat4(1.0f), glm::vec3(0, -.45, 0));
+      Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(sT*ShadowMatrix()*T*R*scalerMat));
+      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+      glDisable(GL_CULL_FACE);
+   }
 }
 
 vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> indBuf) {

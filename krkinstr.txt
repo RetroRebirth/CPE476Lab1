@@ -1,6 +1,7 @@
 ----- Welcome to the KARAOKE MACHINE-----
 Here you can relax and listen to your favorite anime songs
-Use LEFT/RIGHT to choose a song & UP/DOWN to choose a difficulty
+Use the LEFT/RIGHT arrows to choose a song
+Use the UP/DOWN arrows to choose a difficulty
 
 Press the arrow keys as they appear to earn points
 Earn more points for hitting the arrows at the bottom

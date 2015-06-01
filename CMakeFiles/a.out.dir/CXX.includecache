@@ -139,6 +139,8 @@ Sound.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
 FontEngine.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
+Program.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.cpp
 MatrixStack.h

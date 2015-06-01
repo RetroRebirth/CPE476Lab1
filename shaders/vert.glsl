@@ -7,7 +7,7 @@ attribute vec2 aTexCoord;   // texture coordinates
 uniform mat4 uP;            // projection matrix
 uniform mat4 uV;            // view matrix
 uniform mat4 uM;            // model matrix
-uniform mat4 uRot;
+uniform mat4 uRot;          // rotation matrix (for lighting)
 uniform float transparancy;
 
 // Outgoing variables

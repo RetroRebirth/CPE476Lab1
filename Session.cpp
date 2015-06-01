@@ -100,19 +100,20 @@ void Session::initGL() {
     h_uView = shaders[SHADER_DEFAULT]->addUniform("uView");
     h_aTexCoord = shaders[SHADER_DEFAULT]->addAttribute("aTexCoord");
     h_uTexUnit = shaders[SHADER_DEFAULT]->addUniform("uTexUnit");
+    shaders[SHADER_DEFAULT]->addUniform("BlendMode");
     
     shaders[SHADER_BILLBOARD]->addAttribute("vertPosition");
-	 shaders[SHADER_BILLBOARD]->addAttribute("vertTexCoords");
-	 shaders[SHADER_BILLBOARD]->addUniform("P");
-	 shaders[SHADER_BILLBOARD]->addUniform("MV");
-	 shaders[SHADER_BILLBOARD]->addUniform("scale");
-	 shaders[SHADER_BILLBOARD]->addUniform("color");
+    shaders[SHADER_BILLBOARD]->addAttribute("vertTexCoords");
+    shaders[SHADER_BILLBOARD]->addUniform("P");
+    shaders[SHADER_BILLBOARD]->addUniform("MV");
+    shaders[SHADER_BILLBOARD]->addUniform("scale");
+    shaders[SHADER_BILLBOARD]->addUniform("color");
 	shaders[SHADER_BILLBOARD]->addTexture(&texture);
 	
-	 shaders[SHADER_TEXT]->addAttribute("aCoord");
-	 shaders[SHADER_TEXT]->addUniform("uTex");
-	 shaders[SHADER_TEXT]->addUniform("uCol");	 
-	
+    shaders[SHADER_TEXT]->addAttribute("aCoord");
+    shaders[SHADER_TEXT]->addUniform("uTex");
+    shaders[SHADER_TEXT]->addUniform("uCol");
+    
     // Enable texture drawing
     glEnable(GL_TEXTURE_2D);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);

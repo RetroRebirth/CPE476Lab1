@@ -10,14 +10,18 @@ using namespace cv;
 class Texture {
 public:
     // constructors & destructors
-    Texture() { mipmapsGenerated = false; }
-    virtual ~Texture() {}
+    Texture() {
+        mipmapsGenerated = false;
+        data = NULL;
+    }
+    virtual ~Texture() {
+        if (data != NULL)
+            delete data;
+    }
     
     // methods
     void loadTexture(char *filename, int texture_id, bool genMipMaps);
     void loadTexture(Mat frame, int texture_id);
-    void bindTexture();
-    void reloadTexture();
     
     // getters
     int getHeight()      { return height;    }

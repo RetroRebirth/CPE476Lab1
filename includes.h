@@ -38,6 +38,7 @@
 #define SHADER_DEFAULT "default"
 #define SHADER_BILLBOARD "billboard"
 #define SHADER_TEXT "text"
+#define SHADER_GLOW "glow"
 // defines the file names for shaders
 #define DEFAULT_VERT_SHADER "shaders/vert.glsl"//_cook.glsl"
 #define DEFAULT_FRAG_SHADER "shaders/frag.glsl"//_cook.glsl"
