@@ -15,8 +15,8 @@ public:
         data = NULL;
     }
     virtual ~Texture() {
-        if (data != NULL)
-            delete data;
+        //if (data != NULL)
+          //  delete data;
     }
     
     // methods

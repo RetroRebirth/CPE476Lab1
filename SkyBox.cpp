@@ -8,7 +8,7 @@ SkyBox::SkyBox(GLuint _ShadeProg)
     ShadeProg = _ShadeProg;
 
     skydome = new Object(shapes, materials, ShadeProg);
-    skydome->load("objs/skydome_day.obj", "objs/SkyDome-Cloud-Wispy-MidMorning.bmp");
+    skydome->load("objs/skydome_day.obj", "textures/skydome.bmp");
     skydome->scale(glm::vec3(SKY_SIZE, SKY_SIZE, SKY_SIZE));
     skydome->setTexture(TEX_SKY_DAY);
     skydome->setShadows(false);

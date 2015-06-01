@@ -36,6 +36,7 @@ Particle::Particle() :
 	startScale = 0.25f;
 	customScale = false;
 	customUpdate = false;
+	randPosListSize = 0;
 	
 	taperOpacity = true;
 	
@@ -44,6 +45,7 @@ Particle::Particle() :
 	time = 0.0f;
 	startTime = 0.0f;
 	drawNow = false;
+	oneCycle = false;
 }
 
 Particle::~Particle()
@@ -186,6 +188,9 @@ void Particle::rebirth(float t)
 	   x.y = 2.5f; 
 	   x.z = 0.0f;
 	}
+	if (randPosListSize > 0) {
+	   x = randPosList[(int)(randFloat(0.0f, (float)(randPosListSize-1)) + 0.5f)];
+	}
 	if (customVel) {
 	   v.x = startVel.x;
 	   v.y = startVel.y;
@@ -263,6 +268,11 @@ void Particle::update(float t, float h, const glm::vec3 &g)
 	   }
 	}
 	time += h;
+}
+
+void Particle::setRandPosList(glm::vec3* list, int s) {
+   randPosList = list;
+   randPosListSize = s;
 }
 
 void Particle::setStartPos(glm::vec3 p) {

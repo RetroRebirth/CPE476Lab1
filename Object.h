@@ -69,6 +69,7 @@ public:
     void rotate(float angle, glm::vec3 axis);
     void iterativeRotate(float angle, glm::vec3 axis);
     void translate(glm::vec3 trans);
+    void setTransRot(glm::vec3 trans);
     
     // Draw Bounding boxes?
     bool drawBounds;
@@ -95,6 +96,7 @@ private:
     glm::mat4 rotateMat;
     glm::mat4 directionalMat;
     glm::mat4 transMat;
+    glm::mat4 transRot;
     
     float dir_angle;
     

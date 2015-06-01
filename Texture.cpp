@@ -40,7 +40,7 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
     fseek(file, 18, SEEK_CUR);
     width = getint (file);  // read the width
     height = getint (file); // read the height
-    unsigned long size = width * height * 3;
+    unsigned long size = (width * height * 3);
     
     // read the planes
     unsigned short int planes = getshort(file);

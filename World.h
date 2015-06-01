@@ -9,8 +9,8 @@
 #include "Booth.h"
 #include "Particle.h"
 
-#define NUM_FIREWORKS 50
-#define NUM_FIREWORK_PARTICLES 100
+#define NUM_FIREWORKS 25
+#define NUM_FIREWORK_PARTICLES 50
 #define FOUNTAIN_TTL 35.0f
 
 struct Extra {
@@ -54,7 +54,8 @@ class World {
       vector<tinyobj::material_t> materials;
       vector<Particle*> fountainParticles;
       vector<Particle*> fireflyParticles;
-      vector<Particle*> fireworkParticles;
+      vector<vector<Particle*> > fireworkParticles;
+      glm::vec3 fireworkPositions[(int)(SIZE * 8.0f)];
       
       Object* player;
       float playerXZRad;

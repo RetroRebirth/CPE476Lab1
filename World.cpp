@@ -13,6 +13,7 @@ World::World(GLuint _ShadeProg, Camera* _camera) {
    // Default attribute values
    objStartTime = 0.0;
    numCollected = 0;
+   drawWorld = true;
 
    // Defined attribute values
    ShadeProg = _ShadeProg;
@@ -25,7 +26,6 @@ World::World(GLuint _ShadeProg, Camera* _camera) {
    booths.reserve(6);
    structures.reserve(16);
    extras.reserve(MAX_OBJS);
-
    inGame = false;
    drawWorld = true;
     
@@ -34,7 +34,6 @@ World::World(GLuint _ShadeProg, Camera* _camera) {
    initGround();
    setupOverWorld();
    createExtras((char *)"objs/squish_blue.obj", TEX_SQUISH_BLUE);
-   
    // initialize time and gravity for particles
    t = 0.0f;
    t0_disp = 0.0f;
@@ -112,27 +111,50 @@ void World::initParticles(Program* prog) {
    // load fireworks
    fireworkParticles.clear();
    // put all possible firework positions into a list
-   vector<glm::vec3> fireworkPositions;
-   fireworkPositions.clear();
-   for (float k = -SIZE; k < SIZE; ++k) {
-      fireworkPositions.push_back(glm::vec3(SIZE+10.0f, 30.0f, k));
-      fireworkPositions.push_back(glm::vec3(-SIZE-10.0f, 30.0f, k));
-      fireworkPositions.push_back(glm::vec3(k, 30.0f, SIZE+10.0f));
-      fireworkPositions.push_back(glm::vec3(k, 30.0f, -SIZE-10.0f));
+   //vector<glm::vec3> fireworkPositions;
+   //fireworkPositions.clear();
+   int i = 0;
+   
+   for (float k = -SIZE; k < SIZE-3.0f; ++k) {
+      /*fireworkPositions.push_back(glm::vec3(SIZE+5.0f, 50.0f, k));
+      fireworkPositions.push_back(glm::vec3(-SIZE-5.0f, 50.0f, k));
+      fireworkPositions.push_back(glm::vec3(k, 50.0f, SIZE+5.0f));
+      fireworkPositions.push_back(glm::vec3(k, 50.0f, -SIZE-5.0f));*/
+      fireworkPositions[i++] = glm::vec3(SIZE+5.0f, 30.0f, k);
+      fireworkPositions[i++] = glm::vec3(-SIZE-5.0f, 30.0f, k);
+      fireworkPositions[i++] = glm::vec3(k, 30.0f, SIZE+5.0f);
+      fireworkPositions[i++] = glm::vec3(k, 30.0f, -SIZE-5.0f);
    }
-   for (int i = 0; i < NUM_FIREWORK_PARTICLES; ++i) {
-      Particle* particle = new Particle();
-      particle->load();
-      particle->setTexture(TEX_PARTICLE);
-      particle->setStartPos(fireworkPositions[(int)(randFloat(0.0f,(float)(fireworkPositions.size()-1))+0.5f)]);
-      //particle->setStartVel(glm::vec3(0.0f, 0.0f, 0.0f));
-      //particle->setStartCol(glm::vec3(0.99f, 0.99f, 0.68f));
-      particle->setStartTTL(50.0f);
-      particle->startTime = randFloat(0.0f, 50.0f);
-      //particle->setStartOpacity(0.8f);
-      //particle->setOpacityTaper(false);
-      //particle->setUpdateFunc(&fireflyFunc);
-      fireworkParticles.push_back(particle);
+   for (int j = 0; j < NUM_FIREWORKS; ++j) {
+      //glm::vec3 fireworkPos = glm::vec3(0.0f, 0.0f, 0.0f);
+      //while ((fireworkPos.x != 0.0f) && (fireworkPos.y != 0.0f) && (fireworkPos.z != 0.0f)) {
+      glm::vec3 fireworkPos = fireworkPositions[(int)(randFloat(0.0f,SIZE*8.0f)+0.5f)];
+      if ((fireworkPos.x == 0.0f) && (fireworkPos.y == 0.0f) && (fireworkPos.z == 0.0f))
+         continue;
+      //}
+      //glm::vec3 fireworkCol = glm::vec3(randFloat(0.0f, 1.0f), randFloat(0.0f, 1.0f), randFloat(0.0f, 1.0f));
+      float startTime = randFloat(0.0f, 40.0f);
+      
+      vector<Particle*> particles;
+      for (int i = 0; i < NUM_FIREWORK_PARTICLES; ++i) {
+         Particle* particle = new Particle();
+         particle->load();
+         particle->setTexture(TEX_PARTICLE);
+         //particle->setRandPosList(fireworkPositions, (int)(SIZE*8.0f));
+         particle->setStartPos(fireworkPos);
+         particle->setStartVel(glm::vec3(randFloat(-0.2f, 0.2f), randFloat(-0.2f, 0.2f), randFloat(-0.2f, 0.2f)));
+         particle->setStartCol(glm::vec3(randFloat(0.0f, 1.0f), randFloat(0.0f, 1.0f), randFloat(0.0f, 1.0f)));
+         particle->setStartTTL(40.0f);
+         particle->startTime = startTime;
+         //particle->setStartOpacity(0.8f);
+         particle->setStartScale(1.5f);
+         particle->setOpacityTaper(true);
+         //particle->setUpdateFunc(&fireflyFunc);
+         particles.push_back(particle);
+         
+         particles[i]->init(prog);
+      }
+      fireworkParticles.push_back(particles);
    }
 }
 
@@ -150,6 +172,7 @@ void World::particleStep(Program* prog, Window* window) {
    ParticleSorter sorter;
    sorter.C = glm::transpose(glm::inverse(V)); // glm is transposed!
    std::sort(fountainParticles.begin(), fountainParticles.end(), sorter);
+   std::sort(fireflyParticles.begin(), fireflyParticles.end(), sorter);
    
    // Create matrix stacks
 	MatrixStack P, MV;
@@ -173,9 +196,25 @@ void World::particleStep(Program* prog, Window* window) {
 	   fireflyParticles[i]->draw(&MV);
 	}
 	
+	//int temp_cycles[NUM_FIREWORKS];
+	//bool randomizePositions = false;
+	//glm::vec3 newPosition = glm::vec3(0.0f, 0.0f, 0.0f);
 	for (int i=0; i<fireworkParticles.size(); ++i) {
-	   fireworkParticles[i]->update(t, h, g);
-	   //fireworkParticles[i]->draw(&MV);
+	   /*if (temp_cycles[i] != fireworkParticles[i][0]->cycles) {
+	      randomizePositions = true;
+	      //newPosition = fireworkPositions[(int)(randFloat(0.0f,SIZE*8.0f)+0.5f)];
+	   }
+	   temp_cycles[i] = fireworkParticles[i][0]->cycles;*/
+      std::sort(fireworkParticles[i].begin(), fireworkParticles[i].end(), sorter);
+	      
+	   for (int j=0; j<fireworkParticles[i].size(); ++j) {
+	      /*if (randomizePositions) {
+	         fireworkParticles[i][j]->setStartPos(newPosition);
+	      }*/
+	      fireworkParticles[i][j]->update(t, h, glm::vec3(0.0f, -0.001f, 0.0f));
+	      fireworkParticles[i][j]->draw(&MV);
+	   }
+	  // randomizePositions = false;
 	}
 	// Unbind the program
 	prog->unbind();
@@ -484,7 +523,9 @@ void World::initGround() {
     for (float z = -SIZE + 1.0f; z < SIZE - 1.0f; ++z) {
       int j = 0;
       for (float x = -SIZE + 1.0f; x < SIZE - 1.0f; ++x) {
-         mapGrid[i][j] = glm::vec3(x, 0.75f, z);
+         if ((i < (int)SIZE * 2 - 2) && (j < (int)SIZE * 2 - 2)) {
+            mapGrid[i][j] = glm::vec3(x, 0.75f, z);
+         }
          j++;
       }
       i++;
@@ -604,8 +645,8 @@ void World::parseMapFile(const char* fileName) {
             continue;
          }
          
-         char type[10];
-         char minigame[20];
+         char type[10] = { 'H', 'e', 'l', 'l', 'o', '\0' };
+         char minigame[20] = { 'H', 'e', 'l', 'l', 'o', '\0' };
          float xt, yt, zt, xs, ys, zs, angle;
          // load the booth data
          sscanf(line.c_str(), "%s (%f,%f,%f) (%f,%f,%f) %f %s\n", type, &xt, &yt, &zt, &xs, &ys, &zs, &angle, minigame);

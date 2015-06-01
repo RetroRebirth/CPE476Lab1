@@ -23,6 +23,8 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Sound* _sound) {
    tempFix->load("objs/target.obj");
    tempFix->setShadows(false);
    tempFix->setPos(glm::vec3(0.0, 0.0, -1.0));
+   
+   xRotation = yRotation = 0.0f;
 
    sound = _sound;
    gameStart = gameOver = false;

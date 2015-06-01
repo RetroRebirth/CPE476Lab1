@@ -27,6 +27,9 @@ class ShootingGallery {
       vector<Object*> targets;
       vector<tinyobj::shape_t> shapes;
       vector<tinyobj::material_t> materials;
+      
+      float xRotation, yRotation;
+      
       GLuint ShadeProg;
       Sound* sound;
       Object* wall;

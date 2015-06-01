@@ -45,6 +45,7 @@ public:
    // argument must be a function pointer with the arguments:
    // void foo(glm::vec3* pos, glm::vec3* vel, glm::vec3* grav, glm::vec3* color, float time)
    void setUpdateFunc(void (*func)(glm::vec3*,glm::vec3*,glm::vec3*,glm::vec4*,float));
+   void setRandPosList(glm::vec3* list, int s);
 	
 private:
 	float charge; // +1 or -1
@@ -88,6 +89,9 @@ private:
 	// custom updatestuff
 	void (*customUpdateFunc)(glm::vec3*,glm::vec3*,glm::vec3*,glm::vec4*,float);
 	bool customUpdate;
+	
+	glm::vec3* randPosList;
+	int randPosListSize;
 };
 
 #endif

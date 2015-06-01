@@ -19,6 +19,8 @@ Object::Object(
    rotateMat = glm::mat4(1.0f);
    directionalMat = glm::mat4(1.0f);
    transMat = glm::mat4(1.0f);
+   transRot = glm::mat4(1.0f);
+   
    dir_angle = 0.0f;
    boundBoxScalerMat = glm::scale(glm::mat4(1.0f), glm::vec3(1.1f,1.1f,1.1f));
 
@@ -95,6 +97,9 @@ void Object::iterativeRotate(float angle, glm::vec3 axis) {
 // translate object by flat amount... this will be applied on top of positional translations
 void Object::translate(glm::vec3 trans) {
    transMat = glm::translate(glm::mat4(1.0f), trans);
+}
+void Object::setTransRot(glm::vec3 trans) {
+   transRot = glm::translate(glm::mat4(1.0f), trans);
 }
 
 bool Object::collidedWithPlayer(glm::vec3 camPos, float dt) {
@@ -392,7 +397,9 @@ void Object::getBounds(struct bound_box *_bounds) {
    setupPlane(x2p, x2q, x2r, &x2);
    planes.push_back(x2);
    
-   memcpy(&bounds, _bounds, sizeof(*_bounds));
+   if (&bounds != _bounds) {
+      memcpy(&bounds, _bounds, sizeof(struct bound_box));
+   }
 }
 
 void Object::setupPlane(glm::vec3 p, glm::vec3 q, glm::vec3 r, struct plane* plane) {

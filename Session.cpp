@@ -5,27 +5,33 @@ map<string, Program*> shaders;
 int global_points;
 
 Session::Session() {
+   printf("In session constructor!\n");
    window = new Window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
-
+   printf("window initted\n");
    initGL();
-
+   printf("openGL initted\n");
    camera = new Camera(h_uP, h_uV, h_uView);
+   printf("camera initted\n");
    world = new World(shaders[SHADER_DEFAULT]->getPID(), camera);
+   printf("world initted\n");
    clicks = new Clicks();
    fontEngine = new FontEngine(WINDOW_WIDTH, WINDOW_HEIGHT, shaders[SHADER_TEXT], shaders[SHADER_DEFAULT]);
-
+   printf("past font initting\n");
    sound = new Sound();
    sound->initSound();
+   printf("past sound initting\n");
    camera->booths = world->booths;
    camera->structures = world->structures;
-   
+   printf("past camera initting\n");
    minigame = new Minigame();
    game_state = WORLD_STATE;
    game_start = false;
    global_points = 0;
    
    world->initParticles(shaders[SHADER_BILLBOARD]);
+   printf("particles initted\n");
    fontEngine->init(shaders[SHADER_TEXT]->getPID());
+   printf("we got through session constructor!\n");
 }
 
 Session::~Session() {
@@ -133,6 +139,7 @@ void Session::initGL() {
  * This is called on every game loop.
  */
 void Session::step() {
+   //printf("in session step\n");
    glfwSwapBuffers(window->glfw_window);
    glfwPollEvents();
    // Clear the screen
@@ -154,6 +161,8 @@ void Session::step() {
    if (minigame->getGameOver()) {
       //leaveMinigame();
    }
+   
+   //printf("in the middle of session step!\n");
 
    // Disable and unbind
    GLSL::disableVertexAttribArray(h_aPos);
