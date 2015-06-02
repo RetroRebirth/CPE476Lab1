@@ -585,6 +585,10 @@ void Object::draw()
    glBindTexture(GL_TEXTURE_2D, texture_id);
    GLint h_rot = GLSL::getUniformLocation(ShadeProg, "uRot");
    Util::safe_glUniformMatrix4fv(h_rot, glm::value_ptr(R));
+
+   // Draw the object
+//   glUniform1f(h_uTrans, 1.0);
+   //Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T*R*scalerMat));
    Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat));
    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
    

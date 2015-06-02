@@ -232,7 +232,6 @@ void World::step(Window* window) {
       for (int i=0; i<extras.size(); ++i) {
          struct Extra* extra = extras[i];
          //extra->step();
-         //drawObject(extra);
          if (cmpVec3(extra->currPos,extra->targetPos)) {
             if (extra->rest == 0) {
                //extra->rest = 100;
@@ -259,140 +258,10 @@ void World::step(Window* window) {
             }
          }
          extra->object->pos.y = 0.6f;
-         extra->object->draw();
+         drawObject(extra->object);//->draw();
       }
       drawGround();
       drawOverWorld();
-      
-      
-     /*float s = SIZE - (playerXZRad*2.0f);
-    
-     if (player->pos.x < -s) {
-        player->pos.x = -s;
-        playerHit = true;
-     }
-     if (player->pos.x > s) {
-        player->pos.x = s;
-        playerHit = true;
-     }
-     if (player->pos.z < -s) {
-        player->pos.z = -s;
-        playerHit = true;
-     }
-     if (player->pos.z > s) {
-        player->pos.z = s;
-        playerHit = true;
-     }
-      
-      // code to stop camera from going through things... will probably need to be moved somewhere else
-      for (int i=0; i<structures.size(); ++i) {
-         // if camera.pos violates bounds, then set pos to be equal to bound... 
-         glm::vec3 colPlane;
-         // TODO influence check should use player position in the future
-         //structures[i]->checkInteract(camera->pos);
-         
-         // check for player hit detection
-         if (structures[i]->checkPlayerCollision(player, &colPlane)) {
-            playerHit = true;
-            if (abs(colPlane.x) > 0.0f) {
-               // hit an x boundary
-               if ((colPlane.x - structures[i]->pos.x) > 0.0f) {
-                  player->pos.x = colPlane.x + playerXZRad;
-               }
-               if ((colPlane.x - structures[i]->pos.x) < 0.0f) {
-                  player->pos.x = colPlane.x - playerXZRad;
-               }
-            }
-            else if (abs(colPlane.y) > 0.0f) {
-               // hit a y boundary
-               if ((colPlane.y - structures[i]->pos.y) > 0.0f) {
-                  player->pos.y = colPlane.y + playerXZRad;
-               }
-               if ((colPlane.y - structures[i]->pos.y) < 0.0f) {
-                  player->pos.y = colPlane.y - playerXZRad;
-               }
-            }
-            else if (abs(colPlane.z) > 0.0f) {
-               // hit a z boundary
-               if ((colPlane.z - structures[i]->pos.z) > 0.0f) {
-                  player->pos.z = colPlane.z + playerXZRad;
-               }
-               if ((colPlane.z - structures[i]->pos.z) < 0.0f) {
-                  player->pos.z = colPlane.z - playerXZRad;
-               }
-            }
-         }
-         // collision detection
-         if (structures[i]->checkCameraCollision(camera->pos, &colPlane)) {
-            if (abs(colPlane.x) > 0.0f) {
-               // hit an x boundary
-               camera->pos.x = colPlane.x;
-            }
-            else if (abs(colPlane.y) > 0.0f) {
-               // hit a y boundary
-               camera->pos.y = colPlane.y;
-            }
-            else if (abs(colPlane.z) > 0.0f) {
-               // hit a z boundary
-               camera->pos.z = colPlane.z;
-            }
-         }
-      }
-      for (int i=0; i<booths.size(); ++i) {
-         
-         // if camera.pos violates bounds, then set pos to be equal to bound... 
-         glm::vec3 colPlane;
-         // TODO influence check should use player position in the future
-         //booths[i]->checkInteract(camera->pos);
-         booths[i]->checkInteract(player->pos);
-         // check for player hit detection
-         if (booths[i]->checkPlayerCollision(player, &colPlane)) {
-            playerHit = true;
-            if (abs(colPlane.x) > 0.0f) {
-               // hit an x boundary
-               if ((colPlane.x - booths[i]->booth[1]->pos.x) > 0.0f) {
-                  player->pos.x = colPlane.x + playerXZRad;
-               }
-               if ((colPlane.x - booths[i]->booth[1]->pos.x) < 0.0f) {
-                  player->pos.x = colPlane.x - playerXZRad;
-               }
-            }
-            else if (abs(colPlane.y) > 0.0f) {
-               // hit a y boundary
-               if ((colPlane.y - booths[i]->booth[1]->pos.y) > 0.0f) {
-                  player->pos.y = colPlane.y + playerXZRad;
-               }
-               if ((colPlane.y - booths[i]->booth[1]->pos.y) < 0.0f) {
-                  player->pos.y = colPlane.y - playerXZRad;
-               }
-            }
-            else if (abs(colPlane.z) > 0.0f) {
-               // hit a z boundary
-               if ((colPlane.z - booths[i]->booth[1]->pos.z) > 0.0f) {
-                  player->pos.z = colPlane.z + playerXZRad;
-               }
-               if ((colPlane.z - booths[i]->booth[1]->pos.z) < 0.0f) {
-                  player->pos.z = colPlane.z - playerXZRad;
-               }
-            }
-         }
-         
-         // collision detection
-         if (booths[i]->checkCameraCollision(camera->pos, &colPlane)) {
-            if (abs(colPlane.x) > 0.0f) {
-               // hit an x boundary
-               camera->pos.x = colPlane.x;
-            }
-            else if (abs(colPlane.y) > 0.0f) {
-               // hit a y boundary
-               camera->pos.y = colPlane.y;
-            }
-            else if (abs(colPlane.z) > 0.0f) {
-               // hit a z boundary
-               camera->pos.z = colPlane.z;
-            }
-         }
-      }*/
    }
 
    
@@ -539,14 +408,8 @@ void World::drawGround() {
 
 void World::drawOverWorld() {
    for (int i=0; i<structures.size(); ++i) {
-          /*
-          Object **bObjs = structure->getBooths();
-          for (int i = 0; i < 3; i++) {
-              drawObject(bObjs[i]);
-          }
-          */
       if (drawWorld) {
-         structures[i]->draw();
+         drawObject(structures[i]);//->draw();
          structures[i]->drawBounds = false;
       }
       else {
@@ -562,7 +425,10 @@ void World::drawOverWorld() {
           }
           */
       if (drawWorld) {
-         booths[i]->draw();
+         //booths[i]->draw();
+         drawObject(booths[i]->booth[0]);
+         drawObject(booths[i]->booth[1]);
+         drawObject(booths[i]->booth[2]);
          booths[i]->booth[1]->drawBounds = false;
       }
       else {
@@ -577,7 +443,7 @@ void World::drawOverWorld() {
       booths[i]->calculateBoundingBox();
    }
    for (int i=0; i<lanterns.size(); ++i) {
-      lanterns[i]->draw();
+      drawObject(lanterns[i]);//->draw();
    }
 }
 
@@ -787,7 +653,8 @@ void World::drawObject(Object* obj) {
 
    // Check if the object is in the view frustum
    glm::vec3 pos = obj->getPos();
-   float rad = obj->getRadius();
+   //float rad = obj->getRadius();
+   float rad = obj->getXZRadius();
    if (checkPlane(planes[0], pos, rad)      // left
       && checkPlane(planes[1], pos, rad)    // right
       && checkPlane(planes[2], pos, rad)    // top
@@ -860,7 +727,8 @@ bool World::checkPlane(glm::vec4 plane, glm::vec3 pos, float rad) {
    glm::vec4 v = glm::vec4(pos.x, pos.y, pos.z, 1.0);
    float result = plane.x * v.x + plane.y * v.y + plane.z * v.z + plane.w * v.w;
    bool correctHalfSpace = result > 0;
-   bool clipping = glm::abs(result) < glm::abs(rad);
+   //bool clipping = glm::abs(result) < glm::abs(rad);
+   bool clipping = glm::abs(result) < 0;
 
    return correctHalfSpace || clipping;
 }
