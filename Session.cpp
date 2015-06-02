@@ -222,7 +222,7 @@ void Session::createMinigame(char* type) {
    } else if (strcmp(type, WATERMELON_SMASH) == 0) {
       minigame->watermelonSmash = new WatermelonSmash(shaders[SHADER_DEFAULT]->getPID(), shaders[SHADER_BILLBOARD], camera, sound);
    } else if (strcmp(type, KARAOKE) == 0) {
-      minigame->karaoke = new Karaoke(shaders[SHADER_DEFAULT]->getPID(), sound);
+      minigame->karaoke = new Karaoke(shaders[SHADER_DEFAULT]->getPID(), sound, camera, shaders[SHADER_BILLBOARD]);
    } else if (strcmp(type, SHOP) == 0) {
        minigame->shop = new Shop(shaders[SHADER_DEFAULT]->getPID(), sound);
    }

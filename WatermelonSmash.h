@@ -12,8 +12,8 @@
 #include "Program.h"
 #include "FontEngine.h"
 #include "Particle.h"
-#include "ParticleSorter.h"
 #include "Camera.h"
+#include "ParticleSorter.h"
 
 #define BULLET_SPD 20.0
 #define MELON_DEPTH 4.0

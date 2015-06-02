@@ -1,14 +1,33 @@
 #include "Karaoke.h"
+#include "ParticleSorter.h"
 
-Karaoke::Karaoke(GLuint _ShadeProg, Sound* _sound) {
+bool removeFireworks(vector<Particle*> p) {
+   if (p[0]->cycles > 0) {
+      return true;
+   }
+   return false;
+}
+
+Karaoke::Karaoke(GLuint _ShadeProg, Sound* _sound, Camera* _camera, Program* _particleProg) {
     // Inititalize the game
     ShadeProg = _ShadeProg;
     sound = _sound;
+    camera = _camera;
+    particleProg = _particleProg;
     gameOver = gameStart = songChosen = false;
     timeStart = timeArrow = 0.0;
     score = curSong = numGood = numBad = numPerfect = 0;
     curTarget = -1;
     speed = 1;
+    
+    t = 0.0f;
+    t0_disp = 0.0f;
+    t_disp = 0.0f;
+    h = 1.0f;
+    g = glm::vec3(0.0f, -0.01f, 0.0f);
+    
+    fireworks.clear();
+    numFireworks = 0;
     
     // Set up the booth
     setUp();
@@ -69,22 +88,22 @@ void Karaoke::addArrow() {
     // Decide where to place the arrow
     if (curTarget == MIKU) {
         arrow->setTexture(curTarget + CHARA_TEX);
-        arrow->setPos(glm::vec3(2.0, 3.5, 1.0));
+        arrow->setPos(MIKU_POS);
         arrow->rotate(90.0f, glm::vec3(0.0, 0.0, 1.0));
     }
     else if (curTarget == RIN) {
         arrow->setTexture(curTarget + CHARA_TEX);
-        arrow->setPos(glm::vec3(0.7, 3.5, 1.0));
+        arrow->setPos(RIN_POS);
         arrow->rotate(-180.0f, glm::vec3(1.0, 0.0, 0.0));
     }
     else if (curTarget == LEN) {
         arrow->setTexture(curTarget + CHARA_TEX);
-        arrow->setPos(glm::vec3(-0.7, 3.5, 1.0));
+        arrow->setPos(LEN_POS);
         arrow->rotate(0.0f, glm::vec3(1.0, 0.0, 0.0));
     }
     else if (curTarget == KAITO) {
         arrow->setTexture(curTarget + CHARA_TEX);
-        arrow->setPos(glm::vec3(-2.0, 3.5, 1.0));
+        arrow->setPos(KAITO_POS);
         arrow->rotate(-90.0f, glm::vec3(0.0, 0.0, 1.0));
     }
     arrowPos = 0.0;
@@ -280,6 +299,52 @@ void Karaoke::checkTime(Window *window) {
     }
 }
 
+void Karaoke::particleStep() {
+       // Display every 60 Hz
+	   t += h;
+      
+      // Create matrix stacks
+	   MatrixStack P, MV;
+	   // Apply camera transforms
+	   P.pushMatrix();
+	   camera->applyProjectionMatrix(&P);
+	   MV.pushMatrix();
+	   camera->applyViewMatrix(&MV);
+	
+	   // Bind the program
+	   particleProg->bind();
+	   ParticleSorter sorter;
+	
+	   glUniformMatrix4fv(particleProg->getUniform("P"), 1, GL_FALSE, glm::value_ptr(P.topMatrix()));
+	   
+	   for(int i=0; i<fireworks.size(); ++i) {
+	      //printf("in particle draw\n");
+	      
+	      // sort the explosions' Particles from back to front
+         MatrixStack temp;
+         camera->applyViewMatrix(&temp);
+         glm::mat4 V = temp.topMatrix();
+   
+         sorter.C = glm::transpose(glm::inverse(V)); // glm is transposed!
+         std::sort(fireworks[i].begin(), fireworks[i].end(), sorter);
+               
+	      for (int j=0; j<fireworks[i].size(); ++j) {
+	         //printf("drawing particles\n");
+	         fireworks[i][j]->update(t, h, g);
+		      fireworks[i][j]->draw(&MV);
+		   }
+	   }
+	   
+	   fireworks.erase(std::remove_if(fireworks.begin(),
+                                           fireworks.end(),
+                                           &removeFireworks),
+                                           fireworks.end());
+	  
+	   
+	   // Unbind the program
+	   particleProg->unbind();
+}
+
 void Karaoke::step(Window* window) {
     // Draw the booth
     screen->draw();
@@ -334,6 +399,7 @@ void Karaoke::step(Window* window) {
     }
     
     textStep();
+    particleStep();
 }
 
 void Karaoke::textStep() {
@@ -394,11 +460,55 @@ void Karaoke::decreaseDifficulty() {
     }
 }
 
+void Karaoke::addNewFirework(int target) {
+   glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
+   if (target == MIKU) {
+      pos = MIKU_POS;
+   }
+   else if (target == RIN) {
+      pos = RIN_POS;
+   }
+   else if (target == LEN) {
+      pos = LEN_POS;
+   }
+   else if (target == KAITO) {
+      pos = KAITO_POS;
+   }
+   vector<Particle*> firework;
+   firework.clear();
+   for (int i=0; i<FIREWORK_PARTICLES; ++i) {
+      Particle* particle = new Particle();
+      particle->load();
+      particle->setTexture(TEX_PARTICLE);
+      //particle->setRandPosList(fireworkPositions, (int)(SIZE*8.0f));
+      particle->setStartPos(pos);
+      //particle->setStartVel(glm::vec3(randFloat(-0.2f, 0.2f), randFloat(-0.2f, 0.2f), randFloat(-0.2f, 0.2f)));
+      particle->setStartVel(glm::vec3(randFloat(-0.1f, 0.1f), randFloat(-0.1f, 0.0f), randFloat(-0.1f, 0.1f)));
+      particle->setStartCol(glm::vec3(randFloat(0.0f, 1.0f), randFloat(0.0f, 1.0f), randFloat(0.0f, 1.0f)));
+      particle->setStartTTL(40.0f);
+      particle->setOneCycle(true);
+      //particle->startTime = startTime;
+      //particle->setStartOpacity(0.8f);
+      //particle->setStartScale();
+      particle->setOpacityTaper(true);
+      //particle->setUpdateFunc(&fireflyFunc);
+      particle->init(particleProg);
+      
+      firework.push_back(particle);
+   }
+   
+   fireworks.push_back(firework);
+   
+   numFireworks++;
+}
+
 void Karaoke::selectCharacter(int target) {
     // Hit the right arrow
     if (target == curTarget) {
         // Check whether a "PERFECT" score was earned
         if (arrowPos <= -1.7) {
+            // TODO add particle effects
+            addNewFirework(target);
             sound->playJumpSound();
             score += speed * 2;
             numPerfect++;
