@@ -37,7 +37,6 @@ Particle::Particle() :
 	customScale = false;
 	customUpdate = false;
 	randPosListSize = 0;
-	
 	taperOpacity = true;
 	
 	cycles = 0;

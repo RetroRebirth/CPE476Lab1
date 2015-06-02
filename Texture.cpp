@@ -83,6 +83,8 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     }
     mipmapsGenerated = genMipMaps;
+    
+    free(data);
 }
 
 /* Loads a texture from a video frame */
