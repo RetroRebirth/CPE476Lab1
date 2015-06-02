@@ -26,6 +26,7 @@ World::World(GLuint _ShadeProg, Camera* _camera) {
    booths.reserve(6);
    structures.reserve(16);
    extras.reserve(MAX_OBJS);
+
    inGame = false;
    drawWorld = true;
     

@@ -39,6 +39,7 @@ Object::Object(
    vel = 0.0f;
    accel = 1.0f;
    changeDir = true;
+   planes.reserve(4*sizeof(plane));
    
    directional = false;
    castShadows = true;
