@@ -1,0 +1,8 @@
+-- WELCOME TO THE SHOP BOOTH --
+Here you can spend your hard-earned points to buy songs, outfits, and more!
+        
+Use the LEFT and RIGHT arrow keys to select an item
+Press ENTER to buy the selected item
+Press SPACE to exit
+        
+Press ENTER to start shopping

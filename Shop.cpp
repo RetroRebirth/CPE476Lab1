@@ -85,6 +85,30 @@ void Shop::buyItem() {
     }
 }
 
+void Shop::printInstructions() {
+    ifstream instrFile;
+    instrFile.open("shopinstr.txt");
+    string line;
+    float yPos = .5;
+    float yInc;
+    
+    fontEngine->useFont("ostrich", 30);
+    yInc = fontEngine->getTextHeight("blank") * 1.3;
+    
+    if (instrFile.is_open()) {
+        while (getline(instrFile, line)) {
+            if (line[0] == '\n') {
+                yPos -= yInc;
+            }
+            yPos -= yInc;
+            fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), line.c_str(), 0-fontEngine->getTextWidth(line.c_str())/2.0, yPos);
+        }
+    }
+    else {
+        printf("file 'shopinstr.txt' was not available or could not be opened\n");
+    }
+}
+
 void Shop::step(Window* window) {
     // Draw the booth
     for (int i = 0; i < misc_objects.size(); i++)
@@ -92,16 +116,21 @@ void Shop::step(Window* window) {
     
     // Draw the instructions
     if (!gameStart) {
-        // -- WELCOME TO THE SHOP BOOTH --
-        // Here you can spend your hard-earned points to buy songs, outfits, and more!
-        
-        // Use the LEFT and RIGHT arrow keys to select an item
-        // Press ENTER to buy the selected item
-        // Press SPACE to exit
-        
-        // Press ENTER to start shopping
+        printInstructions();
         return;
     }
+    
+    float yInc, yTop = .53, yBot = -.48; 
+
+    fontEngine->useFont("ostrich", 30);
+    yInc = fontEngine->getTextHeight("blank") * 1.3;
+
+    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), items[curItem].name, 0-fontEngine->getTextWidth(items[curItem].name)/2.0, yTop);
+
+    char price[15];
+    sprintf(price, "Price: %d", items[curItem].price);
+    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), price, 0-fontEngine->getTextWidth(price)/2.0, yBot);
+    
     // Draw the item
     items[curItem].draw();
 }

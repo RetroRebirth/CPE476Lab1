@@ -1,4 +1,4 @@
-ostrich Fonts/ostrich-regular.ttf
+ostrich Fonts/ostrich-bold.ttf
 goodDog Fonts/GoodDog.otf
 seaside Fonts/SEASRN__.ttf
 amatic Fonts/Amatic-Bold.ttf

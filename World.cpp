@@ -638,6 +638,7 @@ void World::parseMapFile(const char* fileName) {
    ifstream mapFile;
    mapFile.open(fileName);
    string line;
+
    if (mapFile.is_open()) {
       // read in the lines;
       while (getline(mapFile, line)) {
