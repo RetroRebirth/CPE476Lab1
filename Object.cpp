@@ -46,22 +46,6 @@ Object::Object(
    setTexture(MISC_TYPE);
    xzRadius = -1.0f;
    drawBounds = false;
-
-    /*
-   glGenFramebuffers(1, &FrameBuffer);
-   glBindFramebuffer(GL_FRAMEBUFFER, FrameBuffer);
-   glGenTextures(1, &RenderedTexture);
-   glBindTexture(GL_TEXTURE_2D, RenderedTexture);
-   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 768, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-   glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, RenderedTexture, 0);
-   
-   GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
-   glDrawBuffers(1, DrawBuffers);
-     */
 }
 
 Object::~Object() {}
@@ -558,19 +542,15 @@ void Object::init()
 
 void Object::draw()
 {
-   //glBindFramebuffer(GL_FRAMEBUFFER, FrameBuffer);
-   //glViewport(0, 0, 1024, 768);
-   
-   // Bind the texture
    glEnable(GL_TEXTURE_2D);
    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
    glActiveTexture(GL_TEXTURE0);
-   glBindTexture(GL_TEXTURE_2D, texture_id);
    
 	// Enable and bind position array for drawing
 	GLSL::enableVertexAttribArray(h_aPos);
 	glBindBuffer(GL_ARRAY_BUFFER, posBufID);
 	glVertexAttribPointer(h_aPos, 3, GL_FLOAT, GL_FALSE, 0, 0);
+   
 	// Enable and bind normal array (if it exists) for drawing
 	if(norBufID) {
 		GLSL::enableVertexAttribArray(h_aNor);
@@ -580,13 +560,13 @@ void Object::draw()
 	// Bind index array for drawing
 	int nIndices = (int)shapes[0].mesh.indices.size();
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufID);
-    // Enable and bind texture coordinate array (if it exists) for drawing
-    if (texBufID) {
-        GLint h_tex = GLSL::getAttribLocation(ShadeProg, "aTexCoord");
-        GLSL::enableVertexAttribArray(h_tex);
-        glBindBuffer(GL_ARRAY_BUFFER, texBufID);
-        glVertexAttribPointer(h_tex, 2, GL_FLOAT, GL_FALSE, 0, 0);
-    }
+   // Enable and bind texture coordinate array (if it exists) for drawing
+   if (texBufID) {
+      GLint h_tex = GLSL::getAttribLocation(ShadeProg, "aTexCoord");
+      GLSL::enableVertexAttribArray(h_tex);
+      glBindBuffer(GL_ARRAY_BUFFER, texBufID);
+      glVertexAttribPointer(h_tex, 2, GL_FLOAT, GL_FALSE, 0, 0);
+   }
 	
    // Set the model transformation
    glm::vec3 position = pos + glm::vec3(0.0f, -0.5f, 0.0f);
@@ -599,19 +579,15 @@ void Object::draw()
       R *= RX*RY*RZ;
    }
    modelMat = T*R*scalerMat;//S;
-   
-   //glBindFramebuffer(GL_FRAMEBUFFER, 0);
-   //glViewport(0, 0, 1024, 768);
-   //glBindTexture(GL_TEXTURE_2D, RenderedTexture);
-   //glUniform1i(GLSL::getUniformLocation(ShadeProg, "uSampler1"), 0);
-   
-   // Send the rotation matrix
+    
+   // Send the matrix
    GLint h_rot = GLSL::getUniformLocation(ShadeProg, "uRot");
    Util::safe_glUniformMatrix4fv(h_rot, glm::value_ptr(R));
+   glUniform1f(h_uTrans, 1.0);
+   Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat));
 
    // Draw the object
-   glUniform1f(h_uTrans, 1.0);
-   Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T*R*scalerMat));
+   glBindTexture(GL_TEXTURE_2D, texture_id);
    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
 
    // Draw the shadow
@@ -625,6 +601,92 @@ void Object::draw()
       glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
       glDisable(GL_CULL_FACE);
    }
+}
+
+void Object::drawBloom(int BlendMode, int BlendAmount, int BlurAmount, float BlurScale, float BlurStrength) {
+   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 0);
+   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 0);
+
+   // Render the regular scene
+   glEnable(GL_TEXTURE_2D);
+   glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+   GLSL::enableVertexAttribArray(h_aPos);
+   glBindBuffer(GL_ARRAY_BUFFER, posBufID);
+   glVertexAttribPointer(h_aPos, 3, GL_FLOAT, GL_FALSE, 0, 0);
+   if(norBufID) {
+      GLSL::enableVertexAttribArray(h_aNor);
+      glBindBuffer(GL_ARRAY_BUFFER, norBufID);
+      glVertexAttribPointer(h_aNor, 3, GL_FLOAT, GL_FALSE, 0, 0);
+   }
+   int nIndices = (int)shapes[0].mesh.indices.size();
+   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufID);
+   if (texBufID) {
+      GLint h_tex = GLSL::getAttribLocation(ShadeProg, "aTexCoord");
+      GLSL::enableVertexAttribArray(h_tex);
+      glBindBuffer(GL_ARRAY_BUFFER, texBufID);
+      glVertexAttribPointer(h_tex, 2, GL_FLOAT, GL_FALSE, 0, 0);
+   }
+   glm::vec3 position = pos + glm::vec3(0.0f, -0.5f, 0.0f);
+   glm::mat4 T = glm::translate(glm::mat4(1.0f), position) * transMat;
+   glm::mat4 R = rotateMat * directionalMat;
+   if (directional) {
+      glm::mat4 RX = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(1.0, 0.0, 0.0));
+      glm::mat4 RY = glm::rotate(glm::mat4(1.0f), calcYFacingAngle(), glm::vec3(0.0, 1.0, 0.0));
+      glm::mat4 RZ = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0, 0.0, 1.0));
+      R *= RX*RY*RZ;
+   }
+   modelMat = T*R*scalerMat;
+   GLint h_rot = GLSL::getUniformLocation(ShadeProg, "uRot");
+   Util::safe_glUniformMatrix4fv(h_rot, glm::value_ptr(R));
+   glUniform1f(h_uTrans, 1.0);
+   glm::mat4 S = glm::scale(glm::mat4(1.0f), glm::vec3(0.5, 0.5, 0.5));
+   Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat * S));
+   glActiveTexture(GL_TEXTURE0);
+   glBindTexture(GL_TEXTURE_2D, texture_id);
+   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+   glReadBuffer(GL_FRONT);
+   glBindTexture(GL_TEXTURE_2D, TEX_SCENE);
+   glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 0, 0, 1024, 768, 0);
+   
+   // Render occluding geometry to a separate texture
+   //glClear(GL_COLOR_BUFFER_BIT);
+   glColorMask(false, false, false, false);
+   glBindTexture(GL_TEXTURE_2D, TEX_SCENE);
+   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+   glReadBuffer(GL_FRONT);
+   glBindTexture(GL_TEXTURE_2D, TEX_GLOW);
+   glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 0, 0, 1024, 768, 0);
+   glColorMask(true, true, true, true);
+   // Render glowing geometry second
+   glBindTexture(GL_TEXTURE_2D, TEX_SCENE);
+   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+   glReadBuffer(GL_FRONT);
+   glBindTexture(GL_TEXTURE_2D, TEX_GLOW);
+   glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 0, 0, 1024, 768, 0);
+   
+   // Blur the glow map
+   //glClear(GL_COLOR_BUFFER_BIT);
+   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurAmount"), BlurAmount);
+   glUniform1f(GLSL::getUniformLocation(ShadeProg, "BlurScale"), BlurScale);
+   glUniform1f(GLSL::getUniformLocation(ShadeProg, "BlurStrength"), BlurStrength);
+   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 1);
+   glBindTexture(GL_TEXTURE_2D, TEX_GLOW);
+   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+   glBindTexture(GL_TEXTURE_2D, TEX_GLOW);
+   glReadBuffer(GL_FRONT);
+   glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 0, 0, 1024, 768, 0);
+   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 0);
+   
+   // Blend glowmap with rendered scene
+   //glClear(GL_COLOR_BUFFER_BIT);
+   glUniform1f(GLSL::getUniformLocation(ShadeProg, "BloomAmount"), BlendAmount);
+   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), BlendMode);
+   glBindTexture(GL_TEXTURE_2D, TEX_GLOW);
+   Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat));
+   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 0);
+   /*
+    */
 }
 
 vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> indBuf) {

@@ -59,26 +59,34 @@ void Sound::pauseSong() {
     engine->stopAllSounds();
 }
 
-// Sound when an arrow is hit in Karaoke
 void Sound::playJumpSound() {
     engine->play2D("sounds/jump.wav", false);
 }
-// Sound when a perfect arrow is hit in Karaoke
 void Sound::playContactSound() {
     engine->play2D("sounds/bell.wav", false);
 }
-// Sound when an arrow is missed in Karaoke
 void Sound::playBuzzerSound() {
    engine->play2D("sounds/buzz.wav", false);
 }
-// Sound when a melon is hit in Watermelon Smash
 void Sound::playThwackSound() {
    engine->play2D("sounds/thud.wav", false);
 }
-// Sound when a melon is broken in Watermelon Smash
 void Sound::playSplatSound() {
    engine->play2D("sounds/splat.wav", false);
 }
+void Sound::playCorrectSound() {
+    engine->play2D("sounds/correct.wav", false);
+}
+void Sound::playIncorrectSound() {
+    engine->play2D("sounds/incorrect.wav", false);    
+}
+void Sound::playSoftDing() {
+    engine->play2D("sounds/ding_soft.wav", false);
+}
+void Sound::playLoudDing() {
+    engine->play2D("sounds/ding_high.wav", false);
+}
+
 
 /* Plays the given karaoke track and return its beats per minute */
 float Sound::playKaraokeMusic(int song) {

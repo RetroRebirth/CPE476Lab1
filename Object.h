@@ -2,6 +2,7 @@
 #define __Object__
 
 #include "includes.h"
+#include "Texture.h"
 
 class Object {
 public:
@@ -25,6 +26,7 @@ public:
     void resize_obj();
     void step(float dt);
     void draw();
+    void drawBloom(int BlendMode, int BlendAmount, int BlurAmount, float BlurScale, float BlurStrength);
     
     // collision detection
     // circular bounds

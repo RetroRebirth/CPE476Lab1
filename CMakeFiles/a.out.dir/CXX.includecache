@@ -121,11 +121,17 @@ GL/glut.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Karaoke.cpp
 Karaoke.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Karaoke.h
+ParticleSorter.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/ParticleSorter.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Karaoke.h
 opencv2/opencv.hpp
 -
 opencv2/highgui/highgui.hpp
+-
+algorithm
+-
+functional
 -
 includes.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
@@ -141,6 +147,10 @@ FontEngine.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
 Program.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
+Particle.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Particle.h
+Camera.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.cpp
 MatrixStack.h
@@ -185,6 +195,8 @@ Object.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
 includes.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
+Texture.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Particle.cpp
 Particle.h

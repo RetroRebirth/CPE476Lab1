@@ -74,8 +74,11 @@ private:
 #define TEX_SQUISH_RED 19
 #define TEX_SQUISH_PURPLE 20
 #define TEX_STEEL 21
-
 #define TEX_SONGS 50
+
+#define TEX_SCENE 500
+#define TEX_GLOW 501
+#define TEX_BLUR 502
 
 void loadAllTextures();
 #endif

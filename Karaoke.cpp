@@ -136,13 +136,31 @@ void Karaoke::drawVideo(Window* window) {
 }
 
 void Karaoke::drawArrow() {
+    /*
+    float bloom = (arrowPos * -1) / 2.0;
+    int blend = (arrowPos <= -1.6) ? 1 : 2;
+    arrow->drawBloom(blend, bloom, 10, 1.0, 0.2);
+    */
+     
+    /*
+    // Draw arrow with blur
+    glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurAmount"), 10);
+    glUniform1f(GLSL::getUniformLocation(ShadeProg, "BlurScale"), 1.0);
+    glUniform1f(GLSL::getUniformLocation(ShadeProg, "BlurStrength"), 0.2);
+    glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 1);
+     */
+    
     // Draw arrow with bloom
-    glUniform1f(GLSL::getUniformLocation(ShadeProg, "BloomAmount"), arrowPos * -1);
-    glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 1);
+    float bloom = (arrowPos * -1) / 2.0;
+    int blend = (arrowPos <= -1.6) ? 1 : 2;
+    glUniform1f(GLSL::getUniformLocation(ShadeProg, "BloomAmount"), bloom);
+    glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), blend);
     arrow->draw();
     
     // Turn bloom off
     glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 0);
+    // Turn blur off
+    glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 0);
 }
 
 void Karaoke::printInstructions() {
@@ -178,10 +196,8 @@ void Karaoke::printScore() {
     char ln1[15];
     if (score <= -10 * speed)
         sprintf(ln1, "LOSE...");
-    else if (numGood == 0 && numBad == 0)
-        sprintf(ln1, "PERFECT!!!");
     else if (numBad == 0)
-        sprintf(ln1, "GREAT!!");
+        sprintf(ln1, "PERFECT!!!");
     else
         sprintf(ln1, "FINISH!");
     fontEngine->useFont("amatic", 52);
@@ -397,7 +413,6 @@ void Karaoke::step(Window* window) {
         gameOver = true;
         sound->pauseSong();
     }
-    
     textStep();
     particleStep();
 }
@@ -437,7 +452,7 @@ void Karaoke::prevSong() {
 }
 void Karaoke::selectSong() {
     if (!sound->getSongInfo(curSong).unlocked) {
-        sound->playBuzzerSound();
+        sound->playIncorrectSound();
         return;
     }
     songChosen = true;
@@ -493,10 +508,8 @@ void Karaoke::addNewFirework(int target) {
       particle->setOpacityTaper(true);
       //particle->setUpdateFunc(&fireflyFunc);
       particle->init(particleProg);
-      
       firework.push_back(particle);
    }
-   
    fireworks.push_back(firework);
    
    numFireworks++;
@@ -506,10 +519,8 @@ void Karaoke::selectCharacter(int target) {
     // Hit the right arrow
     if (target == curTarget) {
         // Check whether a "PERFECT" score was earned
-        if (arrowPos <= -1.7) {
-            // TODO add particle effects
+        if (arrowPos <= -1.6) {
             addNewFirework(target);
-            sound->playJumpSound();
             score += speed * 2;
             numPerfect++;
         }

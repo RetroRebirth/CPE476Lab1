@@ -42,6 +42,10 @@ public:
     void playThwackSound();
     void playSplatSound();
     void playJumpSound();
+    void playCorrectSound();
+    void playIncorrectSound();
+    void playSoftDing();
+    void playLoudDing();
     
 private:
     vector<Song> karaoke_songs;

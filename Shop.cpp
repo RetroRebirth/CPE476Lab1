@@ -38,13 +38,18 @@ void Shop::setUp() {
     // Load the songs
     vector<Song> karaoke_songs = sound->getSongs();
     for (int i = 0; i < karaoke_songs.size(); i++) {
-        // Check that the song is not already unlocked
-        if (!karaoke_songs[i].unlocked) {
+        // Check that the song is not already free
+        if (karaoke_songs[i].price != 0) {
             Item newItem;
             newItem.name = karaoke_songs[i].song_name;
-            newItem.price = karaoke_songs[i].price;
             newItem.type = (char *)"song";
             newItem.index = i;
+            
+            // Song has not been purchased yet already
+            if (!karaoke_songs[i].unlocked)
+                newItem.price = karaoke_songs[i].price;
+            else
+                newItem.price = 0;
             
             Object *object = new Object(shapes, materials, ShadeProg);
             object->load((char *)"objs/screen.obj");
@@ -64,16 +69,17 @@ void Shop::buyItem() {
     if (global_points < items[curItem].price) {
         printf("You just remembered you're poor...\n");
         printf("Play some minigames to earn more cash!\n");
-        sound->playBuzzerSound();
+        sound->playIncorrectSound();
     }
     // Item was already unlocked
     else if (items[curItem].price == 0) {
         printf("You've already purchased this item.");
-        sound->playBuzzerSound();
+        sound->playIncorrectSound();
     }
     // Buy the item
     else {
         printf("Bought %s\n", items[curItem].name);
+        global_points -= items[curItem].price;
         items[curItem].price = 0;
         sound->playContactSound();
         
@@ -120,7 +126,7 @@ void Shop::step(Window* window) {
         return;
     }
     
-    float yInc, yTop = .53, yBot = -.48; 
+    float yInc, yTop = .53, yBot = -.48;
 
     fontEngine->useFont("ostrich", 30);
     yInc = fontEngine->getTextHeight("blank") * 1.3;
@@ -130,9 +136,13 @@ void Shop::step(Window* window) {
     char price[15];
     sprintf(price, "Price: %d", items[curItem].price);
     fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), price, 0-fontEngine->getTextWidth(price)/2.0, yBot);
-    
     // Draw the item
     items[curItem].draw();
+    
+    // Draw the item's information:
+    // items[curItem].name
+    // Cost = items[curItem].price
+        // if price == 0, display "[PURCHASED]"
 }
 
 void Shop::prevItem() {
