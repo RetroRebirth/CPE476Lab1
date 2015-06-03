@@ -518,7 +518,7 @@ void World::initGround() {
     ground->load("objs/ground_sakura.obj", "objs/ground_sakura.mtl");
     ground->scale(glm::vec3(SIZE * 2, SIZE * 2, SIZE * 2));
     ground->setTexture(TEX_GROUND_SAKURA);
-    ground->setShadows(false);
+    ground->setShadows(false, 0.0, 0.0);
     
     int i = 0;
     for (float z = -SIZE + 1.0f; z < SIZE - 1.0f; ++z) {
@@ -638,6 +638,7 @@ void World::parseMapFile(const char* fileName) {
    ifstream mapFile;
    mapFile.open(fileName);
    string line;
+   float wall_dy = 0.0;
 
    if (mapFile.is_open()) {
       // read in the lines;
@@ -652,8 +653,6 @@ void World::parseMapFile(const char* fileName) {
          float xt, yt, zt, xs, ys, zs, angle;
          // load the booth data
          sscanf(line.c_str(), "%s (%f,%f,%f) (%f,%f,%f) %f %s\n", type, &xt, &yt, &zt, &xs, &ys, &zs, &angle, minigame);
-
-         Object* structure = new Object(shapes, materials, ShadeProg);
          
          glm::vec3 _pos = glm::vec3(xt, yt, zt);
          glm::vec3 _scalar = glm::vec3(xs, ys, zs);
@@ -663,30 +662,36 @@ void World::parseMapFile(const char* fileName) {
             booths.push_back(booth);
          }
          else if (strcmp(type, "wall") == 0) {  
-         
+            Object* structure = new Object(shapes, materials, ShadeProg);
             structure->translate(_pos);
             structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
             structure->scale(_scalar);
          
             structure->load(WALL_FILE_NAME);
+            structure->setShadows(true, 0.0 + wall_dy, 0.7);
+            wall_dy += 0.001;
             structure->setTexture(TEX_WOOD_RED);
             structures.push_back(structure);
          }
          else if (strcmp(type, "lantern") == 0) {
+            Object* structure = new Object(shapes, materials, ShadeProg);
             structure->translate(_pos);
             structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
             structure->scale(_scalar);
             
             structure->load(LANTERN_FILE_NAME);
+            structure->setShadows(true, 0.01, 0.9);
             structure->setTexture(TEX_LANTERN);
             structures.push_back(structure);
          }
          else if (strcmp(type, "fountain") == 0) {
+            Object* structure = new Object(shapes, materials, ShadeProg);
             structure->translate(_pos);
             structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
             structure->scale(_scalar);
             
             structure->load(FOUNTAIN_FILE_NAME);
+            structure->setShadows(true, 0.01, 0.8);
             structure->setTexture(TEX_LANTERN);
             structures.push_back(structure);
          }
@@ -738,6 +743,7 @@ void World::createExtras(const string &meshName, int texID) {
       extra = new struct Extra;
       extra->object = new Object(shapes, materials, ShadeProg);
       extra->object->load(meshName);
+      extra->object->setShadows(true, 0.03, 1.0);
       extra->object->setTexture(texID);
       extra->object->scale(glm::vec3(3.0f, 3.0f, 3.0f));
       extra->object->translate(glm::vec3(0.0f, 0.9f, 0.0f));
@@ -759,6 +765,7 @@ void World::createPlayer(const string &meshName, int texID) {
    player->load(meshName);
    player->setTexture(texID);
    player->scale(glm::vec3(3.0f, 3.0f, 3.0f));
+   player->setShadows(true, 0.03, 1.0);
    //player->translate(glm::vec3(0.0f, 0.4f, 0.0f));
    camera->initPlayer(player);
    

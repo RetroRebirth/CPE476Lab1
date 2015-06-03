@@ -23,7 +23,7 @@ void Shop::setUp() {
     table->setPos(glm::vec3(0.0, 0.0, 3.0));
     table->scale(glm::vec3(10.0f, 1.0f, 1.0f));
     table->setTexture(TEX_WOOD_DARK);
-    table->setShadows(false);
+    table->setShadows(false, 0.0, 0.0);
     misc_objects.push_back(table);
     
     // Make the wall
@@ -32,7 +32,7 @@ void Shop::setUp() {
     wall->setPos(glm::vec3(0.0, 0.0, 30.0));
     wall->scale(glm::vec3(100.0f, 100.0f, 1.0f));
     wall->setTexture(TEX_WOOD_LIGHT);
-    wall->setShadows(false);
+    wall->setShadows(false, 0.0, 0.0);
     misc_objects.push_back(wall);
     
     // Load the songs
@@ -54,7 +54,7 @@ void Shop::setUp() {
             Object *object = new Object(shapes, materials, ShadeProg);
             object->load((char *)"objs/screen.obj");
             object->setTexture(i + TEX_SONGS);
-            object->setShadows(false);
+            object->setShadows(false, 0.0, 0.0);
             object->scale(glm::vec3(5.0, 7.0, 5.0));
             object->setPos(glm::vec3(0.0, 2.7, 3.0));
             newItem.object = object;

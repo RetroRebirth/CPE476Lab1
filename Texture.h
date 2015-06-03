@@ -79,6 +79,7 @@ private:
 #define TEX_SCENE 500
 #define TEX_GLOW 501
 #define TEX_BLUR 502
+#define TEX_SHADOW 503
 
 void loadAllTextures();
 #endif

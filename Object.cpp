@@ -31,7 +31,6 @@ Object::Object(
    h_uM = GLSL::getUniformLocation(ShadeProg, "uM");
    h_aPos = GLSL::getAttribLocation(ShadeProg, "aPos");
    h_aNor = GLSL::getAttribLocation(ShadeProg, "aNor");
-   h_uTrans = glGetUniformLocation(ShadeProg, "transparancy");
 
    pos = glm::vec3(0.0f, 0.0f, 0.0f);
    dimensions = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -43,6 +42,8 @@ Object::Object(
    
    directional = false;
    castShadows = true;
+   shadowHeight = 0;
+   shadowDarkness = 1.0;
    setTexture(MISC_TYPE);
    xzRadius = -1.0f;
    drawBounds = false;
@@ -544,7 +545,6 @@ void Object::draw()
 {
    glEnable(GL_TEXTURE_2D);
    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-   glActiveTexture(GL_TEXTURE0);
    
 	// Enable and bind position array for drawing
 	GLSL::enableVertexAttribArray(h_aPos);
@@ -579,27 +579,28 @@ void Object::draw()
       R *= RX*RY*RZ;
    }
    modelMat = T*R*scalerMat;//S;
-    
-   // Send the matrix
+   
+   // Draw the object
+   glActiveTexture(GL_TEXTURE0);
+   glBindTexture(GL_TEXTURE_2D, texture_id);
    GLint h_rot = GLSL::getUniformLocation(ShadeProg, "uRot");
    Util::safe_glUniformMatrix4fv(h_rot, glm::value_ptr(R));
-   glUniform1f(h_uTrans, 1.0);
    Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat));
-
-   // Draw the object
-   glBindTexture(GL_TEXTURE_2D, texture_id);
    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-
+   
    // Draw the shadow
    if (castShadows) {
+      glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), shadowDarkness);
       glEnable(GL_CULL_FACE);
       glCullFace(GL_BACK);
-      glUniform1f(h_uTrans, 0.6);
-      glBindTexture(GL_TEXTURE_2D, 0);
-      glm::mat4 sT = glm::translate(glm::mat4(1.0f), glm::vec3(0, -.45, 0));
-      Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(sT*ShadowMatrix()*T*R*scalerMat));
+      glActiveTexture(GL_TEXTURE0);
+      glBindTexture(GL_TEXTURE_2D, TEX_MISC);
+      glm::mat4 sT = glm::translate(glm::mat4(1.0f), glm::vec3(0, -.45 + shadowHeight, 0)) * ShadowMatrix();
+      
+      Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(sT*T*R*scalerMat));
       glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
       glDisable(GL_CULL_FACE);
+      glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), 1.0);
    }
 }
 
@@ -638,7 +639,6 @@ void Object::drawBloom(int BlendMode, int BlendAmount, int BlurAmount, float Blu
    modelMat = T*R*scalerMat;
    GLint h_rot = GLSL::getUniformLocation(ShadeProg, "uRot");
    Util::safe_glUniformMatrix4fv(h_rot, glm::value_ptr(R));
-   glUniform1f(h_uTrans, 1.0);
    glm::mat4 S = glm::scale(glm::mat4(1.0f), glm::vec3(0.5, 0.5, 0.5));
    Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat * S));
    glActiveTexture(GL_TEXTURE0);
@@ -685,8 +685,6 @@ void Object::drawBloom(int BlendMode, int BlendAmount, int BlurAmount, float Blu
    Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat));
    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
    glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 0);
-   /*
-    */
 }
 
 vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> indBuf) {
@@ -797,4 +795,10 @@ glm::vec3 Object::calculateNewPos(float dt) {
    if (vel > 0.0 || changeDir)
       vel += accel * dt;
    return pos + dir * vel * dt;
+}
+
+void Object::setShadows(bool shadows, float height, float dark) {
+   castShadows = shadows;
+   shadowHeight = height;
+   shadowDarkness = dark;
 }

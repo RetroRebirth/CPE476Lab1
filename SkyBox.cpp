@@ -11,7 +11,7 @@ SkyBox::SkyBox(GLuint _ShadeProg)
     skydome->load("objs/skydome_day.obj", "textures/skydome.bmp");
     skydome->scale(glm::vec3(SKY_SIZE, SKY_SIZE, SKY_SIZE));
     skydome->setTexture(TEX_SKY_DAY);
-    skydome->setShadows(false);
+    skydome->setShadows(false, 0.0, 0.0);
 }
 
 SkyBox::~SkyBox() {}

@@ -43,7 +43,7 @@ void WatermelonSmash::setUp() {
     wall->setPos(glm::vec3(0.0, 0.0, 30.0));
     wall->scale(glm::vec3(100.0f, 100.0f, 1.0f));
     wall->setTexture(TEX_WOOD_LIGHT);
-    wall->setShadows(false);
+    wall->setShadows(false, 0.0, 0.0);
     misc_objects.push_back(wall);
     
     // Create a table for the watermelons
@@ -52,7 +52,7 @@ void WatermelonSmash::setUp() {
     table->setPos(glm::vec3(0.0, 0.0, MELON_DEPTH));
     table->scale(glm::vec3(10.0f, 1.0f, 1.0f));
     table->setTexture(TEX_WOOD_DARK);
-    table->setShadows(false);
+    table->setShadows(false, 0.0, 0.0);
     misc_objects.push_back(table);
     
     // Create the hammer
@@ -62,7 +62,7 @@ void WatermelonSmash::setUp() {
     hammer->scale(glm::vec3(3.0, 3.0, 3.0));
     hammer->updateRadius();
     hammer->setTexture(TEX_HAMMER);
-    hammer->setShadows(false);
+    hammer->setShadows(false, 0.0, 0.0);
     
     // Add watermelons
     newMelon(MELON_LEFT);
@@ -74,7 +74,7 @@ void WatermelonSmash::newMelon(float xPos) {
     Object *newObj = new Object(shapes, materials, ShadeProg);
     newObj->load((char *)"objs/watermelon.obj");
     newObj->setTexture(TEX_MELON_OUT);
-    newObj->setShadows(false);
+    newObj->setShadows(false, 0.0, 0.0);
     
     // Add the watermelons to the game
     Watermelon *newMelon = new Watermelon(particleProg, camera, newObj, xPos);
@@ -298,7 +298,7 @@ void WatermelonSmash::mouseClick(glm::vec3 direction, glm::vec4 point) {
     bullet->setDir(direction);
     bullet->setSpeed(1.0f);
     bullet->setTexture(TEX_WOOD_WALL);
-    bullet->setShadows(false);
+    bullet->setShadows(false, 0.0, 0.0);
     bullet->setSpeed(BULLET_SPD);
     bullet->scale(glm::vec3(0.2, 0.2, 0.2));
     bullets.push_back(bullet);

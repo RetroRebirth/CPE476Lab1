@@ -49,7 +49,7 @@ void Karaoke::setUp() {
     screen->setTexture(curSong + TEX_SONGS);
     screen->setPos(glm::vec3(0.0, 2.7, 2.0));
     screen->scale(glm::vec3(5.0, 7.0, 5.0));
-    screen->setShadows(false);
+    screen->setShadows(false, 0.0, 0.0);
     
     // Create the arrow
     arrow = new Object(shapes, materials, ShadeProg);
@@ -57,7 +57,7 @@ void Karaoke::setUp() {
     arrow->setTexture(curTarget + CHARA_TEX);
     arrow->scale(glm::vec3(1.0, 1.0, 1.0));
     arrow->setPos(glm::vec3(2.0, 3.5, 1.0));
-    arrow->setShadows(false);
+    arrow->setShadows(false, 0.0, 0.0);
     
     // Load countdown textures beforehand for performance
     Texture countdownTex;
@@ -74,7 +74,7 @@ void Karaoke::addCharacter(char *file, int tex, float xPos) {
     chara->setPos(glm::vec3(xPos, 1.5, 1.0));
     chara->scale(glm::vec3(1.0, 1.0, 1.0));
     chara->rotate(180.0f, glm::vec3(0.0, 1.0, 0.0));
-    chara->setShadows(false);
+    chara->setShadows(false, 0.0, 0.0);
     chara->updateRadius();
     characters.push_back(chara);
 }

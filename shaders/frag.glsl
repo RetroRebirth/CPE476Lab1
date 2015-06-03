@@ -4,9 +4,10 @@ uniform mat4 uV;
 uniform mat4 uM;
 uniform mat4 uRot;
 uniform vec3 uView;
-uniform float transparancy;
+uniform float uTrans; // transparency
 // Texture
-uniform sampler2D uSampler;
+uniform sampler2D uSampler0; // diffuse
+uniform sampler2D uSampler1; // glow
 // Glow texture
 uniform int BlendMode;
 uniform float BloomAmount;
@@ -28,21 +29,21 @@ float Gaussian (float x, float deviation)
 
 void main ()
 {
-    vec4 src = texture2D(uSampler, vTexCoord); // glowmap
+    vec4 src = texture2D(uSampler1, vTexCoord); // glowmap
     
     // rendered scene w/ directional lighting
-    vec4 tColor = texture2D(uSampler, vTexCoord);
+    vec4 tColor = texture2D(uSampler0, vTexCoord);
     vec3 viewDir = normalize(uView - (uV * uM * vPos).xyz);
     vec3 lColor = vec3(1.0, 1.0, 1.0);
     vec3 lDirection = vec3(-1.0, 1.0, 0.278);
     float aIntensity = 0.5;
     float dIntensity = max(0.0, dot(normalize(vNor.xyz), lDirection));
-    vec4 dst = tColor * vec4(lColor * (aIntensity + dIntensity), transparancy);
+    vec4 dst = tColor * vec4(lColor * (aIntensity + dIntensity), uTrans);
     
     // Pure bloom
     if ( BlendMode == 1 )
     {
-        dst = texture2D(uSampler, vTexCoord); // rendered scene
+        dst = texture2D(uSampler0, vTexCoord); // rendered scene
         gl_FragColor = min((src + dst) * BloomAmount, 1.0);
     }
     // Additive blending (strong result, high overexposure)
@@ -87,7 +88,7 @@ void main ()
             if ( i >= BlurAmount )
                 break;
             float offset = float(i) - halfBlur;
-            vec4 h_blr = texture2D(uSampler, vTexCoord + vec2(offset * (1.0/148.0) * BlurScale, 0.0)) * Gaussian(offset * strength, deviation);
+            vec4 h_blr = texture2D(uSampler1, vTexCoord + vec2(offset * (1.0/148.0) * BlurScale, 0.0)) * Gaussian(offset * strength, deviation);
             colour += h_blr;
         }
         // Vertical blur
@@ -96,7 +97,7 @@ void main ()
             if ( i >= BlurAmount )
                 break;
             float offset = float(i) - halfBlur;
-            vec4 v_blr = texture2D(uSampler, vTexCoord + vec2(0.0, offset * (1.0/148.0) * BlurScale)) * Gaussian(offset * strength, deviation);
+            vec4 v_blr = texture2D(uSampler1, vTexCoord + vec2(0.0, offset * (1.0/148.0) * BlurScale)) * Gaussian(offset * strength, deviation);
             colour += v_blr;
         }
         

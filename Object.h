@@ -27,6 +27,7 @@ public:
     void step(float dt);
     void draw();
     void drawBloom(int BlendMode, int BlendAmount, int BlurAmount, float BlurScale, float BlurStrength);
+    void setShadows(bool shadows, float height, float dark);
     
     // collision detection
     // circular bounds
@@ -50,7 +51,6 @@ public:
     void setChangeDir(bool _changeDir)  { changeDir = _changeDir; }
     void setTexture(int tex)            { texture_id = tex;  }
     void setDirectional(bool dir)       { directional = dir; }
-    void setShadows(bool shadows)       { castShadows = shadows; }
     
     // getters
     glm::vec3 getPos()        { return pos; }
@@ -87,6 +87,7 @@ private:
     float vel, accel, shine;
     bool changeDir;
     bool collected, directional, castShadows;
+    float shadowHeight, shadowDarkness;
     vector<tinyobj::shape_t> shapes;
     vector<tinyobj::material_t> materials;
     
@@ -106,7 +107,7 @@ private:
     GLuint ShadeProg;
     GLuint posBufID, indBufID, norBufID, texBufID;
     GLuint FrameBuffer, RenderedTexture, DepthBuffer;
-    GLint h_aPos, h_aNor, h_uM, h_uTrans;
+    GLint h_aPos, h_aNor, h_uM;
     
     // Texture information
     int texture_id;

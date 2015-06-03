@@ -9,19 +9,19 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Sound* _sound) {
    wall->setPos(glm::vec3(0.0, 0.0, 30.0));
    wall->scale(glm::vec3(100.0f, 100.0f, 1.0f));
    wall->setTexture(TEX_WOOD_WALL);
-   wall->setShadows(false);
+   wall->setShadows(false, 0.0, 0.0);
 
    // Create a gun to shoot from
    gun = new Object(shapes, materials, ShadeProg);
    gun->load("objs/rifle.obj");
    gun->setPos(glm::vec3(0.0, 1.0, 1.0));
-   gun->setShadows(false);
+   gun->setShadows(false, 0.0, 0.0);
    gun->scale(glm::vec3(4.0f, 4.0f, 1.0f));
    gun->setTexture(TEX_STEEL);
 
    tempFix = new Object(shapes, materials, ShadeProg);
    tempFix->load("objs/target.obj");
-   tempFix->setShadows(false);
+   tempFix->setShadows(false, 0.0, 0.0);
    tempFix->setPos(glm::vec3(0.0, 0.0, -1.0));
    
    xRotation = yRotation = 0.0f;
@@ -42,7 +42,7 @@ void ShootingGallery::newTarget(){
    // Initialize a target
    Object* object = new Object(shapes, materials, ShadeProg);
    object->load("objs/target.obj");
-   object->setShadows(false);
+   object->setShadows(false, 0.0, 0.0);
    // Pick a random spot from 8 places
    float x = 2.0 * (int)(Util::randF() * COLS) - 3.0;
    float y = 3.0 * (int)(Util::randF() * ROWS) + 1.0 - 10.0;
@@ -249,7 +249,7 @@ void ShootingGallery::mouseClick(glm::vec3 direction, glm::vec4 point) {
    bullet->setDir(direction);
    bullet->setSpeed(1.0f);
    bullet->setTexture(TEX_WOOD_WALL);
-   bullet->setShadows(false);
+   bullet->setShadows(false, 0.0, 0.0);
    bullet->setSpeed(BULLET_SPD);
    bullet->scale(glm::vec3(0.2, 0.2, 0.2));
    bullets.push_back(bullet);
