@@ -6,6 +6,8 @@ Shop::Shop(GLuint _ShadeProg, Sound* _sound) {
     curItem = 0;
     gameStart = false;
     
+    items.reserve(7);
+    
     setUp();
 }
 
@@ -41,7 +43,10 @@ void Shop::setUp() {
         // Check that the song is not already free
         if (karaoke_songs[i].price != 0) {
             Item newItem;
-            newItem.name = karaoke_songs[i].song_name;
+            char* name = (char*)malloc(sizeof(char)*30);
+            strcpy(name, karaoke_songs[i].song_name);
+            newItem.name = name;
+            //newItem.name = karaoke_songs[i].song_name;
             newItem.type = (char *)"song";
             newItem.index = i;
             
@@ -126,16 +131,6 @@ void Shop::step(Window* window) {
         return;
     }
     
-    float yInc, yTop = .53, yBot = -.48;
-
-    fontEngine->useFont("ostrich", 30);
-    yInc = fontEngine->getTextHeight("blank") * 1.3;
-
-    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), items[curItem].name, 0-fontEngine->getTextWidth(items[curItem].name)/2.0, yTop);
-
-    char price[15];
-    sprintf(price, "Price: %d", items[curItem].price);
-    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), price, 0-fontEngine->getTextWidth(price)/2.0, yBot);
     // Draw the item
     items[curItem].draw();
     
@@ -143,6 +138,24 @@ void Shop::step(Window* window) {
     // items[curItem].name
     // Cost = items[curItem].price
         // if price == 0, display "[PURCHASED]"
+    float yInc, yTop = .53, yBot = -.48;
+
+    fontEngine->useFont("ostrich", 30);
+    yInc = fontEngine->getTextHeight("blank") * 1.3;
+
+    char name[30];
+    sprintf(name, "%s", items[curItem].name);
+    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), name, 0-fontEngine->getTextWidth(name)/2.0, yTop);
+
+    char price[15];
+    if (items[curItem].price == 0) {
+       sprintf(price, "Purchased!");
+       fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), price, 0-fontEngine->getTextWidth(price)/2.0, yBot);
+    }
+    else {
+       sprintf(price, "Price: %d", items[curItem].price);
+       fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), price, 0-fontEngine->getTextWidth(price)/2.0, yBot);
+    }
 }
 
 void Shop::prevItem() {
