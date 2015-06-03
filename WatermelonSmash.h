@@ -31,7 +31,6 @@ public:
     Watermelon(Program* _particleProg, Camera* _camera, Object *obj, float x) {
         particleProg = _particleProg;
         camera = _camera;
-        
         object = obj;
         xPos = x;
         
@@ -62,17 +61,11 @@ public:
         scale = (size - 1.0)/(maxHits - 1);
         yScale = (yPos - 1.0)/(maxHits - 1);
         
-        // initialize time and gravity for particles
-        t = 0.0f;
-        t0_disp = 0.0f;
-        t_disp = 0.0f;
-        h = 1.0f;
-        g = glm::vec3(0.0f, -0.01f, 0.0f);
-        initParticles();
-        
         object->setPos(glm::vec3(xPos, yPos, MELON_DEPTH));
         object->scale(glm::vec3(size, size, size));
         object->updateRadius();
+        
+        isRed = false;
     }
     
     virtual ~Watermelon() {
@@ -97,106 +90,23 @@ public:
         object->setPos(glm::vec3(xPos, yPos, MELON_DEPTH));
         object->scale(glm::vec3(size, size, size));
         object->updateRadius();
-        
-        explosionsStarted.push_back(explosions.front());
-        explosions.pop();
 
         return pEarned;
     }
     
-    vector<vector<Particle*> > explosionsStarted;
-    
-    void particleStep() {
-       // Display every 60 Hz
-	   t += h;
-      
-      // Create matrix stacks
-	   MatrixStack P, MV;
-	   // Apply camera transforms
-	   P.pushMatrix();
-	   camera->applyProjectionMatrix(&P);
-	   MV.pushMatrix();
-	   camera->applyViewMatrix(&MV);
-	
-	   // Bind the program
-	   particleProg->bind();
-	   ParticleSorter sorter;
-	
-	   glUniformMatrix4fv(particleProg->getUniform("P"), 1, GL_FALSE, glm::value_ptr(P.topMatrix()));
-	   
-	   int j = 0;
-	   for(vector<vector<Particle*> >::iterator it1 = explosionsStarted.begin(); it1 != explosionsStarted.end(); ++it1) {
-	      vector<Particle*> v = *it1;
-	      
-	      // sort the explosions' Particles from back to front
-         MatrixStack temp;
-         camera->applyViewMatrix(&temp);
-         glm::mat4 V = temp.topMatrix();
-   
-         sorter.C = glm::transpose(glm::inverse(V)); // glm is transposed!
-         std::sort(v.begin(), v.end(), sorter);
-               
-	      for (int i=0; i<v.size(); ++i) {
-	         v[i]->update(t, h, g);
-	         if (v[i] != NULL && v[i]->cycles < 1) {
-		         v[i]->draw(&MV);
-		      }
-		   }
-		   j++;
-	   }
-	   
-	   // Unbind the program
-	   particleProg->unbind();
-   }
-    
     // getters
     Object *object;
-    float xPos, yPos, size, lifeSpan;
+    float hits, xPos, yPos, size, lifeSpan;
+    bool isRed;
     
 private:
     Program* particleProg;
     Camera* camera;
     vector<tinyobj::shape_t> shapes;
     vector<tinyobj::material_t> materials;
-    queue<vector<Particle*> > explosions;
-    int hits, maxHits, points;
+    int maxHits, points;
     float scale, yScale;
     float timer;
-    
-    // time info for particles
-    float t, t0_disp, t_disp;
-    float h;
-    glm::vec3 g;
-    
-    void initParticles() {
-      explosionsStarted.clear();
-      // load explosion Particles
-	   for(int j = 0; j < maxHits; ++j) {
-	      vector<Particle*> explosion;
-	      explosion.clear();
-	      for (int i = 0; i < NUM_PARTICLES; ++i) {
-		      Particle* particle = new Particle(); // !C++11: Particle *particle = new Particle();
-		      particle->load();
-		      particle->setTexture(TEX_PARTICLE);
-		      particle->setStartPos(glm::vec3(xPos, yPos, MELON_DEPTH));
-		      glm::vec3 vel = glm::vec3(randFloat(-1.0f, 1.0f), randFloat(-1.0f, 1.0f), randFloat(-1.0f, 1.0f));
-		      
-		      particle->setStartVel(glm::normalize(vel)/2.0f);
-		      particle->setStartScale(3.0f);
-		      if (i%2 == 0) {
-		         particle->setStartCol(glm::vec3(0.8f, 0.1f, 0.1f));
-		      }
-		      else {
-		         particle->setStartCol(glm::vec3(0.1f, 0.8f, 0.1f));
-		      }
-		      particle->setStartTTL(EXPLOSION_TIME);
-		      explosion.push_back(particle);
-	
-            explosion[i]->init(particleProg);
-         }
-         explosions.push(explosion);
-      }
-   }
 };
 
 class WatermelonSmash {
@@ -223,6 +133,14 @@ private:
     vector<tinyobj::shape_t> shapes;
     vector<tinyobj::material_t> materials;
     
+    // Paticles
+    vector<vector<Particle*> > fireworks;
+    int numFireworks;
+    // time info for particles
+    float t, t0_disp, t_disp;
+    float h;
+    glm::vec3 g;
+    
     GLuint ShadeProg;
     Sound* sound;
     Object* hammer;
@@ -238,6 +156,8 @@ private:
     void newMelon(float xPos);
     void checkTime(Window *window);
     void setUp();
+    void addNewFirework(glm::vec3 pos, float melonSize);
+    void particleStep();
     
     // Text functions
     void textStep(Window* window);

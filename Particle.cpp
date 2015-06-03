@@ -256,15 +256,16 @@ void Particle::update(float t, float h, const glm::vec3 &g)
 	
 	glm::vec3 grav = m*g; // force due to grav
 	
+	if (taperOpacity) {
+	   color.w = time/lifespan;//(tEnd-t)/(lifespan);
+	}
+	
 	if (customUpdate) {
 	   customUpdateFunc(&x, &v, &grav, &color, time);
 	}
 	else {
 	   glm::vec3 vf = v + time*grav;
 	   x += vf;
-	   if (taperOpacity) {
-	      color.w = time/lifespan;//(tEnd-t)/(lifespan);
-	   }
 	}
 	time += h;
 }

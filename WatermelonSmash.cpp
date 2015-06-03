@@ -1,6 +1,6 @@
 #include "WatermelonSmash.h"
 
-bool removeExplosions(vector<Particle*> p) {
+bool removeExplosion(vector<Particle*> p) {
    if (p[0]->cycles > 0) {
       return true;
    }
@@ -18,6 +18,14 @@ WatermelonSmash::WatermelonSmash(GLuint _ShadeProg, Program* _particleProg, Came
     timeStart = timer = timeLeft = timeRight = timeSwing = 0.0;
     spawnLeft = spawnRight = false;
     gameStart = gameOver = false;
+    
+    t = 0.0f;
+    t0_disp = 0.0f;
+    t_disp = 0.0f;
+    h = 1.0f;
+    g = glm::vec3(0.0f, -0.005f, 0.0f);
+    
+    fireworks.clear();
 
     // Set up the booth
     setUp();
@@ -142,6 +150,93 @@ void WatermelonSmash::checkTime(Window *window) {
     }
 }
 
+void WatermelonSmash::addNewFirework(glm::vec3 pos, float melonSize) {
+   
+   vector<Particle*> firework;
+   firework.clear();
+   for (int i=0; i<NUM_PARTICLES; ++i) {
+      Particle* particle = new Particle(); // !C++11: Particle *particle = new Particle();
+		particle->load();
+		particle->setTexture(TEX_PARTICLE);
+		particle->setStartPos(pos);
+		glm::vec3 vel = glm::vec3(randFloat(-1.0f, 1.0f), randFloat(-1.0f, 3.0f), randFloat(-1.0f, 1.0f));      
+		
+		if (melonSize > 0.0f) {
+		   particle->setStartVel(glm::normalize(vel)/10.0f);
+		   particle->setStartScale(0.5f);
+		   if (i%2 == 0) {
+		      particle->setStartCol(glm::vec3(0.8f, 0.1f, 0.1f));
+		   }
+	      else {
+		      particle->setStartCol(glm::vec3(0.1f, 0.8f, 0.1f));
+		   }
+		   particle->setStartTTL(EXPLOSION_TIME/1.5f);
+		}
+		else {
+		   particle->setStartVel(glm::normalize(vel)/5.0f);
+		   particle->setStartScale(0.9f);
+		   if (i%2 == 0) {
+		      particle->setStartCol(glm::vec3(0.8f, 0.1f, 0.1f));
+		   }
+	      else {
+		      particle->setStartCol(glm::vec3(0.1f, 0.8f, 0.1f));
+		      particle->setStartCol(glm::vec3(0.1f, 0.1f, 0.1f));
+		   }
+		   particle->setStartTTL(EXPLOSION_TIME);
+		}
+      particle->init(particleProg);
+      
+      firework.push_back(particle);
+   }
+   
+   fireworks.push_back(firework);
+}
+
+void WatermelonSmash::particleStep() {
+       // Display every 60 Hz
+	   t += h;
+      
+      // Create matrix stacks
+	   MatrixStack P, MV;
+	   // Apply camera transforms
+	   P.pushMatrix();
+	   camera->applyProjectionMatrix(&P);
+	   MV.pushMatrix();
+	   camera->applyViewMatrix(&MV);
+	
+	   // Bind the program
+	   particleProg->bind();
+	   ParticleSorter sorter;
+	
+	   glUniformMatrix4fv(particleProg->getUniform("P"), 1, GL_FALSE, glm::value_ptr(P.topMatrix()));
+	   
+	   for(int i=0; i<fireworks.size(); ++i) {
+	      //printf("in particle draw\n");
+	      
+	      // sort the explosions' Particles from back to front
+         MatrixStack temp;
+         camera->applyViewMatrix(&temp);
+         glm::mat4 V = temp.topMatrix();
+   
+         sorter.C = glm::transpose(glm::inverse(V)); // glm is transposed!
+         std::sort(fireworks[i].begin(), fireworks[i].end(), sorter);
+               
+	      for (int j=0; j<fireworks[i].size(); ++j) {
+	         fireworks[i][j]->update(t, h, g);
+		      fireworks[i][j]->draw(&MV);
+		   }
+	   }
+	   
+	   fireworks.erase(std::remove_if(fireworks.begin(),
+                                           fireworks.end(),
+                                           &removeExplosion),
+                                           fireworks.end());
+	  
+	   
+	   // Unbind the program
+	   particleProg->unbind();
+}
+
 void WatermelonSmash::step(Window* window) {
     // Draw the booth
     for (int i = 0; i < misc_objects.size(); i++) 
@@ -182,7 +277,6 @@ void WatermelonSmash::step(Window* window) {
     for (int i = 0; i < melons.size(); i++)
         melons[i]->object->draw();
     hammer->draw();
-        
     // Check if the watermelons wilted
     for (int i = 0; i < melons.size(); i++) {
         if (melons[i]->xPos == MELON_LEFT) {
@@ -204,13 +298,11 @@ void WatermelonSmash::step(Window* window) {
             }
         }
     }
-    
     // Fire the bullets
     for (int i = 0; i < bullets.size(); i++){
         if (bullets[i]->getPos().z <= MELON_DEPTH && bullets[i]->getPos().z >= -MELON_DEPTH) {
             if (bullets[i] != NULL) {
                 bullets[i]->setPos(bullets[i]->calculateNewPos(window->dt));
-                
                 for (int j = 0; j < melons.size(); ++j) {
                     // Player hit a watermelon
                     if (bullets[i]->collidedWithObj(*melons[j]->object, window->dt)) {
@@ -222,7 +314,8 @@ void WatermelonSmash::step(Window* window) {
                         hammer->setPos(glm::vec3(melons[j]->xPos, height, MELON_DEPTH + .2));
                         int pointsEarned = melons[j]->hit();
                         score += pointsEarned;
-                        
+                        // add an explosion!
+                        addNewFirework(glm::vec3(melons[j]->xPos, melons[j]->yPos, MELON_DEPTH), (float)melons[j]->hits);
                         // Remove the melon if it was destroyed
                         if (pointsEarned >= 5) {
                             if (melons[j]->xPos == MELON_LEFT) {
@@ -248,17 +341,17 @@ void WatermelonSmash::step(Window* window) {
             bullets.erase(bullets.begin() + i--);
     }
     
-    
+    particleStep();
     // Draw the watermelons exploding
-    for (int i = 0; i < melons.size(); i++) {
+    /*for (int i = 0; i < melons.size(); i++) {
         melons[i]->explosionsStarted.erase(std::remove_if(melons[i]->explosionsStarted.begin(),
                                            melons[i]->explosionsStarted.end(),
                                            &removeExplosions),
                                            melons[i]->explosionsStarted.end());
         melons[i]->particleStep();
-    }
+    }*/
 
-    textStep(window);    
+    textStep(window); 
 }
 
 void WatermelonSmash::textStep(Window* window) {
