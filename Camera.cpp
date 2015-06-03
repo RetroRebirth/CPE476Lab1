@@ -60,7 +60,7 @@ void Camera::setProjectionMatrix(int g_width, int g_height) {
 void Camera::setView() {
    glm::vec3 curPos = debug ? debug_pos : player->pos;
    glm::mat4 lookAtMat = glm::lookAt(lookAtPt(), curPos, glm::vec3(0.0f, 1.0f, 0.0f));
-   glm::vec3 lookat = lookAtPt();
+//   glm::vec3 lookat = lookAtPt();
    
    //printf("lookAt: %lf %lf %lf\nlookAt - .2: %lf %lf %lf\n", lookat.x, lookat.y, lookat.z, lookat.x - cos(.2) * .2, lookat.y, lookat.z - cos(M_PI + .2) * .2);
 
@@ -81,7 +81,7 @@ void Camera::step(Window* window) {
       debug_pos = calcNewPos(window);
    } else {
       if (!playingMinigame && !blocked) {
-         player->pos = calcNewPos(window);
+         pos = calcNewPos(window);
       }
       blocked = false;
    }
@@ -96,10 +96,7 @@ bool Camera::checkStaticObjectCollisions(Object* o, glm::vec3* colPlane) {
       }
    }
    for (int i=0; i<booths.size(); ++i) {
-      if (booths[i]->booth[1]->planarCollisionCheck(player, colPlane)) {
-         return true;
-      }
-      booths[i]->checkInteract(player->pos);
+     booths[i]->checkInteract(player->pos);
       
       if (booths[i]->isActive()) {
          char ln[60];
@@ -107,6 +104,9 @@ bool Camera::checkStaticObjectCollisions(Object* o, glm::vec3* colPlane) {
          fontEngine->useFont("goodDog", 48);
          sprintf(ln, "Press ENTER to play %s!\n", minigame.c_str());
          fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), ln, 0-fontEngine->getTextWidth(ln)/2.0, 0.3);
+      }
+      if (booths[i]->booth[1]->planarCollisionCheck(player, colPlane)) {
+         return true;
       }
    }
    return false;
