@@ -16,7 +16,7 @@
 class Item {
 public:
     Object *object;
-    char *name, *type;
+    char *name, *type, *description;
     int price, index;
     
     void draw() {
@@ -27,7 +27,7 @@ public:
 class Shop {
 public:
     // constructor & deconstructor
-    Shop(GLuint _ShadeProg, Sound* _sound);
+    Shop(GLuint _ShadeProg, Sound* _sound, Camera *_camera);
     virtual ~Shop();
     
     // called by session
@@ -52,6 +52,7 @@ private:
     vector<tinyobj::material_t> materials;
     GLuint ShadeProg;
     Sound* sound;
+    Camera* camera;
     
     // Shop variables
     int curItem;

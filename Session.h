@@ -65,6 +65,7 @@ class Session {
       /** INITIALIZING **/
       bool installShaders(Program* prog);
       void initGL();
+      void initFBO();
 
       /** MAIN GAME LOOP **/
       void step();

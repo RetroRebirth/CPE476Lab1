@@ -80,7 +80,8 @@ public:
 private:
     // Object information
     glm::vec3 dimensions, dir, col;
-    
+    int bind();
+
     // bounding box debug
     void drawBox();
     

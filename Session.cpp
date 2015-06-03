@@ -5,33 +5,25 @@ map<string, Program*> shaders;
 int global_points;
 
 Session::Session() {
-   printf("In session constructor!\n");
    window = new Window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
-   printf("window initted\n");
    initGL();
-   printf("openGL initted\n");
+   loadAllTextures();
+   initFBO();
    camera = new Camera(h_uP, h_uV, h_uView);
-   printf("camera initted\n");
    world = new World(shaders[SHADER_DEFAULT]->getPID(), camera);
-   printf("world initted\n");
    clicks = new Clicks();
    fontEngine = new FontEngine(WINDOW_WIDTH, WINDOW_HEIGHT, shaders[SHADER_TEXT], shaders[SHADER_DEFAULT]);
-   printf("past font initting\n");
    sound = new Sound();
    sound->initSound();
-   printf("past sound initting\n");
    camera->booths = world->booths;
    camera->structures = world->structures;
-   printf("past camera initting\n");
    minigame = new Minigame();
    game_state = WORLD_STATE;
    game_start = false;
    global_points = 0;
    
    world->initParticles(shaders[SHADER_BILLBOARD]);
-   printf("particles initted\n");
    fontEngine->init(shaders[SHADER_TEXT]->getPID());
-   printf("we got through session constructor!\n");
 }
 
 Session::~Session() {
@@ -55,6 +47,50 @@ void Session::run() {
 bool Session::installShaders(Program* prog) {
    prog->init();
    return true;
+}
+
+GLuint FBO_Basic, FBO_CBasic, FBO_DBasic, FBO_TBasic;
+void Session::initFBO() {
+   
+   /* Init basic FBO */
+   glGenFramebuffers(1, &FBO_Basic);
+   glBindFramebuffer(GL_FRAMEBUFFER, FBO_Basic);
+   // rendered texture
+   glGenTextures(1, &FBO_TBasic);
+   glBindTexture(GL_TEXTURE_2D, FBO_TBasic);
+   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 768, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+   // depth buffer
+   glGenRenderbuffers(1, &FBO_DBasic);
+   glBindRenderbuffer(GL_RENDERBUFFER, FBO_DBasic);
+   glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 1024, 768);
+   glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, FBO_DBasic);
+   // color buffer
+   printf("fbo color buffer texture is %d\n", FBO_TBasic);
+   glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, FBO_TBasic, 0);
+   GLenum DrawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
+   glDrawBuffers(1, DrawBuffers);
+   if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+      printf("Error making frame buffer object\n");
+      return;
+   }
+   
+   /*
+   glGenFramebuffers(1, &FBO_Glow);
+   glBindFramebuffer(GL_FRAMEBUFFER, FBO_Glow);
+   glGenTextures(1, &FBO_TGlow);
+   glBindTexture(GL_TEXTURE_2D, FBO_TGlow);
+   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 768, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+   
+   glGenFramebuffers(1, &FBO_Blur);
+   glBindFramebuffer(GL_FRAMEBUFFER, FBO_Blur);
+   glGenTextures(1, &FBO_TBlur);
+   glBindTexture(GL_TEXTURE_2D, FBO_TBlur);
+   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 768, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+    */
 }
 
 void Session::initGL() {
@@ -224,7 +260,7 @@ void Session::createMinigame(char* type) {
    } else if (strcmp(type, KARAOKE) == 0) {
       minigame->karaoke = new Karaoke(shaders[SHADER_DEFAULT]->getPID(), sound, camera, shaders[SHADER_BILLBOARD]);
    } else if (strcmp(type, SHOP) == 0) {
-       minigame->shop = new Shop(shaders[SHADER_DEFAULT]->getPID(), sound);
+       minigame->shop = new Shop(shaders[SHADER_DEFAULT]->getPID(), sound, camera);
    }
 }
 

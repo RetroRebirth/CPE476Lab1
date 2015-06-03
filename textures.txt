@@ -17,10 +17,16 @@
 15 textures/rin.bmp
 16 textures/len.bmp
 17 textures/kaito.bmp
-18 textures/bgPerson.bmp
-19 textures/girlPerson.bmp
+18 textures/steel.bmp
+19 textures/bgPerson.bmp
 20 textures/sidePerson.bmp
-21 textures/steel.bmp
+21 textures/girlPerson.bmp
+22 textures/girlBlue.bmp
+23 textures/girlGreen.bmp
+24 textures/girlPink.bmp
+25 textures/girlMelon.bmp
+26 textures/girlRobot.bmp
+27 textures/girlEnder.bmp
 # SONG THUMBNAILS
 50 textures/karaoke/aldnoah_zero_op1.bmp
 51 textures/karaoke/aldnoah_zero_ed2.bmp

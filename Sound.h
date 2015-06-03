@@ -6,6 +6,7 @@
 
 #include "includes.h"
 #include "Texture.h"
+#include "Camera.h"
 
 using namespace cv;
 using namespace irrklang;

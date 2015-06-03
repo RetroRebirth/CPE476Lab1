@@ -26,8 +26,6 @@
 #define KAITO_POS glm::vec3(-2.0, 3.5, 1.0)
 #define CHARA_TEX 14
 
-#define FIREWORK_PARTICLES 50
-
 using namespace cv;
 
 class Karaoke {
@@ -67,7 +65,7 @@ private:
     
     // Paticles
     vector<vector<Particle*> > fireworks;
-    int numFireworks;
+    int numFireworks, numParticles;
     // time info for particles
     float t, t0_disp, t_disp;
     float h;
@@ -85,7 +83,7 @@ private:
     // Video variables
     VideoCapture cap;
     float fps;
-    float timeFrame;
+    float timeFrame, frameStep;
     int texture_id;
     
     // Minigame functions

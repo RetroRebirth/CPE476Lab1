@@ -1814,6 +1814,8 @@ CMakeFiles/a.out.dir/Session.cpp.o
  irrKlang-64bit-1.5.0/include/ik_vec3d.h
  irrKlang-64bit-1.5.0/include/irrKlang.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Booth.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/FontAtlas.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
@@ -1982,6 +1984,8 @@ CMakeFiles/a.out.dir/ShootingGallery.cpp.o
  irrKlang-64bit-1.5.0/include/ik_vec3d.h
  irrKlang-64bit-1.5.0/include/irrKlang.h
 CMakeFiles/a.out.dir/Shop.cpp.o
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Booth.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Clicks.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/FontAtlas.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
@@ -2318,15 +2322,23 @@ CMakeFiles/a.out.dir/SkyBox.cpp.o
  irrKlang-64bit-1.5.0/include/ik_vec3d.h
  irrKlang-64bit-1.5.0/include/irrKlang.h
 CMakeFiles/a.out.dir/Sound.cpp.o
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Booth.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/FontAtlas.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_ext.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GL/freeglut_std.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/GLSL.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/MatrixStack.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Program.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.cpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/Util.h
+ /Users/kayla/Projects/Graphics/CPE476Lab1/Window.h
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_detail.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_fixes.hpp
  /Users/kayla/Projects/Graphics/CPE476Lab1/glm/./core/_swizzle.hpp

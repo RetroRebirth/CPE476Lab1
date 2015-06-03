@@ -1813,6 +1813,8 @@ CMakeFiles/a.out.dir/Session.cpp.o: irrKlang-64bit-1.5.0/include/ik_irrKlangType
 CMakeFiles/a.out.dir/Session.cpp.o: irrKlang-64bit-1.5.0/include/ik_vec3d.h
 CMakeFiles/a.out.dir/Session.cpp.o: irrKlang-64bit-1.5.0/include/irrKlang.h
 
+CMakeFiles/a.out.dir/ShootingGallery.cpp.o: Booth.h
+CMakeFiles/a.out.dir/ShootingGallery.cpp.o: Camera.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: Clicks.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: FontAtlas.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: FontEngine.h
@@ -1981,6 +1983,8 @@ CMakeFiles/a.out.dir/ShootingGallery.cpp.o: irrKlang-64bit-1.5.0/include/ik_irrK
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: irrKlang-64bit-1.5.0/include/ik_vec3d.h
 CMakeFiles/a.out.dir/ShootingGallery.cpp.o: irrKlang-64bit-1.5.0/include/irrKlang.h
 
+CMakeFiles/a.out.dir/Shop.cpp.o: Booth.h
+CMakeFiles/a.out.dir/Shop.cpp.o: Camera.h
 CMakeFiles/a.out.dir/Shop.cpp.o: Clicks.h
 CMakeFiles/a.out.dir/Shop.cpp.o: FontAtlas.h
 CMakeFiles/a.out.dir/Shop.cpp.o: FontEngine.h
@@ -2317,15 +2321,23 @@ CMakeFiles/a.out.dir/SkyBox.cpp.o: irrKlang-64bit-1.5.0/include/ik_irrKlangTypes
 CMakeFiles/a.out.dir/SkyBox.cpp.o: irrKlang-64bit-1.5.0/include/ik_vec3d.h
 CMakeFiles/a.out.dir/SkyBox.cpp.o: irrKlang-64bit-1.5.0/include/irrKlang.h
 
+CMakeFiles/a.out.dir/Sound.cpp.o: Booth.h
+CMakeFiles/a.out.dir/Sound.cpp.o: Camera.h
+CMakeFiles/a.out.dir/Sound.cpp.o: FontAtlas.h
+CMakeFiles/a.out.dir/Sound.cpp.o: FontEngine.h
 CMakeFiles/a.out.dir/Sound.cpp.o: GL/freeglut.h
 CMakeFiles/a.out.dir/Sound.cpp.o: GL/freeglut_ext.h
 CMakeFiles/a.out.dir/Sound.cpp.o: GL/freeglut_std.h
 CMakeFiles/a.out.dir/Sound.cpp.o: GLSL.h
 CMakeFiles/a.out.dir/Sound.cpp.o: MatrixStack.h
+CMakeFiles/a.out.dir/Sound.cpp.o: Object.h
+CMakeFiles/a.out.dir/Sound.cpp.o: ParticleTexture.h
+CMakeFiles/a.out.dir/Sound.cpp.o: Program.h
 CMakeFiles/a.out.dir/Sound.cpp.o: Sound.cpp
 CMakeFiles/a.out.dir/Sound.cpp.o: Sound.h
 CMakeFiles/a.out.dir/Sound.cpp.o: Texture.h
 CMakeFiles/a.out.dir/Sound.cpp.o: Util.h
+CMakeFiles/a.out.dir/Sound.cpp.o: Window.h
 CMakeFiles/a.out.dir/Sound.cpp.o: glm/./core/_detail.hpp
 CMakeFiles/a.out.dir/Sound.cpp.o: glm/./core/_fixes.hpp
 CMakeFiles/a.out.dir/Sound.cpp.o: glm/./core/_swizzle.hpp

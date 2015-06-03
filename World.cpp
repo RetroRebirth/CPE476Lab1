@@ -498,7 +498,7 @@ void World::setupOverWorld() {
       booths[i]->calculateBoundingBox();
    }
     
-   createPlayer((char *)"objs/squish_red.obj", TEX_SQUISH_RED);
+   createPlayer((char *)"objs/squish_red.obj", TEX_GIRL_RED);
 }
 
 /* Read in a map file and parse based on defined by-line format */

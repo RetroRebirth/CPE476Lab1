@@ -542,25 +542,27 @@ void Object::init()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void Object::draw()
+int Object::bind()
 {
    glEnable(GL_TEXTURE_2D);
    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+
+   // Enable and bind position array for drawing
+   GLSL::enableVertexAttribArray(h_aPos);
+   glBindBuffer(GL_ARRAY_BUFFER, posBufID);
+   glVertexAttribPointer(h_aPos, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+   // Enable and bind normal array (if it exists) for drawing
+   if(norBufID) {
+      GLSL::enableVertexAttribArray(h_aNor);
+      glBindBuffer(GL_ARRAY_BUFFER, norBufID);
+      glVertexAttribPointer(h_aNor, 3, GL_FLOAT, GL_FALSE, 0, 0);
+   }
    
-	// Enable and bind position array for drawing
-	GLSL::enableVertexAttribArray(h_aPos);
-	glBindBuffer(GL_ARRAY_BUFFER, posBufID);
-	glVertexAttribPointer(h_aPos, 3, GL_FLOAT, GL_FALSE, 0, 0);
+   // Bind index array for drawing
+   int nIndices = (int)shapes[0].mesh.indices.size();
+   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufID);
    
-	// Enable and bind normal array (if it exists) for drawing
-	if(norBufID) {
-		GLSL::enableVertexAttribArray(h_aNor);
-		glBindBuffer(GL_ARRAY_BUFFER, norBufID);
-		glVertexAttribPointer(h_aNor, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	}
-	// Bind index array for drawing
-	int nIndices = (int)shapes[0].mesh.indices.size();
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufID);
    // Enable and bind texture coordinate array (if it exists) for drawing
    if (texBufID) {
       GLint h_tex = GLSL::getAttribLocation(ShadeProg, "aTexCoord");
@@ -568,22 +570,20 @@ void Object::draw()
       glBindBuffer(GL_ARRAY_BUFFER, texBufID);
       glVertexAttribPointer(h_tex, 2, GL_FLOAT, GL_FALSE, 0, 0);
    }
-	
+
    // Set the model transformation
    glm::vec3 position = pos + glm::vec3(0.0f, -0.5f, 0.0f);
    glm::mat4 T = glm::translate(glm::mat4(1.0f), position) * transMat;
    glm::mat4 R = rotateMat * directionalMat;
    if (directional) {
-      glm::mat4 RX = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(1.0, 0.0, 0.0));
-      glm::mat4 RY = glm::rotate(glm::mat4(1.0f), calcYFacingAngle(), glm::vec3(0.0, 1.0, 0.0));
-      glm::mat4 RZ = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0, 0.0, 1.0));
-      R *= RX*RY*RZ;
+   glm::mat4 RX = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(1.0, 0.0, 0.0));
+   glm::mat4 RY = glm::rotate(glm::mat4(1.0f), calcYFacingAngle(), glm::vec3(0.0, 1.0, 0.0));
+   glm::mat4 RZ = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0, 0.0, 1.0));
+   R *= RX*RY*RZ;
    }
-   modelMat = T*R*scalerMat;//S;
+   modelMat = T*R*scalerMat;
    
-   // Draw the object
-   glActiveTexture(GL_TEXTURE0);
-   glBindTexture(GL_TEXTURE_2D, texture_id);
+   // Send the matrix information
    GLint h_rot = GLSL::getUniformLocation(ShadeProg, "uRot");
    Util::safe_glUniformMatrix4fv(h_rot, glm::value_ptr(R));
 
@@ -591,9 +591,51 @@ void Object::draw()
 //   glUniform1f(h_uTrans, 1.0);
    //Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T*R*scalerMat));
    Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat));
+   
+   return nIndices;
+}
+
+void Object::draw()
+{
+   // Bind the object information to the shader
+   int nIndices = bind();
+   
+   // Enable basic FBO
+   glBindFramebuffer(GL_FRAMEBUFFER, FBO_Basic);
+   glViewport(0, 0, 1024, 768);
+   glClear(GL_DEPTH_BUFFER_BIT);
+   glEnable(GL_DEPTH_TEST);
+   glEnable(GL_BLEND);
+   //glDepthFunc(GL_ALWAYS);
+   
+   // Draw the object to FBO
+   glActiveTexture(GL_TEXTURE0);
+   glBindTexture(GL_TEXTURE_2D, texture_id);
+   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+   // Draw the shadow projection to FBO
+   if (castShadows) {
+      glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), shadowDarkness);
+      glEnable(GL_CULL_FACE);
+      glCullFace(GL_BACK);
+      glActiveTexture(GL_TEXTURE0);
+      glBindTexture(GL_TEXTURE_2D, TEX_MISC);
+      glm::mat4 sT = glm::translate(glm::mat4(1.0f), glm::vec3(0, -.45 + shadowHeight, 0)) * ShadowMatrix();
+      Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(sT*modelMat));
+      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+      glDisable(GL_CULL_FACE);
+      glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), 1.0);
+   }
+   
+   // Disable basic FBO
+   glBindFramebuffer(GL_FRAMEBUFFER, 0);
+   
+   // Draw the object to scene
+   glActiveTexture(GL_TEXTURE0);
+   glBindTexture(GL_TEXTURE_2D, FBO_TBasic);
+   Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat));
    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
    
-   // Draw the shadow
+   // Draw the shadow projection to scene
    if (castShadows) {
       glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), shadowDarkness);
       glEnable(GL_CULL_FACE);
@@ -602,7 +644,7 @@ void Object::draw()
       glBindTexture(GL_TEXTURE_2D, TEX_MISC);
       glm::mat4 sT = glm::translate(glm::mat4(1.0f), glm::vec3(0, -.45 + shadowHeight, 0)) * ShadowMatrix();
       
-      Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(sT*T*R*scalerMat));
+      Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(sT*modelMat));
       glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
       glDisable(GL_CULL_FACE);
       glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), 1.0);
@@ -610,86 +652,64 @@ void Object::draw()
 }
 
 void Object::drawBloom(int BlendMode, int BlendAmount, int BlurAmount, float BlurScale, float BlurStrength) {
-   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 0);
-   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 0);
 
-   // Render the regular scene
-   glEnable(GL_TEXTURE_2D);
-   glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-   GLSL::enableVertexAttribArray(h_aPos);
-   glBindBuffer(GL_ARRAY_BUFFER, posBufID);
-   glVertexAttribPointer(h_aPos, 3, GL_FLOAT, GL_FALSE, 0, 0);
-   if(norBufID) {
-      GLSL::enableVertexAttribArray(h_aNor);
-      glBindBuffer(GL_ARRAY_BUFFER, norBufID);
-      glVertexAttribPointer(h_aNor, 3, GL_FLOAT, GL_FALSE, 0, 0);
-   }
-   int nIndices = (int)shapes[0].mesh.indices.size();
-   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufID);
-   if (texBufID) {
-      GLint h_tex = GLSL::getAttribLocation(ShadeProg, "aTexCoord");
-      GLSL::enableVertexAttribArray(h_tex);
-      glBindBuffer(GL_ARRAY_BUFFER, texBufID);
-      glVertexAttribPointer(h_tex, 2, GL_FLOAT, GL_FALSE, 0, 0);
-   }
-   glm::vec3 position = pos + glm::vec3(0.0f, -0.5f, 0.0f);
-   glm::mat4 T = glm::translate(glm::mat4(1.0f), position) * transMat;
-   glm::mat4 R = rotateMat * directionalMat;
-   if (directional) {
-      glm::mat4 RX = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(1.0, 0.0, 0.0));
-      glm::mat4 RY = glm::rotate(glm::mat4(1.0f), calcYFacingAngle(), glm::vec3(0.0, 1.0, 0.0));
-      glm::mat4 RZ = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0, 0.0, 1.0));
-      R *= RX*RY*RZ;
-   }
-   modelMat = T*R*scalerMat;
-   GLint h_rot = GLSL::getUniformLocation(ShadeProg, "uRot");
-   Util::safe_glUniformMatrix4fv(h_rot, glm::value_ptr(R));
-   glm::mat4 S = glm::scale(glm::mat4(1.0f), glm::vec3(0.5, 0.5, 0.5));
-   Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat * S));
+   /* Step 1: Render the scene to a texture
+   // enable basic FBO
+   // set and clear viewport
+   glViewport(0, 0, 1024, 768);
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+   // render
+   bind();
    glActiveTexture(GL_TEXTURE0);
    glBindTexture(GL_TEXTURE_2D, texture_id);
    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   glReadBuffer(GL_FRONT);
-   glBindTexture(GL_TEXTURE_2D, TEX_SCENE);
-   glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 0, 0, 1024, 768, 0);
+   // disable basic FBO
+   */
    
-   // Render occluding geometry to a separate texture
-   //glClear(GL_COLOR_BUFFER_BIT);
+   /* Step 2: Render glowing entities to a separate texture
+   // enable glow FBO
+   // set and clear viewport
+   glViewport(0, 0, 1024, 768);
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+   // render occluding geometry first
    glColorMask(false, false, false, false);
-   glBindTexture(GL_TEXTURE_2D, TEX_SCENE);
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   glReadBuffer(GL_FRONT);
-   glBindTexture(GL_TEXTURE_2D, TEX_GLOW);
-   glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 0, 0, 1024, 768, 0);
    glColorMask(true, true, true, true);
-   // Render glowing geometry second
-   glBindTexture(GL_TEXTURE_2D, TEX_SCENE);
+   // render glowing geometry second
+   bind();
+   glActiveTexture(GL_TEXTURE0);
+   glBindTexture(GL_TEXTURE_2D, texture_id);
    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   glReadBuffer(GL_FRONT);
-   glBindTexture(GL_TEXTURE_2D, TEX_GLOW);
-   glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 0, 0, 1024, 768, 0);
+   // disable glow FBO
+    */
    
-   // Blur the glow map
-   //glClear(GL_COLOR_BUFFER_BIT);
-   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurAmount"), BlurAmount);
-   glUniform1f(GLSL::getUniformLocation(ShadeProg, "BlurScale"), BlurScale);
-   glUniform1f(GLSL::getUniformLocation(ShadeProg, "BlurStrength"), BlurStrength);
-   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 1);
-   glBindTexture(GL_TEXTURE_2D, TEX_GLOW);
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   glBindTexture(GL_TEXTURE_2D, TEX_GLOW);
-   glReadBuffer(GL_FRONT);
-   glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 0, 0, 1024, 768, 0);
-   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 0);
-   
-   // Blend glowmap with rendered scene
-   //glClear(GL_COLOR_BUFFER_BIT);
-   glUniform1f(GLSL::getUniformLocation(ShadeProg, "BloomAmount"), BlendAmount);
-   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), BlendMode);
-   glBindTexture(GL_TEXTURE_2D, TEX_GLOW);
-   Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat));
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 0);
+   /* Step 3: Blur the glowmap
+   // enable blur FBO
+   // disable depth checks and writes
+   glDisable(GL_DEPTH_TEST);
+   glDepthMask(false);
+   // set and clear viewport
+   glViewport(0, 0, 1024, 768);
+   glClear(GL_COLOR_BUFFER_BIT);
+   // render horizontal blur
+   // mix with vertical blur
+   // enable glow FBO
+   // disable glow FBO
+   // disable blur FBO
+   // restore viewport
+   glViewport(0, 0, 1024, 768);
+   glClear(GL_COLOR_BUFFER_BIT);
+   */
+    
+   /* Step 4: Blend the glow map with the rendered scene
+   // set textures
+   // scene from step 1
+   glActiveTexture(GL_TEXTURE0);
+   glBindTexture(GL_TEXTURE_2D, FBO_Basic);
+   // scene from step 3
+   glActiveTexture(GL_TEXTURE1);
+   glBindTexture(GL_TEXTURE_2D, FBO_Glow);
+   // render
+    */
 }
 
 vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> indBuf) {

@@ -25,7 +25,6 @@ Karaoke::Karaoke(GLuint _ShadeProg, Sound* _sound, Camera* _camera, Program* _pa
     t_disp = 0.0f;
     h = 1.0f;
     g = glm::vec3(0.0f, -0.01f, 0.0f);
-    
     fireworks.clear();
     numFireworks = 0;
     
@@ -47,7 +46,7 @@ void Karaoke::setUp() {
     screen = new Object(shapes, materials, ShadeProg);
     screen->load((char *)"objs/screen.obj");
     screen->setTexture(curSong + TEX_SONGS);
-    screen->setPos(glm::vec3(0.0, 2.7, 2.0));
+    screen->setPos(glm::vec3(0.0, 2.8, 2.0));
     screen->scale(glm::vec3(5.0, 7.0, 5.0));
     screen->setShadows(false, 0.0, 0.0);
     
@@ -115,7 +114,14 @@ void Karaoke::initVideo() {
     if (cap.isOpened()) {
         // Get the fps
         fps = cap.get(CV_CAP_PROP_FPS);
+        // set video "frame speed"
+        frameStep = (1 / fps) * speed;
     }
+    // Decide how many fireworks to make
+    if (speed == 3)
+        numParticles = 5;
+    else
+        numParticles = 30;
 }
 
 void Karaoke::drawVideo(Window* window) {
@@ -136,25 +142,12 @@ void Karaoke::drawVideo(Window* window) {
 }
 
 void Karaoke::drawArrow() {
-    /*
-    float bloom = (arrowPos * -1) / 2.0;
-    int blend = (arrowPos <= -1.6) ? 1 : 2;
-    arrow->drawBloom(blend, bloom, 10, 1.0, 0.2);
-    */
-     
-    /*
-    // Draw arrow with blur
-    glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurAmount"), 10);
-    glUniform1f(GLSL::getUniformLocation(ShadeProg, "BlurScale"), 1.0);
-    glUniform1f(GLSL::getUniformLocation(ShadeProg, "BlurStrength"), 0.2);
-    glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 1);
-     */
-    
     // Draw arrow with bloom
     float bloom = (arrowPos * -1) / 2.0;
     int blend = (arrowPos <= -1.6) ? 1 : 2;
     glUniform1f(GLSL::getUniformLocation(ShadeProg, "BloomAmount"), bloom);
     glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), blend);
+    arrow->scale(glm::vec3(1.0, 1.0, 1.0));
     arrow->draw();
     
     // Turn bloom off
@@ -319,7 +312,7 @@ void Karaoke::particleStep() {
        // Display every 60 Hz
 	   t += h;
       
-      // Create matrix stacks
+       // Create matrix stacks
 	   MatrixStack P, MV;
 	   // Apply camera transforms
 	   P.pushMatrix();
@@ -334,9 +327,7 @@ void Karaoke::particleStep() {
 	   glUniformMatrix4fv(particleProg->getUniform("P"), 1, GL_FALSE, glm::value_ptr(P.topMatrix()));
 	   
 	   for(int i=0; i<fireworks.size(); ++i) {
-	      //printf("in particle draw\n");
-	      
-	      // sort the explosions' Particles from back to front
+         // sort the explosions' Particles from back to front
          MatrixStack temp;
          camera->applyViewMatrix(&temp);
          glm::mat4 V = temp.topMatrix();
@@ -345,18 +336,14 @@ void Karaoke::particleStep() {
          std::sort(fireworks[i].begin(), fireworks[i].end(), sorter);
                
 	      for (int j=0; j<fireworks[i].size(); ++j) {
-	         //printf("drawing particles\n");
-	         fireworks[i][j]->update(t, h, g);
+	          fireworks[i][j]->update(t, h, g);
 		      fireworks[i][j]->draw(&MV);
-		   }
+          }
 	   }
-	   
 	   fireworks.erase(std::remove_if(fireworks.begin(),
                                            fireworks.end(),
                                            &removeFireworks),
                                            fireworks.end());
-	  
-	   
 	   // Unbind the program
 	   particleProg->unbind();
 }
@@ -396,7 +383,7 @@ void Karaoke::step(Window* window) {
     checkTime(window);
     
     // Draw the video
-    if (window->time - timeFrame >= (1 / fps) * speed) {
+    if (window->time - timeFrame >= frameStep) {
         drawVideo(window);
         timeFrame = window->time;
     }
@@ -455,10 +442,12 @@ void Karaoke::selectSong() {
         sound->playIncorrectSound();
         return;
     }
-    songChosen = true;
-    if (!gameOver)
-        sound->playContactSound();
+    if (songChosen) {
+        return;
+    }
+    sound->playContactSound();
     initVideo();
+    songChosen = true;
 }
 
 // Changes the difficulty setting
@@ -491,22 +480,16 @@ void Karaoke::addNewFirework(int target) {
    }
    vector<Particle*> firework;
    firework.clear();
-   for (int i=0; i<FIREWORK_PARTICLES; ++i) {
+   for (int i = 0; i < numParticles; ++i) {
       Particle* particle = new Particle();
       particle->load();
       particle->setTexture(TEX_PARTICLE);
-      //particle->setRandPosList(fireworkPositions, (int)(SIZE*8.0f));
       particle->setStartPos(pos);
-      //particle->setStartVel(glm::vec3(randFloat(-0.2f, 0.2f), randFloat(-0.2f, 0.2f), randFloat(-0.2f, 0.2f)));
       particle->setStartVel(glm::vec3(randFloat(-0.1f, 0.1f), randFloat(-0.1f, 0.0f), randFloat(-0.1f, 0.1f)));
       particle->setStartCol(glm::vec3(randFloat(0.0f, 1.0f), randFloat(0.0f, 1.0f), randFloat(0.0f, 1.0f)));
       particle->setStartTTL(40.0f);
       particle->setOneCycle(true);
-      //particle->startTime = startTime;
-      //particle->setStartOpacity(0.8f);
-      //particle->setStartScale();
       particle->setOpacityTaper(true);
-      //particle->setUpdateFunc(&fireflyFunc);
       particle->init(particleProg);
       firework.push_back(particle);
    }
@@ -521,6 +504,7 @@ void Karaoke::selectCharacter(int target) {
         // Check whether a "PERFECT" score was earned
         if (arrowPos <= -1.6) {
             addNewFirework(target);
+            //sound->playJumpSound();
             score += speed * 2;
             numPerfect++;
         }

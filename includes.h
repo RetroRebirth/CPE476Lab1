@@ -96,7 +96,6 @@
 
 // Minigames
 #define NO_GAME "null"
-#define NO_LIFE "Kayla and Patrick D="
 #define SHOOTING_GALLERY "shooting_gallery"
 #define WATERMELON_SMASH "watermelon_smash"
 #define KARAOKE "karaoke"
@@ -122,5 +121,9 @@ struct plane {
 
 // number of points the player currently has
 extern int global_points;
+// frame buffer objects
+extern GLuint FBO_Basic, FBO_CBasic, FBO_DBasic, FBO_TBasic;
+//GLuint FBO_Glow, FBO_TGlow;
+//GLuint FBO_Blur, FBO_TBlur;
 
 #endif

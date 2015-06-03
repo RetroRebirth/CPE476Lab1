@@ -319,6 +319,8 @@ includes.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/includes.h
 Texture.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.h
+Camera.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Texture.cpp
 Texture.h

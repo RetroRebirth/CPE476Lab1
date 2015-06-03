@@ -70,16 +70,22 @@ private:
 #define TEX_RIN 15
 #define TEX_LEN 16
 #define TEX_KAITO 17
-#define TEX_SQUISH_BLUE 18
-#define TEX_SQUISH_RED 19
+#define TEX_STEEL 18
+#define TEX_SQUISH_BLUE 19
 #define TEX_SQUISH_PURPLE 20
-#define TEX_STEEL 21
+#define TEX_GIRL_RED 21
+#define TEX_GIRL_BLUE 22
+#define TEX_GIRL_GREEN 23
+#define TEX_GIRL_PINK 24
+#define TEX_GIRL_MELON 25
+#define TEX_GIRL_ROBOT 26
+#define TEX_GIRL_ENDER 27
 #define TEX_SONGS 50
 
-#define TEX_SCENE 500
-#define TEX_GLOW 501
-#define TEX_BLUR 502
-#define TEX_SHADOW 503
+#define TEX_FBO_BASIC 500
+#define TEX_FBO_GLOW 501
+#define TEX_FBO_BLUR 502
 
+extern map<int, GLuint> textures;
 void loadAllTextures();
 #endif

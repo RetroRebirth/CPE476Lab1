@@ -32,6 +32,7 @@ class Camera {
       vector<Object*> structures;
 
       void initPlayer(Object *_player);
+      Object* getPlayer() { return player; }
       float getXRot();
       float getYRot();
       void toggleBounded();

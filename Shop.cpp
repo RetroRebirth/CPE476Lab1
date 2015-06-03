@@ -1,8 +1,9 @@
 #include "Shop.h"
 
-Shop::Shop(GLuint _ShadeProg, Sound* _sound) {
+Shop::Shop(GLuint _ShadeProg, Sound* _sound, Camera* _camera) {
     ShadeProg = _ShadeProg;
     sound = _sound;
+    camera = _camera;
     curItem = 0;
     gameStart = false;
     
@@ -67,6 +68,24 @@ void Shop::setUp() {
             items.push_back(newItem);
         }
     }
+    
+    // Load the outfits
+    for (int i = TEX_GIRL_BLUE; i <= TEX_GIRL_ENDER; i++) {
+        Item newItem;
+        newItem.type = "outfit";
+        newItem.name = "outfit";
+        newItem.price = 150;
+        newItem.index = i;
+        
+        Object *object = new Object(shapes, materials, ShadeProg);
+        object->load((char *)"objs/squish_red.obj");
+        object->setTexture(newItem.index);
+        object->scale(glm::vec3(2.5, 2.5, 2.5));
+        object->setPos(glm::vec3(0.0, 2.7, 3.0));
+        newItem.object = object;
+        
+        items.push_back(newItem);
+    }
 }
 
 void Shop::buyItem() {
@@ -92,6 +111,13 @@ void Shop::buyItem() {
         if (strcmp(items[curItem].type, SONG_TYPE) == 0) {
             printf("You can now play this song in the karaoke booth!\n");
             sound->unlockSong(items[curItem].index);
+        }
+        // Item is an outfit; put it on the player
+        if (strcmp(items[curItem].type, OUTFIT_TYPE) == 0) {
+            printf("You put on a snazzy new outfit\n");
+            Object *player = camera->getPlayer();
+            player->setTexture(items[curItem].index);
+            camera->initPlayer(player);
         }
     }
 }
@@ -160,13 +186,17 @@ void Shop::step(Window* window) {
 
 void Shop::prevItem() {
     if (gameStart) {
-        curItem = (curItem - 1) % items.size();
+        curItem--;
+        if (curItem < 0)
+            curItem = items.size() - 1;
         sound->playJumpSound();
     }
 }
 void Shop::nextItem() {
     if (gameStart) {
-        curItem = (curItem + 1) % items.size();
+        curItem++;
+        if (curItem > items.size() - 1)
+            curItem = 0;
         sound->playJumpSound();
     }
 }
