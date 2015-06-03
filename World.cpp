@@ -222,7 +222,9 @@ void World::particleStep(Program* prog, Window* window) {
 }
 
 void World::step(Window* window) {
-   
+
+//   printf("\n\n\n\n\n\n\n");
+
 	float alpha = std::fmod(window->dt, 1.0f);
 	//printf("alpha: %f\n",alpha);
    
@@ -643,23 +645,59 @@ int World::numLeft() {
    return extras.size();
 }
 
+// ~~~~~~~~~~~~ VIEW FRUSTUM CULLING ~~~~~~~~~~~~~~~~
+
+// reference: http://www.lighthouse3d.com/tutorials/view-frustum-culling/clip-space-approach-extracting-the-planes/
 void World::drawObject(Object* obj) {
-   // Get the model-view matrix for this object
+   // TODO remove to test view frustum culling
+   obj->draw();
+   return;
+
+   // Get the object's position as a vec4
+   glm::vec4 pos = glm::vec4(obj->getPos().x, obj->getPos().y, obj->getPos().z, 1.0f);
+
+   // Combine the project matrix with the modelview matrix
+   glm::mat4 matrix = camera->Projection * camera->View * obj->getModelMatrix();
+   // Put the object's position in clip space
+   glm::vec4 pc = matrix * pos;
+
+   // Homogeneous divide
+   glm::vec3 pcn = glm::vec3(pc.x/pc.w, pc.y/pc.w, pc.z/pc.w);
+
+   // TODO check to see if the object is being clipped (partially visible)
+   float rad = obj->getXZRadius();
+
+   if (-1 < pcn.x          // left
+         && pcn.x < 1      // right
+         && -1 < pcn.y     // bottom
+         && pcn.y < 1      // top
+         && -1 < pcn.z     // near
+         && pcn.y < 1) {   // far
+      // Object is inside the view frustum, draw it
+      obj->draw();
+   }
+}
+
+/* OLD METHOD OF VIEW FRUSTUM CULLING
+// http://gamedevs.org/uploads/fast-extraction-viewing-frustum-planes-from-world-view-projection-matrix.pdf
+void World::drawObject(Object* obj) {
+   // Combine the projection and model-view matrix for this object
    glm::mat4 matrix = camera->Projection * camera->View * obj->getModelMatrix();
 
    // Extract the planes of the view frustum
    glm::vec4* planes = (glm::vec4*) calloc(6, sizeof(glm::vec4));
    extractViewFrustumPlanes(planes, matrix);
 
-   // Check if the object is in the view frustum
+   // Get the object's position and size
    glm::vec3 pos = obj->getPos();
-   //float rad = obj->getRadius();
    float rad = obj->getXZRadius();
+
+   // Check if the object is in the view frustum
    if (checkPlane(planes[0], pos, rad)      // left
       && checkPlane(planes[1], pos, rad)    // right
       && checkPlane(planes[2], pos, rad)    // top
       && checkPlane(planes[3], pos, rad)    // bottom
-      && checkPlane(planes[4], pos, rad)    // near
+      && checkPlane(planes[4], pos, rad)    // near // TODO things disappear when touched
       && checkPlane(planes[5], pos, rad)) { // far
       // Object is inside the view frustum, draw it
       obj->draw();
@@ -706,7 +744,7 @@ void World::extractViewFrustumPlanes(glm::vec4* planes, const glm::mat4 matrix) 
    planes[5].z = matrix[3][2] - matrix[2][2];
    planes[5].w = matrix[3][3] - matrix[2][3];
 
-   // Normalize planes
+   // Normalize planes (so we can calculate distance from plane)
    normalizePlane(planes[0]);
    normalizePlane(planes[1]);
    normalizePlane(planes[2]);
@@ -716,7 +754,8 @@ void World::extractViewFrustumPlanes(glm::vec4* planes, const glm::mat4 matrix) 
 }
 
 void World::normalizePlane(glm::vec4& plane) {
-   float mag = sqrt(plane.x * plane.x + plane.y * plane.y + plane.z * plane.z);
+   // TODO do you square 'w' when normalizing vec4?
+   float mag = sqrt(plane.x * plane.x + plane.y * plane.y + plane.z * plane.z + plane.w * plane.w);
    plane.x = plane.x / mag;
    plane.y = plane.y / mag;
    plane.z = plane.z / mag;
@@ -724,11 +763,21 @@ void World::normalizePlane(glm::vec4& plane) {
 }
 
 bool World::checkPlane(glm::vec4 plane, glm::vec3 pos, float rad) {
+   // Convert the object's position to a vec4
    glm::vec4 v = glm::vec4(pos.x, pos.y, pos.z, 1.0);
-   float result = plane.x * v.x + plane.y * v.y + plane.z * v.z + plane.w * v.w;
-   bool correctHalfSpace = result > 0;
-   //bool clipping = glm::abs(result) < glm::abs(rad);
-   bool clipping = glm::abs(result) < 0;
+
+   // Dot product plane with object's position
+   float dist = plane.x * v.x + plane.y * v.y + plane.z * v.z + plane.w;
+
+   // Is the center of the object in the correct half-space?
+   bool correctHalfSpace = dist > 0;
+
+   // TODO is the object partially visible (clipping)?
+//   bool clipping = glm::abs(dist) < glm::abs(rad);
+   bool clipping = false;
+//   printf("dist: %lf\trad: %lf\n", dist, rad);
 
    return correctHalfSpace || clipping;
 }
+*/
+

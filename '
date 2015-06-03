@@ -83,7 +83,6 @@ void Object::iterativeRotate(float angle, glm::vec3 axis) {
 // translate object by flat amount... this will be applied on top of positional translations
 void Object::translate(glm::vec3 trans) {
    transMat = glm::translate(glm::mat4(1.0f), trans);
-   // TODO update pos
 }
 void Object::setTransRot(glm::vec3 trans) {
    transRot = glm::translate(glm::mat4(1.0f), trans);
