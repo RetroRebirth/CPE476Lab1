@@ -19,6 +19,7 @@ Karaoke::Karaoke(GLuint _ShadeProg, Sound* _sound, Camera* _camera, Program* _pa
     score = curSong = numGood = numBad = numPerfect = 0;
     curTarget = -1;
     speed = 1;
+    perfTime = goodTime = badTime = 0.0;
     
     t = 0.0f;
     t0_disp = 0.0f;
@@ -274,6 +275,16 @@ void Karaoke::checkTime(Window *window) {
             emins = etotsec / 60;
             esecs = etotsec % 60; 
             
+            if (perfTime > 0.0) {
+               perfTime -= window->dt;
+            }
+            if (goodTime > 0.0) {
+               goodTime -= window->dt;
+            }
+            if (badTime > 0.0) {
+               badTime -= window->dt;
+            }
+            
             if (etotsec >= songDuration) {               
                 // Bonus points for all perfects
                 if (numGood == 0 && numBad == 0)
@@ -407,6 +418,7 @@ void Karaoke::step(Window* window) {
 void Karaoke::textStep() {
     float yPos = .9;
     float yInc = .1;
+    float alpha = 0.0;
    
     // Display the score 
     char time[60];
@@ -422,6 +434,27 @@ void Karaoke::textStep() {
     char bpmStr[20];
     sprintf(bpmStr, "BPM: %.2lf", bpm);
     fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), bpmStr, 1-fontEngine->getTextWidth(bpmStr)-.07, yPos-yInc);
+    
+    fontEngine->useFont("oswald", 75);
+    
+    if (perfTime > 0.0) {
+       yPos = .3 + (abs(perfTime - 1.0)/2.0);
+       alpha = 1.0 - (abs(perfTime - 1.0)*2.0);
+    
+       fontEngine->display(glm::vec4(1.0, 1.0, 0.0, alpha), PERF_STR, 0-fontEngine->getTextWidth(PERF_STR)/2.0, yPos);
+    }
+    if (goodTime > 0.0) {
+       yPos = .3 + (abs(goodTime - 1.0)/2.0);    
+       alpha = 1.0 - (abs(goodTime - 1.0)*2.0);    
+        
+       fontEngine->display(glm::vec4(0.0, 0.0, 1.0, alpha), GOOD_STR, 0-fontEngine->getTextWidth(GOOD_STR)/2.0, yPos);
+    }
+    if (badTime > 0.0) {
+       yPos = .3 + (abs(badTime - 1.0)/2.0);
+       alpha = 1.0 - (abs(badTime - 1.0)*2.0);
+              
+       fontEngine->display(glm::vec4(1.0, 0.0, 0.0, alpha), BAD_STR, 0-fontEngine->getTextWidth(BAD_STR)/2.0, yPos);
+    }
 }
 
 // Chooses a song on song selection menu
@@ -507,11 +540,13 @@ void Karaoke::selectCharacter(int target) {
             //sound->playJumpSound();
             score += speed * 2;
             numPerfect++;
+            perfTime = 1.0;
         }
         // Otherwise, "GOOD" score
         else {
             score += speed;
             numGood++;
+            goodTime = 1.0;
         }
     }
     // "BAD" score; wrong arrow
@@ -519,6 +554,7 @@ void Karaoke::selectCharacter(int target) {
         sound->playBuzzerSound();
         score -= speed;
         numBad++;
+        badTime = 1.0;
     }
     
     // Make the next arrow

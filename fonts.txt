@@ -5,3 +5,4 @@ amatic Fonts/Amatic-Bold.ttf
 capture Fonts/Capture_it.ttf
 caviar Fonts/Caviar_Dreams_Bold.ttf
 chunk5 Fonts/Chunkfive.otf
+oswald Fonts/Oswald-Bold.ttf

@@ -25,6 +25,9 @@
 #define KAITO 3
 #define KAITO_POS glm::vec3(-2.0, 3.5, 1.0)
 #define CHARA_TEX 14
+#define PERF_STR "Perfect!!!"
+#define GOOD_STR "Good!"
+#define BAD_STR "Bad..."
 
 using namespace cv;
 
@@ -76,6 +79,7 @@ private:
     int totsec, mins, secs, etotsec, emins, esecs;
     int numGood, numBad, numPerfect;
     float timeStart, beat, bpm, songDuration;
+    float perfTime, goodTime, badTime;
     
     // Animation variables
     float timeArrow, arrowPos;
