@@ -1,6 +1,8 @@
 #include "Karaoke.h"
 #include "ParticleSorter.h"
 
+//const char GOOD_STR[] = "Good!";
+
 bool removeFireworks(vector<Particle*> p) {
    if (p[0]->cycles > 0) {
       return true;
@@ -446,7 +448,7 @@ void Karaoke::textStep() {
     if (goodTime > 0.0) {
        yPos = .3 + (abs(goodTime - 1.0)/2.0);    
        alpha = 1.0 - (abs(goodTime - 1.0)*2.0);    
-        
+      
        fontEngine->display(glm::vec4(0.0, 0.0, 1.0, alpha), GOOD_STR, 0-fontEngine->getTextWidth(GOOD_STR)/2.0, yPos);
     }
     if (badTime > 0.0) {

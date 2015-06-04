@@ -56,6 +56,7 @@ private:
     
     // Shop variables
     int curItem;
+    //float tooPoor, prePurch, buySong, buyOtft;
     
     // Shop functions
     void setUp();

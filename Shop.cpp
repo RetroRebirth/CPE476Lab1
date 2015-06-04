@@ -6,6 +6,10 @@ Shop::Shop(GLuint _ShadeProg, Sound* _sound, Camera* _camera) {
     camera = _camera;
     curItem = 0;
     gameStart = false;
+    /*tooPoor = 0.0;
+    prePurch = 0.0;
+    buySong = 0.0;
+    buyOtft = 0.0;*/
     
     items.reserve(7);
     
@@ -93,11 +97,13 @@ void Shop::buyItem() {
     if (global_points < items[curItem].price) {
         printf("You just remembered you're poor...\n");
         printf("Play some minigames to earn more cash!\n");
+        //tooPoor = 1.0;
         sound->playIncorrectSound();
     }
     // Item was already unlocked
     else if (items[curItem].price == 0) {
         printf("You've already purchased this item.");
+        //prePurch = 1.0;
         sound->playIncorrectSound();
     }
     // Buy the item
@@ -110,11 +116,13 @@ void Shop::buyItem() {
         // Item is a song; unlock it
         if (strcmp(items[curItem].type, SONG_TYPE) == 0) {
             printf("You can now play this song in the karaoke booth!\n");
+            //buySong = 1.0;
             sound->unlockSong(items[curItem].index);
         }
         // Item is an outfit; put it on the player
         if (strcmp(items[curItem].type, OUTFIT_TYPE) == 0) {
             printf("You put on a snazzy new outfit\n");
+            //buyOtft = 1.0;
             Object *player = camera->getPlayer();
             player->setTexture(items[curItem].index);
             camera->initPlayer(player);
@@ -182,6 +190,27 @@ void Shop::step(Window* window) {
        sprintf(price, "Price: %d", items[curItem].price);
        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), price, 0-fontEngine->getTextWidth(price)/2.0, yBot);
     }
+    
+    /*if (tooPoor > 0.0) {
+       char poor1[40];
+       sprintf(poor1, "You just remembered you're poor...");
+       fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), poor1, 0-fontEngine->getTextWidth(poor1)/2.0, .7);
+       
+       char poor2[40];
+       sprintf(poor2, "Play some minigames to earn more cash!");
+       fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), poor2, 0-fontEngine->getTextWidth(poor2)/2.0, .7-yInc);
+       
+       tooPoor -= window->dt;
+    }
+    if (prePurch > 0.0) {
+    
+    } 
+    if (buySong > 0.0) {
+    
+    } 
+    if (buyOtft > 0.0) {
+    
+    }*/
 }
 
 void Shop::prevItem() {
