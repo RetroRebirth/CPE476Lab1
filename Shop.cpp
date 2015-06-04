@@ -10,10 +10,6 @@ Shop::Shop(GLuint _ShadeProg, Sound* _sound, Camera* _camera) {
     items.reserve(7);
 
     tooPoor = 0.0;
-<<<<<<< HEAD
-=======
-    //HERE
->>>>>>> blah blah blah
     prePurch = 0.0;
     buySong = 0.0;
     buyOtft = 0.0;
