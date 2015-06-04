@@ -696,8 +696,8 @@ void World::drawObject(Object* obj) {
 
 //printf("\n");
 }
-
-/* DIFFERENT APPROACH TO VIEW FRUSTUM CULLING
+/*
+// DIFFERENT APPROACH TO VIEW FRUSTUM CULLING
 // reference: http://www.lighthouse3d.com/tutorials/view-frustum-culling/clip-space-approach-extracting-the-planes/
 void World::drawObject(Object* obj) {
    // TODO remove to test view frustum culling
@@ -729,15 +729,17 @@ void World::drawObject(Object* obj) {
    }
 }
 */
-
-/* OLD METHOD OF VIEW FRUSTUM CULLING
+/*
+// OLD METHOD OF VIEW FRUSTUM CULLING
 // http://gamedevs.org/uploads/fast-extraction-viewing-frustum-planes-from-world-view-projection-matrix.pdf
 void World::drawObject(Object* obj) {
    // Combine the projection and model-view matrix for this object
-   glm::mat4 matrix = camera->Projection * camera->View * obj->getModelMatrix();
+   //glm::mat4 matrix = camera->Projection * camera->View * obj->getModelMatrix();
+   glm::mat4 matrix = camera->getModelMatrix() * camera->View * camera->Projection;
 
    // Extract the planes of the view frustum
-   glm::vec4* planes = (glm::vec4*) calloc(6, sizeof(glm::vec4));
+   //glm::vec4* planes = (glm::vec4*) calloc(6, sizeof(glm::vec4));
+   struct plane* planes[5];
    extractViewFrustumPlanes(planes, matrix);
 
    // Get the object's position and size
@@ -759,67 +761,67 @@ void World::drawObject(Object* obj) {
    free(planes);
 }
 
-void World::extractViewFrustumPlanes(glm::vec4* planes, const glm::mat4 matrix) {
+void World::extractViewFrustumPlanes(struct plane** planes, const glm::mat4 matrix) {
    // Left plane
-   planes[0].x = matrix[3][0] + matrix[0][0];
-   planes[0].y = matrix[3][1] + matrix[0][1];
-   planes[0].z = matrix[3][2] + matrix[0][2];
-   planes[0].w = matrix[3][3] + matrix[0][3];
+   planes[0]->a = matrix[3][0] + matrix[0][0];
+   planes[0]->b = matrix[3][1] + matrix[0][1];
+   planes[0]->c = matrix[3][2] + matrix[0][2];
+   planes[0]->d = matrix[3][3] + matrix[0][3];
 
    // Right plane
-   planes[1].x = matrix[3][0] - matrix[0][0];
-   planes[1].y = matrix[3][1] - matrix[0][1];
-   planes[1].z = matrix[3][2] - matrix[0][2];
-   planes[1].w = matrix[3][3] - matrix[0][3];
+   planes[1]->a = matrix[3][0] - matrix[0][0];
+   planes[1]->b = matrix[3][1] - matrix[0][1];
+   planes[1]->c = matrix[3][2] - matrix[0][2];
+   planes[1]->d = matrix[3][3] - matrix[0][3];
 
    // Top plane
-   planes[2].x = matrix[3][0] - matrix[1][0];
-   planes[2].y = matrix[3][1] - matrix[1][1];
-   planes[2].z = matrix[3][2] - matrix[1][2];
-   planes[2].w = matrix[3][3] - matrix[1][3];
+   planes[2]->a = matrix[3][0] - matrix[1][0];
+   planes[2]->b = matrix[3][1] - matrix[1][1];
+   planes[2]->c = matrix[3][2] - matrix[1][2];
+   planes[2]->d = matrix[3][3] - matrix[1][3];
 
    // Bottom plane
-   planes[3].x = matrix[3][0] + matrix[1][0];
-   planes[3].y = matrix[3][1] + matrix[1][1];
-   planes[3].z = matrix[3][2] + matrix[1][2];
-   planes[3].w = matrix[3][3] + matrix[1][3];
+   planes[3]->a = matrix[3][0] + matrix[1][0];
+   planes[3]->b = matrix[3][1] + matrix[1][1];
+   planes[3]->c = matrix[3][2] + matrix[1][2];
+   planes[3]->d = matrix[3][3] + matrix[1][3];
 
    // Near plane
-   planes[4].x = matrix[3][0] + matrix[2][0];
-   planes[4].y = matrix[3][1] + matrix[2][1];
-   planes[4].z = matrix[3][2] + matrix[2][2];
-   planes[4].w = matrix[3][3] + matrix[2][3];
+   planes[4]->a = matrix[3][0] + matrix[2][0];
+   planes[4]->b = matrix[3][1] + matrix[2][1];
+   planes[4]->c = matrix[3][2] + matrix[2][2];
+   planes[4]->d = matrix[3][3] + matrix[2][3];
 
    // Far plane
-   planes[5].x = matrix[3][0] - matrix[2][0];
+   /*planes[5].x = matrix[3][0] - matrix[2][0];
    planes[5].y = matrix[3][1] - matrix[2][1];
    planes[5].z = matrix[3][2] - matrix[2][2];
-   planes[5].w = matrix[3][3] - matrix[2][3];
+   planes[5].w = matrix[3][3] - matrix[2][3];*/
 
    // Normalize planes (so we can calculate distance from plane)
-   normalizePlane(planes[0]);
+ /*  normalizePlane(planes[0]);
    normalizePlane(planes[1]);
    normalizePlane(planes[2]);
    normalizePlane(planes[3]);
    normalizePlane(planes[4]);
-   normalizePlane(planes[5]);
+  //normalizePlane(planes[5]);
 }
 
-void World::normalizePlane(glm::vec4& plane) {
+void World::normalizePlane(struct plane* p) {
    // TODO do you square 'w' when normalizing vec4?
-   float mag = sqrt(plane.x * plane.x + plane.y * plane.y + plane.z * plane.z + plane.w * plane.w);
-   plane.x = plane.x / mag;
-   plane.y = plane.y / mag;
-   plane.z = plane.z / mag;
-   plane.w = plane.w / mag;
+   float mag = sqrt(p->a * p->a + p->b * p->b + p->c * p->c + p->d * p->d);
+   p->a = p->a / mag;
+   p->b = p->b / mag;
+   p->c = p->c / mag;
+   p->d = p->d / mag;
 }
 
-bool World::checkPlane(glm::vec4 plane, glm::vec3 pos, float rad) {
+bool World::checkPlane(stuct plane* p, glm::vec3 pos, float rad) {
    // Convert the object's position to a vec4
    glm::vec4 v = glm::vec4(pos.x, pos.y, pos.z, 1.0);
 
    // Dot product plane with object's position
-   float dist = plane.x * v.x + plane.y * v.y + plane.z * v.z + plane.w;
+   float dist = p->a * v.x + p->b * v.y + p->c * v.z + p->d;
 
    // Is the center of the object in the correct half-space?
    bool correctHalfSpace = dist > 0;
@@ -830,6 +832,6 @@ bool World::checkPlane(glm::vec4 plane, glm::vec3 pos, float rad) {
 //   printf("dist: %lf\trad: %lf\n", dist, rad);
 
    return correctHalfSpace || clipping;
-}
-*/
+}*/
+
 

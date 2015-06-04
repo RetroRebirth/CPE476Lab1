@@ -89,9 +89,9 @@ class World {
       void calcExtraSpawnPosition(struct Extra* extra);
       void parseMapFile(const char* fileName);
       void drawObject(Object* obj);
-      void extractViewFrustumPlanes(glm::vec4* planes, const glm::mat4 matrix);
-      void normalizePlane(glm::vec4& plane);
-      bool checkPlane(glm::vec4 plane, glm::vec3 pos, float rad);
+      void extractViewFrustumPlanes(struct plane** planes, const glm::mat4 matrix);
+      void normalizePlane(struct plane* p);
+      bool checkPlane(struct plane p, glm::vec3 pos, float rad);
       void findNewExtraTarget(struct Extra* extra);
       bool checkStructureCollisions(Object* object);
       bool checkBoothCollisions(Object* object);
