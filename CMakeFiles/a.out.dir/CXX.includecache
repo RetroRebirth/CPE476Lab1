@@ -365,10 +365,10 @@ FontEngine.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
 Particle.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Particle.h
-ParticleSorter.h
-/Users/kayla/Projects/Graphics/CPE476Lab1/ParticleSorter.h
 Camera.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
+ParticleSorter.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/ParticleSorter.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/Window.cpp
 Window.h

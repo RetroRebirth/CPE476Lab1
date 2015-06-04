@@ -32,6 +32,7 @@ Object::Object(
    h_aPos = GLSL::getAttribLocation(ShadeProg, "aPos");
    h_aNor = GLSL::getAttribLocation(ShadeProg, "aNor");
    reflective = false;
+   screenRender = true;
 
    pos = glm::vec3(0.0f, 0.0f, 0.0f);
    dimensions = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -584,242 +585,109 @@ int Object::bind()
 
 void Object::draw()
 {
-   // Bind the object information to the shader
-   int nIndices = bind();
-   
-   // Enable basic FBO
-   glBindFramebuffer(GL_FRAMEBUFFER, FBO_Basic);
-   glClear(GL_DEPTH_BUFFER_BIT);
-   glEnable(GL_DEPTH_TEST);
-   
-   // Draw the object to FBO
-   glActiveTexture(GL_TEXTURE0);
-   glBindTexture(GL_TEXTURE_2D, texture_id);
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   // Pass along Cook Torrance values
-   glUniform1f(GLSL::getUniformLocation(ShadeProg, "roughness"), roughness);
-   glUniform1f(GLSL::getUniformLocation(ShadeProg, "fresnel"), fresnel);
-   glUniform1f(GLSL::getUniformLocation(ShadeProg, "geometric"), geometric);
-   
-   // Draw the shadow projection to FBO
-   if (castShadows) {
-      glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), shadowDarkness);
-      glEnable(GL_CULL_FACE);
-      glCullFace(GL_BACK);
-      glActiveTexture(GL_TEXTURE0);
-      glBindTexture(GL_TEXTURE_2D, TEX_MISC);
-      glm::mat4 sT = glm::translate(glm::mat4(1.0f), glm::vec3(0, -.45 + shadowHeight, 0)) * ShadowMatrix();
-      Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(sT*modelMat));
-      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-      glDisable(GL_CULL_FACE);
-      glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), 1.0);
-   }
-   
-   // Disable basic FBO
-   glBindFramebuffer(GL_FRAMEBUFFER, 0);
-   
-   // Draw the object to scene
-   glActiveTexture(GL_TEXTURE0);
-   glBindTexture(GL_TEXTURE_2D, reflective ? FBO_TBasic : texture_id);
-   Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat));
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   
-   // Draw the shadow projection to scene
-   if (castShadows) {
-      glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), shadowDarkness);
-      glEnable(GL_CULL_FACE);
-      glCullFace(GL_BACK);
-      glActiveTexture(GL_TEXTURE0);
-      glBindTexture(GL_TEXTURE_2D, TEX_MISC);
-      glm::mat4 sT = glm::translate(glm::mat4(1.0f), glm::vec3(0, -.45 + shadowHeight, 0)) * ShadowMatrix();
-      
-      Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(sT*modelMat));
-      glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-      glDisable(GL_CULL_FACE);
-      glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), 1.0);
-   }
-}
-
-void Object::drawBloom(int BlendMode, float BlendAmount, int BlurAmount, float BlurScale, float BlurStrength) {
-   
-   /*
-    glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), 1.0);
-    
-    // Step 1: Render the scene to a texture
+    // Bind the object information to the shader
     int nIndices = bind();
+    
+    // Enable basic FBO
     glBindFramebuffer(GL_FRAMEBUFFER, FBO_Basic);
     glClear(GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
+    
+    // Draw the object to FBO
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture_id);
     glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+    // Pass along Cook Torrance values
+    glUniform1f(GLSL::getUniformLocation(ShadeProg, "roughness"), roughness);
+    glUniform1f(GLSL::getUniformLocation(ShadeProg, "fresnel"), fresnel);
+    glUniform1f(GLSL::getUniformLocation(ShadeProg, "geometric"), geometric);
     
-    // Step 2: Render glowing entities to a separate texture
+    // Draw the shadow projection to FBO
+    if (castShadows) {
+        glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), shadowDarkness);
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, TEX_MISC);
+        glm::mat4 sT = glm::translate(glm::mat4(1.0f), glm::vec3(0, -.45 + shadowHeight, 0)) * ShadowMatrix();
+        Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(sT*modelMat));
+        glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+        glDisable(GL_CULL_FACE);
+        glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), 1.0);
+    }
+    
+    // Draw the object to scene
+    if (screenRender) {
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, reflective ? FBO_TBasic : texture_id);
+        Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat));
+        glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+        
+        // Draw the shadow projection to scene
+        if (castShadows) {
+            glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), shadowDarkness);
+            glEnable(GL_CULL_FACE);
+            glCullFace(GL_BACK);
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, TEX_MISC);
+            glm::mat4 sT = glm::translate(glm::mat4(1.0f), glm::vec3(0, -.45 + shadowHeight, 0)) * ShadowMatrix();
+            Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(sT*modelMat));
+            glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+            glDisable(GL_CULL_FACE);
+            glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), 1.0);
+        }
+    }
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void Object::drawGlow() {
+    glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), 1.0);
+    
+    int nIndices = bind();
     glBindFramebuffer(GL_FRAMEBUFFER, FBO_Glow);
-    glClear(GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
+    
+    // Draw the object to Glow FBO
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture_id);
     glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
     
-    // Step 3: Blur the glowmap
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void Object::drawBlur() {
+    glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), 1.0);
+    
+    int nIndices = bind();
     glBindFramebuffer(GL_FRAMEBUFFER, FBO_Blur);
-    glClear(GL_DEPTH_BUFFER_BIT);
+    glDisable(GL_DEPTH_TEST);
+    //glDepthMask(false);
+    glClear(GL_COLOR_BUFFER_BIT);
+    
+    // Blur settings
     glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurAmount"), 10);
     glUniform1f(GLSL::getUniformLocation(ShadeProg, "BlurScale"), 1.0);
     glUniform1f(GLSL::getUniformLocation(ShadeProg, "BlurStrength"), 0.2);
-    // render horizontal blur
+    
+    // Render horizontal blur
     glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 1);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, FBO_TGlow);
     glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-    // mix with vertical blur
+    
+    // Mix with vertical blur
     glBindFramebuffer(GL_FRAMEBUFFER, FBO_Glow);
-    glClear(GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
     glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 2);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, FBO_TBlur);
     glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+    
     // turn blur off
     glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 0);
-    
-    // Step 4: Blend the glow map with the rendered scene
-    glClear(GL_DEPTH_BUFFER_BIT);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    // scene from step 1
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, FBO_TBasic);
-    // scene from step 2
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, FBO_TGlow);
-    glUniform1i(GLSL::getUniformLocation(ShadeProg, "BloomAmount"), 1.0);
-    glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 1);
-    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-    // turn glow off
-    glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 0);
-    
-    glClear(GL_DEPTH_BUFFER_BIT);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, FBO_TGlow);
-    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-    */
-   
-   glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), 1.0);
-   
-   // Step 1: Render the scene to a texture
-   int nIndices = bind();
-   glBindFramebuffer(GL_FRAMEBUFFER, FBO_Basic);
-   glClear(GL_DEPTH_BUFFER_BIT);
-   glEnable(GL_DEPTH_TEST);
-   glActiveTexture(GL_TEXTURE0);
-   glBindTexture(GL_TEXTURE_2D, texture_id);
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   
-   // Step 2: Render glowing entities to a separate texture
-   glBindFramebuffer(GL_FRAMEBUFFER, FBO_Glow);
-   glClear(GL_DEPTH_BUFFER_BIT);
-   glActiveTexture(GL_TEXTURE0);
-   glBindTexture(GL_TEXTURE_2D, texture_id);
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   
-   // Step 3: Blur the glowmap
-   glDisable(GL_DEPTH_TEST);
-   glDepthMask(false);
-   glBindFramebuffer(GL_FRAMEBUFFER, FBO_Blur);
-   //glClear(GL_COLOR_BUFFER_BIT);
-   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurAmount"), 10);
-   glUniform1f(GLSL::getUniformLocation(ShadeProg, "BlurScale"), 1.0);
-   glUniform1f(GLSL::getUniformLocation(ShadeProg, "BlurStrength"), 0.2);
-   // render horizontal blur
-   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 1);
-   glActiveTexture(GL_TEXTURE0);
-   glBindTexture(GL_TEXTURE_2D, FBO_TGlow);
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   // mix with vertical blur
-   glBindFramebuffer(GL_FRAMEBUFFER, FBO_Glow); // mix with vertical bloom
-   //glClear(GL_COLOR_BUFFER_BIT);
-   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 2);
-   glActiveTexture(GL_TEXTURE0);
-   glBindTexture(GL_TEXTURE_2D, FBO_TBlur);
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   //glClear(GL_COLOR_BUFFER_BIT);
-   glEnable(GL_DEPTH_TEST);
-   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 0);
-
-   
-   // Step 4: Blend the glow map with the rendered scene
-   glBindFramebuffer(GL_FRAMEBUFFER, 0);
-   // scene from step 1
-   glActiveTexture(GL_TEXTURE0);
-   glBindTexture(GL_TEXTURE_2D, FBO_Basic);
-   // scene from step 2
-   glActiveTexture(GL_TEXTURE1);
-   glBindTexture(GL_TEXTURE_2D, FBO_Glow);
-   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BloomAmount"), 1.0);
-   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 4);
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   
-   // turn off glow
-   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 0);
-   
-   /*
-   // Step 1: Render the scene to a texture
-   glBindFramebuffer(GL_FRAMEBUFFER, FBO_Basic);
-   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-   int nIndices = bind();
-   glActiveTexture(GL_TEXTURE0);
-   glBindTexture(GL_TEXTURE_2D, texture_id);
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   
-   // Step 2: Render glowing entities to a separate texture
-   glBindFramebuffer(GL_FRAMEBUFFER, FBO_Glow);
-   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-   // render occluding geometry first
-   
-   // render glowing geometry second
-   nIndices = bind();
-   glActiveTexture(GL_TEXTURE0);
-   glBindTexture(GL_TEXTURE_2D, texture_id);
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   
-   // Step 3: Blur the glowmap
-   glDisable(GL_DEPTH_TEST);
-   glDepthMask(false);
-   glBindFramebuffer(GL_FRAMEBUFFER, FBO_Blur);
-   glClear(GL_COLOR_BUFFER_BIT);
-   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurAmount"), BlurAmount);
-   glUniform1f(GLSL::getUniformLocation(ShadeProg, "BlurScale"), BlurScale);
-   glUniform1f(GLSL::getUniformLocation(ShadeProg, "BlurStrength"), BlurStrength);
-   // render horizontal blur
-   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 1);
-   nIndices = bind();
-   glActiveTexture(GL_TEXTURE0);
-   glBindTexture(GL_TEXTURE_2D, FBO_TGlow);
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   // mix with vertical blur
-   glBindFramebuffer(GL_FRAMEBUFFER, FBO_Glow); // mix with vertical bloom
-   glClear(GL_COLOR_BUFFER_BIT);
-   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 2);
-   nIndices = bind();
-   glActiveTexture(GL_TEXTURE0);
-   glBindTexture(GL_TEXTURE_2D, FBO_TBlur);
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   glClear(GL_COLOR_BUFFER_BIT);
-   
-   // Step 4: Blend the glow map with the rendered scene
-   glBindFramebuffer(GL_FRAMEBUFFER, 0);
-   glActiveTexture(GL_TEXTURE0);
-   // scene from step 1
-   glBindTexture(GL_TEXTURE_2D, FBO_Basic);
-   glActiveTexture(GL_TEXTURE1);
-   // scene from step 2
-   glBindTexture(GL_TEXTURE_2D, FBO_Glow);
-   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), BlendMode);
-   glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   
-   // turn off glow
-   glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 0);
-    */
 }
 
 vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> indBuf) {

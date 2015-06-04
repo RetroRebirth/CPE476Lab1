@@ -52,7 +52,7 @@ void Sound::playBackgroundMusic() {
    engine->stopAllSounds();
    
    // play some sound stream, looped
-   //engine->play2D("sounds/Okami_CherryBlossomStorm.wav", true);
+   engine->play2D("sounds/Okami_CherryBlossomStorm.wav", true);
 }
 
 void Sound::pauseSong() {

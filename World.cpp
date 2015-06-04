@@ -389,7 +389,7 @@ void World::initGround() {
     ground = new Object(shapes, materials, ShadeProg);
     ground->load("objs/ground_sakura.obj", "objs/ground_sakura.mtl");
     ground->scale(glm::vec3(SIZE * 2, SIZE * 2, SIZE * 2));
-    ground->setTexture(TEX_GROUND_GRASS);
+    ground->setTexture(TEX_GROUND_SAKURA);
     ground->setShadows(false, 0.0, 0.0);
     
     int i = 0;

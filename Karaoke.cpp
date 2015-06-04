@@ -1,11 +1,13 @@
 #include "Karaoke.h"
 #include "ParticleSorter.h"
 
+#define DEBUGGING_BLOOM 0
+
 bool removeFireworks(vector<Particle*> p) {
-   if (p[0]->cycles > 0) {
-      return true;
-   }
-   return false;
+    if (p[0]->cycles > 0) {
+        return true;
+    }
+    return false;
 }
 
 Karaoke::Karaoke(GLuint _ShadeProg, Sound* _sound, Camera* _camera, Program* _particleProg) {
@@ -61,11 +63,22 @@ void Karaoke::setUp() {
     
     // Create the arrow
     arrow = new Object(shapes, materials, ShadeProg);
-    arrow->load("objs/arrow.obj");
+    arrow->load((char *)"objs/arrow.obj");
     arrow->setTexture(curTarget + CHARA_TEX);
     arrow->scale(glm::vec3(1.0, 1.0, 1.0));
     arrow->setPos(glm::vec3(2.0, 3.5, 1.0));
     arrow->setShadows(false, 0.0, 0.0);
+#if DEBUGGING_BLOOM == 1
+    arrow->screenRender = false;
+#endif
+    
+    // Create the screen being rendered to
+    renderer = new Object(shapes, materials, ShadeProg);
+    renderer->load((char *)"objs/screen.obj");
+    renderer->setTexture(FBO_TBasic);
+    renderer->setPos(glm::vec3(0.0, 2.5, 2.0));
+    renderer->scale(glm::vec3(8.0, 12.0, 8.0));
+    renderer->setShadows(false, 0.0, 0.0);
     
     // Load countdown textures beforehand for performance
     Texture countdownTex;
@@ -130,7 +143,7 @@ void Karaoke::initVideo() {
     if (speed == 3)
         numParticles = 5;
     else
-        numParticles = 30;
+        numParticles = 20;
 }
 
 void Karaoke::drawVideo(Window* window) {
@@ -151,9 +164,33 @@ void Karaoke::drawVideo(Window* window) {
 }
 
 void Karaoke::drawArrow() {
-    // Draw arrow with bloom
+#if DEBUGGING_BLOOM == 1
+    // Step 1: Render scene to a texture
+    //arrow->draw();
+    
+    // Step 2: Render glowing entities to a separate texture
+    // render occluding geometry first
+    glColorMask(false, false, false, false);
+    for (int i = 0; i < characters.size(); i++) {
+        characters[i]->drawGlow();
+    }
+    glColorMask(true, true, true, true);
+    // render glowing geometry second
+    arrow->drawGlow();
+    
+    // Step 3: Blur the glowmap
+    renderer->drawBlur();
+    
+    // Step 4: Blend glowmap with rendered scene
     float bloom = (arrowPos * -1) / 2.0;
     int blend = (arrowPos <= -1.6) ? 1 : 2;
+    
+    renderer->render();
+    //renderer->renderBloom(1, 1.0);
+#else
+    // Draw arrow with bloom
+    float bloom = (arrowPos * -1) / 2.0;
+    int blend = (arrowPos <= -1.6) ? 1 : 1;
     glUniform1f(GLSL::getUniformLocation(ShadeProg, "BloomAmount"), bloom);
     glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), blend);
     arrow->scale(glm::vec3(1.0, 1.0, 1.0));
@@ -163,6 +200,7 @@ void Karaoke::drawArrow() {
     glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 0);
     // Turn blur off
     glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 0);
+#endif
 }
 
 void Karaoke::printInstructions() {
@@ -251,14 +289,21 @@ void Karaoke::checkTime(Window *window) {
                 mins = totsec / 60;
                 secs = totsec % 60;
                 
-                for (int i = 0; i < characters.size(); i++)
+                for (int i = 0; i < characters.size(); i++) {
                     characters[i]->setTexture(TEX_MISC);
+#if DEBUGGING_BLOOM == 1
+                    characters[i]->screenRender = false;
+#endif
+                }
                 screen->scale(glm::vec3(8.0, 11.0, 8.0));
                 screen->rotate(180.0f, glm::vec3(1.0, 0.0, 0.0));
                 screen->setTexture(0);
                 gameStart = true;
                 timeStart = timeFrame = window->time;
                 texture_id = 100;
+#if DEBUGGING_BLOOM == 1
+                screen->screenRender = false;
+#endif
             }
             else if (window->time - timeStart >= 3.0 && characters.size() < 4) {
                 addCharacter((char *)"objs/kaito.obj", TEX_KAITO, -2.0);
@@ -281,19 +326,16 @@ void Karaoke::checkTime(Window *window) {
             // Check whether the game has ended
             etotsec = window->time - timeStart;
             emins = etotsec / 60;
-            esecs = etotsec % 60; 
+            esecs = etotsec % 60;
             
-            if (perfTime > 0.0) {
-               perfTime -= window->dt;
-            }
-            if (goodTime > 0.0) {
-               goodTime -= window->dt;
-            }
-            if (badTime > 0.0) {
-               badTime -= window->dt;
-            }
+            if (perfTime > 0.0)
+                perfTime -= window->dt;
+            if (goodTime > 0.0)
+                goodTime -= window->dt;
+            if (badTime > 0.0)
+                badTime -= window->dt;
             
-            if (etotsec >= songDuration) {               
+            if (etotsec >= songDuration) {
                 // Bonus points for all perfects
                 if (numGood == 0 && numBad == 0)
                     score += 250 * (speed - 1);
@@ -328,41 +370,41 @@ void Karaoke::checkTime(Window *window) {
 }
 
 void Karaoke::particleStep() {
-       // Display every 60 Hz
+    // Display every 60 Hz
 	   t += h;
-      
-       // Create matrix stacks
+    
+    // Create matrix stacks
 	   MatrixStack P, MV;
 	   // Apply camera transforms
 	   P.pushMatrix();
 	   camera->applyProjectionMatrix(&P);
 	   MV.pushMatrix();
 	   camera->applyViewMatrix(&MV);
-	
+    
 	   // Bind the program
 	   particleProg->bind();
 	   ParticleSorter sorter;
-	
+    
 	   glUniformMatrix4fv(particleProg->getUniform("P"), 1, GL_FALSE, glm::value_ptr(P.topMatrix()));
 	   
 	   for(int i=0; i<fireworks.size(); ++i) {
-         // sort the explosions' Particles from back to front
-         MatrixStack temp;
-         camera->applyViewMatrix(&temp);
-         glm::mat4 V = temp.topMatrix();
-   
-         sorter.C = glm::transpose(glm::inverse(V)); // glm is transposed!
-         std::sort(fireworks[i].begin(), fireworks[i].end(), sorter);
-               
-	      for (int j=0; j<fireworks[i].size(); ++j) {
-	          fireworks[i][j]->update(t, h, g);
-		      fireworks[i][j]->draw(&MV);
-          }
-	   }
+           // sort the explosions' Particles from back to front
+           MatrixStack temp;
+           camera->applyViewMatrix(&temp);
+           glm::mat4 V = temp.topMatrix();
+           
+           sorter.C = glm::transpose(glm::inverse(V)); // glm is transposed!
+           std::sort(fireworks[i].begin(), fireworks[i].end(), sorter);
+           
+           for (int j=0; j<fireworks[i].size(); ++j) {
+               fireworks[i][j]->update(t, h, g);
+               fireworks[i][j]->draw(&MV);
+           }
+       }
 	   fireworks.erase(std::remove_if(fireworks.begin(),
-                                           fireworks.end(),
-                                           &removeFireworks),
-                                           fireworks.end());
+                                      fireworks.end(),
+                                      &removeFireworks),
+                       fireworks.end());
 	   // Unbind the program
 	   particleProg->unbind();
 }
@@ -370,7 +412,7 @@ void Karaoke::particleStep() {
 void Karaoke::step(Window* window) {
     // Draw the booth
     screen->draw();
-
+    
     // Player is still choosing a song; display song info
     if (!songChosen) {
         // Display the difficulty
@@ -427,14 +469,14 @@ void Karaoke::textStep() {
     float yPos = .9;
     float yInc = .1;
     float alpha = 0.0;
-   
-    // Display the score 
+    
+    // Display the score
     char time[60];
     sprintf(time, "Time remaining: %d:%02d / %d:%02d", emins, esecs, mins, secs);
     fontEngine->useFont("amatic", 40);
     fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), time, 0-fontEngine->getTextWidth(time)/2.0, yPos);
     yInc = fontEngine->getTextHeight(time) * 1.3;
-     
+    
     char scrStr[20];
     sprintf(scrStr, "Score: %d", score);
     fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), scrStr, 1-fontEngine->getTextWidth(scrStr)-.07, yPos);
@@ -446,22 +488,22 @@ void Karaoke::textStep() {
     fontEngine->useFont("oswald", 75);
     
     if (perfTime > 0.0) {
-       yPos = .3 + (abs(perfTime - 1.0)/2.0);
-       alpha = 1.0 - (abs(perfTime - 1.0)*2.0);
-    
-       fontEngine->display(glm::vec4(1.0, 1.0, 0.0, alpha), PERF_STR, 0-fontEngine->getTextWidth(PERF_STR)/2.0, yPos);
+        yPos = .3 + (abs(perfTime - 1.0)/2.0);
+        alpha = 1.0 - (abs(perfTime - 1.0)*2.0);
+        
+        fontEngine->display(glm::vec4(1.0, 1.0, 0.0, alpha), PERF_STR, 0-fontEngine->getTextWidth(PERF_STR)/2.0, yPos);
     }
     if (goodTime > 0.0) {
-       yPos = .3 + (abs(goodTime - 1.0)/2.0);    
-       alpha = 1.0 - (abs(goodTime - 1.0)*2.0);    
-      
-       fontEngine->display(glm::vec4(0.0, 0.0, 1.0, alpha), GOOD_STR, 0-fontEngine->getTextWidth(GOOD_STR)/2.0, yPos);
+        yPos = .3 + (abs(goodTime - 1.0)/2.0);
+        alpha = 1.0 - (abs(goodTime - 1.0)*2.0);
+        
+        fontEngine->display(glm::vec4(0.0, 0.0, 1.0, alpha), GOOD_STR, 0-fontEngine->getTextWidth(GOOD_STR)/2.0, yPos);
     }
     if (badTime > 0.0) {
-       yPos = .3 + (abs(badTime - 1.0)/2.0);
-       alpha = 1.0 - (abs(badTime - 1.0)*2.0);
-              
-       fontEngine->display(glm::vec4(1.0, 0.0, 0.0, alpha), BAD_STR, 0-fontEngine->getTextWidth(BAD_STR)/2.0, yPos);
+        yPos = .3 + (abs(badTime - 1.0)/2.0);
+        alpha = 1.0 - (abs(badTime - 1.0)*2.0);
+        
+        fontEngine->display(glm::vec4(1.0, 0.0, 0.0, alpha), BAD_STR, 0-fontEngine->getTextWidth(BAD_STR)/2.0, yPos);
     }
 }
 
@@ -506,33 +548,33 @@ void Karaoke::decreaseDifficulty() {
 }
 
 void Karaoke::addNewFirework(int target) {
-   glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
-   if (target == MIKU)
-      pos = MIKU_POS;
-   else if (target == RIN)
-      pos = RIN_POS;
-   else if (target == LEN)
-      pos = LEN_POS;
-   else if (target == KAITO)
-      pos = KAITO_POS;
-   vector<Particle*> firework;
-   firework.clear();
-   for (int i = 0; i < numParticles; ++i) {
-      Particle* particle = new Particle();
-      particle->load();
-      particle->setTexture(TEX_PARTICLE);
-      particle->setStartPos(pos);
-      particle->setStartVel(glm::vec3(randFloat(-0.1f, 0.1f), randFloat(-0.1f, 0.0f), randFloat(-0.1f, 0.1f)));
-      particle->setStartCol(glm::vec3(randFloat(0.0f, 1.0f), randFloat(0.0f, 1.0f), randFloat(0.0f, 1.0f)));
-      particle->setStartTTL(40.0f);
-      particle->setOneCycle(true);
-      particle->setOpacityTaper(true);
-      particle->init(particleProg);
-      firework.push_back(particle);
-   }
-   fireworks.push_back(firework);
-   
-   numFireworks++;
+    glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
+    if (target == MIKU)
+        pos = MIKU_POS;
+    else if (target == RIN)
+        pos = RIN_POS;
+    else if (target == LEN)
+        pos = LEN_POS;
+    else if (target == KAITO)
+        pos = KAITO_POS;
+    vector<Particle*> firework;
+    firework.clear();
+    for (int i = 0; i < numParticles; ++i) {
+        Particle* particle = new Particle();
+        particle->load();
+        particle->setTexture(TEX_PARTICLE);
+        particle->setStartPos(pos);
+        particle->setStartVel(glm::vec3(randFloat(-0.1f, 0.1f), randFloat(-0.1f, 0.0f), randFloat(-0.1f, 0.1f)));
+        particle->setStartCol(glm::vec3(randFloat(0.0f, 1.0f), randFloat(0.0f, 1.0f), randFloat(0.0f, 1.0f)));
+        particle->setStartTTL(40.0f);
+        particle->setOneCycle(true);
+        particle->setOpacityTaper(true);
+        particle->init(particleProg);
+        firework.push_back(particle);
+    }
+    fireworks.push_back(firework);
+    
+    numFireworks++;
 }
 
 void Karaoke::selectCharacter(int target) {

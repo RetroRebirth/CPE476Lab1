@@ -63,7 +63,7 @@ private:
     GLuint ShadeProg;
     Camera* camera;
     Program* particleProg;
-    Object *screen, *arrow;
+    Object *screen, *arrow, *renderer;
     Sound* sound;
     
     // Paticles
