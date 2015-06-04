@@ -6,12 +6,14 @@ Shop::Shop(GLuint _ShadeProg, Sound* _sound, Camera* _camera) {
     camera = _camera;
     curItem = 0;
     gameStart = false;
-    /*tooPoor = 0.0;
-    prePurch = 0.0;
-    buySong = 0.0;
-    buyOtft = 0.0;*/
     
     items.reserve(7);
+
+    tooPoor = 0.0;
+    //HERE
+    /*prePurch = 0.0;
+    buySong = 0.0;
+    buyOtft = 0.0;*/
     
     setUp();
 }
@@ -97,13 +99,13 @@ void Shop::buyItem() {
     if (global_points < items[curItem].price) {
         printf("You just remembered you're poor...\n");
         printf("Play some minigames to earn more cash!\n");
-        //tooPoor = 1.0;
+        tooPoor = 2.0;
         sound->playIncorrectSound();
     }
     // Item was already unlocked
     else if (items[curItem].price == 0) {
         printf("You've already purchased this item.");
-        //prePurch = 1.0;
+        //prePurch = 2.0; //HERE
         sound->playIncorrectSound();
     }
     // Buy the item
@@ -116,13 +118,13 @@ void Shop::buyItem() {
         // Item is a song; unlock it
         if (strcmp(items[curItem].type, SONG_TYPE) == 0) {
             printf("You can now play this song in the karaoke booth!\n");
-            //buySong = 1.0;
+            //buySong = 2.0; //HERE
             sound->unlockSong(items[curItem].index);
         }
         // Item is an outfit; put it on the player
         if (strcmp(items[curItem].type, OUTFIT_TYPE) == 0) {
             printf("You put on a snazzy new outfit\n");
-            //buyOtft = 1.0;
+            //buyOtft = 2.0; //HERE
             Object *player = camera->getPlayer();
             player->setTexture(items[curItem].index);
             camera->initPlayer(player);
@@ -191,24 +193,46 @@ void Shop::step(Window* window) {
        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), price, 0-fontEngine->getTextWidth(price)/2.0, yBot);
     }
     
-    /*if (tooPoor > 0.0) {
+    if (tooPoor > 0.0) {
        char poor1[40];
        sprintf(poor1, "You just remembered you're poor...");
-       fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), poor1, 0-fontEngine->getTextWidth(poor1)/2.0, .7);
+       fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), poor1, 0-fontEngine->getTextWidth(poor1)/2.0, .85);
        
        char poor2[40];
        sprintf(poor2, "Play some minigames to earn more cash!");
-       fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), poor2, 0-fontEngine->getTextWidth(poor2)/2.0, .7-yInc);
+       fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), poor2, 0-fontEngine->getTextWidth(poor2)/2.0, .85-yInc);
        
        tooPoor -= window->dt;
     }
-    if (prePurch > 0.0) {
-    
+    // HERE
+    /*if (prePurch > 0.0) {
+       char purch[40];
+       sprintf(purch, "You've already purchased this item.");
+       fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), purch, 0-fontEngine->getTextWidth(purch)/2.0, .85);
+       
+       prePurch -= window->dt;
     } 
-    if (buySong > 0.0) {
     
+    char bought[50];
+    if (buySong > 0.0) {
+       sprintf(bought, "Bought %s\n", items[curItem].name);
+       fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), bought, 0-fontEngine->getTextWidth(bought)/2.0, .85);
+       
+       char song[50];       
+       printf(song, "You can now play this song in the karaoke booth!");
+       fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), song, 0-fontEngine->getTextWidth(song)/2.0, .85-yInc);       
+       
+       buySong -= window->dt;
     } 
     if (buyOtft > 0.0) {
+       sprintf(bought, "Bought %s\n", items[curItem].name);
+       fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), bought, 0-fontEngine->getTextWidth(bought)/2.0, .85);
+       
+       char otft[50];       
+       printf(otft, "You put on a snazzy new outfit!");
+       fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), otft, 0-fontEngine->getTextWidth(otft)/2.0, .85-yInc);       
+       
+       buyOtft -= window->dt;
     
     }*/
 }

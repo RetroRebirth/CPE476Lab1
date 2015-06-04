@@ -16,12 +16,20 @@ Karaoke::Karaoke(GLuint _ShadeProg, Sound* _sound, Camera* _camera, Program* _pa
     sound = _sound;
     camera = _camera;
     particleProg = _particleProg;
-    gameOver = gameStart = songChosen = false;
+    gameOver = false;
+    gameStart = false;
+    songChosen = false;
     timeStart = timeArrow = 0.0;
-    score = curSong = numGood = numBad = numPerfect = 0;
+    score = 0;
+    curSong = 0;
+    numGood = 0;
+    numBad = 0;
+    numPerfect = 0;
     curTarget = -1;
     speed = 1;
-    perfTime = goodTime = badTime = 0.0;
+    perfTime = 0.0;
+    goodTime = 0.0;
+    badTime = 0.0;
     
     t = 0.0f;
     t0_disp = 0.0f;
