@@ -570,19 +570,8 @@ int Object::bind()
       glBindBuffer(GL_ARRAY_BUFFER, texBufID);
       glVertexAttribPointer(h_tex, 2, GL_FLOAT, GL_FALSE, 0, 0);
    }
-
-   // Set the model transformation
-   glm::vec3 position = pos + glm::vec3(0.0f, -0.5f, 0.0f);
-   glm::mat4 T = glm::translate(glm::mat4(1.0f), position) * transMat;
+  
    glm::mat4 R = rotateMat * directionalMat;
-   if (directional) {
-   glm::mat4 RX = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(1.0, 0.0, 0.0));
-   glm::mat4 RY = glm::rotate(glm::mat4(1.0f), calcYFacingAngle(), glm::vec3(0.0, 1.0, 0.0));
-   glm::mat4 RZ = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0, 0.0, 1.0));
-   R *= RX*RY*RZ;
-   }
-   modelMat = T*R*scalerMat;
-   
    // Send the matrix information
    GLint h_rot = GLSL::getUniformLocation(ShadeProg, "uRot");
    Util::safe_glUniformMatrix4fv(h_rot, glm::value_ptr(R));
@@ -590,6 +579,7 @@ int Object::bind()
    // Draw the object
 //   glUniform1f(h_uTrans, 1.0);
    //Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(T*R*scalerMat));
+   getModelMatrix();
    Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat));
    
    return nIndices;
@@ -780,6 +770,18 @@ vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> 
 }
 
 glm::mat4 Object::getModelMatrix() {
+   // Set the model transformation
+   glm::vec3 position = pos + glm::vec3(0.0f, -0.5f, 0.0f);
+   glm::mat4 T = glm::translate(glm::mat4(1.0f), position) * transMat;
+   glm::mat4 R = rotateMat * directionalMat;
+   if (directional) {
+   glm::mat4 RX = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(1.0, 0.0, 0.0));
+   glm::mat4 RY = glm::rotate(glm::mat4(1.0f), calcYFacingAngle(), glm::vec3(0.0, 1.0, 0.0));
+   glm::mat4 RZ = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0, 0.0, 1.0));
+   R *= RX*RY*RZ;
+   }
+   modelMat = T*R*scalerMat;
+ 
    return modelMat;
 }
 

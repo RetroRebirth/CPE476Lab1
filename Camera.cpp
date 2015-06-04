@@ -8,6 +8,7 @@ Camera::Camera(
    // Default attribute valuesf
    pos = glm::vec3(0.0f, 1.0f, 0.0f);
    debug_pos = pos;
+   dir = glm::vec3(0.0f, 0.0f, 1.0f);
    theta = -M_PI/2.0f;
    phi = 0.0f;
    debug = false;
@@ -59,13 +60,19 @@ void Camera::setProjectionMatrix(int g_width, int g_height) {
 
 void Camera::setView() {
    glm::vec3 curPos = debug ? debug_pos : player->pos;
-   glm::mat4 lookAtMat = glm::lookAt(lookAtPt(), curPos, glm::vec3(0.0f, 1.0f, 0.0f));
-//   glm::vec3 lookat = lookAtPt();
+   glm::vec3 lookAt = lookAtPt();
+   glm::mat4 lookAtMat = glm::lookAt(lookAt, curPos, glm::vec3(0.0f, 1.0f, 0.0f));
+
+   // Extract viewing direction from lookAtPt
+   dir = glm::normalize(lookAt - player->pos);
    
    //printf("lookAt: %lf %lf %lf\nlookAt - .2: %lf %lf %lf\n", lookat.x, lookat.y, lookat.z, lookat.x - cos(.2) * .2, lookat.y, lookat.z - cos(M_PI + .2) * .2);
 
    //mult view by phi rotation matrix
-   glm::mat4 view_mat = glm::rotate(glm::mat4(1.0f), -1.0f*phi, glm::vec3(4.0f, 0.0f, 0.0f)) * lookAtMat;
+   // TODO what the what is happening here??? it's 5am but still...
+   // umm, well I commented it out and nothing changed so I'm gonna keep it commented out...
+//   glm::mat4 view_mat = glm::rotate(glm::mat4(1.0f), -1.0f*phi, glm::vec3(4.0f, 0.0f, 0.0f)) * lookAtMat;
+   glm::mat4 view_mat = lookAtMat;
 
    safe_glUniformMatrix4fv(h_uV, glm::value_ptr(view_mat));
    glUniform3f(h_uView, player->pos.x, player->pos.y, player->pos.z);

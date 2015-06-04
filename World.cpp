@@ -260,6 +260,7 @@ void World::step(Window* window) {
             }
          }
          extra->object->pos.y = 0.6f;
+//printf("EXTRAS\n");
          drawObject(extra->object);//->draw();
       }
       drawGround();
@@ -411,6 +412,7 @@ void World::drawGround() {
 void World::drawOverWorld() {
    for (int i=0; i<structures.size(); ++i) {
       if (drawWorld) {
+//printf("STRUCTURES\n");
          drawObject(structures[i]);//->draw();
          structures[i]->drawBounds = false;
       }
@@ -428,6 +430,7 @@ void World::drawOverWorld() {
           */
       if (drawWorld) {
          //booths[i]->draw();
+//printf("BOOTHS\n");
          drawObject(booths[i]->booth[0]);
          drawObject(booths[i]->booth[1]);
          drawObject(booths[i]->booth[2]);
@@ -445,6 +448,7 @@ void World::drawOverWorld() {
       booths[i]->calculateBoundingBox();
    }
    for (int i=0; i<lanterns.size(); ++i) {
+//printf("LATERNS\n");
       drawObject(lanterns[i]);//->draw();
    }
 }
@@ -647,6 +651,53 @@ int World::numLeft() {
 
 // ~~~~~~~~~~~~ VIEW FRUSTUM CULLING ~~~~~~~~~~~~~~~~
 
+// Even LAZY SPHERE CULLING isn't working :'(
+// lazy sphere culling
+void World::drawObject(Object* obj) {
+   // TODO return
+   obj->draw();
+   return;
+
+   // Near and far plane distances from camera
+   float near = 0.1f;
+   float far = 300.0f;
+
+   // Get camera direction and position
+   glm::vec3 dir = camera->dir;
+//printf("dir x: %.2lf  y: %.2lf  z: %.2lf\n", dir.x, dir.y, dir.z);
+   glm::vec3 camPos = camera->pos;
+//printf("camPos x: %.2lf  y: %.2lf  z: %.2lf\n", camPos.x, camPos.y, camPos.z);
+
+   // Determine the center of the sphere frustum
+   float distFromCam = (far - near) / 2.0f + near;
+   glm::vec3 spherePos = camPos + distFromCam * dir;
+//printf("spherePos x: %.2lf  y: %.2lf  z: %.2lf\n", spherePos.x, spherePos.y, spherePos.z);
+
+   // Determine the sphere frustum's radius
+   float sphereRad = 1.1 * distFromCam;
+//printf("sphereRad: %lf\n", sphereRad);
+
+   // Distance between object's center and sphere frustum's center
+   glm::vec4 objPos = glm::vec4(obj->getPos().x, obj->getPos().y, obj->getPos().z, 1.0f);
+   objPos = obj->getModelMatrix() * objPos;
+   glm::vec3 objPos3 = glm::vec3(objPos.x, objPos.y, objPos.z);
+   float dist = glm::distance(spherePos, objPos3);
+//printf("dist: %lf\n", dist);
+//printf("objPos x: %.2lf  y: %.2lf  z: %.2lf  w: %.2lf\n", objPos.x, objPos.y, objPos.z, objPos.w);
+
+   // If object is (partially) visible, draw it
+   if (dist < (obj->getXZRadius() + sphereRad)) {
+
+   // If object is (entirely) visible, draw it
+//   if (dist < sphereRad) {
+      // Object is inside the sphere frustum, draw it
+      obj->draw();
+   }
+
+//printf("\n");
+}
+
+/* DIFFERENT APPROACH TO VIEW FRUSTUM CULLING
 // reference: http://www.lighthouse3d.com/tutorials/view-frustum-culling/clip-space-approach-extracting-the-planes/
 void World::drawObject(Object* obj) {
    // TODO remove to test view frustum culling
@@ -677,6 +728,7 @@ void World::drawObject(Object* obj) {
       obj->draw();
    }
 }
+*/
 
 /* OLD METHOD OF VIEW FRUSTUM CULLING
 // http://gamedevs.org/uploads/fast-extraction-viewing-frustum-planes-from-world-view-projection-matrix.pdf

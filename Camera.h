@@ -17,6 +17,7 @@ class Camera {
       bool pov;
       glm::mat4 Projection;
       glm::mat4 View;
+      glm::vec3 dir;
       
 
       //World* world;
