@@ -112,6 +112,7 @@ private:
     
     // Texture information
     int texture_id;
+    // TODO populate these variables
     // Cook torrance values
     float roughness; // 0 : smooth, 1: rough
     float fresnel; // fresnel reflectance at normal incidence
