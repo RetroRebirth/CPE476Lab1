@@ -117,6 +117,7 @@ public:
     // Draw Bounding boxes?
     bool drawBounds, screenRender;
     float radius, xzRadius;
+    void shear(float shearX, float shearZ);
 
 private:
     // Object information
@@ -142,6 +143,7 @@ private:
     glm::mat4 directionalMat;
     glm::mat4 transMat;
     glm::mat4 transRot;
+    glm::mat4 shearMat;
     
     float dir_angle;
     

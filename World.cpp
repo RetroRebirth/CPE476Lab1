@@ -267,6 +267,7 @@ void World::step(Window* window) {
 //printf("EXTRAS\n");
          drawObject(extra->object);//->draw();
       }
+      grassWave(window);
       drawGround();
       drawOverWorld();
    }
@@ -275,6 +276,14 @@ void World::step(Window* window) {
    camera->step(window);
    if (!inGame) {
       skybox->draw(camera, window);
+   }
+}
+
+void World::grassWave(Window* window) {
+   for (int i=0; i<grass.size(); ++i) {
+      float shearX = 0.2 * sin(window->time + i);
+      float shearZ = 0.2 * cos(window->time + i);
+      grass[i]->shear(shearX, shearZ);
    }
 }
 

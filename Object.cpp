@@ -17,6 +17,7 @@ Object::Object(
    modelMat = glm::mat4(1.0f);
    scalerMat = glm::mat4(1.0f);
    rotateMat = glm::mat4(1.0f);
+   shearMat = glm::mat4(1.0f);
    directionalMat = glm::mat4(1.0f);
    transMat = glm::mat4(1.0f);
    transRot = glm::mat4(1.0f);
@@ -763,7 +764,7 @@ glm::mat4 Object::getModelMatrix() {
    glm::mat4 RZ = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0, 0.0, 1.0));
    R *= RX*RY*RZ;
    }
-   modelMat = T*R*scalerMat;
+   modelMat = T*shearMat*R*scalerMat;
  
    return modelMat;
 }
@@ -889,14 +890,12 @@ void Object::setTexture(int tex) {
    }
 }
 
-glm::mat4 shear(float shearX, float shearZ) {
-   glm::mat4 m = glm::scale(glm::mat4(1.0f), glm::vec3(1, 1, 1));
+void Object::shear(float shearX, float shearZ) {
+   shearMat = glm::mat4(1.0f);
 
-   m[0][0] = 1; m[0][1] = 0; m[0][2] = shearX; m[0][3] = 0;
-   m[1][0] = 0; m[1][1] = 1; m[1][2] = shearZ; m[1][3] = 0;
-   m[2][0] = 0; m[2][1] = 0; m[2][2] = 1; m[2][3] = 0;
-   m[3][0] = 0; m[3][1] = 0; m[3][2] = 0; m[3][3] = 1;
-
-   return m;
+   shearMat[0][0] = 1; shearMat[0][1] = 0; shearMat[0][2] = shearX; shearMat[0][3] = 0;
+   shearMat[1][0] = 0; shearMat[1][1] = 1; shearMat[1][2] = shearZ; shearMat[1][3] = 0;
+   shearMat[2][0] = 0; shearMat[2][1] = 0; shearMat[2][2] = 1; shearMat[2][3] = 0;
+   shearMat[3][0] = 0; shearMat[3][1] = 0; shearMat[3][2] = 0; shearMat[3][3] = 1;
 }
 

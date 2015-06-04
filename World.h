@@ -97,6 +97,7 @@ class World {
       bool checkStructureCollisions(Object* object);
       bool checkBoothCollisions(Object* object);
       bool passedTarget(struct Extra* extra);
+      void grassWave(Window* window);
 };
 
 #endif
