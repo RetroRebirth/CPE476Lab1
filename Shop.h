@@ -53,6 +53,7 @@ private:
     GLuint ShadeProg;
     Sound* sound;
     Camera* camera;
+    Item boughtItem;
     
     // Shop variables
     int curItem;

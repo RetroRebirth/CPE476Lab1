@@ -133,11 +133,14 @@ void Karaoke::addArrow() {
 void Karaoke::initVideo() {
     // Create frames for the video
     cap = VideoCapture(sound->getSongInfo(curSong).vid_file);
+    printf("%s\n", sound->getSongInfo(curSong).vid_file);
+    
     if (cap.isOpened()) {
         // Get the fps
         fps = cap.get(CV_CAP_PROP_FPS);
         // set video "frame speed"
         frameStep = (1 / fps) * speed;
+        printf("capture opened\n");
     }
     // Decide how many fireworks to make
     if (speed == 3)

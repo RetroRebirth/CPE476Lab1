@@ -10,6 +10,10 @@ Shop::Shop(GLuint _ShadeProg, Sound* _sound, Camera* _camera) {
     items.reserve(7);
 
     tooPoor = 0.0;
+<<<<<<< HEAD
+=======
+    //HERE
+>>>>>>> blah blah blah
     prePurch = 0.0;
     buySong = 0.0;
     buyOtft = 0.0;
@@ -111,11 +115,14 @@ void Shop::buyItem() {
     }
     // Item was already unlocked
     else if (items[curItem].price == 0) {
-        prePurch = 2.0;
+        printf("You've already purchased this item.");
+        prePurch = 2.0; //HERE
         sound->playIncorrectSound();
     }
     // Buy the item
     else {
+        boughtItem = items[curItem];
+        printf("Bought %s\n", items[curItem].name);
         global_points -= items[curItem].price;
         items[curItem].price = 0;
         sound->playContactSound();
@@ -123,13 +130,13 @@ void Shop::buyItem() {
         // Item is a song; unlock it
         if (strcmp(items[curItem].type, SONG_TYPE) == 0) {
             printf("You can now play this song in the karaoke booth!\n");
-            buySong = 2.0;
+            buySong = 2.0; //HERE
             sound->unlockSong(items[curItem].index);
         }
         // Item is an outfit; put it on the player
         if (strcmp(items[curItem].type, OUTFIT_TYPE) == 0) {
             printf("You put on a snazzy new outfit\n");
-            buyOtft = 2.0;
+            buyOtft = 2.0; //HERE
             Object *player = camera->getPlayer();
             if (items[curItem].index > TEX_GIRL_ENDER)
                 player->reflective = true;
@@ -211,6 +218,7 @@ void Shop::step(Window* window) {
        
        tooPoor -= window->dt;
     }
+
     if (prePurch > 0.0) {
        char purch[40];
        sprintf(purch, "You've already purchased this item.");
@@ -221,7 +229,7 @@ void Shop::step(Window* window) {
     
     char bought[50];
     if (buySong > 0.0) {
-       sprintf(bought, "Bought %s\n", items[curItem].name);
+       sprintf(bought, "Bought %s\n", boughtItem.name);
        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), bought, 0-fontEngine->getTextWidth(bought)/2.0, .85);
        
        char song[50];       
@@ -231,7 +239,7 @@ void Shop::step(Window* window) {
        buySong -= window->dt;
     } 
     if (buyOtft > 0.0) {
-       sprintf(bought, "Bought %s\n", items[curItem].name);
+       sprintf(bought, "Bought %s\n", boughtItem.name);
        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), bought, 0-fontEngine->getTextWidth(bought)/2.0, .85);
        
        char otft[50];       

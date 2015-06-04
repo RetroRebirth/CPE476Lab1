@@ -246,7 +246,7 @@ void Session::step() {
    camera->step(window);
    
    char txt[30];
-   sprintf(txt, "Japanese Festival!");
+   sprintf(txt, "Matsuriyo!");
    fontEngine->useFont("goodDog", 48);
    fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), txt, -1.0, 0.9);
    

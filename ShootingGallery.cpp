@@ -89,7 +89,7 @@ void ShootingGallery::printInstructions() {
          }
          
          yPos -= yInc;
-         fontEngine->display(glm::vec4(0.0, 0.0, 0.0, 1.0), line.c_str(), 0-fontEngine->getTextWidth(line.c_str())/2.0, yPos);
+         fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), line.c_str(), 0-fontEngine->getTextWidth(line.c_str())/2.0, yPos);
       }
    }
    else {
