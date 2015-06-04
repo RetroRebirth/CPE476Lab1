@@ -32,71 +32,71 @@ rebase:
 	git rebase origin/master
 
 # optimize makefile by only compiling what was changed
-main.o : main.cpp
+main.o : main.cpp includes.h Session.h Window.h Camera.h Texture.h Karaoke.h
 	g++ $(CFLAGS) -c main.cpp
 
-GLSL.o : GLSL.cpp
+GLSL.o : GLSL.cpp glew.h GLSL.h
 	g++ $(CFLAGS) -c GLSL.cpp
 
-Camera.o : Camera.cpp
+Camera.o : Camera.cpp Camera.h includes.h Window.h Object.h Booth.h
 	g++ $(CFLAGS) -c Camera.cpp
 
-Object.o : Object.cpp
+Object.o : Object.cpp Object.h includes.h Texture.h
 	g++ $(CFLAGS) -c Object.cpp
 
-Window.o : Window.cpp
+Window.o : Window.cpp Window.h includes.h
 	g++ $(CFLAGS) -c Window.cpp
 
-World.o : World.cpp
+World.o : World.cpp World.h includes.h Object.h Window.h Camera.h SkyBox.h Booth.h Particle.h
 	g++ $(CFLAGS) -c World.cpp
 
-MatrixStack.o : MatrixStack.cpp
+MatrixStack.o : MatrixStack.cpp glm/glm.hpp glm/gtc/type_ptr.hpp
 	g++ $(CFLAGS) -c MatrixStack.cpp
 
-Booth.o : Booth.cpp
+Booth.o : Booth.cpp Booth.h includes.h Object.h Texture.h FontEngine.h
 	g++ $(CFLAGS) -c Booth.cpp
 
-SkyBox.o : SkyBox.cpp
+SkyBox.o : SkyBox.cpp SkyBox.h includes.h Camera.h Object.h Texture.h
 	g++ $(CFLAGS) -c SkyBox.cpp
 
-Session.o : Session.cpp
+Session.o : Session.cpp Session.h includes.h Window.h Camera.h World.h Clicks.h Sound.h Minigame.h Program.h ParticleTexture.h FontEngine.h
 	g++ $(CFLAGS) -c Session.cpp
 
-Texture.o : Texture.cpp
+Texture.o : Texture.cpp Texture.h includes.h
 	g++ $(CFLAGS) -c Texture.cpp
 
-Clicks.o : Clicks.cpp
+Clicks.o : Clicks.cpp Clicks.h includes.h Object.h
 	g++ $(CFLAGS) -c Clicks.cpp
 
-ShootingGallery.o : ShootingGallery.cpp
+ShootingGallery.o : ShootingGallery.cpp ShootingGallery.h includes.h Clicks.h Texture.h Window.h Sound.h FontEngine.h
 	g++ $(CFLAGS) -c ShootingGallery.cpp
 
-Sound.o : Sound.cpp
+Sound.o : Sound.cpp Sound.h includes.h Texture.h Camera.h
 	g++ $(CFLAGS) -c Sound.cpp
 
-WatermelonSmash.o : WatermelonSmash.cpp
+WatermelonSmash.o : WatermelonSmash.cpp WatermelonSmash.h includes.h Clicks.h Texture.h Window.h Sound.h Program.h FontEngine.h Particle.h Camera.h ParticleSorter.h
 	g++ $(CFLAGS) -c WatermelonSmash.cpp
 
-Minigame.o : Minigame.cpp
+Minigame.o : Minigame.cpp Minigame.h includes.h Window.h ShootingGallery.h WatermelonSmash.h Karaoke.h Shop.h
 	g++ $(CFLAGS) -c Minigame.cpp
 
-Particle.o : Particle.cpp
+Particle.o : Particle.cpp Particle.h includes.h Program.h
 	g++ $(CFLAGS) -c Particle.cpp
 
-ParticleTexture.o : ParticleTexture.cpp
+ParticleTexture.o : ParticleTexture.cpp ParticleTexture.h includes.h
 	g++ $(CFLAGS) -c ParticleTexture.cpp
 
-Program.o : Program.cpp
+Program.o : Program.cpp Program.h includes.h ParticleTexture.h
 	g++ $(CFLAGS) -c Program.cpp
 
-FontEngine.o : FontEngine.cpp
+FontEngine.o : FontEngine.cpp FontEngine.h includes.h FontAtlas.h Program.h
 	g++ $(CFLAGS) -c FontEngine.cpp
 
-FontAtlas.o : FontAtlas.cpp
+FontAtlas.o : FontAtlas.cpp FontAtlas.h includes.h
 	g++ $(CFLAGS) -c FontAtlas.cpp
 
-Karaoke.o : Karaoke.cpp
+Karaoke.o : Karaoke.cpp Karaoke.h includes.h Clicks.h Texture.h Window.h Sound.h FontEngine.h Program.h Particle.h Camera.h
 	g++ $(CFLAGS) -c Karaoke.cpp
 
-Shop.o : Shop.cpp
+Shop.o : Shop.cpp Shop.h includes.h Clicks.h Texture.h Window.h Sound.h FontEngine.h
 	g++ $(CFLAGS) -c Shop.cpp

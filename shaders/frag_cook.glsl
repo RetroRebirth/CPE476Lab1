@@ -22,14 +22,11 @@ varying vec4 vPos;
 varying vec4 vNor;
 varying vec2 vTexCoord;
 
-// TODO pass in values from Object.cpp
 // Cook Torrance values
 // reference: http://forums.cgarchitect.com/74801-fresnel-ior.html
-/*
 uniform float roughness;
 uniform float fresnel;
 uniform float geometric;
-*/
 
 /// Gets the Gaussian value in the first dimension.
 float Gaussian (float x, float deviation)
@@ -38,11 +35,6 @@ float Gaussian (float x, float deviation)
 }
 
 void main() {
-   // TODO use the global variables
-   float roughness = 1.0;
-   float fresnel = 1.6;
-   float geometric = 1.0;
-
    // TODO remove when things are not as dark
    vec3 ambientLight = vec3(0.3, 0.3, 0.3); // hack, add ambient light to simulate more daytime
    

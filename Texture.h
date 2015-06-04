@@ -12,11 +12,13 @@ public:
     // constructors & destructors
     Texture() {
         mipmapsGenerated = false;
-        data = NULL;
+//        data = NULL;
     }
     virtual ~Texture() {
-        //if (data != NULL)
-          //  delete data;
+/*
+        if (data != NULL)
+            delete data;
+*/
     }
     
     // methods
@@ -33,7 +35,7 @@ public:
 private:
     // variables
     int texture;
-    char* data;
+//    char* data;
     int minification, magnification;
     
     // image descriptors

@@ -612,13 +612,10 @@ void Object::draw()
    glActiveTexture(GL_TEXTURE0);
    glBindTexture(GL_TEXTURE_2D, texture_id);
    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   // TODO populate the variables and then uncomment this
    // Pass along Cook Torrance values
-/*
    glUniform1f(GLSL::getUniformLocation(ShadeProg, "roughness"), roughness);
    glUniform1f(GLSL::getUniformLocation(ShadeProg, "fresnel"), fresnel);
    glUniform1f(GLSL::getUniformLocation(ShadeProg, "geometric"), geometric);
-*/
    // Draw the shadow projection to FBO
    if (castShadows) {
       glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), shadowDarkness);
@@ -840,7 +837,6 @@ void Object::setShadows(bool shadows, float height, float dark) {
 void Object::setTexture(int tex) {
    texture_id = tex;
 
-/*
    // reference for fresnel values: http://forums.cgsociety.org/archive/index.php/t-513458.html
    // Set cook torrance values depending on texture
    switch (tex) {
@@ -907,6 +903,5 @@ void Object::setTexture(int tex) {
       geometric = 1.0;
       break;
    }
-*/
 }
 

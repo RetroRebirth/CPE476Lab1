@@ -16,6 +16,7 @@ void loadAllTextures()
             sscanf(line.c_str(), "%d %s\n", &texID, texName);
             
             Texture newTex;
+//std::cerr << "loading " << line << "...\n";
             newTex.loadTexture(texName, texID, true);
         }
     }
@@ -57,7 +58,7 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
     fseek(file, 24, SEEK_CUR);
     
     // read the data
-    data = (char *) malloc(size);
+    char* data = (char *) malloc(size);
     if (data == NULL) {
         printf("Error allocating memory for color-corrected image data");
         return;
@@ -72,6 +73,8 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
     glBindTexture(GL_TEXTURE_2D, texture_id);
     
     // Generate a 2D image for the image's format
+    // https://www.khronos.org/opengles/sdk/docs/man/xhtml/glTexImage2D.xml
+//    glTexImage2D(GL_TEXTURE_2D, 0, 3, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
     glTexImage2D(GL_TEXTURE_2D, 0, 3, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
     
     // Generate mip maps
@@ -83,6 +86,8 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     }
     mipmapsGenerated = genMipMaps;
+
+    free(data);
 }
 
 /* Loads a texture from a video frame */
