@@ -10,10 +10,9 @@ Shop::Shop(GLuint _ShadeProg, Sound* _sound, Camera* _camera) {
     items.reserve(7);
 
     tooPoor = 0.0;
-    //HERE
-    /*prePurch = 0.0;
+    prePurch = 0.0;
     buySong = 0.0;
-    buyOtft = 0.0;*/
+    buyOtft = 0.0;
     
     setUp();
 }
@@ -53,7 +52,6 @@ void Shop::setUp() {
             char* name = (char*)malloc(sizeof(char)*30);
             strcpy(name, karaoke_songs[i].song_name);
             newItem.name = name;
-            //newItem.name = karaoke_songs[i].song_name;
             newItem.type = (char *)"song";
             newItem.index = i;
             
@@ -75,19 +73,30 @@ void Shop::setUp() {
         }
     }
     
+    char *outfit_names[] = {
+        (char *)"Stripey Bow",
+        (char *)"Lucky Bow",
+        (char *)"Lovely Bow",
+        (char *)"Yummy Bow",
+        (char *)"Flashy Bow",
+        (char *)"Blocky Bow",
+        (char *)"Shiny Bow"
+    };
+    int outfit_prices[] = { 300, 300, 300, 500, 500, 500, 750 };
     // Load the outfits
-    for (int i = TEX_GIRL_BLUE; i <= TEX_GIRL_ENDER; i++) {
+    for (int i = TEX_GIRL_BLUE; i <= TEX_GIRL_ENDER + 1; i++) {
         Item newItem;
-        newItem.type = "outfit";
-        newItem.name = "outfit";
-        newItem.price = 150;
+        newItem.type = (char *)"outfit";
+        newItem.name = outfit_names[i - TEX_GIRL_BLUE];
+        newItem.price = outfit_prices[i - TEX_GIRL_BLUE];
         newItem.index = i;
         
         Object *object = new Object(shapes, materials, ShadeProg);
-        object->load((char *)"objs/squish_red.obj");
+        object->load((char *)"objs/bow.obj");
         object->setTexture(newItem.index);
-        object->scale(glm::vec3(2.5, 2.5, 2.5));
+        object->scale(glm::vec3(3, 3, 3));
         object->setPos(glm::vec3(0.0, 2.7, 3.0));
+        object->setShadows(false, 0.0, 0.0);
         newItem.object = object;
         
         items.push_back(newItem);
@@ -97,20 +106,16 @@ void Shop::setUp() {
 void Shop::buyItem() {
     // Not enough points to buy the item
     if (global_points < items[curItem].price) {
-        printf("You just remembered you're poor...\n");
-        printf("Play some minigames to earn more cash!\n");
         tooPoor = 2.0;
         sound->playIncorrectSound();
     }
     // Item was already unlocked
     else if (items[curItem].price == 0) {
-        printf("You've already purchased this item.");
-        //prePurch = 2.0; //HERE
+        prePurch = 2.0;
         sound->playIncorrectSound();
     }
     // Buy the item
     else {
-        printf("Bought %s\n", items[curItem].name);
         global_points -= items[curItem].price;
         items[curItem].price = 0;
         sound->playContactSound();
@@ -118,15 +123,20 @@ void Shop::buyItem() {
         // Item is a song; unlock it
         if (strcmp(items[curItem].type, SONG_TYPE) == 0) {
             printf("You can now play this song in the karaoke booth!\n");
-            //buySong = 2.0; //HERE
+            buySong = 2.0;
             sound->unlockSong(items[curItem].index);
         }
         // Item is an outfit; put it on the player
         if (strcmp(items[curItem].type, OUTFIT_TYPE) == 0) {
             printf("You put on a snazzy new outfit\n");
-            //buyOtft = 2.0; //HERE
+            buyOtft = 2.0;
             Object *player = camera->getPlayer();
-            player->setTexture(items[curItem].index);
+            if (items[curItem].index > TEX_GIRL_ENDER)
+                player->reflective = true;
+            else {
+                player->setTexture(items[curItem].index);
+                player->reflective = false;
+            }
             camera->initPlayer(player);
         }
     }
@@ -171,9 +181,6 @@ void Shop::step(Window* window) {
     items[curItem].draw();
     
     // Draw the item's information:
-    // items[curItem].name
-    // Cost = items[curItem].price
-        // if price == 0, display "[PURCHASED]"
     float yInc, yTop = .53, yBot = -.48;
 
     fontEngine->useFont("ostrich", 30);
@@ -204,8 +211,7 @@ void Shop::step(Window* window) {
        
        tooPoor -= window->dt;
     }
-    // HERE
-    /*if (prePurch > 0.0) {
+    if (prePurch > 0.0) {
        char purch[40];
        sprintf(purch, "You've already purchased this item.");
        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), purch, 0-fontEngine->getTextWidth(purch)/2.0, .85);
@@ -234,7 +240,7 @@ void Shop::step(Window* window) {
        
        buyOtft -= window->dt;
     
-    }*/
+    }
 }
 
 void Shop::prevItem() {

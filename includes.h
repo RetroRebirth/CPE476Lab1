@@ -40,8 +40,8 @@
 #define SHADER_TEXT "text"
 #define SHADER_GLOW "glow"
 // defines the file names for shaders
-#define DEFAULT_VERT_SHADER "shaders/vert_cook.glsl"
-#define DEFAULT_FRAG_SHADER "shaders/frag_cook.glsl"
+#define DEFAULT_VERT_SHADER "shaders/vert.glsl"//_cook.glsl"
+#define DEFAULT_FRAG_SHADER "shaders/frag.glsl"//_cook.glsl"
 #define BILLBOARD_VERT_SHADER "shaders/billboard_vert.glsl"
 #define BILLBOARD_FRAG_SHADER "shaders/billboard_frag.glsl"
 #define TEXT_VERT_SHADER "shaders/text.v.glsl"
@@ -123,7 +123,7 @@ struct plane {
 extern int global_points;
 // frame buffer objects
 extern GLuint FBO_Basic, FBO_CBasic, FBO_DBasic, FBO_TBasic;
-//GLuint FBO_Glow, FBO_TGlow;
-//GLuint FBO_Blur, FBO_TBlur;
+extern GLuint FBO_Glow, FBO_CGlow, FBO_DGlow, FBO_TGlow;
+extern GLuint FBO_Blur, FBO_CBlur, FBO_DBlur, FBO_TBlur;
 
 #endif

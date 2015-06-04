@@ -26,7 +26,7 @@ public:
     void resize_obj();
     void step(float dt);
     void draw();
-    void drawBloom(int BlendMode, int BlendAmount, int BlurAmount, float BlurScale, float BlurStrength);
+    void drawBloom(int BlendMode, float BlendAmount, int BlurAmount, float BlurScale, float BlurStrength);
     void setShadows(bool shadows, float height, float dark);
     
     // collision detection
@@ -49,7 +49,7 @@ public:
     void setSpeed(float speed)          { vel = speed;       }
     void setAccel(float _accel)         { accel = _accel;    }
     void setChangeDir(bool _changeDir)  { changeDir = _changeDir; }
-    void setTexture(int tex);
+    void setTexture(int tex)            { texture_id = tex;  }
     void setDirectional(bool dir)       { directional = dir; }
     
     // getters
@@ -72,6 +72,7 @@ public:
     void iterativeRotate(float angle, glm::vec3 axis);
     void translate(glm::vec3 trans);
     void setTransRot(glm::vec3 trans);
+    bool reflective;
     
     // Draw Bounding boxes?
     bool drawBounds;

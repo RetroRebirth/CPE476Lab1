@@ -1,8 +1,6 @@
 #include "Karaoke.h"
 #include "ParticleSorter.h"
 
-//const char GOOD_STR[] = "Good!";
-
 bool removeFireworks(vector<Particle*> p) {
    if (p[0]->cycles > 0) {
       return true;
@@ -509,18 +507,14 @@ void Karaoke::decreaseDifficulty() {
 
 void Karaoke::addNewFirework(int target) {
    glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
-   if (target == MIKU) {
+   if (target == MIKU)
       pos = MIKU_POS;
-   }
-   else if (target == RIN) {
+   else if (target == RIN)
       pos = RIN_POS;
-   }
-   else if (target == LEN) {
+   else if (target == LEN)
       pos = LEN_POS;
-   }
-   else if (target == KAITO) {
+   else if (target == KAITO)
       pos = KAITO_POS;
-   }
    vector<Particle*> firework;
    firework.clear();
    for (int i = 0; i < numParticles; ++i) {
@@ -547,7 +541,6 @@ void Karaoke::selectCharacter(int target) {
         // Check whether a "PERFECT" score was earned
         if (arrowPos <= -1.6) {
             addNewFirework(target);
-            //sound->playJumpSound();
             score += speed * 2;
             numPerfect++;
             perfTime = 1.0;
