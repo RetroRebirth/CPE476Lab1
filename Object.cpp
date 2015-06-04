@@ -599,9 +599,11 @@ void Object::draw()
     glBindTexture(GL_TEXTURE_2D, texture_id);
     glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
     // Pass along Cook Torrance values
+ /* TODO uncomment when cooking torrance
     glUniform1f(GLSL::getUniformLocation(ShadeProg, "roughness"), roughness);
     glUniform1f(GLSL::getUniformLocation(ShadeProg, "fresnel"), fresnel);
     glUniform1f(GLSL::getUniformLocation(ShadeProg, "geometric"), geometric);
+ */
     
     // Draw the shadow projection to FBO
     if (castShadows) {
