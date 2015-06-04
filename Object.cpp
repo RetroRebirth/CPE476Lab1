@@ -631,7 +631,8 @@ void Object::draw()
    
    // Draw the object to scene
    glActiveTexture(GL_TEXTURE0);
-   glBindTexture(GL_TEXTURE_2D, FBO_TBasic);
+//   glBindTexture(GL_TEXTURE_2D, FBO_TBasic); // mirror mode
+   glBindTexture(GL_TEXTURE_2D, texture_id);
    Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat));
    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
    
