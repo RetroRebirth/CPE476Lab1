@@ -829,3 +829,77 @@ void Object::setShadows(bool shadows, float height, float dark) {
    shadowHeight = height;
    shadowDarkness = dark;
 }
+
+void Object::setTexture(int tex) {
+   texture_id = tex;
+
+/*
+   // reference for fresnel values: http://forums.cgsociety.org/archive/index.php/t-513458.html
+   // Set cook torrance values depending on texture
+   switch (tex) {
+   case TEX_SKY_DAY:
+      roughness = 1.0;
+      fresnel = 1.0;
+      geometric = 1.0;
+      break;
+   case TEX_WOOD_LIGHT:
+   case TEX_WOOD_DARK:
+   case TEX_WOOD_RED:
+   case TEX_WOOD_WALL:
+   case TEX_TARGET:
+   case TEX_HAMMER:
+      roughness = 0.8;
+      fresnel = 1.3;
+      geometric = 0.9;
+      break;
+   case TEX_LANTERN:
+      roughness = 1.0;
+      fresnel = 1.6;
+      geometric = 1.0;
+      break;
+   case TEX_MELON_OUT:
+      roughness = 0.2;
+      fresnel = 1.6;
+      geometric = 0.3;
+      break;
+   case TEX_MELON_IN:
+      roughness = 0.5;
+      fresnel = 1.6;
+      geometric = 0.1;
+      break;
+   case TEX_PARTICLE:
+      roughness = 0.0;
+      fresnel = 1.0;
+      geometric = 0.1;
+      break;
+   case TEX_MIKU:
+   case TEX_RIN:
+   case TEX_LEN:
+   case TEX_KAITO:
+   case TEX_SQUISH_BLUE:
+   case TEX_SQUISH_PURPLE:
+   case TEX_GIRL_RED:
+   case TEX_GIRL_BLUE:
+   case TEX_GIRL_GREEN:
+   case TEX_GIRL_PINK:
+      roughness = 0.6;
+      fresnel = 1.6;
+      geometric = 0.8;
+      break;
+   case TEX_STEEL:
+      roughness = 0.1;
+      fresnel = 2.5;
+      geometric = 0.2;
+      break;
+   case TEX_GROUND_SAKURA:
+   case TEX_GROUND_GRASS:
+   case TEX_MISC:
+   default:
+      roughness = 1.0;
+      fresnel = 1.6;
+      geometric = 1.0;
+      break;
+   }
+*/
+}
+

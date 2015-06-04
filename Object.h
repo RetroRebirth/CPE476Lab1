@@ -49,7 +49,7 @@ public:
     void setSpeed(float speed)          { vel = speed;       }
     void setAccel(float _accel)         { accel = _accel;    }
     void setChangeDir(bool _changeDir)  { changeDir = _changeDir; }
-    void setTexture(int tex)            { texture_id = tex;  }
+    void setTexture(int tex);
     void setDirectional(bool dir)       { directional = dir; }
     
     // getters
@@ -112,6 +112,10 @@ private:
     
     // Texture information
     int texture_id;
+    // Cook torrance values
+    float roughness; // 0 : smooth, 1: rough
+    float fresnel; // fresnel reflectance at normal incidence
+    float geometric; // fraction of diffuse reflection (specular reflection = 1 - k)
     
     // Helper functions
     vector<float> computeNormals(vector<float> posBuf, vector<unsigned int> indBuf);

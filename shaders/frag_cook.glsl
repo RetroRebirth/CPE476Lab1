@@ -24,9 +24,11 @@ varying vec2 vTexCoord;
 
 // Cook Torrance values
 // reference: http://forums.cgarchitect.com/74801-fresnel-ior.html
+/*
 uniform float roughness;
 uniform float fresnel;
 uniform float geometric;
+*/
 
 /// Gets the Gaussian value in the first dimension.
 float Gaussian (float x, float deviation)
@@ -37,9 +39,9 @@ float Gaussian (float x, float deviation)
 void main() {
    // Set important material values
 // TODO set values per matrial
-   float roughnessValue = 1.0; // 0 : smooth, 1: rough
-   float F0 = 0.8; // fresnel reflectance at normal incidence
-   float k = 0.2; // fraction of diffuse reflection (specular reflection = 1 - k)
+   float roughness = 1.0; // 0 : smooth, 1: rough
+   float fresnel = 1.6; // fresnel reflectance at normal incidence
+   float geometric = 0.2; // fraction of diffuse reflection (specular reflection = 1 - k)
 
    // Create directional lighting
    vec3 viewDir = normalize(uView - (uV * uM * vPos).xyz);
