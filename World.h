@@ -50,6 +50,7 @@ class World {
    private:
       vector<tinyobj::shape_t> shapes; // TODO map of mesh data
       vector<struct Extra*> extras; // bunnies for now.
+      vector<Object*> grass;
       vector<Object*> lanterns;
       vector<tinyobj::material_t> materials;
       vector<Particle*> fountainParticles;
@@ -96,7 +97,6 @@ class World {
       bool checkStructureCollisions(Object* object);
       bool checkBoothCollisions(Object* object);
       bool passedTarget(struct Extra* extra);
-      
 };
 
 #endif

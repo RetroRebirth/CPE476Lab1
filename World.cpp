@@ -26,6 +26,7 @@ World::World(GLuint _ShadeProg, Camera* _camera) {
    booths.reserve(6);
    structures.reserve(16);
    extras.reserve(MAX_OBJS);
+   grass.reserve(MAX_OBJS);
 
    inGame = false;
    drawWorld = true;
@@ -62,6 +63,9 @@ World::~World() {
    }
    for (int i=0; i<fountainParticles.size(); ++i) {
       delete fountainParticles[i];
+   }
+   for (int i=0; i<grass.size(); ++i) {
+      delete grass[i];
    }
 }
 
@@ -410,6 +414,11 @@ void World::drawGround() {
 }
 
 void World::drawOverWorld() {
+   for (int i=0; i<grass.size(); ++i) {
+      if (drawWorld) {
+         drawObject(grass[i]);//->draw();
+      }
+   }
    for (int i=0; i<structures.size(); ++i) {
       if (drawWorld) {
 //printf("STRUCTURES\n");
@@ -566,6 +575,18 @@ void World::parseMapFile(const char* fileName) {
             structure->setShadows(true, 0.01, 0.8);
             structure->setTexture(TEX_LANTERN);
             structures.push_back(structure);
+         }
+         else if (strcmp(type, "grass") == 0) {
+            Object* grassPatch = new Object(shapes, materials, ShadeProg);
+
+            grassPatch->load(GRASS_FILE_NAME);
+            grassPatch->setTexture(TEX_GROUND_GRASS);
+
+            grassPatch->translate(_pos);
+            grassPatch->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
+            grassPatch->scale(_scalar);
+
+            grass.push_back(grassPatch);
          }
       }
       mapFile.close();
