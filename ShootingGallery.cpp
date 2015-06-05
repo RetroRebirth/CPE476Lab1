@@ -196,7 +196,7 @@ void ShootingGallery::step(Window* window) {
             // TODO use spatial data structure
             for (int j = 0; j < targets.size(); ++j) {
                if (bullets[i]->collidedWithObj(*targets[j], window->dt)) {
-//                  sound->playContactSound();
+                  sound->playThwackSound();
                   // Remove the target
                   targets.erase(targets.begin() + j);
                   --j;

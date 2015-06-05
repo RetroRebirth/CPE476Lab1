@@ -28,8 +28,7 @@
 class Watermelon {
 public:
     // constructor & deconstructor
-    Watermelon(Program* _particleProg, Camera* _camera, Object *obj, float x) {
-        particleProg = _particleProg;
+    Watermelon(Camera* _camera, Object *obj, float x) {
         camera = _camera;
         object = obj;
         xPos = x;
@@ -100,7 +99,6 @@ public:
     bool isRed;
     
 private:
-    Program* particleProg;
     Camera* camera;
     vector<tinyobj::shape_t> shapes;
     vector<tinyobj::material_t> materials;
@@ -125,7 +123,7 @@ public:
     
 private:
     // Variables
-    Program* particleProg;
+    Program *particleProg;
     Camera* camera;
     
     vector<Object*> bullets;
@@ -143,7 +141,7 @@ private:
     
     GLuint ShadeProg;
     Sound* sound;
-    Object* hammer;
+    Object *hammer;
     
     // Minigame variables
     vector<Watermelon*> melons;

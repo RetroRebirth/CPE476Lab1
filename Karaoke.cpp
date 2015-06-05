@@ -68,17 +68,6 @@ void Karaoke::setUp() {
     arrow->scale(glm::vec3(1.0, 1.0, 1.0));
     arrow->setPos(glm::vec3(2.0, 3.5, 1.0));
     arrow->setShadows(false, 0.0, 0.0);
-#if DEBUGGING_BLOOM == 1
-    arrow->screenRender = false;
-#endif
-    
-    // Create the screen being rendered to
-    renderer = new Object(shapes, materials, ShadeProg);
-    renderer->load((char *)"objs/screen.obj");
-    renderer->setTexture(FBO_TBasic);
-    renderer->setPos(glm::vec3(0.0, 2.5, 2.0));
-    renderer->scale(glm::vec3(8.0, 12.0, 8.0));
-    renderer->setShadows(false, 0.0, 0.0);
     
     // Load countdown textures beforehand for performance
     Texture countdownTex;
@@ -167,30 +156,6 @@ void Karaoke::drawVideo(Window* window) {
 }
 
 void Karaoke::drawArrow() {
-#if DEBUGGING_BLOOM == 1
-    // Step 1: Render scene to a texture
-    //arrow->draw();
-    
-    // Step 2: Render glowing entities to a separate texture
-    // render occluding geometry first
-    glColorMask(false, false, false, false);
-    for (int i = 0; i < characters.size(); i++) {
-        characters[i]->drawGlow();
-    }
-    glColorMask(true, true, true, true);
-    // render glowing geometry second
-    arrow->drawGlow();
-    
-    // Step 3: Blur the glowmap
-    renderer->drawBlur();
-    
-    // Step 4: Blend glowmap with rendered scene
-    float bloom = (arrowPos * -1) / 2.0;
-    int blend = (arrowPos <= -1.6) ? 1 : 2;
-    
-    renderer->render();
-    //renderer->renderBloom(1, 1.0);
-#else
     // Draw arrow with bloom
     float bloom = (arrowPos * -1) / 2.0;
     int blend = (arrowPos <= -1.6) ? 1 : 1;
@@ -203,7 +168,6 @@ void Karaoke::drawArrow() {
     glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 0);
     // Turn blur off
     glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 0);
-#endif
 }
 
 void Karaoke::printInstructions() {
@@ -292,21 +256,14 @@ void Karaoke::checkTime(Window *window) {
                 mins = totsec / 60;
                 secs = totsec % 60;
                 
-                for (int i = 0; i < characters.size(); i++) {
+                for (int i = 0; i < characters.size(); i++)
                     characters[i]->setTexture(TEX_MISC);
-#if DEBUGGING_BLOOM == 1
-                    characters[i]->screenRender = false;
-#endif
-                }
                 screen->scale(glm::vec3(8.0, 11.0, 8.0));
                 screen->rotate(180.0f, glm::vec3(1.0, 0.0, 0.0));
                 screen->setTexture(0);
                 gameStart = true;
                 timeStart = timeFrame = window->time;
                 texture_id = 100;
-#if DEBUGGING_BLOOM == 1
-                screen->screenRender = false;
-#endif
             }
             else if (window->time - timeStart >= 3.0 && characters.size() < 4) {
                 addCharacter((char *)"objs/kaito.obj", TEX_KAITO, -2.0);

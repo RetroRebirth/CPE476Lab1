@@ -32,15 +32,12 @@ WatermelonSmash::WatermelonSmash(GLuint _ShadeProg, Program* _particleProg, Came
 }
 
 WatermelonSmash::~WatermelonSmash() {
-    for (int i = 0; i < bullets.size(); ++i) {
+    for (int i = 0; i < bullets.size(); ++i)
         delete bullets[i];
-    }
-    for (int i = 0; i < melons.size(); i++) {
+    for (int i = 0; i < melons.size(); i++)
         delete melons[i];
-    }
-    for (int i = 0; i < misc_objects.size(); i++) {
+    for (int i = 0; i < misc_objects.size(); i++)
         delete misc_objects[i];
-    }
     delete hammer;
 }
 
@@ -85,7 +82,7 @@ void WatermelonSmash::newMelon(float xPos) {
     newObj->setShadows(false, 0.0, 0.0);
     
     // Add the watermelons to the game
-    Watermelon *newMelon = new Watermelon(particleProg, camera, newObj, xPos);
+    Watermelon *newMelon = new Watermelon(camera, newObj, xPos);
     melons.push_back(newMelon);
 }
 
@@ -127,7 +124,7 @@ void WatermelonSmash::checkTime(Window *window) {
             timer = window->time;
         }
         // Check whether the game has ended
-        if (window->time - timeStart >= MELON_TIME) {
+        if (window->time - timeStart >= MELON_TIME && !gameOver) {
             global_points += score;
             gameOver = true;
         }
@@ -231,19 +228,15 @@ void WatermelonSmash::particleStep() {
                                            fireworks.end(),
                                            &removeExplosion),
                                            fireworks.end());
-	  
-	   
 	   // Unbind the program
 	   particleProg->unbind();
 }
 
 void WatermelonSmash::step(Window* window) {
-    // Draw the booth
-    for (int i = 0; i < misc_objects.size(); i++) 
-        misc_objects[i]->draw();
-    
     // Check whether game is playing
     if (!gameStart) {
+        for (int i = 0; i < misc_objects.size(); i++)
+            misc_objects[i]->draw();
         printInstructions();
         ageRight = ageLeft = window->time;
         return;
@@ -251,32 +244,37 @@ void WatermelonSmash::step(Window* window) {
     if (gameOver) {
         float yPos = .5;
         float yInc;
- 
+        for (int i = 0; i < misc_objects.size(); i++)
+            misc_objects[i]->draw();
+        
         char ln1[40];
         sprintf(ln1, "Time's up! Your score is: %d\n", score);
         fontEngine->useFont("caviar", 30);
         fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), ln1, 0-fontEngine->getTextWidth(ln1)/2.0, yPos);
         yInc = fontEngine->getTextHeight(ln1) * 1.3;
         yPos -= yInc;
-
+        
         char ln2[40];
         sprintf(ln2, "You smashed %d watermelons!\n", numMelons);
         fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), ln2, 0-fontEngine->getTextWidth(ln2)/2.0, yPos);
         
-        yPos -= (2 * yInc);        
+        yPos -= (2 * yInc);
         
         char ln3[40];
         sprintf(ln3, "Press ENTER to exit.");
         fontEngine->display(glm::vec4(0.98, 0.5, 0.48, 1.0), ln3, 0-fontEngine->getTextWidth(ln3)/2.0, yPos);
-
+        
         return;
     }
     checkTime(window);
-   
-    // Draw the watermelons and hammer
+    
+    // Draw the watermelons, hammer and booth
+    hammer->draw();
+    for (int i = 0; i < misc_objects.size(); i++)
+        misc_objects[i]->draw();
     for (int i = 0; i < melons.size(); i++)
         melons[i]->object->draw();
-    hammer->draw();
+    
     // Check if the watermelons wilted
     for (int i = 0; i < melons.size(); i++) {
         if (melons[i]->xPos == MELON_LEFT) {
@@ -342,16 +340,7 @@ void WatermelonSmash::step(Window* window) {
     }
     
     particleStep();
-    // Draw the watermelons exploding
-    /*for (int i = 0; i < melons.size(); i++) {
-        melons[i]->explosionsStarted.erase(std::remove_if(melons[i]->explosionsStarted.begin(),
-                                           melons[i]->explosionsStarted.end(),
-                                           &removeExplosions),
-                                           melons[i]->explosionsStarted.end());
-        melons[i]->particleStep();
-    }*/
-
-    textStep(window); 
+    textStep(window);
 }
 
 void WatermelonSmash::textStep(Window* window) {
