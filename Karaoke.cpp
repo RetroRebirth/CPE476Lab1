@@ -27,9 +27,7 @@ Karaoke::Karaoke(GLuint _ShadeProg, Sound* _sound, Camera* _camera, Program* _pa
     numPerfect = 0;
     curTarget = -1;
     speed = 1;
-    perfTime = 0.0;
-    goodTime = 0.0;
-    badTime = 0.0;
+    messageTime = 0.0;
     
     t = 0.0f;
     t0_disp = 0.0f;
@@ -38,6 +36,12 @@ Karaoke::Karaoke(GLuint _ShadeProg, Sound* _sound, Camera* _camera, Program* _pa
     g = glm::vec3(0.0f, -0.01f, 0.0f);
     fireworks.clear();
     numFireworks = 0;
+    
+    charaPos[MIKU] = MIKU_POS;
+    charaPos[RIN] = RIN_POS;
+    charaPos[LEN] = LEN_POS;
+    charaPos[KAITO] = KAITO_POS;
+    sound->playKaraokeMusic(curSong);
     
     // Set up the booth
     setUp();
@@ -123,14 +127,12 @@ void Karaoke::addArrow() {
 void Karaoke::initVideo() {
     // Create frames for the video
     cap = VideoCapture(sound->getSongInfo(curSong).vid_file);
-    printf("%s\n", sound->getSongInfo(curSong).vid_file);
     
     if (cap.isOpened()) {
         // Get the fps
         fps = cap.get(CV_CAP_PROP_FPS);
         // set video "frame speed"
         frameStep = (1 / fps) * speed;
-        printf("capture opened\n");
     }
 }
 
@@ -242,6 +244,7 @@ void Karaoke::checkTime(Window *window) {
     else {
         // Begin the timer countdown for the song to start
         if (!gameStart) {
+            sound->setVolume(1.0 - (window->time - timeStart) / 5.0);
             if (window->time - timeStart >= 5.0) {
                 bpm = sound->playKaraokeMusic(curSong);
                 songDuration = sound->getSongDuration() / 1000.0;
@@ -260,6 +263,7 @@ void Karaoke::checkTime(Window *window) {
                 gameStart = true;
                 timeStart = timeFrame = window->time;
                 texture_id = 100;
+                sound->setVolume(1.0);
             }
             else if (window->time - timeStart >= 4.0 && characters.size() < 4) {
                 addCharacter((char *)"objs/kaito.obj", TEX_KAITO, -2.0);
@@ -285,12 +289,7 @@ void Karaoke::checkTime(Window *window) {
             emins = etotsec / 60;
             esecs = etotsec % 60;
             
-            if (perfTime > 0.0)
-                perfTime -= window->dt;
-            if (goodTime > 0.0)
-                goodTime -= window->dt;
-            if (badTime > 0.0)
-                badTime -= window->dt;
+            messageTime -= window->dt;
             
             if (etotsec >= songDuration) {
                 // Bonus points for all perfects
@@ -316,6 +315,10 @@ void Karaoke::checkTime(Window *window) {
                 score -= speed;
                 numBad++;
                 curTarget = -1;
+                
+                messageTime = 1.0;
+                message = BAD_STR;
+                messageColor = glm::vec3(1.0, 0.0, 0.0);
             }
             // Move the arrow down the screen
             else {
@@ -444,55 +447,45 @@ void Karaoke::textStep() {
     
     fontEngine->useFont("oswald", 75);
     
-    if (perfTime > 0.0) {
-        yPos = .3 + (abs(perfTime - 1.0)/2.0);
-        alpha = 1.0 - (abs(perfTime - 1.0)*2.0);
-        
-        fontEngine->display(glm::vec4(1.0, 1.0, 0.0, alpha), PERF_STR, 0-fontEngine->getTextWidth(PERF_STR)/2.0, yPos);
-    }
-    if (goodTime > 0.0) {
-        yPos = .3 + (abs(goodTime - 1.0)/2.0);
-        alpha = 1.0 - (abs(goodTime - 1.0)*2.0);
-        
-        fontEngine->display(glm::vec4(0.0, 0.0, 1.0, alpha), GOOD_STR, 0-fontEngine->getTextWidth(GOOD_STR)/2.0, yPos);
-    }
-    if (badTime > 0.0) {
-        yPos = .3 + (abs(badTime - 1.0)/2.0);
-        alpha = 1.0 - (abs(badTime - 1.0)*2.0);
-        
-        fontEngine->display(glm::vec4(1.0, 0.0, 0.0, alpha), BAD_STR, 0-fontEngine->getTextWidth(BAD_STR)/2.0, yPos);
+    if (messageTime > 0.0) {
+        yPos = .3 + (abs(messageTime - 1.0)/2.0);
+        alpha = 1.0 - (abs(messageTime - 1.0)*2.0);
+        fontEngine->display(glm::vec4(messageColor, alpha), message, 0-fontEngine->getTextWidth(message)/2.0, yPos);
     }
 }
 
 // Chooses a song on song selection menu
 void Karaoke::nextSong() {
+    if (songChosen)
+        return;
     curSong = (curSong + 1) % sound->getSongs().size();
     screen->setTexture(textures[curSong + TEX_SONGS]);
-    sound->playJumpSound();
+    sound->playKaraokeMusic(curSong);
 }
 void Karaoke::prevSong() {
+    if (songChosen)
+        return;
     curSong = curSong - 1;
     if (curSong == -1)
         curSong = sound->getSongs().size() - 1;
     screen->setTexture(textures[curSong + TEX_SONGS]);
-    sound->playJumpSound();
+    sound->playKaraokeMusic(curSong);
 }
 void Karaoke::selectSong() {
     if (!sound->getSongInfo(curSong).unlocked) {
         sound->playIncorrectSound();
         return;
     }
-    if (songChosen) {
+    if (songChosen)
         return;
-    }
     sound->playContactSound();
     
     initVideo();
     // Decide how many fireworks to make
     if (speed == 3)
-        numParticles = 5;
+        numParticles = 3;
     else
-        numParticles = 20;
+        numParticles = 10;
     texture_id = 105;
     screen->setTexture(textures[texture_id]);
 
@@ -514,15 +507,7 @@ void Karaoke::decreaseDifficulty() {
 }
 
 void Karaoke::addNewFirework(int target) {
-    glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
-    if (target == MIKU)
-        pos = MIKU_POS;
-    else if (target == RIN)
-        pos = RIN_POS;
-    else if (target == LEN)
-        pos = LEN_POS;
-    else if (target == KAITO)
-        pos = KAITO_POS;
+    glm::vec3 pos = charaPos[target];
     vector<Particle*> firework;
     firework.clear();
     for (int i = 0; i < numParticles; ++i) {
@@ -551,13 +536,19 @@ void Karaoke::selectCharacter(int target) {
             addNewFirework(target);
             score += speed * 2;
             numPerfect++;
-            perfTime = 1.0;
+            
+            messageTime = 1.0;
+            message = PERF_STR;
+            messageColor = glm::vec3(1.0, 1.0, 0.0);
         }
         // Otherwise, "GOOD" score
         else {
             score += speed;
             numGood++;
-            goodTime = 1.0;
+            
+            messageTime = 1.0;
+            message = GOOD_STR;
+            messageColor = glm::vec3(0.0, 0.0, 1.0);
         }
     }
     // "BAD" score; wrong arrow
@@ -565,7 +556,10 @@ void Karaoke::selectCharacter(int target) {
         sound->playBuzzerSound();
         score -= speed;
         numBad++;
-        badTime = 1.0;
+        
+        messageTime = 1.0;
+        message = BAD_STR;
+        messageColor = glm::vec3(1.0, 0.0, 0.0);
     }
     
     // Make the next arrow

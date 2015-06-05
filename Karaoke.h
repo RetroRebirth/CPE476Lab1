@@ -69,6 +69,7 @@ private:
     // Paticles
     vector<vector<Particle*> > fireworks;
     int numFireworks, numParticles;
+    map<int, glm::vec3> charaPos;
     // time info for particles
     float t, t0_disp, t_disp;
     float h;
@@ -79,10 +80,12 @@ private:
     int totsec, mins, secs, etotsec, emins, esecs;
     int numGood, numBad, numPerfect;
     float timeStart, beat, bpm, songDuration;
-    float perfTime, goodTime, badTime;
     
     // Animation variables
     float timeArrow, arrowPos;
+    char *message;
+    float messageTime;
+    glm::vec3 messageColor;
     
     // Video variables
     VideoCapture cap;

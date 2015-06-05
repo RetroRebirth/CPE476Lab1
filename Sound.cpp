@@ -58,6 +58,9 @@ void Sound::playBackgroundMusic() {
 void Sound::pauseSong() {
     engine->stopAllSounds();
 }
+void Sound::setVolume(float volume) {
+    engine->setSoundVolume(volume);
+}
 
 void Sound::playJumpSound() {
     engine->play2D("sounds/jump.wav", false);

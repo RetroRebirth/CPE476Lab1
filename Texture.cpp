@@ -1,6 +1,7 @@
 #include "Texture.h"
 
 map<int, GLuint> textures;
+GLuint video_texture;
 
 /* Initially loads all textures used in this program */
 void loadAllTextures()
@@ -24,6 +25,10 @@ void loadAllTextures()
     else {
         printf("file 'textures.txt' was not available or could not be opened\n");
     }
+    
+    glGenTextures(1, &video_texture);
+    glBindTexture(1, video_texture);
+    textures[100] = video_texture;
 }
 
 /* Loads a .bmp texture from the given file and loads it into the texture_id */
@@ -98,8 +103,7 @@ void Texture::loadTexture(Mat frame, int texture_id)
     IplImage* img = new IplImage(frame);
     
     // Generate an OpenGL texture id
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
+    glBindTexture(GL_TEXTURE_2D, video_texture);
     
     // Generate a 2D image for the image's format
     glTexImage2D(GL_TEXTURE_2D, 0, 3, img->width, img->height, 0, GL_BGR, GL_UNSIGNED_BYTE, img->imageData);
@@ -110,5 +114,5 @@ void Texture::loadTexture(Mat frame, int texture_id)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     
-    textures[texture_id] = texture;
+    textures[texture_id] = video_texture;
 }

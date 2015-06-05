@@ -71,7 +71,6 @@ private:
 #define TEX_TREE 21
 #define TEX_PETAL 22
 #define TEX_BENCH 23
-
 #define TEX_GIRL_RED 30
 #define TEX_GIRL_BLUE 31
 #define TEX_GIRL_GREEN 32
@@ -87,6 +86,7 @@ private:
 #define TEX_FBO_GLOW 501
 #define TEX_FBO_BLUR 502
 
+extern GLuint video_texture;
 extern map<int, GLuint> textures;
 void loadAllTextures();
 #endif
