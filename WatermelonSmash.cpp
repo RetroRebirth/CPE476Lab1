@@ -47,7 +47,7 @@ void WatermelonSmash::setUp() {
     wall->load("cube.obj");
     wall->setPos(glm::vec3(0.0, 0.0, 30.0));
     wall->scale(glm::vec3(100.0f, 100.0f, 1.0f));
-    wall->setTexture(TEX_WOOD_LIGHT);
+    wall->setTexture(textures[TEX_WOOD_LIGHT]);
     wall->setShadows(false, 0.0, 0.0);
     misc_objects.push_back(wall);
     
@@ -56,7 +56,7 @@ void WatermelonSmash::setUp() {
     table->load("cube.obj");
     table->setPos(glm::vec3(0.0, 0.0, MELON_DEPTH));
     table->scale(glm::vec3(10.0f, 1.0f, 1.0f));
-    table->setTexture(TEX_WOOD_DARK);
+    table->setTexture(textures[TEX_WOOD_DARK]);
     table->setShadows(false, 0.0, 0.0);
     misc_objects.push_back(table);
     
@@ -66,7 +66,7 @@ void WatermelonSmash::setUp() {
     hammer->setPos(glm::vec3(0.0, 3.5, MELON_DEPTH + .2));
     hammer->scale(glm::vec3(3.0, 3.0, 3.0));
     hammer->updateRadius();
-    hammer->setTexture(TEX_HAMMER);
+    hammer->setTexture(textures[TEX_HAMMER]);
     hammer->setShadows(false, 0.0, 0.0);
     
     // Add watermelons
@@ -78,7 +78,7 @@ void WatermelonSmash::newMelon(float xPos) {
     // Create a watermelon object
     Object *newObj = new Object(shapes, materials, ShadeProg);
     newObj->load((char *)"objs/watermelon.obj");
-    newObj->setTexture(TEX_MELON_OUT);
+    newObj->setTexture(textures[TEX_MELON_OUT]);
     newObj->setShadows(false, 0.0, 0.0);
     
     // Add the watermelons to the game
@@ -154,7 +154,7 @@ void WatermelonSmash::addNewFirework(glm::vec3 pos, float melonSize) {
    for (int i=0; i<NUM_PARTICLES; ++i) {
       Particle* particle = new Particle(); // !C++11: Particle *particle = new Particle();
 		particle->load();
-		particle->setTexture(TEX_PARTICLE);
+		particle->setTexture(textures[TEX_PARTICLE]);
 		particle->setStartPos(pos);
 		glm::vec3 vel = glm::vec3(randFloat(-1.0f, 1.0f), randFloat(-1.0f, 3.0f), randFloat(-1.0f, 1.0f));      
 		
@@ -379,7 +379,7 @@ void WatermelonSmash::mouseClick(glm::vec3 direction, glm::vec4 point) {
     bullet->setPos(glm::vec3(point.x, point.y - 7.5, 0));
     bullet->setDir(direction);
     bullet->setSpeed(1.0f);
-    bullet->setTexture(TEX_WOOD_WALL);
+    bullet->setTexture(textures[TEX_WOOD_WALL]);
     bullet->setShadows(false, 0.0, 0.0);
     bullet->setSpeed(BULLET_SPD);
     bullet->scale(glm::vec3(0.2, 0.2, 0.2));

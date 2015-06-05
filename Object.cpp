@@ -47,7 +47,7 @@ Object::Object(
    castShadows = true;
    shadowHeight = 0;
    shadowDarkness = 1.0;
-   setTexture(MISC_TYPE);
+   setTexture(textures[MISC_TYPE]);
    xzRadius = -1.0f;
    drawBounds = false;
 }

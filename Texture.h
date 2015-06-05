@@ -12,14 +12,8 @@ public:
     // constructors & destructors
     Texture() {
         mipmapsGenerated = false;
-//        data = NULL;
     }
-    virtual ~Texture() {
-/*
-        if (data != NULL)
-            delete data;
-*/
-    }
+    virtual ~Texture() {}
     
     // methods
     void loadTexture(char *filename, int texture_id, bool genMipMaps);
@@ -34,8 +28,7 @@ public:
     
 private:
     // variables
-    int texture;
-//    char* data;
+    GLuint texture;
     int minification, magnification;
     
     // image descriptors
@@ -75,13 +68,19 @@ private:
 #define TEX_STEEL 18
 #define TEX_SQUISH_BLUE 19
 #define TEX_SQUISH_PURPLE 20
-#define TEX_GIRL_RED 21
-#define TEX_GIRL_BLUE 22
-#define TEX_GIRL_GREEN 23
-#define TEX_GIRL_PINK 24
-#define TEX_GIRL_MELON 25
-#define TEX_GIRL_ROBOT 26
-#define TEX_GIRL_ENDER 27
+#define TEX_TREE 21
+#define TEX_PETAL 22
+#define TEX_BENCH 23
+
+#define TEX_GIRL_RED 30
+#define TEX_GIRL_BLUE 31
+#define TEX_GIRL_GREEN 32
+#define TEX_GIRL_PINK 33
+#define TEX_GIRL_MELON 34
+#define TEX_GIRL_ROBOT 35
+#define TEX_GIRL_ENDER 36
+#define TEX_GIRL_DRAGON 37
+#define TEX_GIRL_MERMAID 38
 #define TEX_SONGS 50
 
 #define TEX_FBO_BASIC 500

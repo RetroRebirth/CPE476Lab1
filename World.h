@@ -51,7 +51,6 @@ class World {
       vector<tinyobj::shape_t> shapes; // TODO map of mesh data
       vector<struct Extra*> extras; // bunnies for now.
       vector<Object*> grass;
-      vector<Object*> lanterns;
       vector<tinyobj::material_t> materials;
       vector<Particle*> fountainParticles;
       vector<Particle*> fireflyParticles;
@@ -66,7 +65,6 @@ class World {
       GLint h_uM;
       GLint h_uAClr, h_uDClr, h_uSClr, h_uS;
       GLint h_uTexUnit;
-      vector<Object*> objects;
       double objStartTime;
       bool inGame;
       

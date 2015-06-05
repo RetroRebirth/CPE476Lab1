@@ -45,10 +45,7 @@ World::World(GLuint _ShadeProg, Camera* _camera) {
 }
 
 World::~World() {
-   for (int i=0; i<objects.size(); ++i) { 
-      delete objects[i];
-   }
-   for (int i=0; i<extras.size(); ++i) { 
+   for (int i=0; i<extras.size(); ++i) {
       delete extras[i]->object;
       delete extras[i];
    }
@@ -57,9 +54,6 @@ World::~World() {
    }
    for (int i=0; i<booths.size(); ++i) {
       delete booths[i];
-   }
-   for (int i=0; i<lanterns.size(); ++i) {
-      delete lanterns[i];
    }
    for (int i=0; i<fountainParticles.size(); ++i) {
       delete fountainParticles[i];
@@ -79,7 +73,7 @@ void World::initParticles(Program* prog) {
 	for(int i = 0; i < NUM_FOUNTAIN_PARTICLES; ++i) {
 		Particle* particle = new Particle(); // !C++11: Particle *particle = new Particle();
 		particle->load();
-		particle->setTexture(TEX_PARTICLE);
+		particle->setTexture(textures[TEX_PARTICLE]);
 		if (i%2 == 0) {
 		   particle->setStartPos(glm::vec3(0.0f, 3.0f, 30.0f));
 		}
@@ -100,7 +94,7 @@ void World::initParticles(Program* prog) {
    for (int i = 0; i < NUM_FIREFLY_PARTICLES; ++i) {
       Particle* particle = new Particle();
       particle->load();
-      particle->setTexture(TEX_PARTICLE);
+      particle->setTexture(textures[TEX_PARTICLE]);
       particle->setStartPos(glm::vec3(randFloat(-SIZE,SIZE), randFloat(0.2f, 5.0f), randFloat(-SIZE, SIZE)));
       particle->setStartVel(glm::vec3(0.0f, 0.0f, 0.0f));
       particle->setStartCol(glm::vec3(0.99f, 0.99f, 0.68f));
@@ -144,7 +138,7 @@ void World::initParticles(Program* prog) {
       for (int i = 0; i < NUM_FIREWORK_PARTICLES; ++i) {
          Particle* particle = new Particle();
          particle->load();
-         particle->setTexture(TEX_PARTICLE);
+         particle->setTexture(textures[TEX_PARTICLE]);
          //particle->setRandPosList(fireworkPositions, (int)(SIZE*8.0f));
          particle->setStartPos(fireworkPos);
          particle->setStartVel(glm::vec3(randFloat(-0.2f, 0.2f), randFloat(-0.2f, 0.2f), randFloat(-0.2f, 0.2f)));
@@ -401,8 +395,8 @@ inline void World::safe_glUniformMatrix4fv(const GLint handle, const GLfloat dat
 void World::initGround() {
     ground = new Object(shapes, materials, ShadeProg);
     ground->load("objs/ground_sakura.obj", "objs/ground_sakura.mtl");
-    ground->scale(glm::vec3(SIZE * 2, SIZE * 2, SIZE * 2));
-    ground->setTexture(TEX_GROUND_SAKURA);
+    ground->scale(glm::vec3(20.0, 20.0, 20.0));
+    ground->setTexture(textures[TEX_GROUND_SAKURA]);
     ground->setShadows(false, 0.0, 0.0);
     
     int i = 0;
@@ -419,7 +413,21 @@ void World::initGround() {
 }
 
 void World::drawGround() {
-    ground->draw();
+    glm::vec3 curPos;
+    ground->setPos(glm::vec3(40.0, 0.0, -40.0));
+    
+    for (int y = 0; y < 5; y++) {
+        for (int x = 0; x < 5; x++) {
+            ground->draw();
+            curPos = ground->getPos();
+            if (y % 2 == 0)
+                ground->setPos(glm::vec3(curPos.x, curPos.y, curPos.z + 20.0));
+            else
+                ground->setPos(glm::vec3(curPos.x, curPos.y, curPos.z - 20.0));
+        }
+        curPos = ground->getPos();
+        ground->setPos(glm::vec3(curPos.x - 20.0, curPos.y, curPos.z));
+    }
 }
 
 void World::drawOverWorld() {
@@ -465,10 +473,6 @@ void World::drawOverWorld() {
    for (int i=0; i<booths.size(); ++i) {
       booths[i]->calculateBoundingBox();
    }
-   for (int i=0; i<lanterns.size(); ++i) {
-//printf("LATERNS\n");
-      drawObject(lanterns[i]);//->draw();
-   }
 }
 
 void World::inMiniGame() {
@@ -485,28 +489,28 @@ void World::setupOverWorld() {
     wall1->load(WALL_FILE_NAME);
     wall1->translate(glm::vec3(-SIZE-0.5f, 2.5f, 0.0f));
     wall1->scale(glm::vec3(1.0f, 10.0f, SIZE*2.0f));
-    wall1->setTexture(TEX_WOOD_WALL);
+    wall1->setTexture(textures[TEX_WOOD_WALL]);
     structures.push_back(wall1);
 
     Object* wall2 = new Object(shapes, materials, ShadeProg);
     wall2->load(WALL_FILE_NAME);
     wall2->translate(glm::vec3(SIZE+0.5f, 2.5f, 0.0f));
     wall2->scale(glm::vec3(1.0f, 10.0f, SIZE*2.0f));
-    wall2->setTexture(TEX_WOOD_WALL);
+    wall2->setTexture(textures[TEX_WOOD_WALL]);
     structures.push_back(wall2);
 
     Object* wall3 = new Object(shapes, materials, ShadeProg);
     wall3->load(WALL_FILE_NAME);
     wall3->translate(glm::vec3(0.0f, 2.5f, -SIZE-0.5f));
     wall3->scale(glm::vec3(SIZE*2.0f, 10.0f, 1.0f));
-    wall3->setTexture(TEX_WOOD_WALL);
+    wall3->setTexture(textures[TEX_WOOD_WALL]);
     structures.push_back(wall3);
 
     Object* wall4 = new Object(shapes, materials, ShadeProg);
     wall4->load(WALL_FILE_NAME);
     wall4->translate(glm::vec3(0.0f, 2.5f, SIZE+0.5f));
     wall4->scale(glm::vec3(SIZE*2.0f, 10.0f, 1.0f));
-    wall4->setTexture(TEX_WOOD_WALL);
+    wall4->setTexture(textures[TEX_WOOD_WALL]);
     structures.push_back(wall4);
    
    parseMapFile(MAP_FILE_NAME);
@@ -554,48 +558,71 @@ void World::parseMapFile(const char* fileName) {
          else if (strcmp(type, "wall") == 0) {  
             Object* structure = new Object(shapes, materials, ShadeProg);
             structure->translate(_pos);
-            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
+            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
             structure->scale(_scalar);
-         
             structure->load(WALL_FILE_NAME);
             structure->setShadows(true, 0.0 + wall_dy, 0.7);
             wall_dy += 0.001;
-            structure->setTexture(TEX_WOOD_RED);
+            structure->setTexture(textures[TEX_WOOD_RED]);
             structures.push_back(structure);
          }
          else if (strcmp(type, "lantern") == 0) {
             Object* structure = new Object(shapes, materials, ShadeProg);
             structure->translate(_pos);
-            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
+            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
             structure->scale(_scalar);
-            
             structure->load(LANTERN_FILE_NAME);
             structure->setShadows(true, 0.01, 0.9);
-            structure->setTexture(TEX_LANTERN);
+            structure->setTexture(textures[TEX_LANTERN]);
             structures.push_back(structure);
          }
          else if (strcmp(type, "fountain") == 0) {
             Object* structure = new Object(shapes, materials, ShadeProg);
             structure->translate(_pos);
-            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
-            structure->scale(_scalar);
-            
+            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));            structure->scale(_scalar);
             structure->load(FOUNTAIN_FILE_NAME);
             structure->setShadows(true, 0.01, 0.8);
-            structure->setTexture(TEX_LANTERN);
+            structure->setTexture(textures[TEX_LANTERN]);
             structures.push_back(structure);
          }
          else if (strcmp(type, "grass") == 0) {
             Object* grassPatch = new Object(shapes, materials, ShadeProg);
-
             grassPatch->load(GRASS_FILE_NAME);
-            grassPatch->setTexture(TEX_GROUND_GRASS);
-
+            grassPatch->setTexture(textures[TEX_GROUND_GRASS]);
             grassPatch->translate(_pos);
             grassPatch->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
             grassPatch->scale(_scalar);
-
             grass.push_back(grassPatch);
+         }
+         else if (strcmp(type, "tree") == 0){
+            Object* tree = new Object(shapes, materials, ShadeProg);
+            tree->load((char *)"objs/tree.obj");
+            tree->setTexture(textures[TEX_TREE]);
+            tree->translate(_pos);
+            tree->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
+            tree->scale(_scalar);
+            tree->setShadows(true, 0.01, 0.7);
+            structures.push_back(tree);
+         }
+         else if (strcmp(type, "petals") == 0) {
+            Object* petals = new Object(shapes, materials, ShadeProg);
+            petals->load((char *)"objs/petals.obj");
+            petals->setTexture(textures[TEX_PETAL]);
+            petals->translate(_pos);
+            petals->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
+            petals->scale(_scalar);
+            petals->setShadows(true, 0.011, 0.7);
+            structures.push_back(petals);
+         }
+         else if (strcmp(type, "bench") == 0) {
+            Object* bench = new Object(shapes, materials, ShadeProg);
+            bench->load((char *)"objs/bench.obj");
+            bench->setTexture(textures[TEX_BENCH]);
+            bench->translate(_pos);
+            bench->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
+            bench->scale(_scalar);
+            bench->setShadows(true, 0.02, 0.7);
+            structures.push_back(bench);
          }
       }
       mapFile.close();
@@ -646,7 +673,7 @@ void World::createExtras(const string &meshName, int texID) {
       extra->object = new Object(shapes, materials, ShadeProg);
       extra->object->load(meshName);
       extra->object->setShadows(true, 0.03, 1.0);
-      extra->object->setTexture(texID);
+      extra->object->setTexture(textures[texID]);
       extra->object->scale(glm::vec3(3.0f, 3.0f, 3.0f));
       extra->object->translate(glm::vec3(0.0f, 0.9f, 0.0f));
       
@@ -656,7 +683,6 @@ void World::createExtras(const string &meshName, int texID) {
       
       findNewExtraTarget(extra);
       
-      //extra->object->setDir(glm::normalize(glm::vec3(Util::randF()-0.5, 0.0, Util::randF()-0.5)));
       extra->object->setSpeed(OBJ_SPEED);
       extras.push_back(extra);
    }
@@ -665,14 +691,12 @@ void World::createExtras(const string &meshName, int texID) {
 void World::createPlayer(const string &meshName, int texID) {
    player = new Object(shapes, materials, ShadeProg);
    player->load(meshName);
-   player->setTexture(texID);
+   player->setTexture(textures[texID]);
    player->scale(glm::vec3(3.0f, 3.0f, 3.0f));
    player->setShadows(true, 0.03, 1.0);
-   //player->translate(glm::vec3(0.0f, 0.4f, 0.0f));
    camera->initPlayer(player);
-   
+    
    playerXZRad = player->getXZRadius();
-//   printf("playerXZRad: %f\n", playerXZRad);
 }
 
 int World::numLeft() {
@@ -863,5 +887,3 @@ bool World::checkPlane(stuct plane* p, glm::vec3 pos, float rad) {
 
    return correctHalfSpace || clipping;
 }*/
-
-

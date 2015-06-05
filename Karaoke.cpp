@@ -56,7 +56,7 @@ void Karaoke::setUp() {
     // Create a "screen" in the back for projecting the video
     screen = new Object(shapes, materials, ShadeProg);
     screen->load((char *)"objs/screen.obj");
-    screen->setTexture(curSong + TEX_SONGS);
+    screen->setTexture(textures[curSong + TEX_SONGS]);
     screen->setPos(glm::vec3(0.0, 2.8, 2.0));
     screen->scale(glm::vec3(5.0, 7.0, 5.0));
     screen->setShadows(false, 0.0, 0.0);
@@ -64,13 +64,14 @@ void Karaoke::setUp() {
     // Create the arrow
     arrow = new Object(shapes, materials, ShadeProg);
     arrow->load((char *)"objs/arrow.obj");
-    arrow->setTexture(curTarget + CHARA_TEX);
+    arrow->setTexture(textures[curTarget + CHARA_TEX]);
     arrow->scale(glm::vec3(1.0, 1.0, 1.0));
     arrow->setPos(glm::vec3(2.0, 3.5, 1.0));
     arrow->setShadows(false, 0.0, 0.0);
     
     // Load countdown textures beforehand for performance
     Texture countdownTex;
+    countdownTex.loadTexture((char *)"textures/countdown5.bmp", 105, true);
     countdownTex.loadTexture((char *)"textures/countdown4.bmp", 104, true);
     countdownTex.loadTexture((char *)"textures/countdown3.bmp", 103, true);
     countdownTex.loadTexture((char *)"textures/countdown2.bmp", 102, true);
@@ -80,7 +81,7 @@ void Karaoke::setUp() {
 void Karaoke::addCharacter(char *file, int tex, float xPos) {
     Object *chara = new Object(shapes, materials, ShadeProg);
     chara->load(file);
-    chara->setTexture(tex);
+    chara->setTexture(textures[tex]);
     chara->setPos(glm::vec3(xPos, 1.5, 1.0));
     chara->scale(glm::vec3(1.0, 1.0, 1.0));
     chara->rotate(180.0f, glm::vec3(0.0, 1.0, 0.0));
@@ -92,27 +93,27 @@ void Karaoke::addCharacter(char *file, int tex, float xPos) {
 void Karaoke::addArrow() {
     // Choose a target position
     curTarget = Util::randF() * 4;
-    characters[curTarget]->setTexture(curTarget + CHARA_TEX);
+    characters[curTarget]->setTexture(textures[curTarget + CHARA_TEX]);
     arrow->translate(glm::vec3(0.0, 0.0, 0.0));
     
     // Decide where to place the arrow
     if (curTarget == MIKU) {
-        arrow->setTexture(curTarget + CHARA_TEX);
+        arrow->setTexture(textures[curTarget + CHARA_TEX]);
         arrow->setPos(MIKU_POS);
         arrow->rotate(90.0f, glm::vec3(0.0, 0.0, 1.0));
     }
     else if (curTarget == RIN) {
-        arrow->setTexture(curTarget + CHARA_TEX);
+        arrow->setTexture(textures[curTarget + CHARA_TEX]);
         arrow->setPos(RIN_POS);
         arrow->rotate(-180.0f, glm::vec3(1.0, 0.0, 0.0));
     }
     else if (curTarget == LEN) {
-        arrow->setTexture(curTarget + CHARA_TEX);
+        arrow->setTexture(textures[curTarget + CHARA_TEX]);
         arrow->setPos(LEN_POS);
         arrow->rotate(0.0f, glm::vec3(1.0, 0.0, 0.0));
     }
     else if (curTarget == KAITO) {
-        arrow->setTexture(curTarget + CHARA_TEX);
+        arrow->setTexture(textures[curTarget + CHARA_TEX]);
         arrow->setPos(KAITO_POS);
         arrow->rotate(-90.0f, glm::vec3(0.0, 0.0, 1.0));
     }
@@ -131,11 +132,6 @@ void Karaoke::initVideo() {
         frameStep = (1 / fps) * speed;
         printf("capture opened\n");
     }
-    // Decide how many fireworks to make
-    if (speed == 3)
-        numParticles = 5;
-    else
-        numParticles = 20;
 }
 
 void Karaoke::drawVideo(Window* window) {
@@ -151,7 +147,7 @@ void Karaoke::drawVideo(Window* window) {
     if (success) {
         Texture newTex;
         newTex.loadTexture(frame, 100);
-        screen->setTexture(texture_id);
+        screen->setTexture(textures[texture_id]);
     }
 }
 
@@ -246,7 +242,7 @@ void Karaoke::checkTime(Window *window) {
     else {
         // Begin the timer countdown for the song to start
         if (!gameStart) {
-            if (window->time - timeStart >= 4.0) {
+            if (window->time - timeStart >= 5.0) {
                 bpm = sound->playKaraokeMusic(curSong);
                 songDuration = sound->getSongDuration() / 1000.0;
                 beat = songDuration / ((songDuration / 60.0) * bpm);
@@ -257,30 +253,31 @@ void Karaoke::checkTime(Window *window) {
                 secs = totsec % 60;
                 
                 for (int i = 0; i < characters.size(); i++)
-                    characters[i]->setTexture(TEX_MISC);
+                    characters[i]->setTexture(textures[TEX_MISC]);
                 screen->scale(glm::vec3(8.0, 11.0, 8.0));
                 screen->rotate(180.0f, glm::vec3(1.0, 0.0, 0.0));
-                screen->setTexture(0);
+                screen->setTexture(textures[0]);
                 gameStart = true;
                 timeStart = timeFrame = window->time;
                 texture_id = 100;
             }
-            else if (window->time - timeStart >= 3.0 && characters.size() < 4) {
+            else if (window->time - timeStart >= 4.0 && characters.size() < 4) {
                 addCharacter((char *)"objs/kaito.obj", TEX_KAITO, -2.0);
                 texture_id = 101;
             }
-            else if (window->time - timeStart >= 2.0 && characters.size() < 3) {
+            else if (window->time - timeStart >= 3.0 && characters.size() < 3) {
                 addCharacter((char *)"objs/len.obj", TEX_LEN, -0.7);
                 texture_id = 102;
             }
-            else if (window->time - timeStart >= 1.0 && characters.size() < 2) {
+            else if (window->time - timeStart >= 2.0 && characters.size() < 2) {
                 addCharacter((char *)"objs/rin.obj", TEX_RIN, 0.7);
                 texture_id = 103;
             }
-            else if (window->time - timeStart >= 0.0 && characters.size() < 1) {
+            else if (window->time - timeStart >= 1.0 && characters.size() < 1) {
                 addCharacter((char *)"objs/miku.obj", TEX_MIKU, 2.0);
                 texture_id = 104;
             }
+            screen->setTexture(textures[texture_id]);
         }
         else {
             // Check whether the game has ended
@@ -315,7 +312,7 @@ void Karaoke::checkTime(Window *window) {
             else if (window->time - timeArrow >= beat) {
                 sound->playBuzzerSound();
                 if (curTarget != -1)
-                    characters[curTarget]->setTexture(TEX_MISC);
+                    characters[curTarget]->setTexture(textures[TEX_MISC]);
                 score -= speed;
                 numBad++;
                 curTarget = -1;
@@ -470,14 +467,14 @@ void Karaoke::textStep() {
 // Chooses a song on song selection menu
 void Karaoke::nextSong() {
     curSong = (curSong + 1) % sound->getSongs().size();
-    screen->setTexture(curSong + TEX_SONGS);
+    screen->setTexture(textures[curSong + TEX_SONGS]);
     sound->playJumpSound();
 }
 void Karaoke::prevSong() {
     curSong = curSong - 1;
     if (curSong == -1)
         curSong = sound->getSongs().size() - 1;
-    screen->setTexture(curSong + TEX_SONGS);
+    screen->setTexture(textures[curSong + TEX_SONGS]);
     sound->playJumpSound();
 }
 void Karaoke::selectSong() {
@@ -489,7 +486,16 @@ void Karaoke::selectSong() {
         return;
     }
     sound->playContactSound();
+    
     initVideo();
+    // Decide how many fireworks to make
+    if (speed == 3)
+        numParticles = 5;
+    else
+        numParticles = 20;
+    texture_id = 105;
+    screen->setTexture(textures[texture_id]);
+
     songChosen = true;
 }
 
@@ -522,7 +528,7 @@ void Karaoke::addNewFirework(int target) {
     for (int i = 0; i < numParticles; ++i) {
         Particle* particle = new Particle();
         particle->load();
-        particle->setTexture(TEX_PARTICLE);
+        particle->setTexture(textures[TEX_PARTICLE]);
         particle->setStartPos(pos);
         particle->setStartVel(glm::vec3(randFloat(-0.1f, 0.1f), randFloat(-0.1f, 0.0f), randFloat(-0.1f, 0.1f)));
         particle->setStartCol(glm::vec3(randFloat(0.0f, 1.0f), randFloat(0.0f, 1.0f), randFloat(0.0f, 1.0f)));
@@ -564,6 +570,6 @@ void Karaoke::selectCharacter(int target) {
     
     // Make the next arrow
     if (curTarget != -1)
-        characters[curTarget]->setTexture(TEX_MISC);
+        characters[curTarget]->setTexture(textures[TEX_MISC]);
     curTarget = -1;
 }

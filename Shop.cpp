@@ -30,7 +30,7 @@ void Shop::setUp() {
     table->load("cube.obj");
     table->setPos(glm::vec3(0.0, 0.0, 3.0));
     table->scale(glm::vec3(10.0f, 1.0f, 1.0f));
-    table->setTexture(TEX_WOOD_DARK);
+    table->setTexture(textures[TEX_WOOD_DARK]);
     table->setShadows(false, 0.0, 0.0);
     misc_objects.push_back(table);
     
@@ -39,7 +39,7 @@ void Shop::setUp() {
     wall->load("cube.obj");
     wall->setPos(glm::vec3(0.0, 0.0, 30.0));
     wall->scale(glm::vec3(100.0f, 100.0f, 1.0f));
-    wall->setTexture(TEX_WOOD_LIGHT);
+    wall->setTexture(textures[TEX_WOOD_LIGHT]);
     wall->setShadows(false, 0.0, 0.0);
     misc_objects.push_back(wall);
     
@@ -63,7 +63,7 @@ void Shop::setUp() {
             
             Object *object = new Object(shapes, materials, ShadeProg);
             object->load((char *)"objs/screen.obj");
-            object->setTexture(i + TEX_SONGS);
+            object->setTexture(textures[i + TEX_SONGS]);
             object->setShadows(false, 0.0, 0.0);
             object->scale(glm::vec3(5.0, 7.0, 5.0));
             object->setPos(glm::vec3(0.0, 2.7, 3.0));
@@ -80,11 +80,13 @@ void Shop::setUp() {
         (char *)"Yummy Bow",
         (char *)"Flashy Bow",
         (char *)"Blocky Bow",
+        (char *)"Scaly Bow",
+        (char *)"Bubbly Bow",
         (char *)"Shiny Bow"
     };
-    int outfit_prices[] = { 300, 300, 300, 500, 500, 500, 750 };
+    int outfit_prices[] = { 300, 300, 300, 500, 500, 500, 750, 750, 750 };
     // Load the outfits
-    for (int i = TEX_GIRL_BLUE; i <= TEX_GIRL_ENDER + 1; i++) {
+    for (int i = TEX_GIRL_BLUE; i <= TEX_GIRL_MERMAID + 1; i++) {
         Item newItem;
         newItem.type = (char *)"outfit";
         newItem.name = outfit_names[i - TEX_GIRL_BLUE];
@@ -93,7 +95,7 @@ void Shop::setUp() {
         
         Object *object = new Object(shapes, materials, ShadeProg);
         object->load((char *)"objs/bow.obj");
-        object->setTexture(newItem.index);
+        object->setTexture(textures[newItem.index]);
         object->scale(glm::vec3(3, 3, 3));
         object->setPos(glm::vec3(0.0, 2.7, 3.0));
         object->setShadows(false, 0.0, 0.0);
@@ -111,14 +113,12 @@ void Shop::buyItem() {
     }
     // Item was already unlocked
     else if (items[curItem].price == 0) {
-        printf("You've already purchased this item.");
         prePurch = 2.0; //HERE
         sound->playIncorrectSound();
     }
     // Buy the item
     else {
         boughtItem = items[curItem];
-        printf("Bought %s\n", items[curItem].name);
         global_points -= items[curItem].price;
         items[curItem].price = 0;
         sound->playContactSound();
@@ -134,10 +134,10 @@ void Shop::buyItem() {
             printf("You put on a snazzy new outfit\n");
             buyOtft = 2.0; //HERE
             Object *player = camera->getPlayer();
-            if (items[curItem].index > TEX_GIRL_ENDER)
+            if (items[curItem].index > TEX_GIRL_MERMAID)
                 player->reflective = true;
             else {
-                player->setTexture(items[curItem].index);
+                player->setTexture(textures[items[curItem].index]);
                 player->reflective = false;
             }
             camera->initPlayer(player);

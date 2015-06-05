@@ -11,16 +11,15 @@ Booth::Booth(glm::vec3 _pos, glm::vec3 _scalar, float _angle, char* _minigame,
     booth[0] = new Object(shapes, materials, ShadeProg);
     booth[0]->load((char *)"objs/stall_top.obj", (char *)"objs/stall_top.mtl");
     booth[0]->setShadows(true, 0.02, 1.0);
-    booth[0]->setTexture(TEX_WOOD_RED);
-    //printf("loaded one booth obj\n");
+    booth[0]->setTexture(textures[TEX_WOOD_RED]);
     booth[1] = new Object(shapes, materials, ShadeProg);
     booth[1]->load((char *)"objs/stall_mid.obj", (char *)"objs/stall_mid.mtl");
     booth[1]->setShadows(true, 0.021, 1.0);
-    booth[1]->setTexture(TEX_WOOD_DARK);
+    booth[1]->setTexture(textures[TEX_WOOD_DARK]);
     booth[2] = new Object(shapes, materials, ShadeProg);
     booth[2]->load((char *)"objs/stall_bottom.obj", (char *)"objs/stall_bottom.mtl");
     booth[2]->setShadows(true, 0.022, 1.0);
-    booth[2]->setTexture(TEX_WOOD_LIGHT);
+    booth[2]->setTexture(textures[TEX_WOOD_LIGHT]);
     initBooth(_pos, _scalar, _angle, _minigame);
     
     // initiate bounding box

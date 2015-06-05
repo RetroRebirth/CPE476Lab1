@@ -8,7 +8,7 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Sound* _sound) {
    wall->load("cube.obj");
    wall->setPos(glm::vec3(0.0, 0.0, 30.0));
    wall->scale(glm::vec3(100.0f, 100.0f, 1.0f));
-   wall->setTexture(TEX_WOOD_WALL);
+   wall->setTexture(textures[TEX_WOOD_WALL]);
    wall->setShadows(false, 0.0, 0.0);
 
    // Create a gun to shoot from
@@ -17,7 +17,7 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Sound* _sound) {
    gun->setPos(glm::vec3(0.0, 1.0, 1.0));
    gun->setShadows(false, 0.0, 0.0);
    gun->scale(glm::vec3(4.0f, 4.0f, 1.0f));
-   gun->setTexture(TEX_STEEL);
+   gun->setTexture(textures[TEX_STEEL]);
 
    tempFix = new Object(shapes, materials, ShadeProg);
    tempFix->load("objs/target.obj");
@@ -50,7 +50,7 @@ void ShootingGallery::newTarget(){
 //   printf("pos: %lf %lf %lf\n", x, y, z);
    object->setPos(glm::vec3(x, y, z));
    object->rotate(-90, glm::vec3(0.0, 1.0, 0.0));
-   object->setTexture(TEX_TARGET);
+   object->setTexture(textures[TEX_TARGET]);
    // Have target pop in from bottom of screen
    object->setDir(glm::vec3(0.0, 1.0, 0.0));
    object->setSpeed(20.0);
@@ -138,7 +138,7 @@ void ShootingGallery::step(Window* window) {
       // If our finished game timer is done, exit the minigame
       if (doneTimer <= 0) {
           if (!gameOver)
-              global_points += score;
+              global_points += score * 10;
           gameOver = true;
       }
    }
@@ -248,7 +248,7 @@ void ShootingGallery::mouseClick(glm::vec3 direction, glm::vec4 point) {
    bullet->setPos(glm::vec3(point.x, point.y - 7.5, 0));
    bullet->setDir(direction);
    bullet->setSpeed(1.0f);
-   bullet->setTexture(TEX_WOOD_WALL);
+   bullet->setTexture(textures[TEX_WOOD_WALL]);
    bullet->setShadows(false, 0.0, 0.0);
    bullet->setSpeed(BULLET_SPD);
    bullet->scale(glm::vec3(0.2, 0.2, 0.2));

@@ -1,5 +1,7 @@
 #include "Texture.h"
 
+map<int, GLuint> textures;
+
 /* Initially loads all textures used in this program */
 void loadAllTextures()
 {
@@ -16,7 +18,6 @@ void loadAllTextures()
             sscanf(line.c_str(), "%d %s\n", &texID, texName);
             
             Texture newTex;
-//std::cerr << "loading " << line << "...\n";
             newTex.loadTexture(texName, texID, true);
         }
     }
@@ -30,7 +31,6 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
 {
     FILE *file;
     filename = _filename;
-    texture = texture_id;
     
     // make sure the file is there
     if ((file = fopen(filename, "rb")) == NULL) {
@@ -70,15 +70,15 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
     fclose(file);
     
     // Generate an OpenGL texture id
-    glBindTexture(GL_TEXTURE_2D, texture_id);
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
     
     // Generate a 2D image for the image's format
-    // https://www.khronos.org/opengles/sdk/docs/man/xhtml/glTexImage2D.xml
-//    glTexImage2D(GL_TEXTURE_2D, 0, 3, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
     glTexImage2D(GL_TEXTURE_2D, 0, 3, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
     
     // Generate mip maps
     if (genMipMaps) {
+        glEnable(GL_TEXTURE_2D);
         glGenerateMipmap(GL_TEXTURE_2D);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -87,6 +87,7 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
     }
     mipmapsGenerated = genMipMaps;
     
+    textures[texture_id] = texture;
     free(data);
 }
 
@@ -97,7 +98,8 @@ void Texture::loadTexture(Mat frame, int texture_id)
     IplImage* img = new IplImage(frame);
     
     // Generate an OpenGL texture id
-    glBindTexture(GL_TEXTURE_2D, texture_id);
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
     
     // Generate a 2D image for the image's format
     glTexImage2D(GL_TEXTURE_2D, 0, 3, img->width, img->height, 0, GL_BGR, GL_UNSIGNED_BYTE, img->imageData);
@@ -107,4 +109,6 @@ void Texture::loadTexture(Mat frame, int texture_id)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    
+    textures[texture_id] = texture;
 }
