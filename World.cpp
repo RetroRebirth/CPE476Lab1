@@ -487,28 +487,28 @@ void World::setupOverWorld() {
     // build walls based on map size
     Object* wall1 = new Object(shapes, materials, ShadeProg);
     wall1->load(WALL_FILE_NAME);
-    wall1->translate(glm::vec3(-SIZE-0.5f, 2.5f, 0.0f));
+    wall1->setPos(glm::vec3(-SIZE-0.5f, 2.5f, 0.0f));
     wall1->scale(glm::vec3(1.0f, 10.0f, SIZE*2.0f));
     wall1->setTexture(textures[TEX_WOOD_WALL]);
     structures.push_back(wall1);
 
     Object* wall2 = new Object(shapes, materials, ShadeProg);
     wall2->load(WALL_FILE_NAME);
-    wall2->translate(glm::vec3(SIZE+0.5f, 2.5f, 0.0f));
+    wall2->setPos(glm::vec3(SIZE+0.5f, 2.5f, 0.0f));
     wall2->scale(glm::vec3(1.0f, 10.0f, SIZE*2.0f));
     wall2->setTexture(textures[TEX_WOOD_WALL]);
     structures.push_back(wall2);
 
     Object* wall3 = new Object(shapes, materials, ShadeProg);
     wall3->load(WALL_FILE_NAME);
-    wall3->translate(glm::vec3(0.0f, 2.5f, -SIZE-0.5f));
+    wall3->setPos(glm::vec3(0.0f, 2.5f, -SIZE-0.5f));
     wall3->scale(glm::vec3(SIZE*2.0f, 10.0f, 1.0f));
     wall3->setTexture(textures[TEX_WOOD_WALL]);
     structures.push_back(wall3);
 
     Object* wall4 = new Object(shapes, materials, ShadeProg);
     wall4->load(WALL_FILE_NAME);
-    wall4->translate(glm::vec3(0.0f, 2.5f, SIZE+0.5f));
+    wall4->setPos(glm::vec3(0.0f, 2.5f, SIZE+0.5f));
     wall4->scale(glm::vec3(SIZE*2.0f, 10.0f, 1.0f));
     wall4->setTexture(textures[TEX_WOOD_WALL]);
     structures.push_back(wall4);
@@ -557,8 +557,8 @@ void World::parseMapFile(const char* fileName) {
          }
          else if (strcmp(type, "wall") == 0) {  
             Object* structure = new Object(shapes, materials, ShadeProg);
-            structure->translate(_pos);
-            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
+            structure->setPos(_pos);
+            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
             structure->scale(_scalar);
             structure->load(WALL_FILE_NAME);
             structure->setShadows(true, 0.0 + wall_dy, 0.7);
@@ -568,21 +568,25 @@ void World::parseMapFile(const char* fileName) {
          }
          else if (strcmp(type, "lantern") == 0) {
             Object* structure = new Object(shapes, materials, ShadeProg);
-            structure->translate(_pos);
-            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
+            structure->setPos(_pos);
+            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
             structure->scale(_scalar);
             structure->load(LANTERN_FILE_NAME);
             structure->setShadows(true, 0.01, 0.9);
             structure->setTexture(textures[TEX_LANTERN]);
+            structure->updateRadius();
             structures.push_back(structure);
          }
          else if (strcmp(type, "fountain") == 0) {
             Object* structure = new Object(shapes, materials, ShadeProg);
-            structure->translate(_pos);
-            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));            structure->scale(_scalar);
+            structure->setPos(_pos);
+            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
+            structure->scale(_scalar);
+            
             structure->load(FOUNTAIN_FILE_NAME);
             structure->setShadows(true, 0.01, 0.8);
             structure->setTexture(textures[TEX_LANTERN]);
+            structure->updateRadius();
             structures.push_back(structure);
          }
          else if (strcmp(type, "grass") == 0) {
@@ -676,7 +680,7 @@ void World::createExtras(const string &meshName, int texID) {
       extra->object->setTexture(textures[texID]);
       extra->object->scale(glm::vec3(3.0f, 3.0f, 3.0f));
       extra->object->translate(glm::vec3(0.0f, 0.9f, 0.0f));
-      
+      extra->object->updateRadius();
       extra->object->setDir(glm::vec3(0.0f, 0.0f, 1.0f));
       extra->rest = 10;
       calcExtraSpawnPosition(extra);
@@ -707,7 +711,7 @@ int World::numLeft() {
 
 // Even LAZY SPHERE CULLING isn't working :'(
 // lazy sphere culling
-void World::drawObject(Object* obj) {
+/*void World::drawObject(Object* obj) {
    // TODO return
    obj->draw();
    return;
@@ -749,7 +753,7 @@ void World::drawObject(Object* obj) {
    }
 
 //printf("\n");
-}
+}*/
 /*
 // DIFFERENT APPROACH TO VIEW FRUSTUM CULLING
 // reference: http://www.lighthouse3d.com/tutorials/view-frustum-culling/clip-space-approach-extracting-the-planes/
@@ -783,107 +787,131 @@ void World::drawObject(Object* obj) {
    }
 }
 */
-/*
+
 // OLD METHOD OF VIEW FRUSTUM CULLING
 // http://gamedevs.org/uploads/fast-extraction-viewing-frustum-planes-from-world-view-projection-matrix.pdf
 void World::drawObject(Object* obj) {
    // Combine the projection and model-view matrix for this object
-   //glm::mat4 matrix = camera->Projection * camera->View * obj->getModelMatrix();
-   glm::mat4 matrix = camera->getModelMatrix() * camera->View * camera->Projection;
+   //glm::mat4 matrix = camera->Projection * camera->View * glm::mat4(1.0f);
+   glm::mat4 matrix =  glm::mat4(1.0f) * camera->View * camera->Projection;
 
    // Extract the planes of the view frustum
    //glm::vec4* planes = (glm::vec4*) calloc(6, sizeof(glm::vec4));
-   struct plane* planes[5];
+   struct plane planes[6];
    extractViewFrustumPlanes(planes, matrix);
 
    // Get the object's position and size
    glm::vec3 pos = obj->getPos();
    float rad = obj->getXZRadius();
+   
+   float near = 0.1f;
+   float far = 300.0f;
+
+   // Get camera direction and position
+   glm::vec3 dir = camera->dir;
+//printf("dir x: %.2lf  y: %.2lf  z: %.2lf\n", dir.x, dir.y, dir.z);
+   glm::vec3 camPos = camera->pos;
+//printf("camPos x: %.2lf  y: %.2lf  z: %.2lf\n", camPos.x, camPos.y, camPos.z);
+
+   // Determine the center of the sphere frustum
+   float distFromCam = (far - near) / 2.0f + near;
+   glm::vec3 spherePos = camPos + distFromCam * dir;
+   float sphereRad = 1.1f * distFromCam;
 
    // Check if the object is in the view frustum
-   if (checkPlane(planes[0], pos, rad)      // left
-      && checkPlane(planes[1], pos, rad)    // right
-      && checkPlane(planes[2], pos, rad)    // top
-      && checkPlane(planes[3], pos, rad)    // bottom
-      && checkPlane(planes[4], pos, rad)    // near // TODO things disappear when touched
-      && checkPlane(planes[5], pos, rad)) { // far
+   /*if ((glm::distance(obj->pos,spherePos) <= sphereRad) ||
+         (checkPlane(planes[0], obj->pos, rad)      // left
+      || checkPlane(planes[1], obj->pos, rad)    // right
+      || checkPlane(planes[2], obj->pos, rad)    // top
+      || checkPlane(planes[3], obj->pos, rad)    // bottom
+      || checkPlane(planes[4], obj->pos, rad)   // near // TODO things disappear when touched
+      || checkPlane(planes[5], obj->pos, rad))) { // far*/
       // Object is inside the view frustum, draw it
       obj->draw();
-   }
+   //}
 
    // Free the planes (stops memory leaks)
-   free(planes);
+   //free(planes);
 }
 
-void World::extractViewFrustumPlanes(struct plane** planes, const glm::mat4 matrix) {
+void World::extractViewFrustumPlanes(struct plane* planes, const glm::mat4 matrix) {
    // Left plane
-   planes[0]->a = matrix[3][0] + matrix[0][0];
-   planes[0]->b = matrix[3][1] + matrix[0][1];
-   planes[0]->c = matrix[3][2] + matrix[0][2];
-   planes[0]->d = matrix[3][3] + matrix[0][3];
+   planes[0].a = matrix[3][0] + matrix[0][0];
+   planes[0].b = matrix[3][1] + matrix[0][1];
+   planes[0].c = matrix[3][2] + matrix[0][2];
+   planes[0].d = matrix[3][3] + matrix[0][3];
 
    // Right plane
-   planes[1]->a = matrix[3][0] - matrix[0][0];
-   planes[1]->b = matrix[3][1] - matrix[0][1];
-   planes[1]->c = matrix[3][2] - matrix[0][2];
-   planes[1]->d = matrix[3][3] - matrix[0][3];
+   planes[1].a = matrix[3][0] - matrix[0][0];
+   planes[1].b = matrix[3][1] - matrix[0][1];
+   planes[1].c = matrix[3][2] - matrix[0][2];
+   planes[1].d = matrix[3][3] - matrix[0][3];
 
    // Top plane
-   planes[2]->a = matrix[3][0] - matrix[1][0];
-   planes[2]->b = matrix[3][1] - matrix[1][1];
-   planes[2]->c = matrix[3][2] - matrix[1][2];
-   planes[2]->d = matrix[3][3] - matrix[1][3];
+   planes[2].a = matrix[3][0] - matrix[1][0];
+   planes[2].b = matrix[3][1] - matrix[1][1];
+   planes[2].c = matrix[3][2] - matrix[1][2];
+   planes[2].d = matrix[3][3] - matrix[1][3];
 
    // Bottom plane
-   planes[3]->a = matrix[3][0] + matrix[1][0];
-   planes[3]->b = matrix[3][1] + matrix[1][1];
-   planes[3]->c = matrix[3][2] + matrix[1][2];
-   planes[3]->d = matrix[3][3] + matrix[1][3];
+   planes[3].a = matrix[3][0] + matrix[1][0];
+   planes[3].b = matrix[3][1] + matrix[1][1];
+   planes[3].c = matrix[3][2] + matrix[1][2];
+   planes[3].d = matrix[3][3] + matrix[1][3];
 
    // Near plane
-   planes[4]->a = matrix[3][0] + matrix[2][0];
-   planes[4]->b = matrix[3][1] + matrix[2][1];
-   planes[4]->c = matrix[3][2] + matrix[2][2];
-   planes[4]->d = matrix[3][3] + matrix[2][3];
+   planes[4].a = matrix[3][0] + matrix[2][0];
+   planes[4].b = matrix[3][1] + matrix[2][1];
+   planes[4].c = matrix[3][2] + matrix[2][2];
+   planes[4].d = matrix[3][3] + matrix[2][3];
 
    // Far plane
-   /*planes[5].x = matrix[3][0] - matrix[2][0];
-   planes[5].y = matrix[3][1] - matrix[2][1];
-   planes[5].z = matrix[3][2] - matrix[2][2];
-   planes[5].w = matrix[3][3] - matrix[2][3];*/
+   planes[5].a = matrix[3][0] - matrix[2][0];
+   planes[5].b = matrix[3][1] - matrix[2][1];
+   planes[5].c = matrix[3][2] - matrix[2][2];
+   planes[5].d = matrix[3][3] - matrix[2][3];
 
    // Normalize planes (so we can calculate distance from plane)
- /*  normalizePlane(planes[0]);
+   normalizePlane(planes[0]);
    normalizePlane(planes[1]);
    normalizePlane(planes[2]);
    normalizePlane(planes[3]);
    normalizePlane(planes[4]);
-  //normalizePlane(planes[5]);
+   normalizePlane(planes[5]);
 }
 
-void World::normalizePlane(struct plane* p) {
+void World::normalizePlane(struct plane p) {
    // TODO do you square 'w' when normalizing vec4?
-   float mag = sqrt(p->a * p->a + p->b * p->b + p->c * p->c + p->d * p->d);
-   p->a = p->a / mag;
-   p->b = p->b / mag;
-   p->c = p->c / mag;
-   p->d = p->d / mag;
+   float mag = sqrt(p.a * p.a + p.b * p.b + p.c * p.c + p.d * p.d);
+   p.a = p.a / mag;
+   p.b = p.b / mag;
+   p.c = p.c / mag;
+   p.d = p.d / mag;
 }
 
-bool World::checkPlane(stuct plane* p, glm::vec3 pos, float rad) {
+//bool World::checkPlanes(struct plane* p, glm::vec3 pos, float rad) {
+   
+   
+  // float dist = p.a * pos.x + pos.b * v.y + p.c * v.z + p.d;
+//}
+
+bool World::checkPlane(struct plane p, glm::vec3 pos, float rad) {
    // Convert the object's position to a vec4
    glm::vec4 v = glm::vec4(pos.x, pos.y, pos.z, 1.0);
 
    // Dot product plane with object's position
-   float dist = p->a * v.x + p->b * v.y + p->c * v.z + p->d;
+   float dist = p.a * v.x + p.b * v.y + p.c * v.z + p.d;
 
    // Is the center of the object in the correct half-space?
    bool correctHalfSpace = dist > 0;
 
    // TODO is the object partially visible (clipping)?
-//   bool clipping = glm::abs(dist) < glm::abs(rad);
-   bool clipping = false;
+   bool notClipping = glm::abs(dist) < glm::abs(rad);
+   //bool clipping = false;
 //   printf("dist: %lf\trad: %lf\n", dist, rad);
 
-   return correctHalfSpace || clipping;
-}*/
+   return correctHalfSpace || notClipping;
+   //return notClipping;
+   //return true;
+   //return correctHalfSpace || clipping;
+}

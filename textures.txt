@@ -33,6 +33,7 @@
 36 textures/girlEnder.bmp
 37 textures/girlDragon.bmp
 38 textures/girlMermaid.bmp
+39 textures/shootingsky.bmp
 # SONG THUMBNAILS
 50 textures/karaoke/aldnoah_zero_op1.bmp
 51 textures/karaoke/aldnoah_zero_ed2.bmp

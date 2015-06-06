@@ -142,6 +142,9 @@ void Session::initGL() {
     shaders[SHADER_DEFAULT] = new Program();
     shaders[SHADER_DEFAULT]->setShaderNames(DEFAULT_VERT_SHADER, DEFAULT_FRAG_SHADER);
     
+    //shaders[SHADER_COOK] = new Program();
+    //shaders[SHADER_COOK]->setShaderNames(COOK_VERT_SHADER, COOK_FRAG_SHADER);
+    
     shaders[SHADER_BILLBOARD] = new Program();
     shaders[SHADER_BILLBOARD]->setShaderNames(BILLBOARD_VERT_SHADER, BILLBOARD_FRAG_SHADER);
     
@@ -166,8 +169,10 @@ void Session::initGL() {
 	
     printf("initing shader\n");
     shaders[SHADER_DEFAULT]->init();
+    //shaders[SHADER_COOK]->init();
     shaders[SHADER_BILLBOARD]->init();
     shaders[SHADER_TEXT]->init();
+    
     
     h_aPos = shaders[SHADER_DEFAULT]->addAttribute("aPos");
     h_aNor = shaders[SHADER_DEFAULT]->addAttribute("aNor");
@@ -178,6 +183,16 @@ void Session::initGL() {
     h_aTexCoord = shaders[SHADER_DEFAULT]->addAttribute("aTexCoord");
     h_uTexUnit = shaders[SHADER_DEFAULT]->addUniform("uTexUnit");
     shaders[SHADER_DEFAULT]->addUniform("BlendMode");
+    
+    /*shaders[SHADER_COOK]->addAttribute("aPos");
+    shaders[SHADER_COOK]->addAttribute("aNor");
+    shaders[SHADER_COOK]->addUniform("uP");
+    shaders[SHADER_COOK]->addUniform("uV");
+    shaders[SHADER_COOK]->addUniform("uM");
+    shaders[SHADER_COOK]->addUniform("uView");
+    shaders[SHADER_COOK]->addAttribute("aTexCoord");
+    shaders[SHADER_COOK]->addUniform("uTexUnit");
+    shaders[SHADER_COOK]->addUniform("BlendMode");*/
     
     shaders[SHADER_BILLBOARD]->addAttribute("vertPosition");
     shaders[SHADER_BILLBOARD]->addAttribute("vertTexCoords");
@@ -216,6 +231,7 @@ void Session::step() {
    // Clear the screen
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    // Use "frag.glsl" and "vert.glsl"
+   //shaders[SHADER_COOK]->bind();
    shaders[SHADER_DEFAULT]->bind();
    // Send position info to the attribute "aPos"
    GLSL::enableVertexAttribArray(h_aPos);
@@ -225,13 +241,6 @@ void Session::step() {
    // Step other components
    window->step();
    world->step(window);
-   if (game_state == MINIGAME_STATE) {
-      minigame->step(window);
-   }
-
-   if (minigame->getGameOver()) {
-      //leaveMinigame();
-   }
    
    //printf("in the middle of session step!\n");
 
@@ -239,7 +248,18 @@ void Session::step() {
    GLSL::disableVertexAttribArray(h_aPos);
    glBindBuffer(GL_ARRAY_BUFFER, 0);
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+   //shaders[SHADER_COOK]->unbind();
+   
+   //shaders[SHADER_DEFAULT]->bind();
+   if (game_state == MINIGAME_STATE) {
+      minigame->step(window);
+   }
+
+   if (minigame->getGameOver()) {
+      //leaveMinigame();
+   }
    shaders[SHADER_DEFAULT]->unbind();
+   
    if (game_state == WORLD_STATE) {
       world->particleStep(shaders[SHADER_BILLBOARD], window);
    }

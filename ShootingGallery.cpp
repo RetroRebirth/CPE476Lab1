@@ -4,23 +4,36 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Sound* _sound) {
    ShadeProg = _ShadeProg;
 
    // Create a wall in the back
-   wall = new Object(shapes, materials, ShadeProg);
+   /*wall = new Object(shapes, materials, ShadeProg);
    wall->load("cube.obj");
    wall->setPos(glm::vec3(0.0, 0.0, 30.0));
    wall->scale(glm::vec3(100.0f, 100.0f, 1.0f));
    wall->setTexture(textures[TEX_WOOD_WALL]);
-   wall->setShadows(false, 0.0, 0.0);
+   wall->setShadows(false, 0.0, 0.0);*/
+   gallery = new Object(shapes, materials, ShadeProg);
+   gallery->load(GALLERY_FILE_NAME);
+   gallery->setPos(glm::vec3(0.0f, 2.5f, 5.0f));
+   gallery->scale(glm::vec3(20.0f, 20.0f, 20.0f));
+   gallery->rotate(180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+   gallery->setTexture(textures[TEX_WOOD_RED]);
+   gallery->setShadows(false, 0.0, 0.0);
+   
+   backdrop = new Object(shapes, materials, ShadeProg);
+   backdrop->load(BACKDROP_FILE_NAME);
+   backdrop->setPos(glm::vec3(0.0f, 5.0f, 10.0f));
+   backdrop->scale(glm::vec3(50.0f, 75.0f, 1.0f));
+   backdrop->setTexture(textures[TEX_SKY_DAY]);
 
    // Create a gun to shoot from
    gun = new Object(shapes, materials, ShadeProg);
-   gun->load("objs/rifle.obj");
+   gun->load(RIFLE_FILE_NAME);
    gun->setPos(glm::vec3(0.0, 1.0, 1.0));
    gun->setShadows(false, 0.0, 0.0);
    gun->scale(glm::vec3(4.0f, 4.0f, 1.0f));
    gun->setTexture(textures[TEX_STEEL]);
 
    tempFix = new Object(shapes, materials, ShadeProg);
-   tempFix->load("objs/target.obj");
+   tempFix->load(TARGET_FILE_NAME);
    tempFix->setShadows(false, 0.0, 0.0);
    tempFix->setPos(glm::vec3(0.0, 0.0, -1.0));
    
@@ -41,7 +54,7 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Sound* _sound) {
 void ShootingGallery::newTarget(){
    // Initialize a target
    Object* object = new Object(shapes, materials, ShadeProg);
-   object->load("objs/target.obj");
+   object->load(TARGET_FILE_NAME);
    object->setShadows(false, 0.0, 0.0);
    // Pick a random spot from 8 places
    float x = 2.0 * (int)(Util::randF() * COLS) - 3.0;
@@ -67,7 +80,9 @@ ShootingGallery::~ShootingGallery() {
    for(int i = 0; i < bullets.size(); ++i){
       delete bullets[i];
    }
-   delete wall;
+   //delete wall;
+   delete gallery;
+   delete backdrop;
    delete gun;
    delete tempFix;
 }
@@ -99,7 +114,9 @@ void ShootingGallery::printInstructions() {
 
 void ShootingGallery::step(Window* window) {
     tempFix->draw();
-    wall->draw();
+    //wall->draw();
+    gallery->draw();
+    backdrop->draw();
     gun->draw();
     
     if (!gameStart) {

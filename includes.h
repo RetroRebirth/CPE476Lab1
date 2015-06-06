@@ -36,6 +36,7 @@
 
 // defines the keys for corresponding shader programs
 #define SHADER_DEFAULT "default"
+//#define SHADER_COOK "cook"
 #define SHADER_BILLBOARD "billboard"
 #define SHADER_TEXT "text"
 #define SHADER_GLOW "glow"
@@ -44,6 +45,10 @@
 //#define DEFAULT_VERT_SHADER "shaders/vert_cook.glsl"
 #define DEFAULT_FRAG_SHADER "shaders/frag.glsl"
 //#define DEFAULT_FRAG_SHADER "shaders/frag_cook.glsl"
+#define DEFAULT_FRAG_SHADER "shaders/frag.glsl"
+//#define COOK_VERT_SHADER "shaders/vert_cook.glsl"
+//#define COOK_FRAG_SHADER "shaders/frag_cook.glsl"
+
 #define BILLBOARD_VERT_SHADER "shaders/billboard_vert.glsl"
 #define BILLBOARD_FRAG_SHADER "shaders/billboard_frag.glsl"
 #define TEXT_VERT_SHADER "shaders/text.v.glsl"
@@ -57,6 +62,10 @@
 #define LANTERN_FILE_NAME "objs/standing_lantern.obj"
 #define FOUNTAIN_FILE_NAME "objs/fountain.obj"
 #define GRASS_FILE_NAME "objs/grass.obj"
+#define GALLERY_FILE_NAME "objs/shooting_gallery.obj"
+#define BACKDROP_FILE_NAME "objs/shooting_gallery_backdrop.obj"
+#define RIFLE_FILE_NAME "objs/rifle.obj"
+#define TARGET_FILE_NAME "objs/target.obj"
 
 // define map file
 #define MAP_FILE_NAME "map.txt"

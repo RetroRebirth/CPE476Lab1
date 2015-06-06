@@ -34,6 +34,8 @@ class ShootingGallery {
       Sound* sound;
       Object* wall;
       Object* gun;
+      Object* gallery;
+      Object* backdrop;
       int score;
       double elapsedTime;
       void newTarget();

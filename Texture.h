@@ -80,6 +80,7 @@ private:
 #define TEX_GIRL_ENDER 36
 #define TEX_GIRL_DRAGON 37
 #define TEX_GIRL_MERMAID 38
+#define TEX_GALLERY_SKY 39
 #define TEX_SONGS 50
 
 #define TEX_FBO_BASIC 500
