@@ -308,13 +308,17 @@ void Session::startMinigame() {
 void Session::createMinigame(char* type) {
    // Which type of minigame is this?
    if (strcmp(type, SHOOTING_GALLERY) == 0) {
+      //window->showMouse();
       minigame->shootingGallery = new ShootingGallery(shaders[SHADER_DEFAULT]->getPID(), sound);
    } else if (strcmp(type, WATERMELON_SMASH) == 0) {
+      window->showMouse();
       minigame->watermelonSmash = new WatermelonSmash(shaders[SHADER_DEFAULT]->getPID(), shaders[SHADER_BILLBOARD], camera, sound);
    } else if (strcmp(type, KARAOKE) == 0) {
+      window->showMouse();
       minigame->karaoke = new Karaoke(shaders[SHADER_DEFAULT]->getPID(), sound, camera, shaders[SHADER_BILLBOARD]);
    } else if (strcmp(type, SHOP) == 0) {
-       minigame->shop = new Shop(shaders[SHADER_DEFAULT]->getPID(), sound, camera);
+      window->showMouse();
+      minigame->shop = new Shop(shaders[SHADER_DEFAULT]->getPID(), sound, camera);
    }
 }
 
@@ -324,7 +328,6 @@ void Session::enterMinigame() {
       game_state = MINIGAME_STATE;
       world->inMiniGame();
       camera->moveToMinigame();
-      window->showMouse();
       minigame->clearMinigames();
       createMinigame(booth->getMinigame());
    }

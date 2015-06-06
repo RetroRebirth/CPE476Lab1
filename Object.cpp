@@ -644,55 +644,6 @@ void Object::draw()
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void Object::drawGlow() {
-    glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), 1.0);
-    
-    int nIndices = bind();
-    glBindFramebuffer(GL_FRAMEBUFFER, FBO_Glow);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glEnable(GL_DEPTH_TEST);
-    
-    // Draw the object to Glow FBO
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture_id);
-    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-    
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-}
-
-void Object::drawBlur() {
-    glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), 1.0);
-    
-    int nIndices = bind();
-    glBindFramebuffer(GL_FRAMEBUFFER, FBO_Blur);
-    glDisable(GL_DEPTH_TEST);
-    //glDepthMask(false);
-    glClear(GL_COLOR_BUFFER_BIT);
-    
-    // Blur settings
-    glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurAmount"), 10);
-    glUniform1f(GLSL::getUniformLocation(ShadeProg, "BlurScale"), 1.0);
-    glUniform1f(GLSL::getUniformLocation(ShadeProg, "BlurStrength"), 0.2);
-    
-    // Render horizontal blur
-    glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 1);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, FBO_TGlow);
-    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-    
-    // Mix with vertical blur
-    glBindFramebuffer(GL_FRAMEBUFFER, FBO_Glow);
-    glClear(GL_COLOR_BUFFER_BIT);
-    glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 2);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, FBO_TBlur);
-    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-    
-    // turn blur off
-    glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 0);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-}
-
 vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> indBuf) {
    vector<float> norBuf;
    vector<glm::vec3> crossBuf;

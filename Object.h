@@ -26,47 +26,6 @@ public:
     void resize_obj();
     void step(float dt);
     void draw();
-    
-    void drawGlow();
-    void drawBlur();
-    void render() {
-        int nIndices = bind();
-        glClear(GL_DEPTH_BUFFER_BIT);
-        glEnable(GL_DEPTH_TEST);
-        
-        //glUniform1f(GLSL::getUniformLocation(ShadeProg, "BloomAmount"), 1.0);
-        //glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 1);
-        
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, FBO_TBasic);
-        Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat));
-        glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-        
-        //glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 0);
-    }
-    void renderBloom(int BlendMode, float BloomAmount) {
-        int nIndices = bind();
-        glClear(GL_DEPTH_BUFFER_BIT);
-        glEnable(GL_DEPTH_TEST);
-        
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        // scene from step 1
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, FBO_TBasic);
-        // scene from step 2
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, FBO_TGlow);
-        // render the blended scene
-        glUniform1f(GLSL::getUniformLocation(ShadeProg, "BloomAmount"), BloomAmount);
-        glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), BlendMode);
-        Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat));
-        glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-        
-        // turn glow off
-        glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 0);
-    }
-    
     void setShadows(bool shadows, float height, float dark);
     
     // collision detection

@@ -80,7 +80,7 @@ public:
         
         // determine if the shell was broken
         if (hits == 1) {
-            object->setTexture(TEX_MELON_IN);
+            object->setTexture(textures[TEX_MELON_IN]);
         }
         // determine if the watermelon was broken
         else if (hits == 0) {

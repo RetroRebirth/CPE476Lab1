@@ -32,7 +32,7 @@ class ShootingGallery {
       
       GLuint ShadeProg;
       Sound* sound;
-      Object* wall;
+      Object* crosshair;
       Object* gun;
       Object* gallery;
       Object* backdrop;

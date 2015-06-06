@@ -25,6 +25,13 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Sound* _sound) {
    gun->setShadows(false, 0.0, 0.0);
    gun->scale(glm::vec3(4.0f, 4.0f, 1.0f));
    gun->setTexture(textures[TEX_STEEL]);
+   
+   // Crosshair target
+   crosshair = new Object(shapes, materials, ShadeProg);
+   crosshair->load(TARGET_FILE_NAME);
+   crosshair->setShadows(false, 0.0, 0.0);
+   crosshair->scale(glm::vec3(0.2, 0.2, 0.2));
+   crosshair->setTexture(textures[TEX_TARGET]);
 
    tempFix = new Object(shapes, materials, ShadeProg);
    tempFix->load(TARGET_FILE_NAME);
@@ -40,7 +47,7 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Sound* _sound) {
    gameOver = false;
    doneTimer = -1;
    ammo = 20;
-   timeLimit = -1; // Unlimited
+   timeLimit = -1; // unlimited
 }
 
 void ShootingGallery::newTarget(){
@@ -59,7 +66,7 @@ void ShootingGallery::newTarget(){
    object->setDir(glm::vec3(0.0, 1.0, 0.0));
    object->setSpeed(20.0);
    object->setAccel(-20);
-   object->setChangeDir(false);
+   object->setChangeDir(true);
    // Add the target to the list
    targets.push_back(object);
 }
@@ -107,6 +114,8 @@ void ShootingGallery::step(Window* window) {
     gallery->draw();
     backdrop->draw();
     gun->draw();
+   
+    //crosshair->draw();
    
     if (!gameStart) {
         // DISPLAY INSTRUCTIONS
@@ -179,7 +188,7 @@ void ShootingGallery::step(Window* window) {
    // Draw the bullets
    for(int i = 0; i< bullets.size(); ++i){
       // If the bullet hasn't gone past the targets OR hasn't fallen off screen, do stuff with it
-      if (bullets[i]->getPos().z <= DEPTH && bullets[i]->getPos().y >= -10){
+      if (bullets[i]->getPos().z <= 10.0 && bullets[i]->getPos().y >= -10){
          if (bullets[i] != NULL) {
             bullets[i]->setPos(bullets[i]->calculateNewPos(window->dt));
             bullets[i]->draw();
@@ -241,12 +250,12 @@ void ShootingGallery::mouseClick(glm::vec3 direction, glm::vec4 point) {
    Object* bullet = new Object(shapes, materials, ShadeProg);
    bullet->load("sphere.obj");
    bullet->setPos(glm::vec3(gunPos.x + xRotation/57.0, gunPos.y - yRotation/33.0, gunPos.z + 1.0));
-   bullet->setDir(glm::vec3(direction.x + xRotation/57.0, direction.y - yRotation/33.0, direction.z));
+   bullet->setDir(glm::vec3(direction.x, direction.y, direction.z));
    bullet->setSpeed(0.1f);
    bullet->setTexture(textures[TEX_WOOD_WALL]);
    bullet->setShadows(false, 0.0, 0.0);
    bullet->setSpeed(BULLET_SPD);
-   bullet->scale(glm::vec3(0.2, 0.2, 0.2));
+   bullet->scale(glm::vec3(0.5, 0.5, 0.5));
    bullets.push_back(bullet);
    // Decrement and print ammo
    ammo--;
