@@ -16,7 +16,7 @@ Camera::Camera(
    blocked = false;
    pov = true;
    playingMinigame = false;
-   radius = 3.0f;
+   radius = 3.5f;
    playerYrot = 0.0f;
 
    // Defined attribute values
