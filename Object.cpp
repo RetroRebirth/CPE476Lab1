@@ -194,7 +194,6 @@ float Object::getXZRadius() {
          }
       }
       xzRadius = xz_rad;
-      return xz_rad;
    }
    return xzRadius;
 }

@@ -461,7 +461,11 @@ void World::drawOverWorld() {
    for (int i=0; i<structures.size(); ++i) {
       if (drawWorld) {
 //printf("STRUCTURES\n");
-         drawObject(structures[i]);//->draw();
+         if (strcmp(structures[i]->type, "wall") == 0) {  
+            structures[i]->draw();
+         } else {
+            drawObject(structures[i]);//->draw();
+         }
          structures[i]->drawBounds = false;
       }
       else {
@@ -477,11 +481,13 @@ void World::drawOverWorld() {
           }
           */
       if (drawWorld) {
-         //booths[i]->draw();
+         booths[i]->draw();
 //printf("BOOTHS\n");
+         /*
          drawObject(booths[i]->booth[0]);
          drawObject(booths[i]->booth[1]);
          drawObject(booths[i]->booth[2]);
+         */
          booths[i]->booth[1]->drawBounds = false;
       }
       else {
@@ -512,6 +518,7 @@ void World::setupOverWorld() {
     wall1->setPos(glm::vec3(-SIZE-0.5f, 2.5f, 0.0f));
     wall1->scale(glm::vec3(1.0f, 10.0f, SIZE*2.0f));
     wall1->setTexture(textures[TEX_WOOD_WALL]);
+    strcpy(wall1->type, "wall");
     structures.push_back(wall1);
 
     Object* wall2 = new Object(shapes, materials, ShadeProg);
@@ -519,6 +526,7 @@ void World::setupOverWorld() {
     wall2->setPos(glm::vec3(SIZE+0.5f, 2.5f, 0.0f));
     wall2->scale(glm::vec3(1.0f, 10.0f, SIZE*2.0f));
     wall2->setTexture(textures[TEX_WOOD_WALL]);
+    strcpy(wall2->type, "wall");
     structures.push_back(wall2);
 
     Object* wall3 = new Object(shapes, materials, ShadeProg);
@@ -526,6 +534,7 @@ void World::setupOverWorld() {
     wall3->setPos(glm::vec3(0.0f, 2.5f, -SIZE-0.5f));
     wall3->scale(glm::vec3(SIZE*2.0f, 10.0f, 1.0f));
     wall3->setTexture(textures[TEX_WOOD_WALL]);
+    strcpy(wall3->type, "wall");
     structures.push_back(wall3);
 
     Object* wall4 = new Object(shapes, materials, ShadeProg);
@@ -533,6 +542,7 @@ void World::setupOverWorld() {
     wall4->setPos(glm::vec3(0.0f, 2.5f, SIZE+0.5f));
     wall4->scale(glm::vec3(SIZE*2.0f, 10.0f, 1.0f));
     wall4->setTexture(textures[TEX_WOOD_WALL]);
+    strcpy(wall4->type, "wall");
     structures.push_back(wall4);
    
    parseMapFile(MAP_FILE_NAME);
@@ -572,13 +582,17 @@ void World::parseMapFile(const char* fileName) {
          
          glm::vec3 _pos = glm::vec3(xt, yt, zt);
          glm::vec3 _scalar = glm::vec3(xs, ys, zs);
-         
+
+         Object* structure = new Object(shapes, materials, ShadeProg);
+         if (strcmp(type, "booth") != 0) {
+            strcpy(structure->type, type);
+         }
+
          if (strcmp(type, "booth") == 0) {
             Booth* booth = new Booth(_pos, _scalar, angle, minigame, shapes, materials, ShadeProg);
             booths.push_back(booth);
          }
          else if (strcmp(type, "wall") == 0) {  
-            Object* structure = new Object(shapes, materials, ShadeProg);
             structure->setPos(_pos);
             structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
             structure->scale(_scalar);
@@ -589,7 +603,6 @@ void World::parseMapFile(const char* fileName) {
             structures.push_back(structure);
          }
          else if (strcmp(type, "lantern") == 0) {
-            Object* structure = new Object(shapes, materials, ShadeProg);
             structure->setPos(_pos);
             structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
             structure->scale(_scalar);
@@ -600,7 +613,6 @@ void World::parseMapFile(const char* fileName) {
             structures.push_back(structure);
          }
          else if (strcmp(type, "fountain") == 0) {
-            Object* structure = new Object(shapes, materials, ShadeProg);
             structure->setPos(_pos);
             structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));   // all rotations for the map will be in the y-axis
             structure->scale(_scalar);
@@ -612,53 +624,48 @@ void World::parseMapFile(const char* fileName) {
             structures.push_back(structure);
          }
          else if (strcmp(type, "grass") == 0) {
-            Object* grassPatch = new Object(shapes, materials, ShadeProg);
-            grassPatch->load(GRASS_FILE_NAME);
-            grassPatch->setTexture(textures[TEX_GROUND_GRASS]);
-            grassPatch->translate(_pos);
-            grassPatch->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
-            grassPatch->scale(_scalar);
-            grass.push_back(grassPatch);
+            structure->load(GRASS_FILE_NAME);
+            structure->setTexture(textures[TEX_GROUND_GRASS]);
+            structure->translate(_pos);
+            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
+            structure->scale(_scalar);
+            grass.push_back(structure);
          }
          else if (strcmp(type, "tree") == 0){
-            Object* tree = new Object(shapes, materials, ShadeProg);
-            tree->load((char *)"objs/tree.obj");
-            tree->setTexture(textures[TEX_TREE]);
-            tree->translate(_pos);
-            tree->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
-            tree->scale(_scalar);
-            tree->setShadows(true, 0.01, 0.7);
-            structures.push_back(tree);
+            structure->load((char *)"objs/tree.obj");
+            structure->setTexture(textures[TEX_TREE]);
+            structure->translate(_pos);
+            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
+            structure->scale(_scalar);
+            structure->setShadows(true, 0.01, 0.7);
+            structures.push_back(structure);
          }
          else if (strcmp(type, "petals") == 0) {
-            Object* petals = new Object(shapes, materials, ShadeProg);
-            petals->load((char *)"objs/petals.obj");
-            petals->setTexture(textures[TEX_PETAL]);
-            petals->translate(_pos);
-            petals->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
-            petals->scale(_scalar);
-            petals->setShadows(true, 0.011, 0.7);
-            structures.push_back(petals);
+            structure->load((char *)"objs/petals.obj");
+            structure->setTexture(textures[TEX_PETAL]);
+            structure->translate(_pos);
+            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
+            structure->scale(_scalar);
+            structure->setShadows(true, 0.011, 0.7);
+            structures.push_back(structure);
          }
          else if (strcmp(type, "bench") == 0) {
-            Object* bench = new Object(shapes, materials, ShadeProg);
-            bench->load((char *)"objs/bench.obj");
-            bench->setTexture(textures[TEX_BENCH]);
-            bench->translate(_pos);
-            bench->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
-            bench->scale(_scalar);
-            bench->setShadows(true, 0.02, 0.7);
-            structures.push_back(bench);
+            structure->load((char *)"objs/bench.obj");
+            structure->setTexture(textures[TEX_BENCH]);
+            structure->translate(_pos);
+            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
+            structure->scale(_scalar);
+            structure->setShadows(true, 0.02, 0.7);
+            structures.push_back(structure);
          }
          else if (strcmp(type, "rock") == 0) {
-            Object* rock = new Object(shapes, materials, ShadeProg);
-            rock->load((char *)"objs/rock.obj");
-            rock->setTexture(textures[TEX_ROCK]);
-            rock->translate(_pos);
-            rock->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
-            rock->scale(_scalar);
-            rock->setShadows(true, 0.022, 0.7);
-            structures.push_back(rock);
+            structure->load((char *)"objs/rock.obj");
+            structure->setTexture(textures[TEX_ROCK]);
+            structure->translate(_pos);
+            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
+            structure->scale(_scalar);
+            structure->setShadows(true, 0.022, 0.7);
+            structures.push_back(structure);
          }
       }
       mapFile.close();
@@ -763,11 +770,8 @@ void World::drawObject(Object* obj) {
       && checkPlane(planes[4], pos, rad)     // near
       && checkPlane(planes[5], pos, rad)) {  // far
       // Draw the object if it is inside the view frustum
-		obj->setTexture(textures[TEX_WOOD_LIGHT]);
-   } else {
-		obj->setTexture(textures[TEX_MISC]);
+      obj->draw();
    }
-   obj->draw();
 }
 
 void World::extractViewFrustumPlanes(struct plane* planes, const glm::mat4 matrix) {

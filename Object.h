@@ -78,6 +78,8 @@ public:
     float radius, xzRadius;
     void shear(float shearX, float shearZ);
 
+    char type[10];
+
 private:
     // Object information
     glm::vec3 dimensions, dir, col;
