@@ -63,7 +63,8 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
     fseek(file, 24, SEEK_CUR);
     
     // read the data
-    char* data = (char *) malloc(size);
+//    char* data = (char *) malloc(size);
+    char* data = new char[size];
     if (data == NULL) {
         printf("Error allocating memory for color-corrected image data");
         return;
@@ -93,7 +94,10 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
     mipmapsGenerated = genMipMaps;
     
     textures[texture_id] = texture;
-    free(data);
+//    free(data);
+    if (!data) {
+       delete data;
+    }
 }
 
 /* Loads a texture from a video frame */

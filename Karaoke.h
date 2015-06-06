@@ -83,7 +83,7 @@ private:
     
     // Animation variables
     float timeArrow, arrowPos;
-    char *message;
+    const char* message;
     float messageTime;
     glm::vec3 messageColor;
     
