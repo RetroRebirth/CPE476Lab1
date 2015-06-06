@@ -9,7 +9,7 @@
 #include "FontEngine.h"
 
 #define DEPTH 3.0
-#define BULLET_SPD 20.0
+#define GUN_BULLET_SPD 10.0
 #define ROWS 2
 #define COLS 4
 

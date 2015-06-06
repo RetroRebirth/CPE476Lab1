@@ -10,12 +10,14 @@ Code.Geass.ED1		sounds/Code_Geass_ED1.wav	videos/Code_Geass_ED1.mp4	126.06	0
 Death.Note.OP1		sounds/Death_Note_OP1.wav	videos/Death_Note_OP1.mp4	134.94	0
 Death.Note.OP2		sounds/Death_Note_OP2.wav	videos/Death_Note_OP2.mp4	135.16	0
 Full.Metal.Alchemist.OP1 sounds/FMA_OP1.wav		videos/FMA_OP1.mp4		140.06	0
+Mirai.Nikki.OP		sounds/Mirai_Nikki_OP.wav	videos/Mirai_Nikki_OP.mp4	114.91	0
 Samurai.Flamenco.OP2	sounds/Samurai_Flamenco_OP2.wav	videos/Samurai_Flamenco_OP2.mp4	159.99	0
 Shinsekai.Yori.ED1	sounds/Shinsekai_Yori_ED1.wav	videos/Shinsekai_Yori_ED1.mp4	120.01	0
 Shinsekai.Yori.ED2	sounds/Shinsekai_Yori_ED2.wav	videos/Shinsekai_Yori_ED2.mp4	139.95	0
 Terror.In.Resonance.ED	sounds/TerrorInResonance_ED.wav videos/TerrorInResonance_ED.mp4	131.46	0
 Tokyo.Ghoul.OP		sounds/Tokyo_Ghoul_OP.wav	videos/Tokyo_Ghoul_OP.mp4	121.59	0
 Tokyo.Ghoul.ED		sounds/Tokyo_Ghoul_ED.wav	videos/Tokyo_Ghoul_ED.mp4	100.11	0
+Wolfs.Rain.ED		sounds/Wolfs_Rain_ED.wav	videos/Wolfs_Rain_ED.mp4	102.04	0
 # - MOVIE MUSIC———————————————————————————————————————————————————————————————————————————————————————
 Spirited.Away		sounds/Spirited_Away.wav	videos/Spirited_Away.mp4	98.84	750
 Castle.In.The.Sky	sounds/Castle_In_The_Sky.wav	videos/Castle_In_The_Sky.mp4	123.91	750

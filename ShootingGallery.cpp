@@ -146,28 +146,20 @@ void ShootingGallery::step(Window* window) {
 
         return;
     }
-    
-   // Decrement the done timer if it has been set
-   if (doneTimer > 0) {
-      doneTimer -= window->dt;
-      // If our finished game timer is done, exit the minigame
-      if (doneTimer <= 0) {
-          if (!gameOver)
-              global_points += score * 10;
-          gameOver = true;
-      }
+   
+   if (ammo <= 0) {
+      global_points += score * 50;
+      gameOver = true;
    }
-
    // Decrement the time limit if not set to unlimited (< 0)
    if (timeLimit > 0) {
       timeLimit -= window->dt;
       // If the time limit ran out, begin leaving the minigame
       if (timeLimit <= 0) {
-         finished();
+         gameOver = true;
+         global_points += score * 50;
       }
    }
-
-   // TODO seed with system time
 
    // Adds a new target every amount of time
    if (window->time - elapsedTime >= 2.0) {
@@ -251,18 +243,14 @@ void ShootingGallery::mouseClick(glm::vec3 direction, glm::vec4 point) {
    bullet->load("sphere.obj");
    bullet->setPos(glm::vec3(gunPos.x + xRotation/57.0, gunPos.y - yRotation/33.0, gunPos.z + 1.0));
    bullet->setDir(glm::vec3(direction.x, direction.y, direction.z));
-   bullet->setSpeed(0.1f);
    bullet->setTexture(textures[TEX_WOOD_WALL]);
    bullet->setShadows(false, 0.0, 0.0);
-   bullet->setSpeed(BULLET_SPD);
-   bullet->scale(glm::vec3(0.5, 0.5, 0.5));
+   bullet->setSpeed(GUN_BULLET_SPD);
+   bullet->scale(glm::vec3(0.25, 0.25, 0.25));
    bullets.push_back(bullet);
-   // Decrement and print ammo
+   
+   // Decrement ammo
    ammo--;
-   // If run out of ammo, set a timer for the game to finish
-   if (ammo <= 0) {
-      finished();
-   }
 }
 
 /**

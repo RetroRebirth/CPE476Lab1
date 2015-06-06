@@ -729,6 +729,7 @@ void World::createPlayer(const string &meshName, int texID) {
    player->load(meshName);
    player->setTexture(textures[texID]);
    player->scale(glm::vec3(3.0f, 3.0f, 3.0f));
+   player->translate(glm::vec3(0.0f, -0.3f, 0.0f));
    player->setShadows(true, 0.03, 1.0);
    camera->initPlayer(player);
     
