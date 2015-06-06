@@ -71,6 +71,9 @@ private:
 #define TEX_TREE 21
 #define TEX_PETAL 22
 #define TEX_BENCH 23
+#define TEX_ROCK 24
+#define TEX_SAND_LINE 25
+
 #define TEX_GIRL_RED 30
 #define TEX_GIRL_BLUE 31
 #define TEX_GIRL_GREEN 32

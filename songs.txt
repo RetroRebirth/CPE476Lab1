@@ -9,6 +9,7 @@ Baccano.OP		sounds/Baccano_OP.wav		videos/Baccano_OP.mp4		133.17	0
 Code.Geass.ED1		sounds/Code_Geass_ED1.wav	videos/Code_Geass_ED1.mp4	126.06	0
 Death.Note.OP1		sounds/Death_Note_OP1.wav	videos/Death_Note_OP1.mp4	134.94	0
 Death.Note.OP2		sounds/Death_Note_OP2.wav	videos/Death_Note_OP2.mp4	135.16	0
+Full.Metal.Alchemist.OP1 sounds/FMA_OP1.wav		videos/FMA_OP1.mp4		140.06	0
 Samurai.Flamenco.OP2	sounds/Samurai_Flamenco_OP2.wav	videos/Samurai_Flamenco_OP2.mp4	159.99	0
 Shinsekai.Yori.ED1	sounds/Shinsekai_Yori_ED1.wav	videos/Shinsekai_Yori_ED1.mp4	120.01	0
 Shinsekai.Yori.ED2	sounds/Shinsekai_Yori_ED2.wav	videos/Shinsekai_Yori_ED2.mp4	139.95	0

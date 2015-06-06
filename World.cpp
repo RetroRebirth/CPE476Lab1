@@ -396,7 +396,6 @@ void World::initGround() {
     ground = new Object(shapes, materials, ShadeProg);
     ground->load("objs/ground_sakura.obj", "objs/ground_sakura.mtl");
     ground->scale(glm::vec3(20.0, 20.0, 20.0));
-    ground->setTexture(textures[TEX_GROUND_SAKURA]);
     ground->setShadows(false, 0.0, 0.0);
     
     int i = 0;
@@ -413,21 +412,38 @@ void World::initGround() {
 }
 
 void World::drawGround() {
-    glm::vec3 curPos;
-    ground->setPos(glm::vec3(40.0, 0.0, -40.0));
-    
-    for (int y = 0; y < 5; y++) {
-        for (int x = 0; x < 5; x++) {
+   glm::vec3 curPos;
+   ground->setPos(glm::vec3(40.0, 0.0, -40.0));
+
+   for (int y = 0; y < 5; y++) {
+      for (int x = 0; x < 5; x++) {
+         curPos = ground->getPos();
+         
+         // zen garden
+         if (curPos.x <= -40.0 && curPos.z >= 20.0) {
+            ground->setTexture(textures[TEX_SAND_LINE]);
+            ground->translate(glm::vec3(10.0, 0.01, 0.0));
             ground->draw();
-            curPos = ground->getPos();
-            if (y % 2 == 0)
-                ground->setPos(glm::vec3(curPos.x, curPos.y, curPos.z + 20.0));
-            else
-                ground->setPos(glm::vec3(curPos.x, curPos.y, curPos.z - 20.0));
-        }
-        curPos = ground->getPos();
-        ground->setPos(glm::vec3(curPos.x - 20.0, curPos.y, curPos.z));
-    }
+            ground->translate(glm::vec3(0.0, 0.0, 0.0));
+         }
+         // dirt
+         //else if (curPos.x <= 20.0 && curPos.x >= -20.0 && curPos.z == 0.0) {
+         //   ground->setTexture(textures[TEX_GROUND_GRASS]);
+         //}
+         // cherry blossoms
+         else {
+            ground->setTexture(textures[TEX_GROUND_SAKURA]);
+         }
+         ground->draw();
+         
+         if (y % 2 == 0)
+            ground->setPos(glm::vec3(curPos.x, curPos.y, curPos.z + 20.0));
+         else
+            ground->setPos(glm::vec3(curPos.x, curPos.y, curPos.z - 20.0));
+      }
+      ground->setPos(glm::vec3(curPos.x - 20.0, curPos.y, curPos.z));
+      curPos = ground->getPos();
+   }
 }
 
 void World::drawOverWorld() {
@@ -627,6 +643,16 @@ void World::parseMapFile(const char* fileName) {
             bench->scale(_scalar);
             bench->setShadows(true, 0.02, 0.7);
             structures.push_back(bench);
+         }
+         else if (strcmp(type, "rock") == 0) {
+            Object* rock = new Object(shapes, materials, ShadeProg);
+            rock->load((char *)"objs/rock.obj");
+            rock->setTexture(textures[TEX_ROCK]);
+            rock->translate(_pos);
+            rock->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
+            rock->scale(_scalar);
+            rock->setShadows(true, 0.022, 0.7);
+            structures.push_back(rock);
          }
       }
       mapFile.close();
