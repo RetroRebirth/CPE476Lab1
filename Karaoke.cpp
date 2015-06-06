@@ -483,7 +483,7 @@ void Karaoke::selectSong() {
     initVideo();
     // Decide how many fireworks to make
     if (speed == 3)
-        numParticles = 3;
+        numParticles = 5;
     else
         numParticles = 10;
     texture_id = 105;

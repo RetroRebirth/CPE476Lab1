@@ -4,12 +4,6 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Sound* _sound) {
    ShadeProg = _ShadeProg;
 
    // Create a wall in the back
-   /*wall = new Object(shapes, materials, ShadeProg);
-   wall->load("cube.obj");
-   wall->setPos(glm::vec3(0.0, 0.0, 30.0));
-   wall->scale(glm::vec3(100.0f, 100.0f, 1.0f));
-   wall->setTexture(textures[TEX_WOOD_WALL]);
-   wall->setShadows(false, 0.0, 0.0);*/
    gallery = new Object(shapes, materials, ShadeProg);
    gallery->load(GALLERY_FILE_NAME);
    gallery->setPos(glm::vec3(0.0f, 2.5f, 5.0f));
@@ -36,7 +30,6 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Sound* _sound) {
    tempFix->load(TARGET_FILE_NAME);
    tempFix->setShadows(false, 0.0, 0.0);
    tempFix->setPos(glm::vec3(0.0, 0.0, -1.0));
-   
    xRotation = yRotation = 0.0f;
 
    sound = _sound;
@@ -48,7 +41,6 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Sound* _sound) {
    doneTimer = -1;
    ammo = 20;
    timeLimit = -1; // Unlimited
-
 }
 
 void ShootingGallery::newTarget(){
@@ -60,7 +52,6 @@ void ShootingGallery::newTarget(){
    float x = 2.0 * (int)(Util::randF() * COLS) - 3.0;
    float y = 3.0 * (int)(Util::randF() * ROWS) + 1.0 - 10.0;
    float z = DEPTH;
-//   printf("pos: %lf %lf %lf\n", x, y, z);
    object->setPos(glm::vec3(x, y, z));
    object->rotate(-90, glm::vec3(0.0, 1.0, 0.0));
    object->setTexture(textures[TEX_TARGET]);
@@ -80,7 +71,6 @@ ShootingGallery::~ShootingGallery() {
    for(int i = 0; i < bullets.size(); ++i){
       delete bullets[i];
    }
-   //delete wall;
    delete gallery;
    delete backdrop;
    delete gun;
@@ -114,11 +104,10 @@ void ShootingGallery::printInstructions() {
 
 void ShootingGallery::step(Window* window) {
     tempFix->draw();
-    //wall->draw();
     gallery->draw();
     backdrop->draw();
     gun->draw();
-    
+   
     if (!gameStart) {
         // DISPLAY INSTRUCTIONS
         printInstructions();
@@ -170,28 +159,13 @@ void ShootingGallery::step(Window* window) {
    }
 
    // TODO seed with system time
-//   srand(window->time);
 
    // Adds a new target every amount of time
    if (window->time - elapsedTime >= 2.0) {
       newTarget();
       elapsedTime = window->time;
    }
-/*
-   // Record score for hit targets
-   vector<Object*> clickedObjects = clicks->getClickedObjects();
-   for (int i = 0; i < clickedObjects.size(); ++i) {
-      delete clickedObjects[i];
-      clickedObjects.erase(clickedObjects.begin() + i);
-      // Remove the old target
-      clickedObjects[i]->setPos(glm::vec3(0.0, 0.0, -1.0));
 
-      // Add a new target
-      newTarget();
-
-      printf("Hit a target! Score: %d\n", ++score);
-   }
-*/
    // Draw the targets
    for (int i = 0; i < targets.size(); ++i) {
       if (targets[i] == NULL) {
@@ -259,12 +233,16 @@ void ShootingGallery::mouseClick(glm::vec3 direction, glm::vec4 point) {
    if (ammo <= 0 || !gameStart) {
       return;
    }
+   glm::vec3 gunPos = gun->getPos();
+   glm::vec3 clickPt = glm::vec3(point.x, point.y - 7.5, DEPTH);
+   glm::vec3 gunDir = clickPt - gunPos;
+   
    // Shoot a bullet
    Object* bullet = new Object(shapes, materials, ShadeProg);
    bullet->load("sphere.obj");
-   bullet->setPos(glm::vec3(point.x, point.y - 7.5, 0));
-   bullet->setDir(direction);
-   bullet->setSpeed(1.0f);
+   bullet->setPos(glm::vec3(gunPos.x + xRotation/57.0, gunPos.y - yRotation/33.0, gunPos.z + 1.0));
+   bullet->setDir(glm::vec3(direction.x + xRotation/57.0, direction.y - yRotation/33.0, direction.z));
+   bullet->setSpeed(0.1f);
    bullet->setTexture(textures[TEX_WOOD_WALL]);
    bullet->setShadows(false, 0.0, 0.0);
    bullet->setSpeed(BULLET_SPD);
@@ -297,12 +275,11 @@ void ShootingGallery::mouseMove(double xpos, double ypos, int width, int height)
    double x  = (xpos - (width / 2.0)) / (width / 2.0);
    // Measure mouse y position from near bottom 0.0 to 1.0
    double y  = 1.0 - (ypos / (0.8 * height));
-
+   
    // Rotate gun to follow mouse (binded to 45 degrees)
    gun->iterativeRotate(0.0f, glm::vec3(0.0, 0.0, 0.0));
-   double rotateY = (-45.0 * x);
-   gun->iterativeRotate(rotateY, glm::vec3(0.0, 1.0, 0.0));
-   double rotateX = -30.0 * y;
-   gun->iterativeRotate(rotateX, glm::vec3(1.0, 0.0, 0.0));
+   xRotation = (-45.0 * x);
+   gun->iterativeRotate(xRotation, glm::vec3(0.0, 1.0, 0.0));
+   yRotation = -30.0 * y;
+   gun->iterativeRotate(yRotation, glm::vec3(1.0, 0.0, 0.0));
 }
-
