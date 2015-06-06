@@ -294,6 +294,11 @@ void Camera::moveToMinigame() {
    this->playingMinigame = true;
    this->pov = false;
 
+   // save location and camera
+   this->prevPos = this->player->pos;
+   this->prevTheta = this->theta;
+   this->prevPhi = this->phi;
+
    // Send camera to the origin
    this->player->pos = glm::vec3(0, 2, 0);
    this->theta = -M_PI/2.0;
@@ -301,10 +306,15 @@ void Camera::moveToMinigame() {
 }
 
 void Camera::moveToOverworld() {
+   this->player->pos = this->prevPos;
+   this->theta = this->prevTheta;
+   this->phi = this->prevPhi;
+   
    // Set the appropriate flags
    this->playingMinigame = false;
+   
    this->pov = true;
-   playerYrot = 0.0f;
+   //playerYrot = 0.0f;
 }
 
 void Camera::initPlayer(Object *_player) {

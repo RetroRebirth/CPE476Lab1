@@ -53,6 +53,8 @@ class Camera {
       glm::vec3 prevPos;
       float theta;
       float phi;
+      float prevTheta;
+      float prevPhi;
       float radius;
       GLint h_uP;
       GLint h_uV;
