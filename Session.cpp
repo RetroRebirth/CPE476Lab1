@@ -173,7 +173,6 @@ void Session::initGL() {
     shaders[SHADER_BILLBOARD]->init();
     shaders[SHADER_TEXT]->init();
     
-    
     h_aPos = shaders[SHADER_DEFAULT]->addAttribute("aPos");
     h_aNor = shaders[SHADER_DEFAULT]->addAttribute("aNor");
     h_uP = shaders[SHADER_DEFAULT]->addUniform("uP");
@@ -200,7 +199,7 @@ void Session::initGL() {
     shaders[SHADER_BILLBOARD]->addUniform("MV");
     shaders[SHADER_BILLBOARD]->addUniform("scale");
     shaders[SHADER_BILLBOARD]->addUniform("color");
-	shaders[SHADER_BILLBOARD]->addTexture(&texture);
+	 shaders[SHADER_BILLBOARD]->addTexture(&texture);
 	
     shaders[SHADER_TEXT]->addAttribute("aCoord");
     shaders[SHADER_TEXT]->addUniform("uTex");

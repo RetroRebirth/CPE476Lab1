@@ -113,6 +113,14 @@
 #define KARAOKE "karaoke"
 #define SHOP "shop"
 
+// Colors
+#define ORANGE glm::vec3(1.0f, 0.5f, 0.0f)
+#define RED glm::vec3(1.0f, 0.0f, 0.0f)
+#define GREEN glm::vec3(0.0f, 1.0f, 0.0f)
+#define BLUE glm::vec3(0.0f, 0.0f, 1.0f)
+#define YELLOW glm::vec3(1.0f, 0.8f, 0.0f)
+#define PURPLE glm::vec3(1.0f, 0.0f, 1.0f)
+
 using namespace std;
 
 struct bufID_t {

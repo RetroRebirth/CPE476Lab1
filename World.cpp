@@ -110,10 +110,7 @@ void World::initParticles(Program* prog) {
    // load fireworks
    fireworkParticles.clear();
    // put all possible firework positions into a list
-   //vector<glm::vec3> fireworkPositions;
-   //fireworkPositions.clear();
    int i = 0;
-   
    for (float k = -SIZE; k < SIZE-3.0f; ++k) {
       /*fireworkPositions.push_back(glm::vec3(SIZE+5.0f, 50.0f, k));
       fireworkPositions.push_back(glm::vec3(-SIZE-5.0f, 50.0f, k));
@@ -124,6 +121,15 @@ void World::initParticles(Program* prog) {
       fireworkPositions[i++] = glm::vec3(k, 30.0f, SIZE+5.0f);
       fireworkPositions[i++] = glm::vec3(k, 30.0f, -SIZE-5.0f);
    }
+   // init all avalable colors
+   fireworkColors[0] = RED;
+   fireworkColors[1] = YELLOW;
+   fireworkColors[2] = ORANGE;
+   fireworkColors[3] = BLUE;
+   fireworkColors[4] = GREEN;
+   fireworkColors[5] = PURPLE;
+   
+   //glm::vec3 fireworkColor = fireworkColors[(int)(randFloat(0.0f,SIZE*8.0f)+0.5f);
    for (int j = 0; j < NUM_FIREWORKS; ++j) {
       //glm::vec3 fireworkPos = glm::vec3(0.0f, 0.0f, 0.0f);
       //while ((fireworkPos.x != 0.0f) && (fireworkPos.y != 0.0f) && (fireworkPos.z != 0.0f)) {
@@ -131,7 +137,7 @@ void World::initParticles(Program* prog) {
       if ((fireworkPos.x == 0.0f) && (fireworkPos.y == 0.0f) && (fireworkPos.z == 0.0f))
          continue;
       //}
-      //glm::vec3 fireworkCol = glm::vec3(randFloat(0.0f, 1.0f), randFloat(0.0f, 1.0f), randFloat(0.0f, 1.0f));
+      glm::vec3 fireworkCol = fireworkColors[(int)(randFloat(0.0f,(float)COLOR_COUNT-1.0f)+0.5f)];
       float startTime = randFloat(0.0f, 40.0f);
       
       vector<Particle*> particles;
@@ -142,7 +148,7 @@ void World::initParticles(Program* prog) {
          //particle->setRandPosList(fireworkPositions, (int)(SIZE*8.0f));
          particle->setStartPos(fireworkPos);
          particle->setStartVel(glm::vec3(randFloat(-0.2f, 0.2f), randFloat(-0.2f, 0.2f), randFloat(-0.2f, 0.2f)));
-         particle->setStartCol(glm::vec3(randFloat(0.0f, 1.0f), randFloat(0.0f, 1.0f), randFloat(0.0f, 1.0f)));
+         particle->setStartCol(fireworkCol);
          particle->setStartTTL(40.0f);
          particle->startTime = startTime;
          //particle->setStartOpacity(0.8f);

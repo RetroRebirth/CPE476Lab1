@@ -12,6 +12,7 @@
 #define NUM_FIREWORKS 25
 #define NUM_FIREWORK_PARTICLES 50
 #define FOUNTAIN_TTL 35.0f
+#define COLOR_COUNT 6
 
 struct Extra {
    Object* object;
@@ -56,6 +57,8 @@ class World {
       vector<Particle*> fireflyParticles;
       vector<vector<Particle*> > fireworkParticles;
       glm::vec3 fireworkPositions[(int)(SIZE * 8.0f)];
+      
+      glm::vec3 fireworkColors[COLOR_COUNT];
       
       Object* player;
       float playerXZRad;
