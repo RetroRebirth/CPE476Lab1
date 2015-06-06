@@ -741,130 +741,33 @@ int World::numLeft() {
 }
 
 // ~~~~~~~~~~~~ VIEW FRUSTUM CULLING ~~~~~~~~~~~~~~~~
-
-// Even LAZY SPHERE CULLING isn't working :'(
-// lazy sphere culling
-/*void World::drawObject(Object* obj) {
-   // TODO return
-   obj->draw();
-   return;
-
-   // Near and far plane distances from camera
-   float near = 0.1f;
-   float far = 300.0f;
-
-   // Get camera direction and position
-   glm::vec3 dir = camera->dir;
-//printf("dir x: %.2lf  y: %.2lf  z: %.2lf\n", dir.x, dir.y, dir.z);
-   glm::vec3 camPos = camera->pos;
-//printf("camPos x: %.2lf  y: %.2lf  z: %.2lf\n", camPos.x, camPos.y, camPos.z);
-
-   // Determine the center of the sphere frustum
-   float distFromCam = (far - near) / 2.0f + near;
-   glm::vec3 spherePos = camPos + distFromCam * dir;
-//printf("spherePos x: %.2lf  y: %.2lf  z: %.2lf\n", spherePos.x, spherePos.y, spherePos.z);
-
-   // Determine the sphere frustum's radius
-   float sphereRad = 1.1 * distFromCam;
-//printf("sphereRad: %lf\n", sphereRad);
-
-   // Distance between object's center and sphere frustum's center
-   glm::vec4 objPos = glm::vec4(obj->getPos().x, obj->getPos().y, obj->getPos().z, 1.0f);
-   objPos = obj->getModelMatrix() * objPos;
-   glm::vec3 objPos3 = glm::vec3(objPos.x, objPos.y, objPos.z);
-   float dist = glm::distance(spherePos, objPos3);
-//printf("dist: %lf\n", dist);
-//printf("objPos x: %.2lf  y: %.2lf  z: %.2lf  w: %.2lf\n", objPos.x, objPos.y, objPos.z, objPos.w);
-
-   // If object is (partially) visible, draw it
-   if (dist < (obj->getXZRadius() + sphereRad)) {
-
-   // If object is (entirely) visible, draw it
-//   if (dist < sphereRad) {
-      // Object is inside the sphere frustum, draw it
-      obj->draw();
-   }
-
-//printf("\n");
-}*/
-/*
-// DIFFERENT APPROACH TO VIEW FRUSTUM CULLING
-// reference: http://www.lighthouse3d.com/tutorials/view-frustum-culling/clip-space-approach-extracting-the-planes/
-void World::drawObject(Object* obj) {
-   // TODO remove to test view frustum culling
-   obj->draw();
-   return;
-
-   // Get the object's position as a vec4
-   glm::vec4 pos = glm::vec4(obj->getPos().x, obj->getPos().y, obj->getPos().z, 1.0f);
-
-   // Combine the project matrix with the modelview matrix
-   glm::mat4 matrix = camera->Projection * camera->View * obj->getModelMatrix();
-   // Put the object's position in clip space
-   glm::vec4 pc = matrix * pos;
-
-   // Homogeneous divide
-   glm::vec3 pcn = glm::vec3(pc.x/pc.w, pc.y/pc.w, pc.z/pc.w);
-
-   // TODO check to see if the object is being clipped (partially visible)
-   float rad = obj->getXZRadius();
-
-   if (-1 < pcn.x          // left
-         && pcn.x < 1      // right
-         && -1 < pcn.y     // bottom
-         && pcn.y < 1      // top
-         && -1 < pcn.z     // near
-         && pcn.y < 1) {   // far
-      // Object is inside the view frustum, draw it
-      obj->draw();
-   }
-}
-*/
-
-// OLD METHOD OF VIEW FRUSTUM CULLING
 // http://gamedevs.org/uploads/fast-extraction-viewing-frustum-planes-from-world-view-projection-matrix.pdf
 void World::drawObject(Object* obj) {
    // Combine the projection and model-view matrix for this object
-   //glm::mat4 matrix = camera->Projection * camera->View * glm::mat4(1.0f);
-   glm::mat4 matrix =  glm::mat4(1.0f) * camera->View * camera->Projection;
+   glm::mat4 matrix = camera->Projection * camera->View * obj->getModelMatrix();
 
    // Extract the planes of the view frustum
-   //glm::vec4* planes = (glm::vec4*) calloc(6, sizeof(glm::vec4));
    struct plane planes[6];
    extractViewFrustumPlanes(planes, matrix);
 
    // Get the object's position and size
-   glm::vec3 pos = obj->getPos();
+//   glm::vec3 pos = obj->getPos();
+   glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f);
    float rad = obj->getXZRadius();
-   
-   float near = 0.1f;
-   float far = 300.0f;
-
-   // Get camera direction and position
-   glm::vec3 dir = camera->dir;
-//printf("dir x: %.2lf  y: %.2lf  z: %.2lf\n", dir.x, dir.y, dir.z);
-   glm::vec3 camPos = camera->pos;
-//printf("camPos x: %.2lf  y: %.2lf  z: %.2lf\n", camPos.x, camPos.y, camPos.z);
-
-   // Determine the center of the sphere frustum
-   float distFromCam = (far - near) / 2.0f + near;
-   glm::vec3 spherePos = camPos + distFromCam * dir;
-   float sphereRad = 1.1f * distFromCam;
 
    // Check if the object is in the view frustum
-   /*if ((glm::distance(obj->pos,spherePos) <= sphereRad) ||
-         (checkPlane(planes[0], obj->pos, rad)      // left
-      || checkPlane(planes[1], obj->pos, rad)    // right
-      || checkPlane(planes[2], obj->pos, rad)    // top
-      || checkPlane(planes[3], obj->pos, rad)    // bottom
-      || checkPlane(planes[4], obj->pos, rad)   // near // TODO things disappear when touched
-      || checkPlane(planes[5], obj->pos, rad))) { // far*/
-      // Object is inside the view frustum, draw it
-      obj->draw();
-   //}
-
-   // Free the planes (stops memory leaks)
-   //free(planes);
+   if (checkPlane(planes[0], pos, rad)       // left
+      && checkPlane(planes[1], pos, rad)     // right
+      && checkPlane(planes[2], pos, rad)     // top
+      && checkPlane(planes[3], pos, rad)     // bottom
+      && checkPlane(planes[4], pos, rad)     // near
+      && checkPlane(planes[5], pos, rad)) {  // far
+      // Draw the object if it is inside the view frustum
+		obj->setTexture(textures[TEX_WOOD_LIGHT]);
+   } else {
+		obj->setTexture(textures[TEX_MISC]);
+   }
+   obj->draw();
 }
 
 void World::extractViewFrustumPlanes(struct plane* planes, const glm::mat4 matrix) {
@@ -914,19 +817,12 @@ void World::extractViewFrustumPlanes(struct plane* planes, const glm::mat4 matri
 }
 
 void World::normalizePlane(struct plane p) {
-   // TODO do you square 'w' when normalizing vec4?
    float mag = sqrt(p.a * p.a + p.b * p.b + p.c * p.c + p.d * p.d);
    p.a = p.a / mag;
    p.b = p.b / mag;
    p.c = p.c / mag;
    p.d = p.d / mag;
 }
-
-//bool World::checkPlanes(struct plane* p, glm::vec3 pos, float rad) {
-   
-   
-  // float dist = p.a * pos.x + pos.b * v.y + p.c * v.z + p.d;
-//}
 
 bool World::checkPlane(struct plane p, glm::vec3 pos, float rad) {
    // Convert the object's position to a vec4
@@ -937,14 +833,9 @@ bool World::checkPlane(struct plane p, glm::vec3 pos, float rad) {
 
    // Is the center of the object in the correct half-space?
    bool correctHalfSpace = dist > 0;
-
-   // TODO is the object partially visible (clipping)?
+   // Is the object partially visible (clipping)?
    bool notClipping = glm::abs(dist) < glm::abs(rad);
-   //bool clipping = false;
-//   printf("dist: %lf\trad: %lf\n", dist, rad);
 
    return correctHalfSpace || notClipping;
-   //return notClipping;
-   //return true;
-   //return correctHalfSpace || clipping;
 }
+
