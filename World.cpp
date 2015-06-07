@@ -273,7 +273,7 @@ void World::step(Window* window) {
    }
 
    
-   camera->step(window);
+//   camera->step(window, WORLD_STATE);
    if (!inGame) {
       skybox->draw(camera, window);
    }

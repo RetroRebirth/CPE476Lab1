@@ -43,7 +43,7 @@ class Camera {
       void applyProjectionMatrix(MatrixStack* P);
       void applyViewMatrix(MatrixStack* MV);
       
-      void step(Window* window);//, bool playerHit, glm::vec3 colPlane);
+      void step(Window* window, int game_state);//, bool playerHit, glm::vec3 colPlane);
       void mouse_callback(GLFWwindow* window, double xpos, double ypos, int g_width, int g_height);
       void enter_callback(GLFWwindow* window, int entered, int g_width, int g_height);
       glm::vec3 calcNewPos(Window* window);//, bool playerHit, glm::vec3 colPlane);

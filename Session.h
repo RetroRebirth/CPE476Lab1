@@ -33,6 +33,9 @@ class Session {
       bool gameStarted() { return game_start; }
       bool gameEnded() { return minigame->getGameOver(); }
       void startMinigame();
+    
+      // defines current state of game... consts defined in includes.h
+      int game_state;
    
    private:
       Window* window;
@@ -43,9 +46,6 @@ class Session {
       World* world;
     
       Minigame* minigame;
-    
-      // defines current state of game... consts defined in includes.h
-      int game_state;
       bool game_start;
 
       //GLuint ShadeProg;

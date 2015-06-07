@@ -6,7 +6,7 @@ Camera::Camera(
       GLint _h_uV,
       GLint _h_uView) {
    // Default attribute valuesf
-   pos = glm::vec3(0.0f, 1.0f, 0.0f);
+   pos = glm::vec3(0.0f, 2.0f, 0.0f);
    debug_pos = pos;
    dir = glm::vec3(0.0f, 0.0f, 1.0f);
    theta = -M_PI/2.0f;
@@ -82,13 +82,16 @@ void Camera::setView() {
    }
 }
 
-void Camera::step(Window* window) {
+void Camera::step(Window* window, int game_state) {
 
-   if (debug) {
+   if (game_state) {
+      calcNewPos(window);
+   } else if (debug) {
       debug_pos = calcNewPos(window);
    } else {
       if (!playingMinigame && !blocked) {
          pos = calcNewPos(window);
+         player->setPos(pos);//calculatePlayerPos());
       }
       blocked = false;
    }
@@ -240,7 +243,7 @@ glm::vec3 Camera::calcNewPos(Window* window) {
       }
       
       prevPos = newPos;
-      player->setPos(newPos);//calculatePlayerPos());
+//      player->setPos(newPos);//calculatePlayerPos());
       //player->scale(glm::vec3(1.0f, 1.0f, 1.0f));
       player->rotate(0.0, glm::vec3(0.0f, 0.0f, 0.0f));
       player->rotate(playerYrot, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -319,4 +322,6 @@ void Camera::moveToOverworld() {
 
 void Camera::initPlayer(Object *_player) {
    player = _player;
+   player->setPos(pos);
 }
+

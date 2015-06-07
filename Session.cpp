@@ -18,12 +18,14 @@ Session::Session() {
    camera->booths = world->booths;
    camera->structures = world->structures;
    minigame = new Minigame();
-   game_state = WORLD_STATE;
+   game_state = TITLE_STATE;
    game_start = false;
    global_points = 0;
    
    world->initParticles(shaders[SHADER_BILLBOARD]);
    fontEngine->init(shaders[SHADER_TEXT]->getPID());
+
+   camera->pov = false;
 }
 
 Session::~Session() {
@@ -240,6 +242,7 @@ void Session::step() {
    // Step other components
    window->step();
    world->step(window);
+   camera->step(window, game_state);
    
    //printf("in the middle of session step!\n");
 
@@ -262,17 +265,33 @@ void Session::step() {
    if (game_state == WORLD_STATE) {
       world->particleStep(shaders[SHADER_BILLBOARD], window);
    }
-   camera->step(window);
    
    char txt[30];
    sprintf(txt, "Matsuriyo!");
-   fontEngine->useFont("goodDog", 48);
-   fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), txt, -1.0, 0.9);
+   if (game_state == WORLD_STATE) {
+      fontEngine->useFont("goodDog", 48);
+      fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), txt, -1.0, 0.9);
+   } else if (game_state == TITLE_STATE) {
+      fontEngine->useFont("goodDog", 72);
+      fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), txt, -0.5, 0.0);
+      char subtext[30];
+      sprintf(subtext, "Press ENTER to play");
+      fontEngine->useFont("goodDog", 48);
+      fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), txt, -0.5, -0.2);
+   }
    
    char pts[15];
    sprintf(pts, "Points: %d", global_points);
    fontEngine->useFont("goodDog", 36);   
    fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), pts, -.98, 0.9-(fontEngine->getTextHeight(txt)*1.1));
+
+/*
+   char txt[30];
+   sprintf(txt, "Matsuriyo!");
+   fontEngine->useFont("goodDog", 48);
+   fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), txt, -1.0, 0.9);
+*/
+
 }
 
 Camera* Session::getCamera() {
