@@ -76,6 +76,12 @@ void Minigame::arrowPress(int key) {
          else if (key == GLFW_KEY_RIGHT)
              shop->nextItem();
     }
+    if (shootingGallery != NULL) {
+         if (key == GLFW_KEY_UP)
+             shootingGallery->changeDifficulty(1);
+         else if (key == GLFW_KEY_DOWN)
+             shootingGallery->changeDifficulty(-1);
+    }
 }
 
 void Minigame::setGameStart(bool _gameStart) {

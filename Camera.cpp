@@ -84,7 +84,7 @@ void Camera::setView() {
 
 void Camera::step(Window* window, int game_state) {
 
-   if (game_state) {
+   if (game_state == TITLE_STATE) {
       calcNewPos(window);
    } else if (debug) {
       debug_pos = calcNewPos(window);

@@ -327,7 +327,7 @@ void Session::startMinigame() {
 void Session::createMinigame(char* type) {
    // Which type of minigame is this?
    if (strcmp(type, SHOOTING_GALLERY) == 0) {
-      //window->showMouse();
+      window->showMouse();
       minigame->shootingGallery = new ShootingGallery(shaders[SHADER_DEFAULT]->getPID(), sound);
    } else if (strcmp(type, WATERMELON_SMASH) == 0) {
       window->showMouse();

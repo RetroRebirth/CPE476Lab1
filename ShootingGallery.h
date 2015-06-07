@@ -9,7 +9,7 @@
 #include "FontEngine.h"
 
 #define DEPTH 3.0
-#define GUN_BULLET_SPD 10.0
+#define GUN_BULLET_SPD 30.0
 #define ROWS 2
 #define COLS 4
 
@@ -22,6 +22,8 @@ class ShootingGallery {
       void step(Window* window);
 
       bool gameOver, gameStart;
+
+      void changeDifficulty(int delta);
 
    private:
       vector<Object*> targets;
@@ -48,6 +50,10 @@ class ShootingGallery {
       void printInstructions();
       void textStep(Window* window);
       Object* tempFix; // Permament target that is off screen so background doesn't flicker
+      int difficulty;
+      float newTargetTime;
+      float newTargetSpeed;
+      float newTargetAccel;
 };
 
 #endif

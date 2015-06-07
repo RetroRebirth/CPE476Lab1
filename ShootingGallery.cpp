@@ -46,8 +46,8 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Sound* _sound) {
    elapsedTime = 0.0;
    gameOver = false;
    doneTimer = -1;
-   ammo = 20;
-   timeLimit = -1; // unlimited
+   difficulty = 0;
+   changeDifficulty(0);
 }
 
 void ShootingGallery::newTarget(){
@@ -64,8 +64,8 @@ void ShootingGallery::newTarget(){
    object->setTexture(textures[TEX_TARGET]);
    // Have target pop in from bottom of screen
    object->setDir(glm::vec3(0.0, 1.0, 0.0));
-   object->setSpeed(20.0);
-   object->setAccel(-20);
+   object->setSpeed(newTargetSpeed);
+   object->setAccel(newTargetAccel);
    object->setChangeDir(true);
    // Add the target to the list
    targets.push_back(object);
@@ -162,7 +162,7 @@ void ShootingGallery::step(Window* window) {
    }
 
    // Adds a new target every amount of time
-   if (window->time - elapsedTime >= 2.0) {
+   if (window->time - elapsedTime >= newTargetTime) {
       newTarget();
       elapsedTime = window->time;
    }
@@ -241,8 +241,9 @@ void ShootingGallery::mouseClick(glm::vec3 direction, glm::vec4 point) {
    // Shoot a bullet
    Object* bullet = new Object(shapes, materials, ShadeProg);
    bullet->load("sphere.obj");
-   bullet->setPos(glm::vec3(gunPos.x + xRotation/57.0, gunPos.y - yRotation/33.0, gunPos.z + 1.0));
-   bullet->setDir(glm::vec3(direction.x, direction.y, direction.z));
+//   bullet->setPos(glm::vec3(gunPos.x + xRotation/57.0, gunPos.y - yRotation/33.0, gunPos.z + 1.0));
+   bullet->setPos(glm::vec3(point.x, point.y-7.5, 0.0));
+   bullet->setDir(direction);
    bullet->setTexture(textures[TEX_WOOD_WALL]);
    bullet->setShadows(false, 0.0, 0.0);
    bullet->setSpeed(GUN_BULLET_SPD);
@@ -280,3 +281,39 @@ void ShootingGallery::mouseMove(double xpos, double ypos, int width, int height)
    yRotation = -30.0 * y;
    gun->iterativeRotate(yRotation, glm::vec3(1.0, 0.0, 0.0));
 }
+
+void ShootingGallery::changeDifficulty(int delta) {
+   int newDiff = difficulty + delta;
+
+   if (gameStart || newDiff < 0 || newDiff > 2)
+      return;
+
+   difficulty = newDiff;
+
+printf("difficulty is now %d\n", difficulty);
+
+   switch (difficulty) {
+      case 0: // EASY
+         ammo = 50;
+         timeLimit = 45.0f;
+         newTargetTime = 3.0f;
+         newTargetSpeed = 10.0f;
+         newTargetAccel = -4.3f;
+         break;
+      case 1: // MEDIUM
+         ammo = 30;
+         timeLimit = 30.0f;
+         newTargetTime = 2.0f;
+         newTargetSpeed = 15.0f;
+         newTargetAccel = -10.5f;
+         break;
+      case 2: // HARD
+         ammo = 20;
+         timeLimit = 20.0f;
+         newTargetTime = 1.5f;
+         newTargetSpeed = 20.0f;
+         newTargetAccel = -18.0f;
+         break;
+   }
+}
+
