@@ -144,7 +144,5 @@ struct plane {
 extern int global_points;
 // frame buffer objects
 extern GLuint FBO_Basic, FBO_CBasic, FBO_DBasic, FBO_TBasic;
-extern GLuint FBO_Glow, FBO_CGlow, FBO_DGlow, FBO_TGlow;
-extern GLuint FBO_Blur, FBO_CBlur, FBO_DBlur, FBO_TBlur;
 
 #endif

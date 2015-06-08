@@ -73,17 +73,19 @@ private:
 #define TEX_BENCH 23
 #define TEX_ROCK 24
 #define TEX_SAND_LINE 25
+#define TEX_SAND_NORM 26
+#define TEX_DRAGON_NORM 27
 
-#define TEX_GIRL_RED 30
-#define TEX_GIRL_BLUE 31
-#define TEX_GIRL_GREEN 32
-#define TEX_GIRL_PINK 33
-#define TEX_GIRL_MELON 34
-#define TEX_GIRL_ROBOT 35
-#define TEX_GIRL_ENDER 36
-#define TEX_GIRL_DRAGON 37
-#define TEX_GIRL_MERMAID 38
-#define TEX_GALLERY_SKY 39
+#define TEX_GIRL_RED 40
+#define TEX_GIRL_BLUE 41
+#define TEX_GIRL_GREEN 42
+#define TEX_GIRL_PINK 43
+#define TEX_GIRL_MELON 44
+#define TEX_GIRL_ROBOT 45
+#define TEX_GIRL_ENDER 46
+#define TEX_GIRL_DRAGON 47
+#define TEX_GIRL_MERMAID 48
+#define TEX_GALLERY_SKY 49
 #define TEX_SONGS 50
 
 #define TEX_FBO_BASIC 500

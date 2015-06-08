@@ -400,6 +400,7 @@ inline void World::safe_glUniformMatrix4fv(const GLint handle, const GLfloat dat
 
 void World::initGround() {
     ground = new Object(shapes, materials, ShadeProg);
+    ground->bumpy = true;
     ground->load("objs/ground_sakura.obj", "objs/ground_sakura.mtl");
     ground->scale(glm::vec3(20.0, 20.0, 20.0));
     ground->setShadows(false, 0.0, 0.0);
@@ -427,17 +428,15 @@ void World::drawGround() {
          
          // zen garden
          if (curPos.x <= -40.0 && curPos.z >= 20.0) {
+            ground->bumpy = true;
             ground->setTexture(textures[TEX_SAND_LINE]);
+            ground->setNormalmap(textures[TEX_SAND_NORM]);
             ground->translate(glm::vec3(10.0, 0.01, 0.0));
             ground->draw();
             ground->translate(glm::vec3(0.0, 0.0, 0.0));
          }
-         // dirt
-         //else if (curPos.x <= 20.0 && curPos.x >= -20.0 && curPos.z == 0.0) {
-         //   ground->setTexture(textures[TEX_GROUND_GRASS]);
-         //}
-         // cherry blossoms
          else {
+            ground->bumpy = false;
             ground->setTexture(textures[TEX_GROUND_SAKURA]);
          }
          ground->draw();
@@ -735,6 +734,7 @@ void World::createPlayer(const string &meshName, int texID) {
    player = new Object(shapes, materials, ShadeProg);
    player->load(meshName);
    player->setTexture(textures[texID]);
+   player->setTexture(textures[TEX_GIRL_RED]);
    player->scale(glm::vec3(3.0f, 3.0f, 3.0f));
    player->translate(glm::vec3(0.0f, -0.3f, 0.0f));
    player->setShadows(true, 0.03, 1.0);

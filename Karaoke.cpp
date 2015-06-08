@@ -154,6 +154,11 @@ void Karaoke::drawVideo(Window* window) {
 }
 
 void Karaoke::drawArrow() {
+    GLint texLoc = GLSL::getUniformLocation(ShadeProg, "uSampler1");
+    glUniform1i(texLoc, 1);
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, arrow->getTexture());
+    
     // Draw arrow with bloom
     float bloom = (arrowPos * -1) / 2.0;
     int blend = (arrowPos <= -1.6) ? 1 : 1;
@@ -164,8 +169,6 @@ void Karaoke::drawArrow() {
     
     // Turn bloom off
     glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlendMode"), 0);
-    // Turn blur off
-    glUniform1i(GLSL::getUniformLocation(ShadeProg, "BlurMode"), 0);
 }
 
 void Karaoke::printInstructions() {
@@ -249,7 +252,7 @@ void Karaoke::checkTime(Window *window) {
                 bpm = sound->playKaraokeMusic(curSong);
                 songDuration = sound->getSongDuration() / 1000.0;
                 beat = songDuration / ((songDuration / 60.0) * bpm);
-                beat *= (3 - speed) + 1;
+                beat *= 3 / speed;
                 
                 totsec = ((sound->getSongDuration() + 500) / 1000);
                 mins = totsec / 60;

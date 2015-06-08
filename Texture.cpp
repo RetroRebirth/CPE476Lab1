@@ -82,6 +82,12 @@ void Texture::loadTexture(char *_filename, int texture_id, bool genMipMaps)
     // Generate a 2D image for the image's format
     glTexImage2D(GL_TEXTURE_2D, 0, 3, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
     
+    // Anisotropic filtering for the ground
+    if (strcmp(filename, (char *)"textures/ground_sakura.bmp") == 0) {
+        GLfloat fLargest;
+        glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &fLargest);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, fLargest);
+    }
     // Generate mip maps
     if (genMipMaps) {
         glEnable(GL_TEXTURE_2D);

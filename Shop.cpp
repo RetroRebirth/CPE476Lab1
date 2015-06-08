@@ -84,7 +84,7 @@ void Shop::setUp() {
         (char *)"Bubbly Bow",
         (char *)"Shiny Bow"
     };
-    int outfit_prices[] = { 300, 300, 300, 500, 500, 500, 750, 750, 750 };
+    int outfit_prices[] = { 300, 300, 300, 500, 500, 500, 750, 750, 1 };
     // Load the outfits
     for (int i = TEX_GIRL_BLUE; i <= TEX_GIRL_MERMAID + 1; i++) {
         Item newItem;

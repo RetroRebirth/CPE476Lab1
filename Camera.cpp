@@ -50,6 +50,7 @@ glm::vec3 Camera::lookAtPt() {
       lookAtPt = glm::vec3(cos(phi)*cos(theta)*radius, sin(phi)*radius, cos(phi)*cos((M_PI/2.0f)-theta)*radius);
    }
    lookAtPt += debug ? debug_pos : player->pos;
+   
    return lookAtPt;
 }
 
@@ -309,14 +310,14 @@ void Camera::moveToMinigame() {
 }
 
 void Camera::moveToOverworld() {
-   this->player->pos = this->prevPos;
-   this->theta = this->prevTheta;
-   this->phi = this->prevPhi;
+   player->pos = prevPos;
+   theta = prevTheta;
+   phi = prevPhi;
    
    // Set the appropriate flags
-   this->playingMinigame = false;
+   playingMinigame = false;
    
-   this->pov = true;
+   pov = true;
    //playerYrot = 0.0f;
 }
 

@@ -52,82 +52,31 @@ bool Session::installShaders(Program* prog) {
 }
 
 GLuint FBO_Basic, FBO_CBasic, FBO_DBasic, FBO_TBasic;
-GLuint FBO_Glow, FBO_CGlow, FBO_DGlow, FBO_TGlow;
-GLuint FBO_Blur, FBO_CBlur, FBO_DBlur, FBO_TBlur;
 void Session::initFBO() {
-   
-   /* Init basic FBO */
-   glGenFramebuffers(1, &FBO_Basic);
-   glBindFramebuffer(GL_FRAMEBUFFER, FBO_Basic);
-   // rendered texture
-   glGenTextures(1, &FBO_TBasic);
-   glBindTexture(GL_TEXTURE_2D, FBO_TBasic);
-   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 768, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-   // depth buffer
-   glGenRenderbuffers(1, &FBO_DBasic);
-   glBindRenderbuffer(GL_RENDERBUFFER, FBO_DBasic);
-   glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 1024, 768);
-   glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, FBO_DBasic);
-   // color buffer
-   glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, FBO_TBasic, 0);
-   GLenum DrawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
-   glDrawBuffers(1, DrawBuffers);
-   if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-      printf("Error making basic frame buffer object\n");
-      return;
-   }
-   
-   /* Init glow FBO */
-   glGenFramebuffers(1, &FBO_Glow);
-   glBindFramebuffer(GL_FRAMEBUFFER, FBO_Glow);
-   // rendered texture
-   glGenTextures(1, &FBO_TGlow);
-   glBindTexture(GL_TEXTURE_2D, FBO_TGlow);
-   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 768, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-   // depth buffer
-   glGenRenderbuffers(1, &FBO_DGlow);
-   glBindRenderbuffer(GL_RENDERBUFFER, FBO_DGlow);
-   glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 1024, 768);
-   glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, FBO_DGlow);
-   // color buffer
-   glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, FBO_TGlow, 0);
-   glDrawBuffers(1, DrawBuffers);
-   if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-      printf("Error making glow frame buffer object\n");
-      return;
-   }
-   
-   /* Init blur FBO */
-   glGenFramebuffers(1, &FBO_Blur);
-   glBindFramebuffer(GL_FRAMEBUFFER, FBO_Blur);
-   // rendered texture
-   glGenTextures(1, &FBO_TBlur);
-   glBindTexture(GL_TEXTURE_2D, FBO_TBlur);
-   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 768, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-   // depth buffer
-   glGenRenderbuffers(1, &FBO_DBlur);
-   glBindRenderbuffer(GL_RENDERBUFFER, FBO_DBlur);
-   glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 1024, 768);
-   glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, FBO_DBlur);
-   // color buffer
-   glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, FBO_TBlur, 0);
-   glDrawBuffers(1, DrawBuffers);
-   if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-      printf("Error making blur frame buffer object\n");
-      return;
-   }
+    /* Init basic FBO */
+    glGenFramebuffers(1, &FBO_Basic);
+    glBindFramebuffer(GL_FRAMEBUFFER, FBO_Basic);
+    // rendered texture
+    glGenTextures(1, &FBO_TBasic);
+    glBindTexture(GL_TEXTURE_2D, FBO_TBasic);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 768, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    // depth buffer
+    glGenRenderbuffers(1, &FBO_DBasic);
+    glBindRenderbuffer(GL_RENDERBUFFER, FBO_DBasic);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 1024, 768);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, FBO_DBasic);
+    // color buffer
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, FBO_TBasic, 0);
+    GLenum DrawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
+    glDrawBuffers(1, DrawBuffers);
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+        printf("Error making basic frame buffer object\n");
+        return;
+    }
 }
 
 void Session::initGL() {

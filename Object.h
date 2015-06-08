@@ -49,6 +49,7 @@ public:
     void setAccel(float _accel)         { accel = _accel;    }
     void setChangeDir(bool _changeDir)  { changeDir = _changeDir; }
     void setTexture(int tex);
+    void setNormalmap(int normal);
     void setDirectional(bool dir)       { directional = dir; }
     
     // getters
@@ -71,12 +72,14 @@ public:
     void iterativeRotate(float angle, glm::vec3 axis);
     void translate(glm::vec3 trans);
     void setTransRot(glm::vec3 trans);
-    bool reflective;
     
     // Draw Bounding boxes?
-    bool drawBounds, screenRender;
+    bool drawBounds;
     float radius, xzRadius;
     void shear(float shearX, float shearZ);
+    
+    // Rendering information
+    bool reflective, screenRender, bumpy;
 
     char type[10];
 
@@ -111,11 +114,12 @@ private:
     // Shader information
     GLuint ShadeProg;
     GLuint posBufID, indBufID, norBufID, texBufID;
-    GLuint FrameBuffer, RenderedTexture, DepthBuffer;
+    GLuint tanBufID, bTanBufID;
+    
     GLint h_aPos, h_aNor, h_uM;
     
     // Texture information
-    int texture_id;
+    int texture_id, norm_id, specular_id;
     // Cook torrance values
     float roughness; // 0 : smooth, 1: rough
     float fresnel; // fresnel reflectance at normal incidence
@@ -123,6 +127,24 @@ private:
     
     // Helper functions
     vector<float> computeNormals(vector<float> posBuf, vector<unsigned int> indBuf);
+    void computeTangentBasis(vector<float> &vertices,
+                             vector<float> &uvs,
+                             vector<float> &normals,
+                             
+                             vector<glm::vec3> &tangents,
+                             vector<glm::vec3> &bitangents);
+    vector<unsigned short> indexVBO_TBN(vector<float> &in_vertices,
+                      vector<float> &in_uvs,
+                      vector<float> &in_normals,
+                      vector<glm::vec3> &in_tangents,
+                      vector<glm::vec3> &in_bitangents,
+                      
+                      vector<unsigned short> out_indices,
+                      vector<glm::vec3> &out_vertices,
+                      vector<glm::vec2> &out_uvs,
+                      vector<glm::vec3> &out_normals,
+                      vector<glm::vec3> &out_tangents,
+                      vector<glm::vec3> &out_bitangents);
     float calcYFacingAngle();
     
     // Get the shadow projection matrix (for drawing a shadow)

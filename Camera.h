@@ -18,10 +18,7 @@ class Camera {
       glm::mat4 Projection;
       glm::mat4 View;
       glm::vec3 dir;
-      
-
-      //World* world;
-      
+    
       Camera(
          GLint _h_uP,
          GLint _h_uV,

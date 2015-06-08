@@ -44,6 +44,8 @@ Object::Object(
    planes.reserve(4*sizeof(plane));
    
    directional = false;
+   bumpy = false;
+   screenRender = true;
    castShadows = true;
    shadowHeight = 0;
    shadowDarkness = 1.0;
@@ -259,7 +261,6 @@ bool Object::planarCollisionCheck(Object* o, glm::vec3* colPlane) {
       // distance = (a(x) + b(y) + c(z) + d)/plane norm
       float d = planes[i].a*position.x + planes[i].b*position.y + planes[i].c*position.z + planes[i].d;
       float distance = d / (float)sqrt(planes[i].a*planes[i].a + planes[i].b*planes[i].b + planes[i].c*planes[i].c);
-      //printf("distance: %f\n", distance);
       if (fabs(distance) < o->getXZRadius()) {
          // which plane? planes = {z1, z2, x1, x2}
          if (i == 0) {
@@ -506,38 +507,47 @@ void Object::load(const string &meshName, const string &matName)
 /* initialize a new shape */
 void Object::init()
 {
-	// Send the position array to the GPU
-	const vector<float> &posBuf = shapes[0].mesh.positions;
-	glGenBuffers(1, &posBufID);
-	glBindBuffer(GL_ARRAY_BUFFER, posBufID);
-	glBufferData(GL_ARRAY_BUFFER, posBuf.size()*sizeof(float), &posBuf[0], GL_STATIC_DRAW);
-	
-	// Send the index array to the GPU
-	const vector<unsigned int> &indBuf = shapes[0].mesh.indices;
-	glGenBuffers(1, &indBufID);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufID);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indBuf.size()*sizeof(unsigned int), &indBuf[0], GL_STATIC_DRAW);
-	
-	// Send the normal array (if it exists) to the GPU
-	const vector<float> norBuf = computeNormals(posBuf, indBuf);
-	if(!norBuf.empty()) { 
-		glGenBuffers(1, &norBufID);
-		glBindBuffer(GL_ARRAY_BUFFER, norBufID);
-		glBufferData(GL_ARRAY_BUFFER, norBuf.size()*sizeof(float), &norBuf[0], GL_STATIC_DRAW);
-	} else {
-	   printf("Uh Oh: normal buffer is empty\n");
-		norBufID = 0;
-	}
-	
+   vector<float> &posBuf = shapes[0].mesh.positions;
+   vector<unsigned int> &indBuf = shapes[0].mesh.indices;
+   vector<float> norBuf = computeNormals(posBuf, indBuf);
+   vector<float> texBuf = shapes[0].mesh.texcoords;
+   
+   vector<unsigned short> indices;
+   vector<glm::vec3> tangents, bitangents;
+   vector<glm::vec3> indexed_vertices, indexed_normals, indexed_tangents, indexed_bitangents;
+   vector<glm::vec2> indexed_uvs;
+    
+    if (bumpy) {
+        // Get the tangents and bitangents (for bump mapping)
+        computeTangentBasis(posBuf, texBuf, norBuf, tangents, bitangents);
+        indices = indexVBO_TBN(posBuf, texBuf, norBuf, tangents, bitangents, indices, indexed_vertices, indexed_uvs, indexed_normals, indexed_tangents, indexed_bitangents);
+        // Send the tangents (for bump mapping)
+        glGenBuffers(1, &tanBufID);
+        glBindBuffer(GL_ARRAY_BUFFER, tanBufID);
+        glBufferData(GL_ARRAY_BUFFER, indexed_tangents.size() * sizeof(glm::vec3), &indexed_tangents[0], GL_STATIC_DRAW);
+    }
+    // Send the position array to the GPU
+    glGenBuffers(1, &posBufID);
+    glBindBuffer(GL_ARRAY_BUFFER, posBufID);
+    glBufferData(GL_ARRAY_BUFFER, posBuf.size()*sizeof(float), &posBuf[0], GL_STATIC_DRAW);
+    // Send the index array to the GPU
+    glGenBuffers(1, &indBufID);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indBufID);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indBuf.size()*sizeof(unsigned int) , &indBuf[0], GL_STATIC_DRAW);
+    // Send the normal array (if it exists) to the GPU
+    if(!norBuf.empty()) {
+        glGenBuffers(1, &norBufID);
+        glBindBuffer(GL_ARRAY_BUFFER, norBufID);
+        glBufferData(GL_ARRAY_BUFFER, norBuf.size()*sizeof(float), &norBuf[0], GL_STATIC_DRAW);
+    } else
+        norBufID = 0;
     // Send the texture coordinate array (if it exists) to the GPU
-    const vector<float> texBuf = shapes[0].mesh.texcoords;
     if (!texBuf.empty()) {
         glGenBuffers(1, &texBufID);
         glBindBuffer(GL_ARRAY_BUFFER, texBufID);
-        glBufferData(GL_ARRAY_BUFFER, texBuf.size() * sizeof(float), &texBuf[0], GL_STATIC_DRAW);
-    } else {
+        glBufferData(GL_ARRAY_BUFFER, texBuf.size()*sizeof(float), &texBuf[0], GL_STATIC_DRAW);
+    } else
         texBufID = 0;
-    }
     
 	// Unbind the arrays
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -572,6 +582,13 @@ int Object::bind()
       glBindBuffer(GL_ARRAY_BUFFER, texBufID);
       glVertexAttribPointer(h_tex, 2, GL_FLOAT, GL_FALSE, 0, 0);
    }
+   
+   if (bumpy) {
+      GLint h_tangent = GLSL::getAttribLocation(ShadeProg, "aTangent");
+      GLSL::enableVertexAttribArray(h_tangent);
+      glBindBuffer(GL_ARRAY_BUFFER, tanBufID);
+      glVertexAttribPointer(h_tangent, 3, GL_FLOAT, GL_FALSE, 0, 0);
+   }
   
    glm::mat4 R = rotateMat * directionalMat;
    // Send the matrix information
@@ -597,13 +614,14 @@ void Object::draw()
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture_id);
     glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+   
     // Pass along Cook Torrance values
  /* TODO uncomment when cooking torrance
     glUniform1f(GLSL::getUniformLocation(ShadeProg, "roughness"), roughness);
     glUniform1f(GLSL::getUniformLocation(ShadeProg, "fresnel"), fresnel);
     glUniform1f(GLSL::getUniformLocation(ShadeProg, "geometric"), geometric);
  */
-    
+   
     // Draw the shadow projection to FBO
     if (castShadows) {
         glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), shadowDarkness);
@@ -621,11 +639,23 @@ void Object::draw()
     // Draw the object to scene
     if (screenRender) {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        GLint texLoc;
+        texLoc = GLSL::getUniformLocation(ShadeProg, "uSampler0");
+        glUniform1i(texLoc, 0);
+        texLoc = GLSL::getUniformLocation(ShadeProg, "uSampler2");
+        glUniform1i(texLoc, 2);
+        
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, reflective ? FBO_TBasic : texture_id);
+        if (bumpy) {
+            glUniform1i(GLSL::getUniformLocation(ShadeProg, "BumpMode"), 1);
+            glActiveTexture(GL_TEXTURE2);
+            glBindTexture(GL_TEXTURE_2D, norm_id);
+        }
         Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(modelMat));
         glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-        
+        glUniform1i(GLSL::getUniformLocation(ShadeProg, "BumpMode"), 0);
+       
         // Draw the shadow projection to scene
         if (castShadows) {
             glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), shadowDarkness);
@@ -641,6 +671,118 @@ void Object::draw()
         }
     }
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void Object::computeTangentBasis(vector<float> &vertices,
+                                 vector<float> &uvs,
+                                 vector<float> &normals,
+                                 
+                                 vector<glm::vec3> &tangents,
+                                 vector<glm::vec3> &bitangents) {
+   
+   for (int i = 0; i < vertices.size()/3; i+=3) {
+      // shortcuts for vertices
+      glm::vec3 v0 = glm::vec3(vertices[3*i+0], vertices[3*i+1], vertices[3*i+2]);
+      glm::vec3 v1 = glm::vec3(vertices[3*(i+1)+0], vertices[3*(i+1)+1], vertices[3*(i+1)+2]);
+      glm::vec3 v2 = glm::vec3(vertices[3*(i+2)+0], vertices[3*(i+2)+1], vertices[3*(i+2)+2]);
+      
+      // Shortcuts for UVs
+      glm::vec2 uv0 = glm::vec2(uvs[3*i+0], uvs[3*i+1]);
+      glm::vec2 uv1 = glm::vec2(uvs[3*(i+1)+0], uvs[3*(i+1)+1]);
+      glm::vec2 uv2 = glm::vec2(uvs[3*(i+2)+0], uvs[3*(i+2)+1]);
+      
+      // Edges of the triangle : position delta
+      glm::vec3 deltaPos1 = v1 - v0;
+      glm::vec3 deltaPos2 = v2 - v0;
+      
+      // UV delta
+      glm::vec2 deltaUV1 = uv1 - uv0;
+      glm::vec2 deltaUV2 = uv2 - uv0;
+      
+      float r = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
+      glm::vec3 tangent = r*(deltaPos1 * deltaUV2.y - deltaPos2 * deltaUV1.y);
+      glm::vec3 bitangent = r*(deltaPos2 * deltaUV1.x - deltaPos1 * deltaUV2.x);
+      
+      // Set the same tangent for all three vertices of the triangle.
+      // They will be merged later, in vboindexer.cpp
+      tangents.push_back(tangent);
+      tangents.push_back(tangent);
+      tangents.push_back(tangent);
+      
+      // Same thing for binormals
+      bitangents.push_back(bitangent);
+      bitangents.push_back(bitangent);
+      bitangents.push_back(bitangent);
+   }
+}
+
+// Returns true iif v1 can be considered equal to v2
+bool is_near(float v1, float v2){
+   return fabs( v1-v2 ) < 0.01f;
+}
+// Searches through all already-exported vertices for a similar one
+bool getSimilarVertexIndex(glm::vec3 in_vertex,
+                           glm::vec2 in_uv,
+                           glm::vec3 in_normal,
+                           std::vector<glm::vec3> out_vertices,
+                           std::vector<glm::vec2> out_uvs,
+                           std::vector<glm::vec3> out_normals,
+                           unsigned short result)
+{
+   // Lame linear search
+   for ( unsigned int i = 0; i < out_vertices.size(); i++ ){
+      if (is_near( in_vertex.x , out_vertices[i].x ) &&
+          is_near( in_vertex.y , out_vertices[i].y ) &&
+          is_near( in_vertex.z , out_vertices[i].z ) &&
+          is_near( in_uv.x     , out_uvs     [i].x ) &&
+          is_near( in_uv.y     , out_uvs     [i].y ) &&
+          is_near( in_normal.x , out_normals [i].x ) &&
+          is_near( in_normal.y , out_normals [i].y ) &&
+          is_near( in_normal.z , out_normals [i].z )
+          ) {
+         result = i;
+         return true;
+      }
+   }
+   // No other vertex could be used instead.
+   // Looks like we'll have to add it to the VBO.
+   return false;
+}
+vector<unsigned short> Object::indexVBO_TBN(vector<float> &in_vertices,
+                  vector<float> &in_uvs,
+                  vector<float> &in_normals,
+                  vector<glm::vec3> &in_tangents,
+                  vector<glm::vec3> &in_bitangents,
+                  
+                  vector<unsigned short> out_indices,
+                  vector<glm::vec3> &out_vertices,
+                  vector<glm::vec2> &out_uvs,
+                  vector<glm::vec3> &out_normals,
+                  vector<glm::vec3> &out_tangents,
+                  vector<glm::vec3> &out_bitangents) {
+   
+   for (int i = 0; i < in_vertices.size()/3; i++) {
+      // Try to find a similar vertex in out
+      unsigned short index;
+      bool found = getSimilarVertexIndex(glm::vec3(in_vertices[3*i+0], in_vertices[3*i+1], in_vertices[3*i+2]),
+                                         glm::vec2(in_uvs[3*i+0], in_uvs[3*i+1]),
+                                         glm::vec3(in_normals[3*i+0], in_normals[3*i+1], in_normals[3*i+2]),
+                                         out_vertices, out_uvs, out_normals, index);
+      if (found) {
+         out_indices.push_back(index);
+         out_tangents[index] += in_tangents[i];
+         out_bitangents[index] += in_bitangents[i];
+      } else {
+         out_vertices.push_back(glm::vec3(in_vertices[3*i+0], in_vertices[3*i+1], in_vertices[3*i+2]));
+         out_uvs.push_back(glm::vec2(in_uvs[3*i+0], in_uvs[3*i+1]));
+         out_normals.push_back(glm::vec3(in_normals[3*i+0], in_normals[3*i+1], in_normals[3*i+2]));
+         
+         out_tangents.push_back(in_tangents[i]);
+         out_bitangents.push_back(in_bitangents[i]);
+         out_indices.push_back((unsigned short)out_vertices.size() - 1);
+      }
+   }
+   return out_indices;
 }
 
 vector<float> Object::computeNormals(vector<float> posBuf, vector<unsigned int> indBuf) {
@@ -840,6 +982,9 @@ void Object::setTexture(int tex) {
       geometric = 1.0;
       break;
    }
+}
+void Object::setNormalmap(int normal) {
+   norm_id = normal;
 }
 
 void Object::shear(float shearX, float shearZ) {

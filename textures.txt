@@ -25,17 +25,21 @@
 23 textures/bench.bmp
 24 textures/rock.bmp
 25 textures/sand_lines.bmp
+# NORMAL MAPPED TEXTURES
+26 textures/sand_lines_NRM.bmp
+27 textures/dragon_NRM.bmp
+#28 textures/mermaid_NRM.bmp
 # PLAYER COSTUMES
-30 textures/girlPerson.bmp
-31 textures/girlBlue.bmp
-32 textures/girlGreen.bmp
-33 textures/girlPink.bmp
-34 textures/girlMelon.bmp
-35 textures/girlRobot.bmp
-36 textures/girlEnder.bmp
-37 textures/girlDragon.bmp
-38 textures/girlMermaid.bmp
-39 textures/shootingsky.bmp
+40 textures/girlPerson.bmp
+41 textures/girlBlue.bmp
+42 textures/girlGreen.bmp
+43 textures/girlPink.bmp
+44 textures/girlMelon.bmp
+45 textures/girlRobot.bmp
+46 textures/girlEnder.bmp
+47 textures/girlDragon.bmp
+48 textures/girlMermaid.bmp
+49 textures/shootingsky.bmp
 # SONG THUMBNAILS
 50 textures/karaoke/aldnoah_zero_op1.bmp
 51 textures/karaoke/aldnoah_zero_ed2.bmp
