@@ -128,7 +128,14 @@ void ShootingGallery::step(Window* window) {
         float yInc;
 
         char ln1[20];
-        sprintf(ln1, "You're out of ammo!");
+        
+        if (ammo == 0) {
+           sprintf(ln1, "You're out of ammo!");
+        }
+        else {
+           sprintf(ln1, "You're out of time!");
+        }
+           
         fontEngine->useFont("chunk5", 40);
         fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln1, 0-fontEngine->getTextWidth(ln1)/2.0, yPos);
         yInc = fontEngine->getTextHeight(ln1);
@@ -213,13 +220,27 @@ void ShootingGallery::step(Window* window) {
 void ShootingGallery::textStep(Window* window) {
    float yPos = .9;
    float yInc;
+   int timeLim = (int)timeLimit;
 
    char time[40];
-   sprintf(time, "Time remaining: 0:%d / 0:30", 10000);
+   sprintf(time, "Time remaining: 0:%d", timeLim);
    fontEngine->useFont("chunk5", 25);
    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), time, 0-fontEngine->getTextWidth(time)/2.0, yPos);
    yInc = fontEngine->getTextHeight(time) * 1.3;
 
+   char diff[25];
+   
+   if (difficulty == 0) {
+      sprintf(diff, "Easy Mode");
+   }
+   else if (difficulty == 1) {
+      sprintf(diff, "Intermediate Mode");
+   }
+   else {
+      sprintf(diff, "Hard Mode");
+   }   
+   fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), diff, 0-fontEngine->getTextWidth(diff)/2.0, yPos - yInc);
+   
    char scrStr[15];
    sprintf(scrStr, "Score: %d", score);
    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), scrStr, 1-fontEngine->getTextWidth(scrStr)-.07, yPos);
