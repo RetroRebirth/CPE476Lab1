@@ -17,7 +17,7 @@ Camera::Camera(
    pov = true;
    playingMinigame = false;
    radius = 3.5f;
-   playerYrot = 0.0f;
+   playerYrad = 0.0f;
 
    // Defined attribute values
    h_uP = _h_uP;
@@ -134,8 +134,7 @@ void Camera::applyViewMatrix(MatrixStack* MV) {
 glm::vec3 Camera::calcNewPos(Window* window) {
    glm::vec3 newPos = debug ? debug_pos : player->pos;
    float moveInc = speed * window->dt;
-   float playerYrad = Util::degreesToRadians(playerYrot);
-
+   
    glm::vec3 viewVector = glm::normalize(newPos - lookAtPt());
    glm::vec3 strafeVector = glm::normalize(glm::cross(viewVector, glm::vec3(0.0f, 1.0f, 0.0f)));
    glm::vec3 crossVector = glm::normalize(glm::cross(viewVector, strafeVector));
@@ -148,26 +147,25 @@ glm::vec3 Camera::calcNewPos(Window* window) {
    if (!debug) {
       // Normal camera controls
       if (glfwGetKey(win, GLFW_KEY_W) == GLFW_PRESS) { // Move forward
-         newPos.x += moveInc * sin(playerYrad);
-         newPos.z += moveInc * cos(playerYrad);
-         
-         //pos.x += moveInc * sin(playerYrad);
-         //pos.z += moveInc * cos(playerYrad);
+         if (abs(playerYrad - theta) > 0.00001) {
+            playerYrad = -theta - (M_PI/2);
+         }
+
+         newPos.x += moveInc * viewVector.x; //sin(playerYrad)
+         newPos.z += moveInc * viewVector.z; //cos(playerYrad) 
       }
       if (glfwGetKey(win, GLFW_KEY_A) == GLFW_PRESS) { // Rotate left
-         playerYrot += PLAYER_ROT_DEG;
-         
-         theta -= Util::degreesToRadians(PLAYER_ROT_DEG);
+         playerYrad += PLAYER_ROT_RAD;
+         theta -= PLAYER_ROT_RAD;
       }
       if (glfwGetKey(win, GLFW_KEY_D) == GLFW_PRESS) { // Rotate right
-         playerYrot -= PLAYER_ROT_DEG;
-         
-         theta += Util::degreesToRadians(PLAYER_ROT_DEG);         
+         playerYrad -= PLAYER_ROT_RAD;
+         theta += PLAYER_ROT_RAD;         
       }
       
       if (glfwGetKey(win, GLFW_KEY_S) == GLFW_PRESS) { // Move backward
-         newPos.x -= moveInc * sin(playerYrad);
-         newPos.z -= moveInc * cos(playerYrad);
+         newPos.x -= moveInc * viewVector.x; //sin(playerYrad);
+         newPos.z -= moveInc * viewVector.z; //cos(playerYrad);
       }
       
    } else {
@@ -244,10 +242,10 @@ glm::vec3 Camera::calcNewPos(Window* window) {
       }
       
       prevPos = newPos;
-//      player->setPos(newPos);//calculatePlayerPos());
+      //player->setPos(newPos);//calculatePlayerPos());
       //player->scale(glm::vec3(1.0f, 1.0f, 1.0f));
-      player->rotate(0.0, glm::vec3(0.0f, 0.0f, 0.0f));
-      player->rotate(playerYrot, glm::vec3(0.0f, 1.0f, 0.0f));
+      //player->rotate(0.0, glm::vec3(0.0f, 0.0f, 0.0f));
+      player->rotate(radiansToDegrees(playerYrad), glm::vec3(0.0f, 1.0f, 0.0f));
       
       if (pov) {
          player->draw();

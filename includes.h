@@ -98,7 +98,7 @@
 #define SCALE_CONST1 0.025f
 #define SCALE_CONST2 1.3f
 #define INFLUENCE_WIDTH 2.0f
-#define PLAYER_ROT_DEG 8
+#define PLAYER_ROT_RAD 0.1396
 #define NUM_PLANES_VIEW_FRUSTUM 6
 
 // Game States
