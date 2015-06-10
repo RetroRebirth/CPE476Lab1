@@ -9,17 +9,23 @@ Booth::Booth(glm::vec3 _pos, glm::vec3 _scalar, float _angle, char* _minigame,
     
     // load the booth
     booth[0] = new Object(shapes, materials, ShadeProg);
-    booth[0]->load((char *)"objs/stall_top.obj", (char *)"objs/stall_top.mtl");
+    booth[0]->bumpy = true;
+    booth[0]->load((char *)"objs/stall_top.obj");
     booth[0]->setShadows(true, 0.02, 1.0);
     booth[0]->setTexture(textures[TEX_WOOD_RED]);
+    booth[0]->setNormalmap(textures[TEX_WOOD_NORM]);
     booth[1] = new Object(shapes, materials, ShadeProg);
-    booth[1]->load((char *)"objs/stall_mid.obj", (char *)"objs/stall_mid.mtl");
+    booth[1]->bumpy = true;
+    booth[1]->load((char *)"objs/stall_mid.obj");
     booth[1]->setShadows(true, 0.021, 1.0);
     booth[1]->setTexture(textures[TEX_WOOD_DARK]);
+    booth[1]->setNormalmap(textures[TEX_WOOD_NORM]);
     booth[2] = new Object(shapes, materials, ShadeProg);
-    booth[2]->load((char *)"objs/stall_bottom.obj", (char *)"objs/stall_bottom.mtl");
+    booth[2]->bumpy = true;
+    booth[2]->load((char *)"objs/stall_bottom.obj");
     booth[2]->setShadows(true, 0.022, 1.0);
     booth[2]->setTexture(textures[TEX_WOOD_LIGHT]);
+    booth[2]->setNormalmap(textures[TEX_WOOD_NORM]);
     initBooth(_pos, _scalar, _angle, _minigame);
     
     // initiate bounding box
@@ -44,7 +50,6 @@ void Booth::initBooth(glm::vec3 _pos, glm::vec3 _scalar, float _angle, char* _mi
     bot_scalar = _scalar*0.8f;
     
     // load the booth data
-    //sscanf(data.c_str(), "%s (%f,%f,%f) (%f,%f,%f) (%f,%f,%f) %f %f %f %f %s\n", type, &x0, &y0, &z0, &x1, &y1, &z1, &x2, &y2, &z2, &s0, &s1, &s2, &angle, minigame);
     strcpy(minigame, _minigame);
     // place the booths
     booth[0]->translate(top_pos);
@@ -115,12 +120,6 @@ bool Booth::checkInteract(glm::vec3 player_pos){
       active = true;
    }
    return false;
-  //while(true /*The actual interact check would go here*/ ){
-    //showMessage();
-    //TODO check for whatever interaction
-    //if(interaction is used)
-    //startMinigame();
-  //}
 }
 
 void Booth::calculateBoundingBox() {

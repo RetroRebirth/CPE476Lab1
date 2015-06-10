@@ -19,16 +19,13 @@ varying vec4 vTan;
 varying vec4 vPos;
 varying vec2 vTexCoord;
 varying vec3 lDirCamera;
-varying vec3 eDirCamera;
 
 void main() {
    gl_Position = uP * uV * uM * aPos;
    vNor = uRot * aNor;
    vTan = uRot * vec4(aTangent, 0.0);
-   vPos = uRot * aPos;
    vTexCoord = aTexCoord;
    
    // light and eye direction
    lDirCamera = vec3(-1.0, 1.0, 0.278);
-   eDirCamera = normalize(uView - (uV * uM * aPos).xyz);
 }

@@ -25,11 +25,11 @@
 23 textures/bench.bmp
 24 textures/rock.bmp
 25 textures/sand_lines.bmp
-# NORMAL MAPPED TEXTURES
 26 textures/sand_lines_NRM.bmp
 27 textures/dragon_NRM.bmp
-#28 textures/mermaid_NRM.bmp
-# PLAYER COSTUMES
+28 textures/rock_NRM.bmp
+29 textures/wood_NRM.bmp
+30 textures/watermelon.bmp
 40 textures/girlPerson.bmp
 41 textures/girlBlue.bmp
 42 textures/girlGreen.bmp

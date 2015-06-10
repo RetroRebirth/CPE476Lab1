@@ -513,14 +513,15 @@ void Object::init()
    vector<float> texBuf = shapes[0].mesh.texcoords;
    
    vector<unsigned short> indices;
-   vector<glm::vec3> tangents, bitangents;
-   vector<glm::vec3> indexed_vertices, indexed_normals, indexed_tangents, indexed_bitangents;
+   vector<glm::vec3> tangents;
+   vector<glm::vec3> indexed_vertices, indexed_normals, indexed_tangents;
    vector<glm::vec2> indexed_uvs;
     
     if (bumpy) {
         // Get the tangents and bitangents (for bump mapping)
-        computeTangentBasis(posBuf, texBuf, norBuf, tangents, bitangents);
-        indices = indexVBO_TBN(posBuf, texBuf, norBuf, tangents, bitangents, indices, indexed_vertices, indexed_uvs, indexed_normals, indexed_tangents, indexed_bitangents);
+        computeTangentBasis(posBuf, texBuf, norBuf, tangents);
+        indices = indexVBO_TBN(posBuf, texBuf, norBuf, tangents, indices, indexed_vertices, indexed_uvs, indexed_normals, indexed_tangents);
+        
         // Send the tangents (for bump mapping)
         glGenBuffers(1, &tanBufID);
         glBindBuffer(GL_ARRAY_BUFFER, tanBufID);
@@ -582,7 +583,7 @@ int Object::bind()
       glBindBuffer(GL_ARRAY_BUFFER, texBufID);
       glVertexAttribPointer(h_tex, 2, GL_FLOAT, GL_FALSE, 0, 0);
    }
-   
+   // Enable and bind the tangent coordinates for norma mapping
    if (bumpy) {
       GLint h_tangent = GLSL::getAttribLocation(ShadeProg, "aTangent");
       GLSL::enableVertexAttribArray(h_tangent);
@@ -614,13 +615,6 @@ void Object::draw()
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture_id);
     glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   
-    // Pass along Cook Torrance values
- /* TODO uncomment when cooking torrance
-    glUniform1f(GLSL::getUniformLocation(ShadeProg, "roughness"), roughness);
-    glUniform1f(GLSL::getUniformLocation(ShadeProg, "fresnel"), fresnel);
-    glUniform1f(GLSL::getUniformLocation(ShadeProg, "geometric"), geometric);
- */
    
     // Draw the shadow projection to FBO
     if (castShadows) {
@@ -676,9 +670,7 @@ void Object::draw()
 void Object::computeTangentBasis(vector<float> &vertices,
                                  vector<float> &uvs,
                                  vector<float> &normals,
-                                 
-                                 vector<glm::vec3> &tangents,
-                                 vector<glm::vec3> &bitangents) {
+                                 vector<glm::vec3> &tangents) {
    
    for (int i = 0; i < vertices.size()/3; i+=3) {
       // shortcuts for vertices
@@ -704,15 +696,9 @@ void Object::computeTangentBasis(vector<float> &vertices,
       glm::vec3 bitangent = r*(deltaPos2 * deltaUV1.x - deltaPos1 * deltaUV2.x);
       
       // Set the same tangent for all three vertices of the triangle.
-      // They will be merged later, in vboindexer.cpp
       tangents.push_back(tangent);
       tangents.push_back(tangent);
       tangents.push_back(tangent);
-      
-      // Same thing for binormals
-      bitangents.push_back(bitangent);
-      bitangents.push_back(bitangent);
-      bitangents.push_back(bitangent);
    }
 }
 
@@ -752,33 +738,28 @@ vector<unsigned short> Object::indexVBO_TBN(vector<float> &in_vertices,
                   vector<float> &in_uvs,
                   vector<float> &in_normals,
                   vector<glm::vec3> &in_tangents,
-                  vector<glm::vec3> &in_bitangents,
-                  
                   vector<unsigned short> out_indices,
                   vector<glm::vec3> &out_vertices,
                   vector<glm::vec2> &out_uvs,
                   vector<glm::vec3> &out_normals,
-                  vector<glm::vec3> &out_tangents,
-                  vector<glm::vec3> &out_bitangents) {
+                  vector<glm::vec3> &out_tangents) {
    
    for (int i = 0; i < in_vertices.size()/3; i++) {
       // Try to find a similar vertex in out
       unsigned short index;
       bool found = getSimilarVertexIndex(glm::vec3(in_vertices[3*i+0], in_vertices[3*i+1], in_vertices[3*i+2]),
-                                         glm::vec2(in_uvs[3*i+0], in_uvs[3*i+1]),
-                                         glm::vec3(in_normals[3*i+0], in_normals[3*i+1], in_normals[3*i+2]),
-                                         out_vertices, out_uvs, out_normals, index);
+          glm::vec2(in_uvs[3*i+0], in_uvs[3*i+1]),
+          glm::vec3(in_normals[3*i+0], in_normals[3*i+1], in_normals[3*i+2]),
+          out_vertices, out_uvs, out_normals, index);
+       
       if (found) {
          out_indices.push_back(index);
          out_tangents[index] += in_tangents[i];
-         out_bitangents[index] += in_bitangents[i];
       } else {
          out_vertices.push_back(glm::vec3(in_vertices[3*i+0], in_vertices[3*i+1], in_vertices[3*i+2]));
          out_uvs.push_back(glm::vec2(in_uvs[3*i+0], in_uvs[3*i+1]));
          out_normals.push_back(glm::vec3(in_normals[3*i+0], in_normals[3*i+1], in_normals[3*i+2]));
-         
          out_tangents.push_back(in_tangents[i]);
-         out_bitangents.push_back(in_bitangents[i]);
          out_indices.push_back((unsigned short)out_vertices.size() - 1);
       }
    }
@@ -995,4 +976,3 @@ void Object::shear(float shearX, float shearZ) {
    shearMat[2][0] = 0; shearMat[2][1] = 0; shearMat[2][2] = 1; shearMat[2][3] = 0;
    shearMat[3][0] = 0; shearMat[3][1] = 0; shearMat[3][2] = 0; shearMat[3][3] = 1;
 }
-

@@ -73,8 +73,12 @@ private:
 #define TEX_BENCH 23
 #define TEX_ROCK 24
 #define TEX_SAND_LINE 25
+
 #define TEX_SAND_NORM 26
 #define TEX_DRAGON_NORM 27
+#define TEX_ROCK_NORM 28
+#define TEX_WOOD_NORM 29
+#define TEX_MELON 30
 
 #define TEX_GIRL_RED 40
 #define TEX_GIRL_BLUE 41
@@ -89,8 +93,6 @@ private:
 #define TEX_SONGS 50
 
 #define TEX_FBO_BASIC 500
-#define TEX_FBO_GLOW 501
-#define TEX_FBO_BLUR 502
 
 extern GLuint video_texture;
 extern map<int, GLuint> textures;

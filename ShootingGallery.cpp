@@ -26,13 +26,6 @@ ShootingGallery::ShootingGallery(GLuint _ShadeProg, Sound* _sound) {
    gun->scale(glm::vec3(4.0f, 4.0f, 1.0f));
    gun->setTexture(textures[TEX_STEEL]);
    
-   // Crosshair target
-   crosshair = new Object(shapes, materials, ShadeProg);
-   crosshair->load(TARGET_FILE_NAME);
-   crosshair->setShadows(false, 0.0, 0.0);
-   crosshair->scale(glm::vec3(0.2, 0.2, 0.2));
-   crosshair->setTexture(textures[TEX_TARGET]);
-
    tempFix = new Object(shapes, materials, ShadeProg);
    tempFix->load(TARGET_FILE_NAME);
    tempFix->setShadows(false, 0.0, 0.0);
@@ -114,13 +107,9 @@ void ShootingGallery::step(Window* window) {
     gallery->draw();
     backdrop->draw();
     gun->draw();
-   
-    //crosshair->draw();
-   
+    
     if (!gameStart) {
-        // DISPLAY INSTRUCTIONS
         printInstructions();
-        
         return;
     }
     if (gameOver) {
@@ -150,21 +139,20 @@ void ShootingGallery::step(Window* window) {
         char ln3[20];
         sprintf(ln3, "Press ENTER to exit.");
         fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), ln3, 0-fontEngine->getTextWidth(ln3)/2.0, yPos);
-
         return;
     }
    
    if (ammo <= 0) {
-      global_points += score * 50;
+      global_points += score * targetPoints;
       gameOver = true;
    }
    // Decrement the time limit if not set to unlimited (< 0)
-   if (timeLimit > 0) {
+   else if (timeLimit > 0) {
       timeLimit -= window->dt;
       // If the time limit ran out, begin leaving the minigame
       if (timeLimit <= 0) {
          gameOver = true;
-         global_points += score * 50;
+         global_points += score * targetPoints;
       }
    }
 
@@ -320,6 +308,7 @@ printf("difficulty is now %d\n", difficulty);
          newTargetTime = 3.0f;
          newTargetSpeed = 10.0f;
          newTargetAccel = -4.3f;
+         targetPoints = 10;
          break;
       case 1: // MEDIUM
          ammo = 30;
@@ -327,6 +316,7 @@ printf("difficulty is now %d\n", difficulty);
          newTargetTime = 2.0f;
          newTargetSpeed = 15.0f;
          newTargetAccel = -10.5f;
+         targetPoints = 20;
          break;
       case 2: // HARD
          ammo = 20;
@@ -334,7 +324,7 @@ printf("difficulty is now %d\n", difficulty);
          newTargetTime = 1.5f;
          newTargetSpeed = 20.0f;
          newTargetAccel = -18.0f;
+         targetPoints = 50;
          break;
    }
 }
-

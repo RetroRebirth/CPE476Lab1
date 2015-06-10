@@ -34,11 +34,10 @@ class ShootingGallery {
       
       GLuint ShadeProg;
       Sound* sound;
-      Object* crosshair;
       Object* gun;
       Object* gallery;
       Object* backdrop;
-      int score;
+      int score, targetPoints;
       double elapsedTime;
       void newTarget();
       vector<Object*> bullets;

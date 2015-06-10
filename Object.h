@@ -130,21 +130,16 @@ private:
     void computeTangentBasis(vector<float> &vertices,
                              vector<float> &uvs,
                              vector<float> &normals,
-                             
-                             vector<glm::vec3> &tangents,
-                             vector<glm::vec3> &bitangents);
+                             vector<glm::vec3> &tangents);
     vector<unsigned short> indexVBO_TBN(vector<float> &in_vertices,
                       vector<float> &in_uvs,
                       vector<float> &in_normals,
                       vector<glm::vec3> &in_tangents,
-                      vector<glm::vec3> &in_bitangents,
-                      
                       vector<unsigned short> out_indices,
                       vector<glm::vec3> &out_vertices,
                       vector<glm::vec2> &out_uvs,
                       vector<glm::vec3> &out_normals,
-                      vector<glm::vec3> &out_tangents,
-                      vector<glm::vec3> &out_bitangents);
+                      vector<glm::vec3> &out_tangents);
     float calcYFacingAngle();
     
     // Get the shadow projection matrix (for drawing a shadow)

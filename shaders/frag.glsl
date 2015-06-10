@@ -7,7 +7,6 @@ uniform mat4 uM;
 uniform mat4 uRot;
 uniform vec3 uView;
 uniform float uTrans;
-
 // Texture
 uniform sampler2D uSampler0; // diffuse
 uniform sampler2D uSampler1; // glow
@@ -17,14 +16,11 @@ uniform int BlendMode;
 uniform float BloomAmount;
 // Bump mapping
 uniform int BumpMode;
-
 // Geometry information
 varying vec4 vNor;
 varying vec4 vTan;
-varying vec4 vPos;
 varying vec2 vTexCoord;
 varying vec3 lDirCamera;
-varying vec3 eDirCamera;
 
 void main ()
 {
@@ -52,7 +48,8 @@ void main ()
     if ( BumpMode == 1) {
         //float intensity = max(0.0, dot(newNormal, lDirCamera));
         float intensity = max(0.0, dot(texNorTangent, lDirCamera));
-        dst = diffuse * vec4(lColor * (aIntensity + intensity), uTrans);
+        dst += diffuse * vec4(lColor * (aIntensity + intensity), uTrans);
+        dst /= 2.0;
     }
     // Additive blending (strong result, high overexposure)
     if ( BlendMode == 1 ) {

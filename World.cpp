@@ -639,15 +639,6 @@ void World::parseMapFile(const char* fileName) {
             structure->setShadows(true, 0.01, 0.7);
             structures.push_back(structure);
          }
-         else if (strcmp(type, "petals") == 0) {
-            structure->load((char *)"objs/petals.obj");
-            structure->setTexture(textures[TEX_PETAL]);
-            structure->translate(_pos);
-            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
-            structure->scale(_scalar);
-            structure->setShadows(true, 0.011, 0.7);
-            structures.push_back(structure);
-         }
          else if (strcmp(type, "bench") == 0) {
             structure->load((char *)"objs/bench.obj");
             structure->setTexture(textures[TEX_BENCH]);
@@ -658,12 +649,32 @@ void World::parseMapFile(const char* fileName) {
             structures.push_back(structure);
          }
          else if (strcmp(type, "rock") == 0) {
+            structure->bumpy = true;
             structure->load((char *)"objs/rock.obj");
             structure->setTexture(textures[TEX_ROCK]);
+            structure->setNormalmap(textures[TEX_ROCK_NORM]);
             structure->translate(_pos);
             structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
             structure->scale(_scalar);
             structure->setShadows(true, 0.022, 0.7);
+            structures.push_back(structure);
+         }
+         else if (strcmp(type, "miku") == 0) {
+            structure->load((char *)"objs/miku.obj");
+            structure->setTexture(textures[TEX_MIKU]);
+            structure->translate(_pos);
+            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
+            structure->scale(_scalar);
+            structure->setShadows(true, 0.023, 0.9);
+            structures.push_back(structure);
+         }
+         else if (strcmp(type, "melon") == 0) {
+            structure->load((char *)"objs/watermelon_slice.obj");
+            structure->setTexture(textures[TEX_MELON]);
+            structure->translate(_pos);
+            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
+            structure->scale(_scalar);
+            structure->setShadows(true, 0.023, 0.8);
             structures.push_back(structure);
          }
       }
@@ -732,12 +743,13 @@ void World::createExtras(const string &meshName, int texID) {
 
 void World::createPlayer(const string &meshName, int texID) {
    player = new Object(shapes, materials, ShadeProg);
+   player->bumpy = true;
    player->load(meshName);
    player->setTexture(textures[texID]);
-   player->setTexture(textures[TEX_GIRL_RED]);
    player->scale(glm::vec3(3.0f, 3.0f, 3.0f));
    player->translate(glm::vec3(0.0f, -0.3f, 0.0f));
    player->setShadows(true, 0.03, 1.0);
+   player->bumpy = false;
    camera->initPlayer(player);
     
    playerXZRad = player->getXZRadius();
