@@ -111,9 +111,9 @@ bool Camera::checkStaticObjectCollisions(Object* o, glm::vec3* colPlane) {
       
       if (booths[i]->isActive()) {
          char ln[60];
-         string minigame = booths[i]->getMinigameDisplayName();
+         string minigame = booths[i]->getMinigameSplash();
          fontEngine->useFont("goodDog", 48);
-         sprintf(ln, "Press ENTER to play %s!\n", minigame.c_str());
+         sprintf(ln, "%s!", minigame.c_str());
          fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), ln, 0-fontEngine->getTextWidth(ln)/2.0, 0.3);
       }
       if (booths[i]->booth[1]->planarCollisionCheck(player, colPlane)) {
@@ -299,9 +299,9 @@ void Camera::moveToMinigame() {
    this->pov = false;
 
    // save location and camera
-   this->prevPos = this->player->pos;
-   this->prevTheta = this->theta;
-   this->prevPhi = this->phi;
+   prevPos = player->pos;
+   prevTheta = theta;
+   prevPhi = phi;
 
    // Send camera to the origin
    this->player->pos = glm::vec3(0, 2, 0);
@@ -310,6 +310,7 @@ void Camera::moveToMinigame() {
 }
 
 void Camera::moveToOverworld() {
+   // restore former player position
    player->pos = prevPos;
    theta = prevTheta;
    phi = prevPhi;

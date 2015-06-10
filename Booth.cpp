@@ -160,3 +160,17 @@ const string Booth::getMinigameDisplayName() {
    }
 }
 
+const string Booth::getMinigameSplash() {
+   if (strcmp(minigame, SHOOTING_GALLERY) == 0)
+      return "Press ENTER to play SHOOTING GALLERY";
+   else if (strcmp(minigame, WATERMELON_SMASH) == 0)
+      return "Press ENTER to play WATERMELON SMASH";
+   else if (strcmp(minigame, KARAOKE) == 0)
+      return "Press ENTER to play KARAOKE";
+   else if (strcmp(minigame, SHOP) == 0)
+      return "Press ENTER to SHOP";
+   else {
+      // Booth doesn't have a minigame OR we haven't created a display name for it
+      return "-- BOOTH UNDER CONSTRUCTION --";
+   }
+}

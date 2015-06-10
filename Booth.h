@@ -43,6 +43,7 @@ class Booth {
     
     void getCollisionAxis(glm::vec3 pos, glm::vec3* colPlane);
     const string getMinigameDisplayName();
+    const string getMinigameSplash();
 
   private:
     // Object information
