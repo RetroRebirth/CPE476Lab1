@@ -61,6 +61,8 @@ class Camera {
       GLint h_uV;
       GLint h_uView;
       bool playingMinigame;
+      bool withinBounds;
+      string minigame;
       Object* player;
       float playerYrad;
       bool checkStaticObjectCollisions(Object* o, glm::vec3* colPlane);

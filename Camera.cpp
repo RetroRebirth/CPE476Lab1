@@ -18,6 +18,7 @@ Camera::Camera(
    playingMinigame = false;
    radius = 3.5f;
    playerYrad = 0.0f;
+   withinBounds = false;
 
    // Defined attribute values
    h_uP = _h_uP;
@@ -116,6 +117,8 @@ void Camera::step(Window* window, int game_state) {
 
 bool Camera::checkStaticObjectCollisions(Object* o, glm::vec3* colPlane) {
    bool retVal = false;
+   withinBounds = false;
+   
    for (int i=0; i<UNIFORM_GRID_SIZE; ++i) {
       if (spatialGrid[i].hasPlayer) {
          for (int j=0; j<spatialGrid[i].members.size(); ++j) {
@@ -136,11 +139,12 @@ bool Camera::checkStaticObjectCollisions(Object* o, glm::vec3* colPlane) {
      booths[i]->checkInteract(player->pos);
       
       if (booths[i]->isActive()) {
-         char ln[60];
-         string minigame = booths[i]->getMinigameSplash();
-         fontEngine->useFont("goodDog", 48);
+         withinBounds = true;
+         //char ln[60];
+         minigame = booths[i]->getMinigameSplash();
+         /*fontEngine->useFont("goodDog", 48);
          sprintf(ln, "%s!", minigame.c_str());
-         fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), ln, 0-fontEngine->getTextWidth(ln)/2.0, 0.3);
+         fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), ln, 0-fontEngine->getTextWidth(ln)/2.0, 0.3);*/
       }
       /*if (booths[i]->booth[1]->planarCollisionCheck(player, colPlane)) {
          return true;
@@ -284,6 +288,14 @@ glm::vec3 Camera::calcNewPos(Window* window) {
       
       if (pov) {
          player->draw();
+      }
+      
+      if (withinBounds) {
+         char ln[60];
+         //string minigame = booths[i]->getMinigameSplash();
+         fontEngine->useFont("goodDog", 48);
+         sprintf(ln, "%s!", minigame.c_str());
+         fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), ln, 0-fontEngine->getTextWidth(ln)/2.0, 0.3);
       }
    }
    

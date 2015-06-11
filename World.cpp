@@ -270,10 +270,10 @@ void World::step(Window* window) {
       drawGround();
       drawOverWorld();
    }
-   camera->step(window, game_state);
    if (!inGame) {
       skybox->draw(camera, window);
    }
+   camera->step(window, game_state);
 }
 
 void World::grassWave(Window* window) {
