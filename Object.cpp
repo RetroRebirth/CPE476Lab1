@@ -518,6 +518,7 @@ void Object::init()
    vector<glm::vec2> indexed_uvs;
     
     if (bumpy) {
+        /*
         // Get the tangents and bitangents (for bump mapping)
         computeTangentBasis(posBuf, texBuf, norBuf, tangents);
         indices = indexVBO_TBN(posBuf, texBuf, norBuf, tangents, indices, indexed_vertices, indexed_uvs, indexed_normals, indexed_tangents);
@@ -526,6 +527,7 @@ void Object::init()
         glGenBuffers(1, &tanBufID);
         glBindBuffer(GL_ARRAY_BUFFER, tanBufID);
         glBufferData(GL_ARRAY_BUFFER, indexed_tangents.size() * sizeof(glm::vec3), &indexed_tangents[0], GL_STATIC_DRAW);
+         */
     }
     // Send the position array to the GPU
     glGenBuffers(1, &posBufID);
@@ -585,10 +587,12 @@ int Object::bind()
    }
    // Enable and bind the tangent coordinates for norma mapping
    if (bumpy) {
+       /*
       GLint h_tangent = GLSL::getAttribLocation(ShadeProg, "aTangent");
       GLSL::enableVertexAttribArray(h_tangent);
       glBindBuffer(GL_ARRAY_BUFFER, tanBufID);
       glVertexAttribPointer(h_tangent, 3, GL_FLOAT, GL_FALSE, 0, 0);
+        */
    }
   
    glm::mat4 R = rotateMat * directionalMat;

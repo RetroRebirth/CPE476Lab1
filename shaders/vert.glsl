@@ -4,7 +4,7 @@
 attribute vec4 aPos;        // vertex coordinates
 attribute vec2 aTexCoord;   // texture coordinates
 attribute vec4 aNor;        // normals
-attribute vec3 aTangent;    // tangents
+//attribute vec3 aTangent;    // tangents
 
 // Matrices
 uniform mat4 uP;            // projection matrix
@@ -15,15 +15,15 @@ uniform vec3 uView;
 
 // Outgoing variables
 varying vec4 vNor;
-varying vec4 vTan;
-varying vec4 vPos;
+//varying vec4 vTan;
+//varying vec4 vPos;
 varying vec2 vTexCoord;
 varying vec3 lDirCamera;
 
 void main() {
    gl_Position = uP * uV * uM * aPos;
    vNor = uRot * aNor;
-   vTan = uRot * vec4(aTangent, 0.0);
+   //vTan = uRot * vec4(aTangent, 0.0);
    vTexCoord = aTexCoord;
    
    // light and eye direction

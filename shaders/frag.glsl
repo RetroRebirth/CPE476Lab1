@@ -18,7 +18,7 @@ uniform float BloomAmount;
 uniform int BumpMode;
 // Geometry information
 varying vec4 vNor;
-varying vec4 vTan;
+//varying vec4 vTan;
 varying vec2 vTexCoord;
 varying vec3 lDirCamera;
 
@@ -30,6 +30,7 @@ void main ()
     
     // local normal in tangent space
     vec3 texNorTangent = normalize(2 * norm.rgb - 1);
+    /*
     vec3 normal = normalize(mat3(uV * uM) * vNor.xyz);
     vec3 tangent = normalize(mat3(uV * uM) * vTan.xyz);
     tangent = normalize(tangent - dot(tangent, normal) * normal);
@@ -37,6 +38,7 @@ void main ()
     vec3 bumpNormal = 2.0 * norm.xyz - vec3(1.0, 1.0, 1.0);
     mat3 TBN = mat3(tangent, bitangent, normal);
     vec3 newNormal = normalize(TBN * bumpNormal);
+     */
     
     // rendered scene w/ directional lighting
     vec3 lColor = vec3(1.0, 1.0, 1.0);
