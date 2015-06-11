@@ -123,8 +123,11 @@ void ShootingGallery::step(Window* window) {
         else if (difficulty == 1) {
            sprintf(diff2, "Intermediate");
         }
-        else {
+        else if (difficulty == 2) {
            sprintf(diff2, "Hard");
+        }
+        else {
+           sprintf(diff2, "Extreme");
         }   
 
         fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), diff2, 0-fontEngine->getTextWidth(diff2)/2.0, .85-fontEngine->getTextHeight(diff2)*1.3);
@@ -135,7 +138,7 @@ void ShootingGallery::step(Window* window) {
         float yPos = .3;
         float yInc;
 
-        char ln1[20];
+        char ln1[30];
         
         if (ammo == 0) {
            sprintf(ln1, "You're out of ammo!");
@@ -195,23 +198,22 @@ void ShootingGallery::step(Window* window) {
    for(int i = 0; i< bullets.size(); ++i){
       // If the bullet hasn't gone past the targets OR hasn't fallen off screen, do stuff with it
       if (bullets[i]->getPos().z <= 10.0 && bullets[i]->getPos().y >= -10){
-         if (bullets[i] != NULL) {
-            bullets[i]->setPos(bullets[i]->calculateNewPos(window->dt));
-            bullets[i]->draw();
-            // Check collision of bullet against targets
-            // TODO use spatial data structure
-            for (int j = 0; j < targets.size(); ++j) {
-               if (bullets[i]->collidedWithObj(*targets[j], window->dt)) {
-                  sound->playThwackSound();
-                  // Remove the target
-                  targets.erase(targets.begin() + j);
-                  --j;
-                  // Pop bullet up then drop
-                  bullets[i]->setDir(glm::vec3(0.0, 1.0, 0.0));
-                  bullets[i]->setSpeed(1.0);
-                  bullets[i]->setAccel(-10.0);
-                  score++;
-               }
+         bullets[i]->setPos(bullets[i]->calculateNewPos(window->dt));
+         bullets[i]->draw();
+         // Check collision of bullet against targets
+         // TODO use spatial data structure
+         for (int j = 0; j < targets.size(); ++j) {
+            if (bullets[i]->collidedWithObj(*targets[j], window->dt)) {
+               sound->playThwackSound();
+               // Increment score
+               score++;
+               // Remove the target
+               targets.erase(targets.begin() + j);
+               --j;
+               // Remove the bullet
+               bullets.erase(bullets.begin() + i);
+               --i;
+               break;
             }
          }
       } else {
@@ -243,8 +245,11 @@ void ShootingGallery::textStep(Window* window) {
    else if (difficulty == 1) {
       sprintf(diff, "Intermediate Mode");
    }
-   else {
+   else if (difficulty == 2) {
       sprintf(diff, "Hard Mode");
+   }
+   else {
+      sprintf(diff, "Extreme Mode");
    }   
    fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), diff, 0-fontEngine->getTextWidth(diff)/2.0, yPos - yInc);
    
@@ -274,7 +279,8 @@ void ShootingGallery::mouseClick(glm::vec3 direction, glm::vec4 point) {
    bullet->setDir(direction);
    bullet->setTexture(textures[TEX_WOOD_WALL]);
    bullet->setShadows(false, 0.0, 0.0);
-   bullet->setSpeed(GUN_BULLET_SPD);
+   bullet->setSpeed(30.0f);
+   bullet->setAccel(0.0f);
    bullet->scale(glm::vec3(0.25, 0.25, 0.25));
    bullets.push_back(bullet);
    
@@ -313,7 +319,7 @@ void ShootingGallery::mouseMove(double xpos, double ypos, int width, int height)
 void ShootingGallery::changeDifficulty(int delta) {
    int newDiff = difficulty + delta;
 
-   if (gameStart || newDiff < 0 || newDiff > 2)
+   if (gameStart || newDiff < 0 || newDiff > 3)
       return;
 
    difficulty = newDiff;
@@ -322,25 +328,33 @@ printf("difficulty is now %d\n", difficulty);
 
    switch (difficulty) {
       case 0: // EASY
-         ammo = 50;
-         timeLimit = 45.0f;
+         ammo = 20;
+         timeLimit = 30.0f;
          newTargetTime = 3.0f;
          newTargetSpeed = 10.0f;
-         newTargetAccel = -4.3f;
+         newTargetAccel = -4.5f;
          targetPoints = 10;
          break;
       case 1: // MEDIUM
          ammo = 30;
-         timeLimit = 30.0f;
+         timeLimit = 45.0f;
          newTargetTime = 2.0f;
          newTargetSpeed = 15.0f;
          newTargetAccel = -10.5f;
          targetPoints = 20;
          break;
       case 2: // HARD
-         ammo = 20;
-         timeLimit = 20.0f;
-         newTargetTime = 1.5f;
+         ammo = 60;
+         timeLimit = 60.0f;
+         newTargetTime = 1.0f;
+         newTargetSpeed = 20.0f;
+         newTargetAccel = -18.0f;
+         targetPoints = 50;
+         break;
+      case 3: // EXTREME
+         ammo = 60;
+         timeLimit = 30.0f;
+         newTargetTime = 0.5f;
          newTargetSpeed = 20.0f;
          newTargetAccel = -18.0f;
          targetPoints = 50;

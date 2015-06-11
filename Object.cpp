@@ -955,10 +955,11 @@ void Object::drawBox() {
 }
 
 glm::vec3 Object::calculateNewPos(float dt) {
+   glm::vec3 newPos = glm::vec3(pos.x, pos.y, pos.z);
    if (vel > 0.0 || changeDir)
       vel += accel * dt;
-   pos += dir * vel * dt;
-   return pos;
+   newPos += dir * vel * dt;
+   return newPos;
 }
 
 void Object::setShadows(bool shadows, float height, float dark) {
