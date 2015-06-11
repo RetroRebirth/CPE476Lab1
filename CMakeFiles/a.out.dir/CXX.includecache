@@ -255,6 +255,8 @@ ParticleTexture.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/ParticleTexture.h
 FontEngine.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
+Object.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Object.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/ShootingGallery.cpp
 ShootingGallery.h
@@ -864,6 +866,8 @@ fstream
 map
 -
 string
+-
+vector
 -
 ft2build.h
 -

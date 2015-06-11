@@ -55,6 +55,15 @@ Booth::Booth(glm::vec3 _pos, glm::vec3 _scalar, float _angle, char* _minigame,
         decoration->scale(glm::vec3(2.0,2.0,2.0));
         decoration->setShadows(true, 0.023, 0.8);
     }
+    else if (strcmp(_minigame, "shop") == 0) {
+        decoration = new Object(shapes, materials, ShadeProg);
+        decoration->load((char *)"objs/bow.obj");
+        decoration->setTexture(textures[TEX_GIRL_RED]);
+        decoration->translate(glm::vec3(-10.0,2.4,-15.0));
+        decoration->rotate(180.0, glm::vec3(0.0f, 1.0f, 0.0f));
+        decoration->scale(glm::vec3(2.0,2.0,2.0));
+        decoration->setShadows(true, 0.023, 0.8);
+    }
 }
 
 void Booth::initBooth(glm::vec3 _pos, glm::vec3 _scalar, float _angle, char* _minigame) {
