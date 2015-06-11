@@ -77,7 +77,10 @@ void Camera::setView() {
    glm::mat4 view_mat = lookAtMat;
 
    safe_glUniformMatrix4fv(h_uV, glm::value_ptr(view_mat));
-   glUniform3f(h_uView, player->pos.x, player->pos.y, player->pos.z);
+   // TODO get the position of the camera itself, not the player's position
+   glm::vec3 camPos = player->pos;// - (glm::vec3(5*dir.x, 5*dir.y, 5*dir.z));
+//   glUniform3f(h_uView, player->pos.x, player->pos.y, player->pos.z);
+   glUniform3f(h_uView, camPos.x, camPos.y, camPos.z);
 
    if (!debug) {
       View = view_mat;
