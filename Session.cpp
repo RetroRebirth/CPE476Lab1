@@ -40,6 +40,11 @@ Session::~Session() {
    delete world;
    delete sound;
    delete minigame;
+   
+   // free uninform spatial data structure
+   for (int i=0; i<UNIFORM_GRID_SIZE; ++i) {
+      spatialGrid[i].members.clear();
+   }
 }
 
 /**

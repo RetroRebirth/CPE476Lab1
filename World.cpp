@@ -49,18 +49,34 @@ World::~World() {
       delete extras[i]->object;
       delete extras[i];
    }
+   extras.clear();
    for (int i=0; i<structures.size(); ++i) {
       delete structures[i];
    }
+   structures.clear();
    for (int i=0; i<booths.size(); ++i) {
       delete booths[i];
    }
+   booths.clear();
    for (int i=0; i<fountainParticles.size(); ++i) {
       delete fountainParticles[i];
    }
+   fountainParticles.clear();
+   for (int i=0; i<fireflyParticles.size(); ++i) {
+      delete fireflyParticles[i];
+   }
+   fireflyParticles.clear();
+   for (int i=0; i<fireworkParticles.size(); ++i) {
+      for (int j=0; j<fireworkParticles[i].size(); ++j) {
+         delete fireworkParticles[i][j];
+      }
+      fireworkParticles[i].clear();
+   }
+   fireworkParticles.clear();
    for (int i=0; i<grass.size(); ++i) {
       delete grass[i];
    }
+   grass.clear();
 }
 
 void fireflyFunc(glm::vec3* pos, glm::vec3* vel, glm::vec3* grav, glm::vec4* color, float time) {

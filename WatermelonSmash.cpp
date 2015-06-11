@@ -39,6 +39,13 @@ WatermelonSmash::~WatermelonSmash() {
     for (int i = 0; i < misc_objects.size(); i++)
         delete misc_objects[i];
     delete hammer;
+    for (int i=0; i<fireworks.size(); ++i) {
+      for (int j=0; j<fireworks[i].size(); ++j) {
+         delete fireworks[i][j];
+      }
+      fireworks[i].clear();
+   }
+   fireworks.clear();
 }
 
 void WatermelonSmash::setUp() {
