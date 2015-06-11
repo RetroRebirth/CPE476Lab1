@@ -90,6 +90,7 @@ private:
 
     // bounding box debug
     void drawBox();
+    bool existsInVoxel(int index);
     
     float vel, accel, shine;
     bool changeDir;

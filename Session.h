@@ -11,6 +11,7 @@
 #include "Program.h"
 #include "ParticleTexture.h"
 #include "FontEngine.h"
+#include "Object.h"
 
 #define GAME 2
 

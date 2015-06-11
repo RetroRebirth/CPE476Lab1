@@ -307,6 +307,15 @@ bool Object::checkPlayerCollision(Object* player, glm::vec3* colPlane) {
    return true;
 }
 
+bool Object::existsInVoxel(int index) {
+   for (int i = 0; i < spatialGrid[index].members.size(); ++i) {
+      if (spatialGrid[index].members[i] == this) {
+         return true;
+      }
+   }
+   return false;
+}
+
 void Object::getBounds(struct bound_box *_bounds) {
    
    float x_min, x_max, y_min, y_max, z_min, z_max; 
@@ -315,6 +324,18 @@ void Object::getBounds(struct bound_box *_bounds) {
       glm::vec4 v;
       v = glm::vec4(posBuf[i], posBuf[i+1], posBuf[i+2], 1.0f);
       v = modelMat * v;
+      
+      // check vertex against spatial data structure to add object where it belongs
+      for (int j = 0; j < UNIFORM_GRID_SIZE; ++j) {
+         // only do check if we no its not in there yet
+         if (!existsInVoxel(j)) {
+            if (v.x > spatialGrid[j].x_min && v.x < spatialGrid[j].x_max && v.z > spatialGrid[j].z_min && v.z < spatialGrid[j].z_max) {
+               spatialGrid[j].members.push_back(this);
+            }
+         }
+      }
+      
+      // bound box stuff 
       if (i == 0) { 
          // initialize _bounds on first pass
          x_min = x_max = v.x;

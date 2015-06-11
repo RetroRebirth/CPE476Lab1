@@ -17,6 +17,7 @@
 #include <fstream>
 #include <map>
 #include <string>
+#include <vector>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
@@ -100,6 +101,7 @@
 #define INFLUENCE_WIDTH 2.0f
 #define PLAYER_ROT_RAD 0.1396
 #define NUM_PLANES_VIEW_FRUSTUM 6
+#define UNIFORM_GRID_SIZE 100
 
 // Game States
 #define WORLD_STATE 0
@@ -139,6 +141,17 @@ struct bound_box {
 struct plane {
    float a, b, c, d;
 };
+
+// spatial data structure voxel (2D)
+typedef struct data_struct {
+   float x_min, x_max;
+   float z_min, z_max;
+   vector<void*> members;
+   bool hasPlayer;
+}voxel;
+
+// uniform grid spatial data structure
+extern voxel spatialGrid[UNIFORM_GRID_SIZE];
 
 // number of points the player currently has
 extern int global_points;

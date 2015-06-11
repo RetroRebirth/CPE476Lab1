@@ -465,7 +465,7 @@ void World::drawOverWorld() {
          structures[i]->drawBounds = false;
       }
       else {
-         structures[i]->drawBounds = true;
+         //structures[i]->drawBounds = true;
       }
          
    }
@@ -487,15 +487,15 @@ void World::drawOverWorld() {
          booths[i]->booth[1]->drawBounds = false;
       }
       else {
-         booths[i]->booth[1]->drawBounds = true;
+         //booths[i]->booth[1]->drawBounds = true;
       }
    }
    
    for (int i=0; i<structures.size(); ++i) {
-      structures[i]->getBounds(&(structures[i]->bounds));
+      //structures[i]->getBounds(&(structures[i]->bounds));
    }
    for (int i=0; i<booths.size(); ++i) {
-      booths[i]->calculateBoundingBox();
+      //booths[i]->calculateBoundingBox();
    }
 }
 
@@ -542,6 +542,21 @@ void World::setupOverWorld() {
     structures.push_back(wall4);
    
    parseMapFile(MAP_FILE_NAME);
+   
+   // initialize spatial data structure
+   float gridDimension = (int)sqrt((double)UNIFORM_GRID_SIZE);
+   for (int i=0; i<gridDimension; ++i) { // rows (z)
+      for (int j=0; j<gridDimension; ++j) { // cols (x)
+         int index = j + (i * gridDimension);
+         spatialGrid[index].members.clear();
+         spatialGrid[index].hasPlayer = false;
+         
+         spatialGrid[index].x_min = -SIZE + (float)(j * gridDimension);
+         spatialGrid[index].x_max = -SIZE + (float)((j+1) * gridDimension);
+         spatialGrid[index].z_min = -SIZE + (float)(i * gridDimension);
+         spatialGrid[index].z_max = -SIZE + (float)((i+1) * gridDimension);
+      }
+   }
    
    // initialize world along with bounding boxes
    drawOverWorld();

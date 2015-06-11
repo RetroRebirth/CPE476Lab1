@@ -5,6 +5,8 @@ map<string, Program*> shaders;
 int global_points;
 int game_state;
 
+voxel spatialGrid[UNIFORM_GRID_SIZE];
+
 Session::Session() {
    window = new Window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
    initGL();
