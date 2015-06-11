@@ -12,7 +12,7 @@ Camera::Camera(
    theta = -M_PI/2.0f;
    phi = 0.0f;
    debug = false;
-   speed = 15.0f;
+   speed = 10.0f;
    blocked = false;
    pov = true;
    playingMinigame = false;

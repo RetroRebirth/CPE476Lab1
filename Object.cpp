@@ -61,18 +61,6 @@ void Object::scale(glm::vec3 scaler) {
 }
 
 void Object::setDir(glm::vec3 direction) {
-   /*float dot1 = glm::dot(direction, glm::vec3(0.0f, 0.0f, 1.0f));//, direction);
-   float dot2 = glm::dot(glm::vec3(0.0f, 0.0f, 1.0f), direction);
-   //dir_angle = acos(fmin(dot1,dot2));
-   float angle1 = acos(dot1);
-   float angle2 = acos(dot2);
-   dir_angle = fmin(angle1,angle2);
-   directionalMat = glm::rotate(glm::mat4(1.0f), -1.0f*(float)(dir_angle*180.0f/M_PI), glm::vec3(0.0f, 1.0f, 0.0f));*/
-   /*float dotProd = glm::dot(glm::vec3(0.0f, 0.0f, 1.0f), direction);
-   //float dotProd = glm::dot(direction, glm::vec3(0.0f, 0.0f, 1.0f));
-   dotProd = dotProd / ((float)glm::length(direction) * (float)glm::length(glm::vec3(0.0f, 0.0f, 1.0f)));
-   float dirAngle = acos(dotProd);
-   directionalMat = glm::rotate(glm::mat4(1.0f), (float)(dirAngle*180.0f/M_PI), glm::vec3(0.0f, 1.0f, 0.0f));*/
    direction = glm::normalize(direction);
    if (glm::all(glm::equal(direction, glm::vec3(0.0f, 0.0f, 1.0f)))) {
       directionalMat = glm::mat4(1.0f);//glm::rotate(glm::mat4(1.0f), , glm::vec3(0.0f, 1.0f, 0.0f));
@@ -379,6 +367,7 @@ bool Object::voxelOverlap(int index) {
 void Object::getBounds(struct bound_box *_bounds) {
    
    float x_min, x_max, y_min, y_max, z_min, z_max; 
+   x_min = x_max = y_min = y_max = z_min = z_max = -1.0f;
    
    if (!isTree) {
       const vector<float> &posBuf = shapes[0].mesh.positions;
@@ -386,8 +375,6 @@ void Object::getBounds(struct bound_box *_bounds) {
          glm::vec4 v;
          v = glm::vec4(posBuf[i], posBuf[i+1], posBuf[i+2], 1.0f);
          v = modelMat * v;
-         
-         
          
          // bound box stuff 
          if (i == 0) { 
@@ -420,12 +407,12 @@ void Object::getBounds(struct bound_box *_bounds) {
       }
    }
    else {
-      x_min = pos.x - TREE_WIDTH;
+      /*x_min = pos.x - TREE_WIDTH;
       x_max = pos.x + TREE_WIDTH;
       y_min = pos.y - TREE_WIDTH;
       y_max = pos.y + TREE_WIDTH;
       z_min = pos.z - TREE_WIDTH;
-      z_max = pos.z + TREE_WIDTH;
+      z_max = pos.z + TREE_WIDTH;*/
    }
       
    _bounds->x_min = x_min;
