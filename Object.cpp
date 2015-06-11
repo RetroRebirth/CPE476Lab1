@@ -709,28 +709,29 @@ void Object::draw()
     glUniform1i(texLoc, 2);
     
     // Enable basic FBO
-    glBindFramebuffer(GL_FRAMEBUFFER, FBO_Basic);
-    glClear(GL_DEPTH_BUFFER_BIT);
-    glEnable(GL_DEPTH_TEST);
-    
-    // Draw the object to FBO
     if (!reflective) {
-       glActiveTexture(GL_TEXTURE0);
-       glBindTexture(GL_TEXTURE_2D, texture_id);
-       glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-    }
-    // Draw the shadow projection to FBO
-    if (castShadows) {
-        glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), shadowDarkness);
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_BACK);
+        glBindFramebuffer(GL_FRAMEBUFFER, FBO_Basic);
+        glClear(GL_DEPTH_BUFFER_BIT);
+        glEnable(GL_DEPTH_TEST);
+        
+        // Draw the object to FBO
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, TEX_MISC);
-        glm::mat4 sT = glm::translate(glm::mat4(1.0f), glm::vec3(0, -.45 + shadowHeight, 0)) * ShadowMatrix();
-        Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(sT*modelMat));
+        glBindTexture(GL_TEXTURE_2D, texture_id);
         glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-        glDisable(GL_CULL_FACE);
-        glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), 1.0);
+        
+        // Draw the shadow projection to FBO
+        if (castShadows) {
+            glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), shadowDarkness);
+            glEnable(GL_CULL_FACE);
+            glCullFace(GL_BACK);
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, TEX_MISC);
+            glm::mat4 sT = glm::translate(glm::mat4(1.0f), glm::vec3(0, -.45 + shadowHeight, 0)) * ShadowMatrix();
+            Util::safe_glUniformMatrix4fv(h_uM, glm::value_ptr(sT*modelMat));
+            glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+            glDisable(GL_CULL_FACE);
+            glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), 1.0);
+        }
     }
     
     // Draw the object to scene

@@ -212,8 +212,6 @@ void World::step(Window* window) {
    if (!inGame) {
       for (int i=0; i<extras.size(); ++i) {
          struct Extra* extra = extras[i];
-         if (cmpVec3(extra->currPos,extra->targetPos)) {
-         }
          // use alpha to linearly interpolate between startPos and targetPos
          if (extra->rest > 0) {
             extra->rest--;
@@ -237,10 +235,10 @@ void World::step(Window* window) {
       drawGround();
       drawOverWorld();
    }
+   camera->step(window, game_state);
    if (!inGame) {
       skybox->draw(camera, window);
    }
-   camera->step(window, game_state);
 }
 
 void World::grassWave(Window* window) {
