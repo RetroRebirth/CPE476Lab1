@@ -112,10 +112,6 @@ void World::initParticles(Program* prog) {
    // put all possible firework positions into a list
    int i = 0;
    for (float k = -SIZE; k < SIZE-3.0f; ++k) {
-      /*fireworkPositions.push_back(glm::vec3(SIZE+5.0f, 50.0f, k));
-      fireworkPositions.push_back(glm::vec3(-SIZE-5.0f, 50.0f, k));
-      fireworkPositions.push_back(glm::vec3(k, 50.0f, SIZE+5.0f));
-      fireworkPositions.push_back(glm::vec3(k, 50.0f, -SIZE-5.0f));*/
       fireworkPositions[i++] = glm::vec3(SIZE+5.0f, 30.0f, k);
       fireworkPositions[i++] = glm::vec3(-SIZE-5.0f, 30.0f, k);
       fireworkPositions[i++] = glm::vec3(k, 30.0f, SIZE+5.0f);
@@ -129,14 +125,11 @@ void World::initParticles(Program* prog) {
    fireworkColors[4] = GREEN;
    fireworkColors[5] = PURPLE;
    
-   //glm::vec3 fireworkColor = fireworkColors[(int)(randFloat(0.0f,SIZE*8.0f)+0.5f);
    for (int j = 0; j < NUM_FIREWORKS; ++j) {
-      //glm::vec3 fireworkPos = glm::vec3(0.0f, 0.0f, 0.0f);
-      //while ((fireworkPos.x != 0.0f) && (fireworkPos.y != 0.0f) && (fireworkPos.z != 0.0f)) {
       glm::vec3 fireworkPos = fireworkPositions[(int)(randFloat(0.0f,SIZE*8.0f)+0.5f)];
       if ((fireworkPos.x < SIZE && fireworkPos.x > -SIZE) && (fireworkPos.z < SIZE && fireworkPos.z > -SIZE))
          continue;
-      //}
+         
       glm::vec3 fireworkCol = fireworkColors[(int)(randFloat(0.0f,(float)COLOR_COUNT-1.0f)+0.5f)];
       float startTime = randFloat(0.0f, 40.0f);
       
@@ -145,16 +138,13 @@ void World::initParticles(Program* prog) {
          Particle* particle = new Particle();
          particle->load();
          particle->setTexture(textures[TEX_PARTICLE]);
-         //particle->setRandPosList(fireworkPositions, (int)(SIZE*8.0f));
          particle->setStartPos(fireworkPos);
          particle->setStartVel(glm::vec3(randFloat(-0.2f, 0.2f), randFloat(-0.2f, 0.2f), randFloat(-0.2f, 0.2f)));
          particle->setStartCol(fireworkCol);
          particle->setStartTTL(40.0f);
          particle->startTime = startTime;
-         //particle->setStartOpacity(0.8f);
          particle->setStartScale(1.5f);
          particle->setOpacityTaper(true);
-         //particle->setUpdateFunc(&fireflyFunc);
          particles.push_back(particle);
          
          particles[i]->init(prog);
@@ -201,25 +191,13 @@ void World::particleStep(Program* prog, Window* window) {
 	   fireflyParticles[i]->draw(&MV);
 	}
 	
-	//int temp_cycles[NUM_FIREWORKS];
-	//bool randomizePositions = false;
-	//glm::vec3 newPosition = glm::vec3(0.0f, 0.0f, 0.0f);
 	for (int i=0; i<fireworkParticles.size(); ++i) {
-	   /*if (temp_cycles[i] != fireworkParticles[i][0]->cycles) {
-	      randomizePositions = true;
-	      //newPosition = fireworkPositions[(int)(randFloat(0.0f,SIZE*8.0f)+0.5f)];
-	   }
-	   temp_cycles[i] = fireworkParticles[i][0]->cycles;*/
       std::sort(fireworkParticles[i].begin(), fireworkParticles[i].end(), sorter);
 	      
 	   for (int j=0; j<fireworkParticles[i].size(); ++j) {
-	      /*if (randomizePositions) {
-	         fireworkParticles[i][j]->setStartPos(newPosition);
-	      }*/
 	      fireworkParticles[i][j]->update(t, h, glm::vec3(0.0f, -0.001f, 0.0f));
 	      fireworkParticles[i][j]->draw(&MV);
 	   }
-	  // randomizePositions = false;
 	}
 	// Unbind the program
 	prog->unbind();
@@ -227,33 +205,22 @@ void World::particleStep(Program* prog, Window* window) {
 
 void World::step(Window* window) {
 
-//   printf("\n\n\n\n\n\n\n");
-
 	float alpha = std::fmod(window->dt, 1.0f);
-	//printf("alpha: %f\n",alpha);
    
    bool playerHit = false;
    
    if (!inGame) {
       for (int i=0; i<extras.size(); ++i) {
          struct Extra* extra = extras[i];
-         //extra->step();
          if (cmpVec3(extra->currPos,extra->targetPos)) {
-            if (extra->rest == 0) {
-               //extra->rest = 100;
-            }
          }
          // use alpha to linearly interpolate between startPos and targetPos
-         //extra->currPos.x += alpha;
-         //extra->object->pos = extra->currPos;
          if (extra->rest > 0) {
             extra->rest--;
          }
          if (extra->rest == 0) {
-            //extra->object->pos.x += alpha;
             if (!passedTarget(extra)) {
                extra->object->pos += extra->object->getDir() * alpha;
-               //extra->object->setDir(extra->object->getDir());
                extra->currPos = extra->object->pos;
             }
             else {
@@ -264,7 +231,7 @@ void World::step(Window* window) {
             }
          }
          extra->object->pos.y = 0.6f;
-         drawObject(extra->object);//->draw();
+         drawObject(extra->object);
       }
       grassWave(window);
       drawGround();
@@ -512,7 +479,7 @@ void World::setupOverWorld() {
     Object* wall1 = new Object(shapes, materials, ShadeProg);
     wall1->load(WALL_FILE_NAME);
     wall1->setPos(glm::vec3(-SIZE-0.5f, 5.0f, 0.0f));
-    wall1->scale(glm::vec3(1.0f, 10.0f, SIZE*2.0f));
+    wall1->scale(glm::vec3(1.0f, 10.0f, SIZE*2.5f));
     wall1->setTexture(textures[TEX_WOOD_WALL]);
     strcpy(wall1->type, "wall");
     structures.push_back(wall1);
@@ -520,7 +487,7 @@ void World::setupOverWorld() {
     Object* wall2 = new Object(shapes, materials, ShadeProg);
     wall2->load(WALL_FILE_NAME);
     wall2->setPos(glm::vec3(SIZE+0.5f, 5.0f, 0.0f));
-    wall2->scale(glm::vec3(1.0f, 10.0f, SIZE*2.0f));
+    wall2->scale(glm::vec3(1.0f, 10.0f, SIZE*2.5f));
     wall2->setTexture(textures[TEX_WOOD_WALL]);
     strcpy(wall2->type, "wall");
     structures.push_back(wall2);
@@ -528,7 +495,7 @@ void World::setupOverWorld() {
     Object* wall3 = new Object(shapes, materials, ShadeProg);
     wall3->load(WALL_FILE_NAME);
     wall3->setPos(glm::vec3(0.0f, 5.0f, -SIZE-0.5f));
-    wall3->scale(glm::vec3(SIZE*2.0f, 10.0f, 1.0f));
+    wall3->scale(glm::vec3(SIZE*2.5f, 10.0f, 1.0f));
     wall3->setTexture(textures[TEX_WOOD_WALL]);
     strcpy(wall3->type, "wall");
     structures.push_back(wall3);
@@ -536,7 +503,7 @@ void World::setupOverWorld() {
     Object* wall4 = new Object(shapes, materials, ShadeProg);
     wall4->load(WALL_FILE_NAME);
     wall4->setPos(glm::vec3(0.0f, 5.0f, SIZE+0.5f));
-    wall4->scale(glm::vec3(SIZE*2.0f, 10.0f, 1.0f));
+    wall4->scale(glm::vec3(SIZE*2.5f, 10.0f, 1.0f));
     wall4->setTexture(textures[TEX_WOOD_WALL]);
     strcpy(wall4->type, "wall");
     structures.push_back(wall4);
@@ -729,6 +696,7 @@ void World::createExtras(const string &meshName, int texID) {
       extra = new struct Extra;
       extra->object = new Object(shapes, materials, ShadeProg);
       extra->object->load(meshName);
+      //extra->object->setDirectional(true);
       extra->object->setShadows(true, 0.03, 1.0);
       extra->object->setTexture(textures[texID]);
       extra->object->scale(glm::vec3(3.0f, 3.0f, 3.0f));
