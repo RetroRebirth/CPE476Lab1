@@ -62,6 +62,7 @@ class Camera {
       Object* player;
       float playerYrad;
       bool checkStaticObjectCollisions(Object* o, glm::vec3* colPlane);
+      //void updateSDS();
 
       //glm::vec3 setPlayerPos();
       inline void safe_glUniformMatrix4fv(const GLint handle, const GLfloat data[]);

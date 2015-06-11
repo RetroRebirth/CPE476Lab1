@@ -47,6 +47,9 @@ Object::Object(
    shadowDarkness = 1.0;
    setTexture(textures[MISC_TYPE]);
    xzRadius = -1.0f;
+   
+   drawBounds = false;
+   isTree = false;
 }
 
 Object::~Object() {}
@@ -316,9 +319,7 @@ bool Object::existsInVoxel(int index) {
    return false;
 }
 
-void Object::getBounds(struct bound_box *_bounds) {
-   
-   float x_min, x_max, y_min, y_max, z_min, z_max; 
+void Object::checkForPlayer() { 
    const vector<float> &posBuf = shapes[0].mesh.positions;
 	for(int i = 0; i < (int)posBuf.size(); i += 3) {
       glm::vec4 v;
@@ -327,50 +328,100 @@ void Object::getBounds(struct bound_box *_bounds) {
       
       // check vertex against spatial data structure to add object where it belongs
       for (int j = 0; j < UNIFORM_GRID_SIZE; ++j) {
+         spatialGrid[j].hasPlayer = false;
          // only do check if we no its not in there yet
-         if (!existsInVoxel(j)) {
+         //if (!existsInVoxel(j)) {
             if (v.x > spatialGrid[j].x_min && v.x < spatialGrid[j].x_max && v.z > spatialGrid[j].z_min && v.z < spatialGrid[j].z_max) {
-               spatialGrid[j].members.push_back(this);
+               spatialGrid[j].hasPlayer = true;
+            }
+        // }
+      }     
+   }
+}
+
+bool Object::voxelOverlap(int index) {
+   if ((spatialGrid[index].x_max < bounds.x_min) || (spatialGrid[index].x_min > bounds.x_max)) {
+      return false;
+   }
+   if ((spatialGrid[index].z_max < bounds.z_min) || (spatialGrid[index].z_min > bounds.z_max)) {
+      return false;
+   }
+   return true;
+}
+
+void Object::getBounds(struct bound_box *_bounds) {
+   
+   float x_min, x_max, y_min, y_max, z_min, z_max; 
+   
+   if (!isTree) {
+      const vector<float> &posBuf = shapes[0].mesh.positions;
+	   for(int i = 0; i < (int)posBuf.size(); i += 3) {
+         glm::vec4 v;
+         v = glm::vec4(posBuf[i], posBuf[i+1], posBuf[i+2], 1.0f);
+         v = modelMat * v;
+         
+         
+         
+         // bound box stuff 
+         if (i == 0) { 
+            // initialize _bounds on first pass
+            x_min = x_max = v.x;
+            y_min = y_max = v.y;
+            z_min = z_max = v.z;
+         }
+         else {
+            // establish spatial relationships
+            if (v.x < x_min) {
+               x_min = v.x;
+            }
+            else if (v.x > x_max) {
+               x_max = v.x;
+            }
+            if (v.y < y_min) {
+               y_min = v.y;
+            }
+            else if (v.y > y_max) {
+               y_max = v.y;
+            }
+            if (v.z < z_min) {
+               z_min = v.z;
+            }
+            else if (v.z > z_max) {
+               z_max = v.z;
             }
          }
       }
-      
-      // bound box stuff 
-      if (i == 0) { 
-         // initialize _bounds on first pass
-         x_min = x_max = v.x;
-         y_min = y_max = v.y;
-         z_min = z_max = v.z;
-      }
-      else {
-         // establish spatial relationships
-         if (v.x < x_min) {
-            x_min = v.x;
-         }
-         else if (v.x > x_max) {
-            x_max = v.x;
-         }
-         if (v.y < y_min) {
-            y_min = v.y;
-         }
-         else if (v.y > y_max) {
-            y_max = v.y;
-         }
-         if (v.z < z_min) {
-            z_min = v.z;
-         }
-         else if (v.z > z_max) {
-            z_max = v.z;
-         }
-      }
    }
-    
+   else {
+      x_min = pos.x - TREE_WIDTH;
+      x_max = pos.x + TREE_WIDTH;
+      y_min = pos.y - TREE_WIDTH;
+      y_max = pos.y + TREE_WIDTH;
+      z_min = pos.z - TREE_WIDTH;
+      z_max = pos.z + TREE_WIDTH;
+   }
+      
    _bounds->x_min = x_min;
    _bounds->x_max = x_max;
    _bounds->y_min = y_min;
    _bounds->y_max = y_max;
    _bounds->z_min = z_min;
    _bounds->z_max = z_max;
+      
+   
+   // check vertex against spatial data structure to add object where it belongs
+   for (int j = 0; j < UNIFORM_GRID_SIZE; ++j) {
+      // only do check if we no its not in there yet
+      if (!existsInVoxel(j)) {
+         
+         if (voxelOverlap(j)) {
+            spatialGrid[j].members.push_back(this);
+         }
+         //if (v.x > spatialGrid[j].x_min && v.x < spatialGrid[j].x_max && v.z > spatialGrid[j].z_min && v.z < spatialGrid[j].z_max) {
+            //spatialGrid[j].members.push_back(this);
+         //}
+      }
+   }
    
    // ok set up the planes just x and z unless we need this for y too...
    struct plane x1, x2, z1, z2;

@@ -83,6 +83,20 @@ void Camera::setView() {
    }
 }
 
+/*void Camera::updateSDS() {
+   player->getBounds(&(player->bounds));
+   for (int i=0; i<UNIFORM_GRID_SIZE; ++i) {
+      spatialGrid[i].hasPlayer = false;
+      for (int j=0; j<spatialGrid[i].members.size(); ++j) {
+         if (spatialGrid[i].members[j] == player) {
+            spatialGrid[i].hasPlayer = true;
+            printf("something has player!\n");
+            break;
+         }
+      }
+   }
+}*/
+
 void Camera::step(Window* window, int game_state) {
 
    if (game_state == TITLE_STATE) {
@@ -101,11 +115,22 @@ void Camera::step(Window* window, int game_state) {
 }
 
 bool Camera::checkStaticObjectCollisions(Object* o, glm::vec3* colPlane) {
-   for (int i=0; i<structures.size(); ++i) {
+   for (int i=0; i<UNIFORM_GRID_SIZE; ++i) {
+      if (spatialGrid[i].hasPlayer) {
+         for (int j=0; j<spatialGrid[i].members.size(); ++j) {
+            if (spatialGrid[i].members[j] != player) {
+               if (((Object*)spatialGrid[i].members[j])->planarCollisionCheck(player, colPlane)) {
+                  return true;
+               }
+            }
+         }
+      }
+   }
+   /*for (int i=0; i<structures.size(); ++i) {
       if (structures[i]->planarCollisionCheck(player, colPlane)) {
          return true;
       }
-   }
+   }*/
    for (int i=0; i<booths.size(); ++i) {
      booths[i]->checkInteract(player->pos);
       
@@ -116,9 +141,9 @@ bool Camera::checkStaticObjectCollisions(Object* o, glm::vec3* colPlane) {
          sprintf(ln, "%s!", minigame.c_str());
          fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), ln, 0-fontEngine->getTextWidth(ln)/2.0, 0.3);
       }
-      if (booths[i]->booth[1]->planarCollisionCheck(player, colPlane)) {
+      /*if (booths[i]->booth[1]->planarCollisionCheck(player, colPlane)) {
          return true;
-      }
+      }*/
    }
    return false;
 }
@@ -210,6 +235,8 @@ glm::vec3 Camera::calcNewPos(Window* window) {
   }
 
    if (player != NULL) {
+   
+      player->checkForPlayer();
    
       // run hit detection on this so called new position!
       glm::vec3 colPlane = glm::vec3(0.0f, 0.0f, 0.0f);

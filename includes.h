@@ -101,6 +101,7 @@
 #define INFLUENCE_WIDTH 2.0f
 #define PLAYER_ROT_RAD 0.1396
 #define NUM_PLANES_VIEW_FRUSTUM 6
+#define TREE_WIDTH 0.5f
 #define UNIFORM_GRID_SIZE 100
 
 // Game States

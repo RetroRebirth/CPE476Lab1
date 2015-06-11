@@ -123,6 +123,7 @@ bool Booth::checkInteract(glm::vec3 player_pos){
 }
 
 void Booth::calculateBoundingBox() {
+   booth[2]->getBounds(&(booth[2]->bounds));
    booth[1]->getBounds(&bounds);
    influence_bounds.x_min = bounds.x_min - INFLUENCE_WIDTH;
    influence_bounds.x_max = bounds.x_max + INFLUENCE_WIDTH;

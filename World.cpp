@@ -645,10 +645,11 @@ void World::parseMapFile(const char* fileName) {
          else if (strcmp(type, "tree") == 0){
             structure->load((char *)"objs/tree.obj");
             structure->setTexture(textures[TEX_TREE]);
-            structure->translate(_pos);
+            structure->setPos(_pos);
             structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
             structure->scale(_scalar);
             structure->setShadows(true, 0.01, 0.7);
+            structure->isTree = true;
             structures.push_back(structure);
          }
          else if (strcmp(type, "bench") == 0) {

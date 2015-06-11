@@ -65,6 +65,7 @@ public:
     vector<tinyobj::shape_t> getShapes() { return shapes; }
     vector<tinyobj::material_t> getMaterials() { return materials; }
     glm::mat4 getModelMatrix();
+    void checkForPlayer();
     
     // modifiers
     void scale(glm::vec3 scalar);
@@ -77,6 +78,8 @@ public:
     bool drawBounds;
     float radius, xzRadius;
     void shear(float shearX, float shearZ);
+    
+    bool isTree;
     
     // Rendering information
     bool reflective, screenRender, bumpy;
@@ -91,6 +94,7 @@ private:
     // bounding box debug
     void drawBox();
     bool existsInVoxel(int index);
+    bool voxelOverlap(int index);
     
     float vel, accel, shine;
     bool changeDir;
