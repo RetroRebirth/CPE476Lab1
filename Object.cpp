@@ -86,6 +86,15 @@ void Object::setDir(glm::vec3 direction) {
    else if (glm::all(glm::equal(direction, glm::vec3(-1.0f, 0.0f, 0.0f)))) {
       directionalMat = glm::rotate(glm::mat4(1.0f), -90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
    }
+   else {
+      float dot1 = glm::dot(direction, glm::vec3(0.0f, 0.0f, 1.0f));//, direction);
+      float dot2 = glm::dot(glm::vec3(0.0f, 0.0f, 1.0f), direction);
+      dir_angle = acos(fmin(dot1,dot2));
+      float angle1 = acos(dot1);
+      float angle2 = acos(dot2);
+      dir_angle = fmin(angle1,angle2);
+      directionalMat = glm::rotate(glm::mat4(1.0f), -1.0f*(float)(dir_angle*180.0f/M_PI), glm::vec3(0.0f, 1.0f, 0.0f));
+   }
    dir = direction;
 }
 
