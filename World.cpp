@@ -236,10 +236,19 @@ void World::step(Window* window) {
       drawOverWorld();
    }
    
+   camera->step(window, game_state);   
+   
    if (!inGame) {
       skybox->draw(camera, window);
    }
-   camera->step(window, game_state);
+   
+   if (camera->getWithinBounds() & !inGame) {
+      char ln[60];
+      string minigame = camera->getMinigameText();
+      fontEngine->useFont("goodDog", 48);
+      sprintf(ln, "%s!", minigame.c_str());
+      fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), ln, 0-fontEngine->getTextWidth(ln)/2.0, 0.3);
+   }
 }
 
 void World::grassWave(Window* window) {

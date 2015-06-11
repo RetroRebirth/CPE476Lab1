@@ -32,6 +32,7 @@ class Camera {
       vector<Object*> structures;
 
       string getMinigameText();
+      bool getWithinBounds();
       void initPlayer(Object *_player);
       Object* getPlayer() { return player; }
       float getXRot();

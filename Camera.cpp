@@ -160,6 +160,10 @@ string Camera::getMinigameText() {
    return minigame;
 }
 
+bool Camera::getWithinBounds() {
+   return withinBounds;
+}
+
 void Camera::applyProjectionMatrix(MatrixStack* P) {
    P->multMatrix(Projection);
 }
@@ -297,13 +301,13 @@ glm::vec3 Camera::calcNewPos(Window* window) {
          player->draw();
       }
       
-      if (withinBounds) {
+      /*if (withinBounds) {
          char ln[60];
          //string minigame = booths[i]->getMinigameSplash();
          fontEngine->useFont("goodDog", 48);
          sprintf(ln, "%s!", minigame.c_str());
          fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), ln, 0-fontEngine->getTextWidth(ln)/2.0, 0.3);
-      }
+      }*/
    }
    
    return newPos;
