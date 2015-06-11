@@ -85,6 +85,7 @@ void Shop::setUp() {
         (char *)"Shiny Bow"
     };
     int outfit_prices[] = { 300, 300, 300, 500, 500, 500, 750, 750, 750 };
+
     // Load the outfits
     for (int i = TEX_GIRL_BLUE; i <= TEX_GIRL_MERMAID + 1; i++) {
         Item newItem;
@@ -138,7 +139,7 @@ void Shop::buyItem() {
                 player->setTexture(textures[items[curItem].index]);
                 player->reflective = false;
             }
-//            camera->initPlayer(player);
+            //camera->initPlayer(player);
         }
     }
 }
@@ -223,21 +224,21 @@ void Shop::step(Window* window) {
     
     char bought[50];
     if (buySong > 0.0) {
-       sprintf(bought, "Bought %s\n", boughtItem.name);
+       sprintf(bought, "Bought %s", boughtItem.name);
        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), bought, 0-fontEngine->getTextWidth(bought)/2.0, .85);
        
        char song[50];       
-       printf(song, "You can now play this song in the karaoke booth!");
+       sprintf(song, "You can now play this song in the karaoke booth!");
        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), song, 0-fontEngine->getTextWidth(song)/2.0, .85-yInc);       
        
        buySong -= window->dt;
     } 
     if (buyOtft > 0.0) {
-       sprintf(bought, "Bought %s\n", boughtItem.name);
+       sprintf(bought, "Bought %s", boughtItem.name);
        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), bought, 0-fontEngine->getTextWidth(bought)/2.0, .85);
        
-       char otft[50];       
-       printf(otft, "You put on a snazzy new outfit!");
+       char otft[40];       
+       sprintf(otft, "You put on a snazzy new outfit!");
        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), otft, 0-fontEngine->getTextWidth(otft)/2.0, .85-yInc);       
        
        buyOtft -= window->dt;
