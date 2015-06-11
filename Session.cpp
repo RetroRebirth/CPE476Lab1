@@ -217,7 +217,7 @@ void Session::step() {
    
    char txt[30];
    sprintf(txt, "Matsuriyo!");
-   if (game_state == WORLD_STATE) {
+   if (game_state == WORLD_STATE || game_state == MINIGAME_STATE) {
       fontEngine->useFont("goodDog", 48);
       fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), txt, -1.0, 0.9);
    } else if (game_state == TITLE_STATE) {
@@ -226,7 +226,7 @@ void Session::step() {
       char subtext[30];
       sprintf(subtext, "Press ENTER to play");
       fontEngine->useFont("goodDog", 48);
-      fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), txt, -0.5, -0.2);
+      fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), subtext, -0.5, -0.2);
    }
    
    char pts[15];

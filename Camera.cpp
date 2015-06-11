@@ -164,6 +164,10 @@ glm::vec3 Camera::calcNewPos(Window* window) {
       }
       
       if (glfwGetKey(win, GLFW_KEY_S) == GLFW_PRESS) { // Move backward
+         if (abs(playerYrad - theta) > 0.00001) {
+            playerYrad = -theta + (M_PI/2);
+         }
+         
          newPos.x -= moveInc * viewVector.x; //sin(playerYrad);
          newPos.z -= moveInc * viewVector.z; //cos(playerYrad);
       }
