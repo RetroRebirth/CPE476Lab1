@@ -138,7 +138,7 @@ void Shop::buyItem() {
                 player->setTexture(textures[items[curItem].index]);
                 player->reflective = false;
             }
-            camera->initPlayer(player);
+//            camera->initPlayer(player);
         }
     }
 }
