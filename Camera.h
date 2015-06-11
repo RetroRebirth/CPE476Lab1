@@ -7,6 +7,8 @@
 #include "Booth.h"
 //#include "World.h"
 
+#define PLAYER_OFFSET 0.005f
+
 class Camera {
    public:
       bool debug;

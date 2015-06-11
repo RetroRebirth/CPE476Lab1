@@ -115,12 +115,13 @@ void Camera::step(Window* window, int game_state) {
 }
 
 bool Camera::checkStaticObjectCollisions(Object* o, glm::vec3* colPlane) {
+   bool retVal = false;
    for (int i=0; i<UNIFORM_GRID_SIZE; ++i) {
       if (spatialGrid[i].hasPlayer) {
          for (int j=0; j<spatialGrid[i].members.size(); ++j) {
             if (spatialGrid[i].members[j] != player) {
                if (((Object*)spatialGrid[i].members[j])->planarCollisionCheck(player, colPlane)) {
-                  return true;
+                  retVal = true;
                }
             }
          }
@@ -145,7 +146,7 @@ bool Camera::checkStaticObjectCollisions(Object* o, glm::vec3* colPlane) {
          return true;
       }*/
    }
-   return false;
+   return retVal;
 }
 
 void Camera::applyProjectionMatrix(MatrixStack* P) {
@@ -220,7 +221,7 @@ glm::vec3 Camera::calcNewPos(Window* window) {
    }
 
    // Bounding
-  if (!debug) {
+  /*if (!debug) {
      float s = SIZE - 0.2f;
      if (newPos.x < -s)
         newPos.x = -s;
@@ -232,7 +233,7 @@ glm::vec3 Camera::calcNewPos(Window* window) {
         newPos.z = s;
 
      newPos.y = radius/2.0f;
-  }
+  }*/
 
    if (player != NULL) {
    
@@ -242,28 +243,31 @@ glm::vec3 Camera::calcNewPos(Window* window) {
       glm::vec3 colPlane = glm::vec3(0.0f, 0.0f, 0.0f);
       if (checkStaticObjectCollisions(player, &colPlane)) {
          // there is a hit...
-         if (colPlane.x == -1.0f) { // hit minimum x plane
+         if (colPlane.x != 0.0f && colPlane.z != 0.0f) {
+            newPos = glm::vec3(prevPos.x+(10.0f*PLAYER_OFFSET*colPlane.x), newPos.y, prevPos.z+(10.0f*PLAYER_OFFSET*colPlane.z));
+         }
+         else if (colPlane.x == -1.0f) { // hit minimum x plane
             //printf("hit minimum x plane\n");
             if (newPos.x > prevPos.x) {
-               newPos = glm::vec3(prevPos.x-0.001f, newPos.y, newPos.z);
+               newPos = glm::vec3(prevPos.x-PLAYER_OFFSET, newPos.y, newPos.z);
             }
          }
          else if (colPlane.x == 1.0f) { // hit maximum x plane
             //printf("hit maximum x plane\n");
             if (newPos.x < prevPos.x) {
-               newPos = glm::vec3(prevPos.x+0.001f, newPos.y, newPos.z);
+               newPos = glm::vec3(prevPos.x+PLAYER_OFFSET, newPos.y, newPos.z);
             }
          }
          else if (colPlane.z == -1.0f) { // hit minimum z plane
             //printf("hit minimum z plane\n");
             if (newPos.z > prevPos.z) {
-               newPos = glm::vec3(newPos.x, newPos.y, prevPos.z-0.001f);
+               newPos = glm::vec3(newPos.x, newPos.y, prevPos.z-PLAYER_OFFSET);
             }
          }
          else if (colPlane.z == 1.0f) { // hit maximum z plane
             //printf("hit maximum z plane\n");
             if (newPos.z < prevPos.z) {
-               newPos = glm::vec3(newPos.x, newPos.y, prevPos.z+0.001f);
+               newPos = glm::vec3(newPos.x, newPos.y, prevPos.z+PLAYER_OFFSET);
             }
          }
          else {

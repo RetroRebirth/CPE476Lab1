@@ -134,7 +134,7 @@ void World::initParticles(Program* prog) {
       //glm::vec3 fireworkPos = glm::vec3(0.0f, 0.0f, 0.0f);
       //while ((fireworkPos.x != 0.0f) && (fireworkPos.y != 0.0f) && (fireworkPos.z != 0.0f)) {
       glm::vec3 fireworkPos = fireworkPositions[(int)(randFloat(0.0f,SIZE*8.0f)+0.5f)];
-      if ((fireworkPos.x == 0.0f) && (fireworkPos.y == 0.0f) && (fireworkPos.z == 0.0f))
+      if ((fireworkPos.x < SIZE && fireworkPos.x > -SIZE) && (fireworkPos.z < SIZE && fireworkPos.z > -SIZE))
          continue;
       //}
       glm::vec3 fireworkCol = fireworkColors[(int)(randFloat(0.0f,(float)COLOR_COUNT-1.0f)+0.5f)];
@@ -511,7 +511,7 @@ void World::setupOverWorld() {
     // build walls based on map size
     Object* wall1 = new Object(shapes, materials, ShadeProg);
     wall1->load(WALL_FILE_NAME);
-    wall1->setPos(glm::vec3(-SIZE-0.5f, 2.5f, 0.0f));
+    wall1->setPos(glm::vec3(-SIZE-0.5f, 5.0f, 0.0f));
     wall1->scale(glm::vec3(1.0f, 10.0f, SIZE*2.0f));
     wall1->setTexture(textures[TEX_WOOD_WALL]);
     strcpy(wall1->type, "wall");
@@ -519,7 +519,7 @@ void World::setupOverWorld() {
 
     Object* wall2 = new Object(shapes, materials, ShadeProg);
     wall2->load(WALL_FILE_NAME);
-    wall2->setPos(glm::vec3(SIZE+0.5f, 2.5f, 0.0f));
+    wall2->setPos(glm::vec3(SIZE+0.5f, 5.0f, 0.0f));
     wall2->scale(glm::vec3(1.0f, 10.0f, SIZE*2.0f));
     wall2->setTexture(textures[TEX_WOOD_WALL]);
     strcpy(wall2->type, "wall");
@@ -527,7 +527,7 @@ void World::setupOverWorld() {
 
     Object* wall3 = new Object(shapes, materials, ShadeProg);
     wall3->load(WALL_FILE_NAME);
-    wall3->setPos(glm::vec3(0.0f, 2.5f, -SIZE-0.5f));
+    wall3->setPos(glm::vec3(0.0f, 5.0f, -SIZE-0.5f));
     wall3->scale(glm::vec3(SIZE*2.0f, 10.0f, 1.0f));
     wall3->setTexture(textures[TEX_WOOD_WALL]);
     strcpy(wall3->type, "wall");
@@ -535,7 +535,7 @@ void World::setupOverWorld() {
 
     Object* wall4 = new Object(shapes, materials, ShadeProg);
     wall4->load(WALL_FILE_NAME);
-    wall4->setPos(glm::vec3(0.0f, 2.5f, SIZE+0.5f));
+    wall4->setPos(glm::vec3(0.0f, 5.0f, SIZE+0.5f));
     wall4->scale(glm::vec3(SIZE*2.0f, 10.0f, 1.0f));
     wall4->setTexture(textures[TEX_WOOD_WALL]);
     strcpy(wall4->type, "wall");
