@@ -2,9 +2,10 @@
 Test your skills by shooting your targets as they appear!
 Use the UP and DOWN arrows to select a difficulty mode
 
-EASY: 45 seconds, 50 balls, 10 points
-MEDIUM: 30 seconds, 30 balls, 20 points
-HARD: 20 seconds, 20 balls, 40 points
+EASY: 30 seconds, 20 balls, 10 points
+MEDIUM: 45 seconds, 30 balls, 20 points
+HARD: 60 seconds, 60 balls, 50 points
+EXTREME: 30 seconds, 60 balls, 50 points
 
 Press ENTER to start the game!
 Press SPACE to quit at any time.

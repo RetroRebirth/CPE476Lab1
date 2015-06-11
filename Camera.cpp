@@ -156,6 +156,10 @@ bool Camera::checkStaticObjectCollisions(Object* o, glm::vec3* colPlane) {
    return retVal;
 }
 
+string Camera::getMinigameText() {
+   return minigame;
+}
+
 void Camera::applyProjectionMatrix(MatrixStack* P) {
    P->multMatrix(Projection);
 }

@@ -31,6 +31,7 @@ class Camera {
       vector<Booth*> booths;
       vector<Object*> structures;
 
+      string getMinigameText();
       void initPlayer(Object *_player);
       Object* getPlayer() { return player; }
       float getXRot();

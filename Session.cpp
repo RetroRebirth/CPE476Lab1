@@ -245,13 +245,17 @@ void Session::step() {
       fontEngine->useFont("goodDog", 36);   
       fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), pts, -.98, 0.9-(fontEngine->getTextHeight(txt)*1.1));      
    } else if (game_state == TITLE_STATE) {
-      fontEngine->useFont("goodDog", 72);
+      fontEngine->useFont("goodDog", 100);
       fontEngine->display(glm::vec4(1.0, 0.22, 0.22, 1.0), txt, -0.75, -0.1);
+
+      char subtext1[30];
+      sprintf(subtext1, "Use WASD to move");
+      fontEngine->useFont("goodDog", 50);      
+      fontEngine->display(glm::vec4(1.0, 0.22, 0.22, 1.0), subtext1, -0.75, -0.25);
    
-      char subtext[30];
-      sprintf(subtext, "Press ENTER to play");
-      fontEngine->useFont("goodDog", 48);
-      fontEngine->display(glm::vec4(1.0, 0.22, 0.22, 1.0), subtext, -0.75, -0.3);
+      char subtext2[30];
+      sprintf(subtext2, "Press ENTER to play");
+      fontEngine->display(glm::vec4(1.0, 0.22, 0.22, 1.0), subtext2, -0.75, -0.25-fontEngine->getTextHeight(subtext1)*1.3);
    }
    /*
    char txt[30];

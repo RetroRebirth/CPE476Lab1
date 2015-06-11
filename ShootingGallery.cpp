@@ -81,7 +81,7 @@ void ShootingGallery::printInstructions() {
    ifstream instrFile;
    instrFile.open("sginstr.txt");
    string line;
-   float yPos = .45;
+   float yPos = .55;
    float yInc;
    
    fontEngine->useFont("chunk5", 35);
