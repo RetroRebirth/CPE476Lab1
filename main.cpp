@@ -54,6 +54,10 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
    case GLFW_KEY_P:
       camera->pov = !camera->pov;
       break;
+   case GLFW_KEY_G:
+      // FUCK BITCHES GET MONEY
+      global_points = 999999;
+      break;
    case GLFW_KEY_UP:
       if (camera->speed < MAX_SPEED)
          camera->speed += DELTA_SPEED;
