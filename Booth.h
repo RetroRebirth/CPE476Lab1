@@ -51,6 +51,8 @@ class Booth {
     float interactRadius;   // can enter within this range
     bool active;            // whether or not booth can be interacted with
     
+    Object* decoration;
+    
     // Minigame information
     char* interactMessage;  // message shown when within interaction
     char minigame[20];         // minigame associated with this booth

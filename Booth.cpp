@@ -35,6 +35,26 @@ Booth::Booth(glm::vec3 _pos, glm::vec3 _scalar, float _angle, char* _minigame,
     interactRadius = 4.0f;
     active = false;
     interactMessage = NULL;
+    decoration = NULL;
+    
+    if (strcmp(_minigame, "watermelon_smash") == 0) {
+        decoration = new Object(shapes, materials, ShadeProg);
+        decoration->load((char *)"objs/watermelon_slice.obj");
+        decoration->setTexture(textures[TEX_MELON]);
+        decoration->translate(glm::vec3(-10.0,2.3,17.0));
+        decoration->rotate(0.0, glm::vec3(0.0f, 1.0f, 0.0f));
+        decoration->scale(glm::vec3(3.0,3.0,3.0));
+        decoration->setShadows(true, 0.023, 0.8);
+    }
+    else if (strcmp(_minigame, "shooting_gallery") == 0) {
+        decoration = new Object(shapes, materials, ShadeProg);
+        decoration->load((char *)"objs/target.obj");
+        decoration->setTexture(textures[TEX_TARGET]);
+        decoration->translate(glm::vec3(10.0,2.75,17.0));
+        decoration->rotate(180.0, glm::vec3(0.0f, 1.0f, 0.0f));
+        decoration->scale(glm::vec3(2.0,2.0,2.0));
+        decoration->setShadows(true, 0.023, 0.8);
+    }
 }
 
 void Booth::initBooth(glm::vec3 _pos, glm::vec3 _scalar, float _angle, char* _minigame) {
@@ -67,12 +87,19 @@ Booth::~Booth(){
     delete booth[0];
     delete booth[1];
     delete booth[2];
+    if (decoration != NULL) {
+        delete decoration;
+        decoration = NULL;
+    }
 }
 
 void Booth::draw() {
     booth[0]->draw();
     booth[1]->draw();
     booth[2]->draw();
+    
+    if (decoration != NULL)
+        decoration->draw();
 }
 
 //Shows the message to the screen through whatever magic we're going to use

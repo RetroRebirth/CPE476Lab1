@@ -673,22 +673,13 @@ void World::parseMapFile(const char* fileName) {
             structures.push_back(structure);
          }
          else if (strcmp(type, "miku") == 0) {
-            structure->load((char *)"objs/miku.obj");
-            structure->setTexture(textures[TEX_MIKU]);
-            structure->translate(_pos);
-            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
-            structure->scale(_scalar);
-            structure->setShadows(true, 0.023, 0.9);
-            structures.push_back(structure);
-         }
-         else if (strcmp(type, "melon") == 0) {
-            structure->load((char *)"objs/watermelon_slice.obj");
-            structure->setTexture(textures[TEX_MELON]);
-            structure->translate(_pos);
-            structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
-            structure->scale(_scalar);
-            structure->setShadows(true, 0.023, 0.8);
-            structures.push_back(structure);
+             structure->load((char *)"objs/miku.obj");
+             structure->setTexture(textures[TEX_MIKU]);
+             structure->translate(_pos);
+             structure->rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
+             structure->scale(_scalar);
+             structure->setShadows(true, 0.023, 0.9);
+             structures.push_back(structure);
          }
       }
       mapFile.close();
