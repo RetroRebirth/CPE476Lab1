@@ -110,6 +110,25 @@ void ShootingGallery::step(Window* window) {
     
     if (!gameStart) {
         printInstructions();
+        
+        char diff1[40];
+        sprintf(diff1, "Difficulty Mode:");
+        fontEngine->useFont("chunk5", 35);
+        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), diff1, 0-fontEngine->getTextWidth(diff1)/2.0, .85);
+        
+        char diff2[20];
+        if (difficulty == 0) {
+           sprintf(diff2, "Easy");
+        }
+        else if (difficulty == 1) {
+           sprintf(diff2, "Intermediate");
+        }
+        else {
+           sprintf(diff2, "Hard");
+        }   
+
+        fontEngine->display(glm::vec4(1.0, 1.0, 1.0, 1.0), diff2, 0-fontEngine->getTextWidth(diff2)/2.0, .85-fontEngine->getTextHeight(diff2)*1.3);
+        
         return;
     }
     if (gameOver) {
