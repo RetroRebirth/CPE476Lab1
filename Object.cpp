@@ -34,7 +34,7 @@ Object::Object(
    h_aNor = GLSL::getAttribLocation(ShadeProg, "aNor");
               
    reflective = bumpy = directional = drawBounds = false;
-   screenRender = screenRender = castShadows = changeDir = true;
+   screenRender = castShadows = changeDir = true;
 
    pos = glm::vec3(0.0f, 0.0f, 0.0f);
    dimensions = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -714,9 +714,11 @@ void Object::draw()
     glEnable(GL_DEPTH_TEST);
     
     // Draw the object to FBO
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture_id);
-    glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+    if (!reflective) {
+       glActiveTexture(GL_TEXTURE0);
+       glBindTexture(GL_TEXTURE_2D, texture_id);
+       glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
+    }
     // Draw the shadow projection to FBO
     if (castShadows) {
         glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), shadowDarkness);
@@ -735,9 +737,6 @@ void Object::draw()
     if (screenRender) {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glActiveTexture(GL_TEXTURE0);
-        if (reflective) {
-            
-        }
         glBindTexture(GL_TEXTURE_2D, reflective ? FBO_TBasic : texture_id);
         glUniform1i(GLSL::getUniformLocation(ShadeProg, "BumpMode"), 0);
         if (bumpy) {

@@ -7,6 +7,7 @@
 #include "Window.h"
 #include "Sound.h"
 #include "FontEngine.h"
+#include "Camera.h"
 
 #define OUTFIT_TYPE "outfit"
 #define CHARACTER_TYPE "model"
