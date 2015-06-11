@@ -25,7 +25,7 @@ Session::Session() {
    game_start = false;
    global_points = 0;
    xInc = 1.0f;
-   startTime = 10.0;
+   startTime = 25.0;
    punLine = 0;
    
    world->initParticles(shaders[SHADER_BILLBOARD]);
@@ -226,12 +226,12 @@ void Session::step() {
       fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), txt, -1.0, 0.9);
    
 
-      if (window->time - startTime <= 10.0) {
+      if (window->time - startTime <= 25.0) {
          char pun[100];
          sprintf(pun, "%s", getLine().c_str());
          fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), pun, xInc, 0.9);
          
-         xInc -= 0.03f;
+         xInc -= 0.015f;
       }
       else {
          startTime = window->time;
