@@ -293,6 +293,8 @@ Sound.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/Sound.h
 FontEngine.h
 /Users/kayla/Projects/Graphics/CPE476Lab1/FontEngine.h
+Camera.h
+/Users/kayla/Projects/Graphics/CPE476Lab1/Camera.h
 
 /Users/kayla/Projects/Graphics/CPE476Lab1/SkyBox.cpp
 SkyBox.h
