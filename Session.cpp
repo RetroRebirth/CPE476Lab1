@@ -220,21 +220,21 @@ void Session::step() {
    if (game_state == WORLD_STATE || game_state == MINIGAME_STATE) {
       fontEngine->useFont("goodDog", 48);
       fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), txt, -1.0, 0.9);
+   
+      char pts[15];
+      sprintf(pts, "Points: %d", global_points);
+      fontEngine->useFont("goodDog", 36);   
+      fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), pts, -.98, 0.9-(fontEngine->getTextHeight(txt)*1.1));
    } else if (game_state == TITLE_STATE) {
       fontEngine->useFont("goodDog", 72);
-      fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), txt, -0.5, 0.0);
+      fontEngine->display(glm::vec4(1.0, 0.22, 0.22, 1.0), txt, -0.75, -0.1);
+   
       char subtext[30];
       sprintf(subtext, "Press ENTER to play");
       fontEngine->useFont("goodDog", 48);
-      fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), subtext, -0.5, -0.2);
+      fontEngine->display(glm::vec4(1.0, 0.22, 0.22, 1.0), subtext, -0.75, -0.3);
    }
-   
-   char pts[15];
-   sprintf(pts, "Points: %d", global_points);
-   fontEngine->useFont("goodDog", 36);   
-   fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), pts, -.98, 0.9-(fontEngine->getTextHeight(txt)*1.1));
-
-/*
+   /*
    char txt[30];
    sprintf(txt, "Matsuriyo!");
    fontEngine->useFont("goodDog", 48);
