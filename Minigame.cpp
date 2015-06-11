@@ -67,11 +67,7 @@ void Minigame::arrowPress(int key) {
         }
     }
     if (shop != NULL) {
-         if (key == GLFW_KEY_UP)
-             shop->nextCategory();
-         else if (key == GLFW_KEY_DOWN)
-             shop->prevCategory();
-         else if (key == GLFW_KEY_LEFT)
+         if (key == GLFW_KEY_LEFT)
              shop->prevItem();
          else if (key == GLFW_KEY_RIGHT)
              shop->nextItem();

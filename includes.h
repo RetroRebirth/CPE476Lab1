@@ -144,5 +144,7 @@ struct plane {
 extern int global_points;
 // frame buffer objects
 extern GLuint FBO_Basic, FBO_CBasic, FBO_DBasic, FBO_TBasic;
+// defines current state of game... consts defined in includes.h
+extern int game_state;
 
 #endif

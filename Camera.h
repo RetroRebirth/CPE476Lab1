@@ -46,6 +46,8 @@ class Camera {
       glm::vec3 calcNewPos(Window* window);//, bool playerHit, glm::vec3 colPlane);
       void moveToMinigame();
       void moveToOverworld();
+      void flipCamera() { theta += Util::degreesToRadians(180.0f); }
+    
    private:
       glm::vec3 prevPos;
       float theta;

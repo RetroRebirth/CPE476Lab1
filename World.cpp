@@ -264,16 +264,13 @@ void World::step(Window* window) {
             }
          }
          extra->object->pos.y = 0.6f;
-//printf("EXTRAS\n");
          drawObject(extra->object);//->draw();
       }
       grassWave(window);
       drawGround();
       drawOverWorld();
    }
-
-   
-//   camera->step(window, WORLD_STATE);
+   camera->step(window, game_state);
    if (!inGame) {
       skybox->draw(camera, window);
    }

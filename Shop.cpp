@@ -7,7 +7,7 @@ Shop::Shop(GLuint _ShadeProg, Sound* _sound, Camera* _camera) {
     curItem = 0;
     gameStart = false;
     
-    items.reserve(7);
+    //items.reserve(7);
 
     tooPoor = 0.0;
     prePurch = 0.0;
@@ -84,7 +84,7 @@ void Shop::setUp() {
         (char *)"Bubbly Bow",
         (char *)"Shiny Bow"
     };
-    int outfit_prices[] = { 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+    int outfit_prices[] = { 300, 300, 300, 500, 500, 500, 750, 750, 750 };
     // Load the outfits
     for (int i = TEX_GIRL_BLUE; i <= TEX_GIRL_MERMAID + 1; i++) {
         Item newItem;
@@ -96,7 +96,7 @@ void Shop::setUp() {
         Object *object = new Object(shapes, materials, ShadeProg);
         object->load((char *)"objs/bow.obj");
         object->setTexture(textures[newItem.index]);
-        object->scale(glm::vec3(3, 3, 3));
+        object->scale(glm::vec3(3.0, 3.0, 3.0));
         object->setPos(glm::vec3(0.0, 2.7, 3.0));
         object->setShadows(false, 0.0, 0.0);
         newItem.object = object;
@@ -125,13 +125,11 @@ void Shop::buyItem() {
         
         // Item is a song; unlock it
         if (strcmp(items[curItem].type, SONG_TYPE) == 0) {
-            printf("You can now play this song in the karaoke booth!\n");
             buySong = 2.0; //HERE
             sound->unlockSong(items[curItem].index);
         }
         // Item is an outfit; put it on the player
         if (strcmp(items[curItem].type, OUTFIT_TYPE) == 0) {
-            printf("You put on a snazzy new outfit\n");
             buyOtft = 2.0; //HERE
             Object *player = camera->getPlayer();
             if (items[curItem].index > TEX_GIRL_MERMAID)
@@ -262,12 +260,6 @@ void Shop::nextItem() {
             curItem = 0;
         sound->playJumpSound();
     }
-}
-void Shop::prevCategory() {
-    
-}
-void Shop::nextCategory() {
-    
 }
 void Shop::selectItem() {
     buyItem();

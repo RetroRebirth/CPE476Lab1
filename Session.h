@@ -34,9 +34,6 @@ class Session {
       bool gameEnded() { return minigame->getGameOver(); }
       void startMinigame();
     
-      // defines current state of game... consts defined in includes.h
-      int game_state;
-   
    private:
       Window* window;
       Camera* camera;

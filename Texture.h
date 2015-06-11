@@ -97,4 +97,5 @@ private:
 extern GLuint video_texture;
 extern map<int, GLuint> textures;
 void loadAllTextures();
+
 #endif

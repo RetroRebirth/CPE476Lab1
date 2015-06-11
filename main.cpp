@@ -78,7 +78,7 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) 
       // Press enter to start playing from title screen
       if (session->getGameState() == TITLE_STATE) {
          session->getCamera()->pov = true;
-         session->game_state = WORLD_STATE;
+         game_state = WORLD_STATE;
       }
       // Enter the minigame if in the world
       else if (session->getGameState() == WORLD_STATE) {

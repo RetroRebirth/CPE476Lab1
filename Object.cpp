@@ -32,26 +32,21 @@ Object::Object(
    h_uM = GLSL::getUniformLocation(ShadeProg, "uM");
    h_aPos = GLSL::getAttribLocation(ShadeProg, "aPos");
    h_aNor = GLSL::getAttribLocation(ShadeProg, "aNor");
-   reflective = false;
-   screenRender = true;
+              
+   reflective = bumpy = directional = drawBounds = false;
+   screenRender = screenRender = castShadows = changeDir = true;
 
    pos = glm::vec3(0.0f, 0.0f, 0.0f);
    dimensions = glm::vec3(1.0f, 1.0f, 1.0f);
    dir = glm::vec3(0.0f, 0.0f, 1.0f);
    vel = 0.0f;
    accel = 1.0f;
-   changeDir = true;
    planes.reserve(4*sizeof(plane));
    
-   directional = false;
-   bumpy = false;
-   screenRender = true;
-   castShadows = true;
    shadowHeight = 0;
    shadowDarkness = 1.0;
    setTexture(textures[MISC_TYPE]);
    xzRadius = -1.0f;
-   drawBounds = false;
 }
 
 Object::~Object() {}
@@ -609,6 +604,10 @@ void Object::draw()
 {
     // Bind the object information to the shader
     int nIndices = bind();
+    GLint texLoc = GLSL::getUniformLocation(ShadeProg, "uSampler0");
+    glUniform1i(texLoc, 0);
+    texLoc = GLSL::getUniformLocation(ShadeProg, "uSampler2");
+    glUniform1i(texLoc, 2);
     
     // Enable basic FBO
     glBindFramebuffer(GL_FRAMEBUFFER, FBO_Basic);
@@ -619,7 +618,6 @@ void Object::draw()
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture_id);
     glDrawElements(GL_TRIANGLES, nIndices, GL_UNSIGNED_INT, 0);
-   
     // Draw the shadow projection to FBO
     if (castShadows) {
         glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), shadowDarkness);
@@ -637,14 +635,12 @@ void Object::draw()
     // Draw the object to scene
     if (screenRender) {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        GLint texLoc;
-        texLoc = GLSL::getUniformLocation(ShadeProg, "uSampler0");
-        glUniform1i(texLoc, 0);
-        texLoc = GLSL::getUniformLocation(ShadeProg, "uSampler2");
-        glUniform1i(texLoc, 2);
-        
         glActiveTexture(GL_TEXTURE0);
+        if (reflective) {
+            
+        }
         glBindTexture(GL_TEXTURE_2D, reflective ? FBO_TBasic : texture_id);
+        glUniform1i(GLSL::getUniformLocation(ShadeProg, "BumpMode"), 0);
         if (bumpy) {
             glUniform1i(GLSL::getUniformLocation(ShadeProg, "BumpMode"), 1);
             glActiveTexture(GL_TEXTURE2);
@@ -668,7 +664,7 @@ void Object::draw()
             glUniform1f(GLSL::getUniformLocation(ShadeProg, "uTrans"), 1.0);
         }
     }
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    //glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void Object::computeTangentBasis(vector<float> &vertices,

@@ -3,6 +3,7 @@
 FontEngine* fontEngine;
 map<string, Program*> shaders;
 int global_points;
+int game_state;
 
 Session::Session() {
    window = new Window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
@@ -191,10 +192,8 @@ void Session::step() {
    // Step other components
    window->step();
    world->step(window);
-   camera->step(window, game_state);
+   //camera->step(window, game_state);
    
-   //printf("in the middle of session step!\n");
-
    // Disable and unbind
    GLSL::disableVertexAttribArray(h_aPos);
    glBindBuffer(GL_ARRAY_BUFFER, 0);

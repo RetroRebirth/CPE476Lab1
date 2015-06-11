@@ -38,8 +38,6 @@ public:
     void selectItem();
     void nextItem();
     void prevItem();
-    void nextCategory();
-    void prevCategory();
     
     // getters and setters
     bool gameStart;
