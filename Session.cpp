@@ -225,18 +225,19 @@ void Session::step() {
       fontEngine->useFont("goodDog", 48);
       fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), txt, -1.0, 0.9);
    
-
-      if (window->time - startTime <= 25.0) {
-         char pun[100];
-         sprintf(pun, "%s", getLine().c_str());
-         fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), pun, xInc, 0.9);
-         
-         xInc -= 0.015f;
-      }
-      else {
-         startTime = window->time;
-         punLine = rand() % MAX_PUNS + 1;
-         xInc = 1.0f;
+     if (game_state != MINIGAME_STATE) {
+         if (window->time - startTime <= 25.0) {
+            char pun[100];
+            sprintf(pun, "%s", getLine().c_str());
+            fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), pun, xInc, 0.9);
+            
+            xInc -= 0.015f;
+         }
+         else {
+            startTime = window->time;
+            punLine = rand() % MAX_PUNS + 1;
+            xInc = 1.0f;
+         }
       }
 
       char pts[15];
