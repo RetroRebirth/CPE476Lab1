@@ -14,6 +14,7 @@
 #include "Object.h"
 
 #define GAME 2
+#define MAX_PUNS 10
 
 class Session {
    public:
@@ -45,6 +46,10 @@ class Session {
     
       Minigame* minigame;
       bool game_start;
+      
+      float startTime;
+      float xInc;
+      int punLine;
 
       //GLuint ShadeProg;
       GLint h_aPos;
@@ -64,6 +69,9 @@ class Session {
       bool installShaders(Program* prog);
       void initGL();
       void initFBO();
+
+      // Text bluh bluh I'm tired
+      string getLine();
 
       /** MAIN GAME LOOP **/
       void step();

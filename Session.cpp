@@ -24,6 +24,9 @@ Session::Session() {
    game_state = TITLE_STATE;
    game_start = false;
    global_points = 0;
+   xInc = 0.0f;
+   startTime = 0.0f;
+   punLine = 0;
    
    world->initParticles(shaders[SHADER_BILLBOARD]);
    fontEngine->init(shaders[SHADER_TEXT]->getPID());
@@ -222,10 +225,23 @@ void Session::step() {
       fontEngine->useFont("goodDog", 48);
       fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), txt, -1.0, 0.9);
    
+
+      if (window->time - startTime <= 6.0) {
+         char pun[100];
+         sprintf(pun, "%s", getLine().c_str());
+         float xPos = -1.0 + fontEngine->getTextWidth(txt) - fontEngine->getTextWidth(pun) + xInc;
+         fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), pun, xPos, 0.9);
+         
+         xInc += .01;
+      }
+      else {
+         startTime = window->time;
+      }
+
       char pts[15];
       sprintf(pts, "Points: %d", global_points);
       fontEngine->useFont("goodDog", 36);   
-      fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), pts, -.98, 0.9-(fontEngine->getTextHeight(txt)*1.1));
+      fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), pts, -.98, 0.9-(fontEngine->getTextHeight(txt)*1.1));      
    } else if (game_state == TITLE_STATE) {
       fontEngine->useFont("goodDog", 72);
       fontEngine->display(glm::vec4(1.0, 0.22, 0.22, 1.0), txt, -0.75, -0.1);
@@ -242,6 +258,25 @@ void Session::step() {
    fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), txt, -1.0, 0.9);
 */
 
+}
+
+string Session::getLine() {
+   ifstream punFile;
+   punFile.open("puns.txt");
+   string line;
+   
+   if (punFile.is_open()) {
+      for (int i = 0; i <= punLine; i++) {
+         getline(punFile, line);
+      }
+   }
+   else {
+      printf("file 'puns.txt' was not available or could not be opened\n");
+   }
+   
+   punLine = rand() % MAX_PUNS + 1;
+   
+   return line;
 }
 
 Camera* Session::getCamera() {
