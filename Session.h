@@ -14,7 +14,7 @@
 #include "Object.h"
 
 #define GAME 2
-#define MAX_PUNS 10
+#define MAX_PUNS 9
 
 class Session {
    public:

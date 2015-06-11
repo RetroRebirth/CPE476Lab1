@@ -24,8 +24,8 @@ Session::Session() {
    game_state = TITLE_STATE;
    game_start = false;
    global_points = 0;
-   xInc = 0.0f;
-   startTime = 0.0f;
+   xInc = 1.0f;
+   startTime = 10.0;
    punLine = 0;
    
    world->initParticles(shaders[SHADER_BILLBOARD]);
@@ -226,16 +226,17 @@ void Session::step() {
       fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), txt, -1.0, 0.9);
    
 
-      if (window->time - startTime <= 6.0) {
+      if (window->time - startTime <= 10.0) {
          char pun[100];
          sprintf(pun, "%s", getLine().c_str());
-         float xPos = -1.0 + fontEngine->getTextWidth(txt) - fontEngine->getTextWidth(pun) + xInc;
-         fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), pun, xPos, 0.9);
+         fontEngine->display(glm::vec4(0.99, 0.56, 0.55, 1.0), pun, xInc, 0.9);
          
-         xInc += .01;
+         xInc -= 0.03f;
       }
       else {
          startTime = window->time;
+         punLine = rand() % MAX_PUNS + 1;
+         xInc = 1.0f;
       }
 
       char pts[15];
@@ -273,8 +274,6 @@ string Session::getLine() {
    else {
       printf("file 'puns.txt' was not available or could not be opened\n");
    }
-   
-   punLine = rand() % MAX_PUNS + 1;
    
    return line;
 }
